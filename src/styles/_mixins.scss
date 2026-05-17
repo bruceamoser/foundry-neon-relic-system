@@ -1,0 +1,20 @@
+// Neon Relic — SCSS Mixins
+
+@mixin flex-row($gap: $nr-spacing-sm) {
+  display: flex;
+  flex-direction: row;
+  gap: $gap;
+}
+
+@mixin flex-col($gap: $nr-spacing-sm) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+@mixin nr-panel {
+  background: $nr-bg-light;
+  border: $nr-border-width solid $nr-border;
+  border-radius: $nr-border-radius;
+  padding: $nr-spacing-md;
+}

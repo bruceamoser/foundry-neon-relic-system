@@ -1,0 +1,11 @@
+// Neon Relic — CSS Reset (scoped to system)
+
+.neon-relic {
+  box-sizing: border-box;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+}

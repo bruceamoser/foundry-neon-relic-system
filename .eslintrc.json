@@ -38,5 +38,14 @@
     "no-console": "off",
     "prefer-const": "error",
     "no-var": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["esbuild.config.js", "gulpfile.js", "tools/**/*.js", "tools/**/*.mjs"],
+      "env": {
+        "node": true,
+        "browser": false
+      }
+    }
+  ]
 }
