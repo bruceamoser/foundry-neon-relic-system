@@ -1,0 +1,119 @@
+# Macros Compendium Pack
+# Neon Relic — Pre-built game action macros
+---
+- _id: macro001
+  name: Roll Attribute
+  type: macro
+  system:
+    macroType: script
+    description: Prompts for an attribute and rolls a dice pool.
+    script: |
+      const actor = canvas.tokens.controlled[0]?.actor ?? game.user.character;
+      if (!actor) return ui.notifications.warn('Select a token or assign a character.');
+      const attrs = Object.entries(CONFIG.NEON_RELIC.attributes);
+      const content = attrs.map(([k,v]) => `<option value="${k}">${game.i18n.localize(v)}</option>`).join('');
+      const html = await Dialog.prompt({
+        title: 'Roll Attribute',
+        content: `<form><div class="form-group"><label>Attribute</label><select name="attr">${content}</select></div></form>`,
+        callback: (html) => html[0].querySelector('[name=attr]').value
+      });
+      if (html) actor.sheet._onRollAttribute?.({ currentTarget: { dataset: { attribute: html } } });
+
+- _id: macro002
+  name: Roll Skill
+  type: macro
+  system:
+    macroType: script
+    description: Prompts for a skill and rolls a dice pool.
+    script: |
+      const actor = canvas.tokens.controlled[0]?.actor ?? game.user.character;
+      if (!actor) return ui.notifications.warn('Select a token or assign a character.');
+      const skills = Object.entries(CONFIG.NEON_RELIC.skills);
+      const content = skills.map(([k,v]) => `<option value="${k}">${game.i18n.localize(v)}</option>`).join('');
+      const html = await Dialog.prompt({
+        title: 'Roll Skill',
+        content: `<form><div class="form-group"><label>Skill</label><select name="skill">${content}</select></div></form>`,
+        callback: (html) => html[0].querySelector('[name=skill]').value
+      });
+      if (html) actor.sheet._onRollSkill?.({ currentTarget: { dataset: { skill: html } } });
+
+- _id: macro003
+  name: Corruption Check
+  type: macro
+  system:
+    macroType: script
+    description: Gain 1 Corruption on the selected token's actor.
+    script: |
+      const actor = canvas.tokens.controlled[0]?.actor ?? game.user.character;
+      if (!actor) return ui.notifications.warn('Select a token or assign a character.');
+      await actor.gainCorruption(1, 'Manual Corruption Check');
+
+- _id: macro004
+  name: Fear Check
+  type: macro
+  system:
+    macroType: script
+    description: Trigger a Fear Check for the selected token.
+    script: |
+      const actor = canvas.tokens.controlled[0]?.actor ?? game.user.character;
+      if (!actor) return ui.notifications.warn('Select a token or assign a character.');
+      const { performFearCheck } = await import('./modules/neon-relic.mjs');
+      await performFearCheck(actor, 1);
+
+- _id: macro005
+  name: Short Rest
+  type: macro
+  system:
+    macroType: script
+    description: Perform a Short Rest for the selected token's actor.
+    script: |
+      const actor = canvas.tokens.controlled[0]?.actor ?? game.user.character;
+      if (!actor) return ui.notifications.warn('Select a token or assign a character.');
+      await actor.shortRest();
+
+- _id: macro006
+  name: Degrade Gear
+  type: macro
+  system:
+    macroType: script
+    description: Step down gear die on a selected item.
+    script: |
+      const actor = canvas.tokens.controlled[0]?.actor ?? game.user.character;
+      if (!actor) return ui.notifications.warn('Select a token or assign a character.');
+      const gear = actor.items.filter(i => i.type === 'gear' && i.system.gearDie > 0);
+      if (!gear.length) return ui.notifications.warn('No degradable gear.');
+      const content = gear.map(i => `<option value="${i.id}">${i.name} (d${i.system.gearDie})</option>`).join('');
+      const id = await Dialog.prompt({
+        title: 'Degrade Gear',
+        content: `<form><div class="form-group"><label>Item</label><select name="item">${content}</select></div></form>`,
+        callback: (html) => html[0].querySelector('[name=item]').value
+      });
+      if (id) await actor.items.get(id).degradeGear();
+
+- _id: macro007
+  name: Push Roll
+  type: macro
+  system:
+    macroType: script
+    description: Re-roll non-6 dice from the last roll. Costs 1 Corruption.
+    script: |
+      ui.notifications.info('Use the Push button on your last roll chat message.');
+
+- _id: macro008
+  name: Activate Artifact
+  type: macro
+  system:
+    macroType: script
+    description: Activate an artifact owned by the selected token.
+    script: |
+      const actor = canvas.tokens.controlled[0]?.actor ?? game.user.character;
+      if (!actor) return ui.notifications.warn('Select a token or assign a character.');
+      const artifacts = actor.items.filter(i => i.type === 'artifact');
+      if (!artifacts.length) return ui.notifications.warn('No artifacts.');
+      const content = artifacts.map(i => `<option value="${i.id}">${i.name} (d${i.system.artifactDie})</option>`).join('');
+      const id = await Dialog.prompt({
+        title: 'Activate Artifact',
+        content: `<form><div class="form-group"><label>Artifact</label><select name="item">${content}</select></div></form>`,
+        callback: (html) => html[0].querySelector('[name=item]').value
+      });
+      if (id) await actor.items.get(id).activate?.();

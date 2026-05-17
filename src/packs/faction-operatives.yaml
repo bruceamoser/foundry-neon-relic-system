@@ -1,0 +1,124 @@
+# Faction Operatives Compendium Pack
+# Neon Relic — 5 named stat blocks
+---
+- _id: fop001
+  name: 'Viktor Kessler — The Broker'
+  type: npc
+  system:
+    tier: 4
+    description: >
+      A former East German intelligence officer who now runs an artifact
+      trafficking network. Kessler never touches the goods himself — he
+      has people for that. Urbane, patient, and utterly ruthless.
+    attributes:
+      str: 2
+      agi: 3
+      wit: 5
+      emp: 4
+    skills:
+      persuade: 5
+      investigate: 4
+      stealth: 3
+      lore: 3
+      rangedCombat: 2
+    armorRating: 2
+    fearRating: 0
+    corruptionStage: 1
+
+- _id: fop002
+  name: 'Sister Maren — The Zealot'
+  type: npc
+  system:
+    tier: 4
+    description: >
+      A defrocked nun who believes artifacts are divine instruments.
+      She leads the Congregation of the Veil, a cult that worships
+      the entities beyond. She can channel artifact emissions willingly.
+    attributes:
+      str: 2
+      agi: 2
+      wit: 4
+      emp: 5
+    skills:
+      lore: 5
+      psychoanalyze: 4
+      persuade: 4
+      brawl: 2
+    armorRating: 0
+    fearRating: 3
+    corruptionStage: 3
+
+- _id: fop003
+  name: 'Rook — The Ghost'
+  type: npc
+  system:
+    tier: 4
+    description: >
+      A former CIA black ops agent gone rogue. Rook steals artifacts
+      for the highest bidder and has never been caught. Real name unknown.
+      Communicates through dead drops and payphone calls.
+    attributes:
+      str: 4
+      agi: 5
+      wit: 4
+      emp: 2
+    skills:
+      stealth: 5
+      rangedCombat: 4
+      brawl: 3
+      drive: 3
+      investigate: 2
+      tinker: 2
+    armorRating: 4
+    fearRating: 0
+    corruptionStage: 0
+
+- _id: fop004
+  name: 'Dr. Lydia Crane — The Researcher'
+  type: npc
+  system:
+    tier: 3
+    description: >
+      A brilliant but ethically compromised university professor who
+      experiments on artifacts in her private lab. She publishes
+      sanitized findings in academic journals. The Covenant considers
+      her a dangerous wildcard.
+    attributes:
+      str: 2
+      agi: 2
+      wit: 5
+      emp: 3
+    skills:
+      lore: 5
+      investigate: 4
+      tinker: 3
+      psychoanalyze: 2
+      medicine: 3
+    armorRating: 0
+    fearRating: 0
+    corruptionStage: 2
+
+- _id: fop005
+  name: 'Sable — The Harvester'
+  type: npc
+  system:
+    tier: 5
+    description: >
+      No one knows what Sable is. A tall figure in a dark coat who
+      appears at artifact sites after major events. They collect
+      something — memories, emotions, echoes — and vanish. The Covenant
+      has classified Sable as a possible human-entity hybrid.
+    attributes:
+      str: 5
+      agi: 4
+      wit: 5
+      emp: 1
+    skills:
+      stealth: 5
+      brawl: 5
+      lore: 4
+      investigate: 3
+    armorRating: 6
+    fearRating: 4
+    escalatedFR: 6
+    corruptionStage: 4
