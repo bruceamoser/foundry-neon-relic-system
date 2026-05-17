@@ -43,6 +43,10 @@ import { configureTokenDefaults } from './system/token-defaults.mjs';
 import { registerDiceSoNice } from './integrations/dice-so-nice.mjs';
 import { registerYZECombat } from './integrations/yze-combat.mjs';
 import { registerItemPiles } from './integrations/item-piles.mjs';
+import { registerKeybindings } from './system/keybindings.mjs';
+import { registerTours } from './system/tours.mjs';
+import { registerTextEnrichers } from './system/enrichers.mjs';
+import { registerMigrationSetting, migrateWorld } from './system/migration.mjs';
 
 Hooks.once('init', () => {
   console.log('neon-relic | Initializing Neon Relic system');
@@ -52,6 +56,7 @@ Hooks.once('init', () => {
 
   // Register system settings
   registerSettings();
+  registerMigrationSetting();
 
   // Register document classes
   CONFIG.Actor.documentClass = NeonRelicActor;
@@ -127,6 +132,11 @@ Hooks.once('init', () => {
   registerDiceSoNice();
   registerYZECombat();
   registerItemPiles();
+
+  // Register keybindings, tours, and text enrichers
+  registerKeybindings();
+  registerTours();
+  registerTextEnrichers();
 });
 
 Hooks.once('ready', () => {
@@ -140,4 +150,7 @@ Hooks.once('ready', () => {
 
   // Clear session reset flag for new session
   clearSessionResetFlag();
+
+  // Run data migrations if needed
+  migrateWorld();
 });

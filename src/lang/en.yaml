@@ -856,3 +856,39 @@ NEONRELIC:
     ResetComplete: Session reset complete
     GMOnly: Only the GM can reset the session
     AlreadyReset: Session already reset
+
+  # Tour
+  Tour:
+    WelcomeTitle: Welcome to Neon Relic
+    WelcomeDesc: A quick tour of the Neon Relic system for Foundry VTT.
+    Step1Title: Welcome
+    Step1Content: 'Welcome to Neon Relic, an occult investigation TTRPG set in an alternate 1980s.'
+    Step2Title: Actors
+    Step2Content: Create agents, NPCs, mobs, headquarters, and vehicles here.
+    Step3Title: Items
+    Step3Content: Create weapons, gear, artifacts, talents, and more.
+    Step4Title: Compendiums
+    Step4Content: Browse pre-built content — gear, NPCs, artifacts, and case files.
+    Step5Title: Combat
+    Step5Content: 'Card-draw initiative, action economy, and corruption-integrated combat.'
+    Step6Title: Ready
+    Step6Content: "You're all set. Check the docs for more details. Good hunting, Agent."
+
+  # Migration
+  Migration:
+    Start: 'Migrating Neon Relic data from {from} to {to}...'
+    Complete: Neon Relic data migration complete.
+    Error: 'Migration {version} failed: {error}'
+
+  # Keybindings
+  Keybinding:
+    RollAttribute: Roll Attribute
+    RollAttributeHint: Open roll dialog for the default attribute.
+    OpenSheet: Open Character Sheet
+    OpenSheetHint: Open the sheet for the selected or assigned character.
+    ShortRest: Short Rest
+    ShortRestHint: Perform a short rest for the selected character.
+
+  # Drag and Drop
+  Drop:
+    InvalidType: '{type} items cannot be placed on {actor} actors.'
