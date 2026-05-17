@@ -141,3 +141,85 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
     this.encumbrance.overloaded = this.attributes.str.max * 3;
   }
 }
+
+/* ------------------------------------------ */
+/*  NPCDataModel                              */
+/* ------------------------------------------ */
+
+/**
+ * TypeDataModel for NPC actors — including supernatural entities,
+ * faction operatives, and civilians.
+ * @extends foundry.abstract.TypeDataModel
+ */
+export class NPCDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      // Core identity
+      tier: new NumberField({ required: true, integer: true, min: 1, max: 4, initial: 1 }),
+      description: new HTMLField({ blank: true }),
+
+      // Attributes (value only — NPCs don't track max)
+      attributes: new SchemaField({
+        str: new NumberField({ required: true, integer: true, min: 0, initial: 3 }),
+        agi: new NumberField({ required: true, integer: true, min: 0, initial: 3 }),
+        wit: new NumberField({ required: true, integer: true, min: 0, initial: 3 }),
+        emp: new NumberField({ required: true, integer: true, min: 0, initial: 3 }),
+      }),
+
+      // Skills (sparse — only skills the NPC has)
+      skills: new SchemaField({}),
+
+      // Combat
+      armorRating: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+      fearRating: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+      escalatedFearRating: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+      initiative: new SchemaField({
+        cardValue: new NumberField({ integer: true, min: 1, max: 10, initial: 1 }),
+      }),
+
+      // Corruption
+      corruptionStage: new NumberField({ required: true, integer: true, min: 0, max: 3, initial: 0 }),
+      corruptionExposure: new BooleanField({ initial: false }),
+
+      // Social
+      disposition: new NumberField({ required: true, integer: true, min: 1, max: 5, initial: 3 }),
+      socialImmunities: new SchemaField({}),
+
+      // Damage resistance/immunity
+      damageResistance: new SchemaField({}),
+      damageImmunity: new SchemaField({}),
+
+      // Supernatural entity fields
+      entityAnchor: new StringField({ blank: true }),
+      reconstitutionTimer: new NumberField({ integer: true, min: 0, initial: 0 }),
+      incorporeal: new BooleanField({ initial: false }),
+      zoneLocked: new BooleanField({ initial: false }),
+      artifactTetherRange: new NumberField({ integer: true, min: 0, initial: 0 }),
+      corruptionCostOnContact: new NumberField({ integer: true, min: 0, initial: 0 }),
+      dissolutionMethod: new StringField({ blank: true }),
+
+      // Operations Board card data
+      organization: new StringField({ blank: true }),
+      secret: new StringField({ blank: true }),
+      goal: new StringField({ blank: true }),
+      artifactConnection: new StringField({ blank: true }),
+      startingKnowledge: new StringField({ blank: true }),
+      gainedKnowledge: new StringField({ blank: true }),
+      locations: new ArrayField(new StringField()),
+      positiveResult: new StringField({ blank: true }),
+      negativeResult: new StringField({ blank: true }),
+
+      // Tags
+      tags: new ArrayField(new StringField()),
+
+      // Shared initiative
+      sharedInitiative: new BooleanField({ initial: false }),
+
+      // Simplified view toggle
+      useSimplifiedView: new BooleanField({ initial: false }),
+
+      // Broken state
+      isBroken: new BooleanField({ initial: false }),
+    };
+  }
+}
