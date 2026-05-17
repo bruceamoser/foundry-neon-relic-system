@@ -1,57 +1,139 @@
-{{! Case Brief journal page template }}
-<div class='neon-relic case-brief'>
-  <header class='case-header'>
-    <h1>{{doc.name}}</h1>
-    <div class='case-meta'>
-      <span class='label'>{{localize 'NEONRELIC.Case.Status'}}:</span>
-      <span class='value'>{{doc.system.status}}</span>
-      <span class='label'>{{localize 'NEONRELIC.Case.ThreatLevel'}}:</span>
-      <span class='value'>{{doc.system.threatLevel}}</span>
+{{! Case Brief — DA and Player views }}
+<div class='case-brief-inner {{headerClass}}'>
+
+  {{! ── Header ── }}
+  <header class='brief-header'>
+    <div class='header-left'>
+      {{#if isDa}}
+        <h1 class='header-title'>{{localize 'NEONRELIC.CaseBrief.Title'}}</h1>
+      {{else}}
+        <h1 class='header-title'>{{localize 'NEONRELIC.CaseBrief.AgentBriefing'}}</h1>
+      {{/if}}
+      <div class='header-subtitle'>Neon Relic &mdash; The Verdant Covenant</div>
+    </div>
+    <div class='header-right'>
+      {{#if isDa}}
+        <div class='classification da'>{{localize 'NEONRELIC.CaseBrief.DAOnly'}}</div>
+      {{else}}
+        <div class='classification player'>{{localize 'NEONRELIC.CaseBrief.Classified'}}</div>
+      {{/if}}
+      {{#if isGM}}
+        <button type='button' data-action='toggleView' class='view-toggle'>
+          {{#if isDa}}
+            {{localize 'NEONRELIC.CaseBrief.ShowPlayer'}}
+          {{else}}
+            {{localize 'NEONRELIC.CaseBrief.ShowDA'}}
+          {{/if}}
+        </button>
+      {{/if}}
     </div>
   </header>
 
-  <section class='case-section'>
-    <h2>{{localize 'NEONRELIC.Case.Summary'}}</h2>
-    <div class='case-text'>{{{doc.system.summary}}}</div>
+  {{! ── Case Identity ── }}
+  <div class='id-block-row'>
+    <div class='id-cell'>
+      <span class='id-label'>{{localize 'NEONRELIC.CaseBrief.CaseName'}}</span>
+      <span class='id-value'>{{caseName}}</span>
+    </div>
+    <div class='id-cell'>
+      <span class='id-label'>{{localize 'NEONRELIC.Case.Status'}}</span>
+      <span class='id-value'>{{status}}</span>
+    </div>
+    <div class='id-cell'>
+      <span class='id-label'>{{localize 'NEONRELIC.Case.ThreatLevel'}}</span>
+      <span class='id-value'>{{threatLevel}}</span>
+    </div>
+  </div>
+
+  {{! ── Summary ── }}
+  <section class='brief-section'>
+    <h2 class='section-title'>{{localize 'NEONRELIC.Case.Summary'}}</h2>
+    <div class='brief-text'>{{{summary}}}</div>
   </section>
 
-  <section class='case-section'>
-    <h2>{{localize 'NEONRELIC.Case.Objectives'}}</h2>
+  {{! ── Objectives ── }}
+  <section class='brief-section'>
+    <h2 class='section-title'>{{localize 'NEONRELIC.Case.Objectives'}}</h2>
     <ul class='objective-list'>
-      {{#each doc.system.objectives}}
-        <li data-complete='{{this.complete}}'>
+      {{#each objectives}}
+        <li class='{{this.liClass}}'>
+          {{#if this.canEdit}}
+            <button type='button' data-action='toggleObjective' data-index='{{@index}}' class='objective-check'>
+              {{#if this.complete}}&#x2611;{{else}}&#x2610;{{/if}}
+            </button>
+          {{else}}
+            <span class='objective-check'>
+              {{#if this.complete}}&#x2611;{{else}}&#x2610;{{/if}}
+            </span>
+          {{/if}}
           <span class='objective-text'>{{this.text}}</span>
         </li>
       {{/each}}
     </ul>
   </section>
 
-  <section class='case-section'>
-    <h2>{{localize 'NEONRELIC.Case.KnownRelics'}}</h2>
-    <div class='relic-list'>
-      {{#each doc.system.relics}}
-        <div class='relic-entry'>
-          <strong>{{this.name}}</strong>
-          <span class='relic-status'>{{this.status}}</span>
-        </div>
-      {{/each}}
-    </div>
-  </section>
+  {{! ── Relics ── }}
+  {{#if relics.length}}
+    <section class='brief-section'>
+      <h2 class='section-title accent'>{{localize 'NEONRELIC.Case.KnownRelics'}}</h2>
+      <div class='relic-list'>
+        {{#each relics}}
+          <div class='relic-entry'>
+            <strong>{{this.name}}</strong>
+            <span class='relic-status'>{{this.status}}</span>
+          </div>
+        {{/each}}
+      </div>
+    </section>
+  {{/if}}
 
-  <section class='case-section'>
-    <h2>{{localize 'NEONRELIC.Case.Organizations'}}</h2>
-    <div class='org-list'>
-      {{#each doc.system.organizations}}
+  {{! ── Organizations ── }}
+  {{#if organizations.length}}
+    <section class='brief-section'>
+      <h2 class='section-title'>{{localize 'NEONRELIC.Case.Organizations'}}</h2>
+      {{#each organizations}}
         <div class='org-entry'>
-          <strong>{{this.name}}</strong>
-          <span class='org-countdown'>{{this.countdown}}/{{this.maxCountdown}}</span>
+          <div class='org-header-row'>
+            <strong>{{this.name}}</strong>
+            {{#if this.showDa}}
+              <span class='org-countdown'>{{this.countdown}}/{{this.maxCountdown}}</span>
+            {{/if}}
+          </div>
+          {{#if this.showDa}}
+            {{#if this.countdownGoal}}
+              <div class='org-goal'>{{this.countdownGoal}}</div>
+            {{/if}}
+            {{#if this.description}}
+              <div class='org-desc'>{{this.description}}</div>
+            {{/if}}
+            {{#if this.members.length}}
+              <div class='org-members'>
+                {{#each this.members}}
+                  <span class='member'>{{this.name}} ({{this.role}})</span>
+                {{/each}}
+              </div>
+            {{/if}}
+          {{/if}}
         </div>
       {{/each}}
-    </div>
-  </section>
+    </section>
+  {{/if}}
 
-  <section class='case-section'>
-    <h2>{{localize 'NEONRELIC.Case.Notes'}}</h2>
-    <div class='case-text'>{{{doc.system.notes}}}</div>
-  </section>
+  {{! ── DA Notes ── }}
+  {{#if isDa}}
+    <section class='brief-section'>
+      <h2 class='section-title'>{{localize 'NEONRELIC.Case.Notes'}}</h2>
+      <div class='brief-text'>{{{notes}}}</div>
+    </section>
+  {{/if}}
+
+  {{! ── Footer ── }}
+  <footer class='brief-footer'>
+    {{#if isDa}}
+      <span>VC-17 &bull; The Verdant Covenant &bull; DA Use Only</span>
+    {{else}}
+      <span>VC-18 &bull; The Verdant Covenant &bull; Agent Briefing</span>
+    {{/if}}
+    <span>Neon Relic</span>
+  </footer>
 </div>
