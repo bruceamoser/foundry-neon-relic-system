@@ -4,8 +4,16 @@
  * Built on the Year Zero Engine (dice-pool variant).
  */
 
+import { registerHandlebarsHelpers, preloadHandlebarsTemplates } from './system/handlebars.mjs';
+
 Hooks.once('init', () => {
   console.log('neon-relic | Initializing Neon Relic system');
+
+  // Register custom Handlebars helpers
+  registerHandlebarsHelpers();
+
+  // Preload shared template partials
+  preloadHandlebarsTemplates();
 });
 
 Hooks.once('ready', () => {

@@ -31,7 +31,8 @@
     "fromUuid": "readonly",
     "fromUuidSync": "readonly",
     "renderTemplate": "readonly",
-    "loadTemplates": "readonly"
+    "loadTemplates": "readonly",
+    "Handlebars": "readonly"
   },
   "rules": {
     "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
