@@ -1,0 +1,128 @@
+// Neon Relic — Location Sheet Styles
+// Matches location-page.html reference layout
+
+.neon-relic.item-sheet {
+  &:has(.location-sheet) {
+    .item-header {
+      border-top: 3px solid $nr-ink;
+      border-bottom: 2px solid $nr-ink;
+
+      .item-type {
+        letter-spacing: 3px;
+      }
+    }
+  }
+
+  .location-sheet {
+    // ── Location ID Badge ─────────────────────────────
+    .loc-id-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+
+    .loc-id {
+      font-family: $nr-font-main;
+      font-size: 14pt;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: $nr-green-stamp;
+      border: 2px solid $nr-green-stamp;
+      padding: 2px 10px;
+      min-width: 50px;
+      text-align: center;
+    }
+
+    // ── Availability ──────────────────────────────────
+    .avail-row {
+      margin-bottom: 5px;
+    }
+
+    .avail-select {
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      border: 1px solid $nr-rule;
+      background: $nr-field-bg;
+      padding: 2px 4px;
+    }
+
+    // ── Section Titles ────────────────────────────────
+    .section-title {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: $nr-ink;
+      border-bottom: 1.5px solid $nr-ink;
+      padding-bottom: 2px;
+      margin: 9px 0 5px;
+
+      &.green {
+        color: $nr-green-stamp;
+        border-color: $nr-green-stamp;
+      }
+
+      &.red {
+        color: $nr-red-stamp;
+        border-color: $nr-red-stamp;
+      }
+    }
+
+    // ── Field Components ──────────────────────────────
+    .field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 5px;
+    }
+
+    .field-label {
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+      margin-bottom: 2px;
+    }
+
+    .field-value {
+      display: block;
+      width: 100%;
+      border-bottom: 1.5px solid $nr-rule;
+      min-height: 16px;
+      padding: 1px 3px;
+      background: $nr-field-bg;
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+
+      &:focus {
+        outline: none;
+      }
+
+      &.med {
+        border: 1px solid $nr-rule;
+        border-bottom: 1.5px solid $nr-rule;
+        min-height: 40px;
+      }
+
+      &.tall {
+        border: 1px solid $nr-rule;
+        border-bottom: 1.5px solid $nr-rule;
+        min-height: 58px;
+      }
+    }
+
+    // ── Result Grid ───────────────────────────────────
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 5px;
+    }
+
+    .result-col {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

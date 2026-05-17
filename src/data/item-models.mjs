@@ -361,9 +361,10 @@ export class LocationDataModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
       availability: new StringField({ initial: 'open', blank: false }),
-      npcsPresent: new ArrayField(new StringField()),
-      informationAvailable: new ArrayField(new StringField()),
-      organizationsPresent: new ArrayField(new StringField()),
+      availabilityCondition: new StringField({ blank: true }),
+      npcsPresent: new HTMLField({ blank: true }),
+      informationAvailable: new HTMLField({ blank: true }),
+      organizationsPresent: new HTMLField({ blank: true }),
       positiveResult: new HTMLField({ blank: true }),
       negativeResult: new HTMLField({ blank: true }),
       milestoneChanges: new HTMLField({ blank: true }),

@@ -86,6 +86,32 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         relativeTo: item,
       });
     }
+    if (item.type === 'location') {
+      context.enrichedPositiveResult = await TextEditor.enrichHTML(system.positiveResult ?? '', {
+        async: true,
+        relativeTo: item,
+      });
+      context.enrichedNegativeResult = await TextEditor.enrichHTML(system.negativeResult ?? '', {
+        async: true,
+        relativeTo: item,
+      });
+      context.enrichedMilestoneChanges = await TextEditor.enrichHTML(system.milestoneChanges ?? '', {
+        async: true,
+        relativeTo: item,
+      });
+      context.enrichedNpcsPresent = await TextEditor.enrichHTML(system.npcsPresent ?? '', {
+        async: true,
+        relativeTo: item,
+      });
+      context.enrichedInformationAvailable = await TextEditor.enrichHTML(system.informationAvailable ?? '', {
+        async: true,
+        relativeTo: item,
+      });
+      context.enrichedOrganizationsPresent = await TextEditor.enrichHTML(system.organizationsPresent ?? '', {
+        async: true,
+        relativeTo: item,
+      });
+    }
 
     // Render the type-specific partial to HTML
     context.typeContent = await foundry.applications.handlebars.renderTemplate(typeTemplatePath, context);

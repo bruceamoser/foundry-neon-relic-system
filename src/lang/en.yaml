@@ -344,14 +344,23 @@ NEONRELIC:
   # Location
   Location:
     Availability: Availability
+    AvailabilityCondition: Availability Condition (if not Open)
     Open: Open
     Clue: Clue-Locked
     Contact: Contact-Locked
     Time: Time-Locked
     Packet: Packet-Locked
-    PositiveResult: Positive Result
-    NegativeResult: Negative Result
+    NPCsPresent: NPCs Present
+    NPCsPresentHint: NPCs found at this location (note milestone-triggered changes)
+    InformationAvailable: Information Available
+    InformationHint: Information IDs (I#) discoverable at this location
+    OrganizationsPresent: Organizations Present
+    OrganizationsHint: Organizations with interest or operational presence here (O#)
+    EngagementResults: Engagement Results
+    PositiveResult: Positive Result — successful engagement
+    NegativeResult: Negative Result — failed engagement
     MilestoneChanges: Milestone Changes
+    MilestoneHint: How this location changes when organization milestones are reached
 
   # Tabs
   Tab:
