@@ -1,0 +1,143 @@
+/**
+ * Data models for all actor types in Neon Relic.
+ * @module data/actor-models
+ */
+
+const { SchemaField, NumberField, StringField, BooleanField, HTMLField, ArrayField, SetField } = foundry.data.fields;
+
+/* ------------------------------------------ */
+/*  Helper: Attribute Pair                    */
+/* ------------------------------------------ */
+
+function attributeField(initial = 3) {
+  return new SchemaField({
+    value: new NumberField({ required: true, integer: true, min: 0, initial }),
+    max: new NumberField({ required: true, integer: true, min: 0, initial }),
+  });
+}
+
+/* ------------------------------------------ */
+/*  AgentDataModel                            */
+/* ------------------------------------------ */
+
+/**
+ * TypeDataModel for Agent (player character) actors.
+ * @extends foundry.abstract.TypeDataModel
+ */
+export class AgentDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      // Core identity
+      division: new StringField({ initial: 'recovery', blank: true }),
+      subUnit: new StringField({ blank: true }),
+      specialty: new StringField({ blank: true }),
+      clearanceLevel: new NumberField({ required: true, integer: true, min: 1, max: 5, initial: 1 }),
+      countryOfOrigin: new StringField({ blank: true }),
+
+      // Attributes
+      attributes: new SchemaField({
+        str: attributeField(3),
+        agi: attributeField(3),
+        wit: attributeField(3),
+        emp: attributeField(3),
+      }),
+
+      // Skills (13 skills, value 0–5)
+      skills: new SchemaField({
+        force: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+        endure: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+        brawl: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+        firearms: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+        sleightOfHand: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+        sneak: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+        tech: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+        investigate: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+        lore: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+        psychoanalyze: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+        manipulate: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+        command: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+        heal: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+      }),
+
+      // Corruption
+      corruption: new SchemaField({
+        value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+        threshold: new NumberField({ required: true, integer: true, min: 0, initial: 14 }),
+        sessionHealing: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+        healingTagUsed: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+        thresholdDeadlineSession: new NumberField({ integer: true, initial: 0 }),
+      }),
+
+      // Encumbrance (derived values computed in prepareDerivedData)
+      encumbrance: new SchemaField({
+        current: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+        max: new NumberField({ required: true, integer: true, min: 0, initial: 6 }),
+        overloaded: new NumberField({ required: true, integer: true, min: 0, initial: 9 }),
+      }),
+
+      // Conditions
+      conditions: new SchemaField({
+        isBroken: new BooleanField({ initial: false }),
+        isDying: new BooleanField({ initial: false }),
+        brokenAttribute: new StringField({ blank: true }),
+      }),
+
+      // Combat
+      initiative: new SchemaField({
+        cardValue: new NumberField({ integer: true, min: 1, max: 10, initial: 1 }),
+        cardSuit: new StringField({ blank: true }),
+      }),
+      actions: new SchemaField({
+        slow: new BooleanField({ initial: true }),
+        fast: new BooleanField({ initial: true }),
+      }),
+
+      // Division item status
+      divisionItem: new SchemaField({
+        active: new BooleanField({ initial: false }),
+        usedThisSession: new BooleanField({ initial: false }),
+      }),
+
+      // Session tracking
+      sessionTracking: new SchemaField({
+        anchorUsed: new BooleanField({ initial: false }),
+        safeSceneUsed: new BooleanField({ initial: false }),
+        conditionedMindUsed: new BooleanField({ initial: false }),
+        bracerAbsorbed: new BooleanField({ initial: false }),
+      }),
+
+      // Fear tracking — entity types already passed Fear Check against
+      knownEntities: new SetField(new StringField()),
+
+      // Description
+      description: new HTMLField({ blank: true }),
+    };
+  }
+
+  /* ------------------------------------------ */
+
+  /** @override */
+  prepareDerivedData() {
+    // Corruption threshold = 10 + EMP max + modifiers from talents/injuries
+    let thresholdMod = 0;
+    if (this.parent?.items) {
+      for (const item of this.parent.items) {
+        if (item.type === 'talent' || item.type === 'criticalInjury') {
+          thresholdMod += item.system.corruptionThresholdMod ?? 0;
+        }
+      }
+    }
+    this.corruption.threshold = 10 + this.attributes.emp.max + thresholdMod;
+
+    // Encumbrance from owned items
+    let enc = 0;
+    if (this.parent?.items) {
+      for (const item of this.parent.items) {
+        enc += item.system.encumbrance ?? 0;
+      }
+    }
+    this.encumbrance.current = enc;
+    this.encumbrance.max = this.attributes.str.max * 2;
+    this.encumbrance.overloaded = this.attributes.str.max * 3;
+  }
+}
