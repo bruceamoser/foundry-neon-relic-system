@@ -112,6 +112,14 @@ export async function preloadHandlebarsTemplates() {
     'systems/neon-relic/templates/item/darkSecret.hbs',
     'systems/neon-relic/templates/item/upgrade.hbs',
     'systems/neon-relic/templates/item/location.hbs',
+    'systems/neon-relic/templates/actor/agent/agent-header.hbs',
+    'systems/neon-relic/templates/actor/agent/agent-summary.hbs',
+    'systems/neon-relic/templates/actor/agent/agent-attributes.hbs',
+    'systems/neon-relic/templates/actor/agent/agent-combat.hbs',
+    'systems/neon-relic/templates/actor/agent/agent-gear.hbs',
+    'systems/neon-relic/templates/actor/agent/agent-talents.hbs',
+    'systems/neon-relic/templates/actor/agent/agent-corruption.hbs',
+    'systems/neon-relic/templates/actor/agent/agent-biography.hbs',
   ];
   return loadTemplates(templatePaths);
 }

@@ -1,0 +1,50 @@
+<section class='tab attributes' data-group='primary' data-tab='attributes'>
+  <div class='attributes-grid'>
+    {{#each config.attributes as |label key|}}
+      <div class='attribute-block'>
+        <h3>{{localize label}}</h3>
+        <div class='attribute-values'>
+          <input
+            type='number'
+            name='system.attributes.{{key}}.value'
+            value='{{lookup (lookup @root.system.attributes key) "value"}}'
+            min='0'
+            {{disabled (not @root.isEditable)}}
+          />
+          <span>/</span>
+          <input
+            type='number'
+            name='system.attributes.{{key}}.max'
+            value='{{lookup (lookup @root.system.attributes key) "max"}}'
+            min='0'
+            {{disabled (not @root.isEditable)}}
+          />
+        </div>
+        <button type='button' data-action='rollAttribute' data-attribute='{{key}}'>
+          <i class='fa-solid fa-dice-d6'></i>
+        </button>
+      </div>
+    {{/each}}
+  </div>
+
+  <div class='skills-list'>
+    <h3>{{localize 'NEONRELIC.Agent.Skills'}}</h3>
+    {{#each skillEntries}}
+      <div class='skill-row'>
+        <button type='button' class='skill-roll' data-action='rollSkill' data-skill='{{this.key}}'>
+          <i class='fa-solid fa-dice-d6'></i>
+        </button>
+        <span class='skill-name'>{{localize this.label}}</span>
+        <span class='skill-attr'>({{this.attribute}})</span>
+        <input
+          type='number'
+          name='system.skills.{{this.key}}'
+          value='{{this.value}}'
+          min='0'
+          max='5'
+          {{disabled (not @root.isEditable)}}
+        />
+      </div>
+    {{/each}}
+  </div>
+</section>

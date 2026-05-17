@@ -1,0 +1,53 @@
+<section class='tab summary' data-group='primary' data-tab='summary'>
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Agent.Division'}}</label>
+    <select name='system.division' {{disabled (not isEditable)}}>
+      {{#each config.divisions as |label key|}}
+        <option value='{{key}}' {{selected key @root.system.division}}>{{localize label}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Agent.SubUnit'}}</label>
+    <input type='text' name='system.subUnit' value='{{system.subUnit}}' {{disabled (not isEditable)}} />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Agent.Specialty'}}</label>
+    <input type='text' name='system.specialty' value='{{system.specialty}}' {{disabled (not isEditable)}} />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Agent.CL'}}</label>
+    <input
+      type='number'
+      name='system.clearanceLevel'
+      value='{{system.clearanceLevel}}'
+      min='1'
+      max='5'
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Agent.Origin'}}</label>
+    <input type='text' name='system.countryOfOrigin' value='{{system.countryOfOrigin}}' {{disabled (not isEditable)}} />
+  </div>
+
+  <div class='stats-overview'>
+    {{#each config.attributes as |label key|}}
+      <div class='stat-box'>
+        <span class='stat-label'>{{localize label}}</span>
+        <span class='stat-value'>{{lookup (lookup @root.system.attributes key) 'value'}}
+          /
+          {{lookup (lookup @root.system.attributes key) 'max'}}</span>
+      </div>
+    {{/each}}
+  </div>
+
+  <div class='corruption-summary'>
+    <span class='label'>{{localize 'NEONRELIC.Corruption.Label'}}</span>
+    <span class='value'>{{system.corruption.value}} / {{system.corruption.threshold}}</span>
+  </div>
+</section>

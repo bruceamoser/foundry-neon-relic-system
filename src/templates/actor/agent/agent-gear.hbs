@@ -1,0 +1,51 @@
+<section class='tab gear' data-group='primary' data-tab='gear'>
+  <div class='encumbrance-bar'>
+    <label>{{localize 'NEONRELIC.Agent.Encumbrance'}}</label>
+    <div class='bar-track' data-tier='{{encumbranceTier}}'>
+      <div
+        class='bar-fill'
+        style='width: {{attributeBar system.encumbrance.current system.encumbrance.overloaded}}%'
+      ></div>
+    </div>
+    <span class='enc-values'>{{system.encumbrance.current}}
+      /
+      {{system.encumbrance.max}}
+      /
+      {{system.encumbrance.overloaded}}</span>
+  </div>
+
+  <div class='gear-list'>
+    <h3>{{localize 'NEONRELIC.ItemType.gear'}}</h3>
+    {{#each gear}}
+      <div class='item-row' data-item-id='{{this.id}}'>
+        <img class='item-img' src='{{this.img}}' />
+        <span class='item-name'>{{this.name}}</span>
+        <span class='item-bonus'>+{{this.system.gearBonus.value}}</span>
+        <span class='item-enc'>{{this.system.encumbrance}}</span>
+      </div>
+    {{/each}}
+  </div>
+
+  <div class='consumable-list'>
+    <h3>{{localize 'NEONRELIC.ItemType.consumable'}}</h3>
+    {{#each consumables}}
+      <div class='item-row' data-item-id='{{this.id}}'>
+        <img class='item-img' src='{{this.img}}' />
+        <span class='item-name'>{{this.name}}</span>
+        <span class='item-die'>{{this.system.currentDie}}</span>
+      </div>
+    {{/each}}
+  </div>
+
+  <div class='artifact-list'>
+    <h3>{{localize 'NEONRELIC.ItemType.artifact'}}</h3>
+    {{#each artifacts}}
+      <div class='item-row' data-item-id='{{this.id}}'>
+        <img class='item-img' src='{{this.img}}' />
+        <span class='item-name'>{{this.name}}</span>
+        <span class='item-tier'>T{{this.system.tier}}</span>
+        <span class='item-die'>{{this.system.artifactDie.current}}</span>
+      </div>
+    {{/each}}
+  </div>
+</section>
