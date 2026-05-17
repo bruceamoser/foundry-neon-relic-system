@@ -1,0 +1,122 @@
+# HQ Upgrades Compendium Pack
+# Neon Relic — 10 facilities with 3 tiers each
+---
+- _id: hq-fac01
+  name: Armory
+  type: hqFacility
+  system:
+    tier: 1
+    maxTier: 3
+    description: Secure weapon and armor storage.
+    tierEffects:
+      1: Store up to 10 weapons and 5 armor sets. Basic maintenance tools.
+      2: Repair bench (+1 to Tinker for repairs). Store up to 20 weapons.
+      3: Advanced workshop. Auto-repair 1 gear die step per session.
+
+- _id: hq-fac02
+  name: Infirmary
+  type: hqFacility
+  system:
+    tier: 1
+    maxTier: 3
+    description: Medical treatment facility for injured agents.
+    tierEffects:
+      1: Treat minor injuries. +1 Medicine rolls at HQ.
+      2: Surgery suite. Can treat lethal critical injuries.
+      3: ICU. Agents heal +1 attribute point per rest at HQ.
+
+- _id: hq-fac03
+  name: Vault
+  type: hqFacility
+  system:
+    tier: 1
+    maxTier: 3
+    description: Containment chamber for recovered artifacts.
+    tierEffects:
+      1: Store up to 3 artifacts safely. Basic shielding.
+      2: Reinforced wards. Store up to 6 artifacts. -1 emission damage.
+      3: Deep vault. Store up to 10 artifacts. Emissions neutralized.
+
+- _id: hq-fac04
+  name: Library
+  type: hqFacility
+  system:
+    tier: 1
+    maxTier: 3
+    description: Research archives and occult reference materials.
+    tierEffects:
+      1: +1 Lore rolls when researching at HQ.
+      2: Cross-referenced database. +1 Investigate at HQ.
+      3: Verdant Codex archive. +2 Lore at HQ, access restricted records.
+
+- _id: hq-fac05
+  name: Motor Pool
+  type: hqFacility
+  system:
+    tier: 1
+    maxTier: 3
+    description: Vehicle storage and maintenance garage.
+    tierEffects:
+      1: Park up to 3 vehicles. Basic tools for minor repairs.
+      2: Full garage. +1 Tinker for vehicle repairs. Park up to 5 vehicles.
+      3: Armored bay. Can modify vehicles. +2 Tinker for vehicle work.
+
+- _id: hq-fac06
+  name: Communications Room
+  type: hqFacility
+  system:
+    tier: 1
+    maxTier: 3
+    description: Radio equipment and secure communication lines.
+    tierEffects:
+      1: HAM radio. Contact field agents within 50 miles.
+      2: Encrypted shortwave. Secure comms, 200-mile range.
+      3: Satellite uplink. Global secure comms. +1 to Investigate (remote intel).
+
+- _id: hq-fac07
+  name: Training Room
+  type: hqFacility
+  system:
+    tier: 1
+    maxTier: 3
+    description: Physical and tactical training facility.
+    tierEffects:
+      1: Basic gym. Agents can train 1 skill during downtime.
+      2: Firing range. +1 to skill training rolls.
+      3: Full tactical simulator. Train 2 skills per downtime.
+
+- _id: hq-fac08
+  name: Quarters
+  type: hqFacility
+  system:
+    tier: 1
+    maxTier: 3
+    description: Living quarters for agents and support staff.
+    tierEffects:
+      1: Bunks for 4 agents. Basic amenities.
+      2: Private rooms for 6. Kitchen and common area.
+      3: Full accommodation for 8. +1 EMP recovery from Full Rest.
+
+- _id: hq-fac09
+  name: Interrogation Room
+  type: hqFacility
+  system:
+    tier: 1
+    maxTier: 3
+    description: Secure room for questioning subjects and analyzing intel.
+    tierEffects:
+      1: Basic room. Soundproofed.
+      2: One-way mirror. Recording equipment. +1 Persuade during interrogation.
+      3: Psychic dampeners. +2 Persuade, reduces entity influence in room.
+
+- _id: hq-fac10
+  name: Workshop
+  type: hqFacility
+  system:
+    tier: 1
+    maxTier: 3
+    description: Fabrication and crafting workspace.
+    tierEffects:
+      1: Basic tools. Can craft common items.
+      2: Power tools and supplies. +1 Tinker for crafting.
+      3: Full fabrication lab. +2 Tinker, can craft rare items.

@@ -1,0 +1,149 @@
+# Vehicles Compendium Pack
+# Neon Relic — 10 vehicles with full stats
+---
+- _id: veh001
+  name: Sedan (Ford Crown Victoria)
+  type: vehicle
+  system:
+    vehicleType: car
+    description: Standard American sedan. Reliable and inconspicuous.
+    passengers: 4
+    cargo: 2
+    armorRating: 2
+    speed: 3
+    handling: 2
+    fuelDie: 10
+    features: []
+
+- _id: veh002
+  name: Station Wagon (Chevrolet Caprice)
+  type: vehicle
+  system:
+    vehicleType: car
+    description: Family wagon with extra cargo space. Common and forgettable.
+    passengers: 6
+    cargo: 4
+    armorRating: 2
+    speed: 2
+    handling: 2
+    fuelDie: 10
+    features: []
+
+- _id: veh003
+  name: Pickup Truck (Ford F-150)
+  type: vehicle
+  system:
+    vehicleType: truck
+    description: Rugged and versatile. Open bed for equipment.
+    passengers: 3
+    cargo: 6
+    armorRating: 3
+    speed: 2
+    handling: 1
+    fuelDie: 8
+    features: []
+
+- _id: veh004
+  name: Cargo Van (Chevrolet G20)
+  type: vehicle
+  system:
+    vehicleType: van
+    description: Windowless cargo van. Perfect for covert operations.
+    passengers: 2
+    cargo: 8
+    armorRating: 3
+    speed: 2
+    handling: 1
+    fuelDie: 8
+    features:
+      - Concealed cargo area
+
+- _id: veh005
+  name: Sports Car (Pontiac Firebird)
+  type: vehicle
+  system:
+    vehicleType: car
+    description: Fast and loud. Terrible for covert work, great for chases.
+    passengers: 2
+    cargo: 1
+    armorRating: 1
+    speed: 5
+    handling: 4
+    fuelDie: 6
+    features: []
+
+- _id: veh006
+  name: SUV (Chevrolet K5 Blazer)
+  type: vehicle
+  system:
+    vehicleType: suv
+    description: Off-road capable. Good balance of speed and cargo.
+    passengers: 4
+    cargo: 4
+    armorRating: 3
+    speed: 3
+    handling: 2
+    fuelDie: 8
+    features:
+      - Off-road capable
+
+- _id: veh007
+  name: Motorcycle (Harley-Davidson Sportster)
+  type: vehicle
+  system:
+    vehicleType: motorcycle
+    description: Fast and maneuverable. No cargo, no protection.
+    passengers: 1
+    cargo: 0
+    armorRating: 0
+    speed: 4
+    handling: 5
+    fuelDie: 10
+    features: []
+
+- _id: veh008
+  name: Armored Car (Modified G20)
+  type: vehicle
+  system:
+    vehicleType: van
+    description: Covenant-modified cargo van with reinforced body panels and run-flat tires.
+    passengers: 4
+    cargo: 4
+    armorRating: 6
+    speed: 2
+    handling: 1
+    fuelDie: 6
+    features:
+      - Run-flat tires
+      - Reinforced body
+
+- _id: veh009
+  name: Boat (Boston Whaler)
+  type: vehicle
+  system:
+    vehicleType: boat
+    description: Small center-console boat for coastal and river operations.
+    passengers: 4
+    cargo: 2
+    armorRating: 1
+    speed: 3
+    handling: 3
+    fuelDie: 8
+    features:
+      - Watercraft
+
+- _id: veh010
+  name: Helicopter (Bell 206)
+  type: vehicle
+  system:
+    vehicleType: helicopter
+    description: Light utility helicopter. Fast deployment, high noise signature.
+    passengers: 4
+    cargo: 2
+    armorRating: 1
+    speed: 5
+    handling: 3
+    fuelDie: 6
+    features:
+      - Aircraft
+      - High visibility
