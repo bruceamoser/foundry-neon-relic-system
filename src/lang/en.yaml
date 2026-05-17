@@ -445,6 +445,39 @@ NEONRELIC:
     Surprise: Surprise Round
     Surprised: Surprised
     HasActed: Has Acted
+    # Melee Maneuvers
+    Maneuver:
+      Grapple: Grapple
+      Shove: Shove
+      Disarm: Disarm
+      Feint: Feint
+    # Cover Types
+    CoverType:
+      None: No Cover
+      Soft: Soft Cover (+2 AR)
+      Hard: Hard Cover (+4 AR)
+    # Zone Features
+    Zone:
+      Cramped: Cramped
+      Rough: Rough Terrain
+      Dark: Dark
+      Open: Open Ground
+      Elevated: Elevated
+    # Ranged
+    Range:
+      Engaged: Engaged
+      Short: Short
+      Medium: Medium
+      Long: Long
+      Extreme: Extreme
+    # Dodge
+    Dodge: Dodge
+    DodgeSuccess: Attack dodged
+    DodgeFail: Dodge failed
+    # Vehicle
+    VehicleDamage: takes damage
+    BreakdownCheck: Breakdown Check
+    BreakdownOccurred: 'Breakdown occurred'
 
   # Fear
   Fear:
