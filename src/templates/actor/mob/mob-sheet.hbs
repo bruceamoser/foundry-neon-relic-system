@@ -1,0 +1,66 @@
+<div class='mob-sheet'>
+  <header class='mob-header flexrow'>
+    <img class='profile-img' src='{{actor.img}}' data-edit='img' title='{{actor.name}}' />
+    <h1>
+      <input
+        name='name'
+        type='text'
+        value='{{actor.name}}'
+        placeholder='{{localize "NEONRELIC.Mob.Name"}}'
+        {{disabled (not isEditable)}}
+      />
+    </h1>
+  </header>
+
+  <section class='mob-stats'>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Mob.MemberCount'}}</label>
+      <input
+        type='number'
+        name='system.memberCount'
+        value='{{system.memberCount}}'
+        min='1'
+        max='5'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Mob.MemberHP'}}</label>
+      <input type='number' name='system.memberHP' value='{{system.memberHP}}' min='1' {{disabled (not isEditable)}} />
+    </div>
+
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Mob.BestPool'}}</label>
+      <input type='number' name='system.bestPool' value='{{system.bestPool}}' min='0' {{disabled (not isEditable)}} />
+    </div>
+
+    <div class='derived-stats'>
+      <div class='stat-box'>
+        <span class='stat-label'>{{localize 'NEONRELIC.Mob.SharedPool'}}</span>
+        <span class='stat-value'>{{system.sharedPool}}</span>
+      </div>
+      <div class='stat-box'>
+        <span class='stat-label'>{{localize 'NEONRELIC.Mob.BonusDice'}}</span>
+        <span class='stat-value'>{{system.bonusDice}}</span>
+      </div>
+      <div class='stat-box'>
+        <span class='stat-label'>{{localize 'NEONRELIC.Mob.TotalPool'}}</span>
+        <span class='stat-value'>{{system.totalPool}}</span>
+      </div>
+      <div class='stat-box'>
+        <span class='stat-label'>{{localize 'NEONRELIC.Mob.ActiveMembers'}}</span>
+        <span class='stat-value'>{{system.activeMemberCount}}</span>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Mob.TemplateNPC'}}</label>
+      <input type='text' name='system.templateNPC' value='{{system.templateNPC}}' {{disabled (not isEditable)}} />
+    </div>
+  </section>
+
+  <div class='description'>
+    <div class='editor'>{{{enrichedDescription}}}</div>
+  </div>
+</div>

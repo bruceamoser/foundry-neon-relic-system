@@ -1,0 +1,49 @@
+/**
+ * Vehicle sheet using ApplicationV2.
+ * Displays speed, armor, reliability, wear tracking, and crew.
+ * @module actor/vehicle/vehicle-sheet
+ */
+
+const { HandlebarsApplicationMixin } = foundry.applications.api;
+const { ActorSheetV2 } = foundry.applications.sheets;
+
+const SYSTEM_ID = 'neon-relic';
+
+export class VehicleSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
+  /** @override */
+  static DEFAULT_OPTIONS = {
+    classes: [SYSTEM_ID, 'vehicle-sheet'],
+    position: {
+      width: 480,
+      height: 'auto',
+    },
+    form: {
+      submitOnChange: true,
+    },
+  };
+
+  /** @override */
+  static PARTS = {
+    content: {
+      template: `systems/${SYSTEM_ID}/templates/actor/vehicle/vehicle-sheet.hbs`,
+      scrollable: [''],
+    },
+  };
+
+  /* ------------------------------------------ */
+
+  /** @override */
+  async _prepareContext(options) {
+    const context = await super._prepareContext(options);
+    const system = this.document.system;
+
+    context.system = system;
+    context.isEditable = this.isEditable;
+    context.enrichedDescription = await TextEditor.enrichHTML(system.description ?? '', {
+      async: true,
+      relativeTo: this.document,
+    });
+
+    return context;
+  }
+}
