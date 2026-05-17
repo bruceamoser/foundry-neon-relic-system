@@ -34,6 +34,8 @@ import { NPCSheet } from './actor/npc/npc-sheet.mjs';
 import { MobSheet } from './actor/mob/mob-sheet.mjs';
 import { HeadquartersSheet } from './actor/headquarters/hq-sheet.mjs';
 import { VehicleSheet } from './actor/vehicle/vehicle-sheet.mjs';
+import { NeonRelicCombat } from './combat/combat.mjs';
+import { NeonRelicCombatant } from './combat/combatant.mjs';
 
 Hooks.once('init', () => {
   console.log('neon-relic | Initializing Neon Relic system');
@@ -44,6 +46,8 @@ Hooks.once('init', () => {
   // Register document classes
   CONFIG.Actor.documentClass = NeonRelicActor;
   CONFIG.Item.documentClass = NeonRelicItem;
+  CONFIG.Combat.documentClass = NeonRelicCombat;
+  CONFIG.Combatant.documentClass = NeonRelicCombatant;
 
   // Register actor data models
   CONFIG.Actor.dataModels.agent = AgentDataModel;

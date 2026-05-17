@@ -392,6 +392,9 @@ NEONRELIC:
     Weapons: Weapons
     Armor: Armor
     CriticalInjuries: Critical Injuries
+    CardAce: Ace
+    CardDraw: Card Draw
+    Reshuffle: Deck reshuffled
 
   # Conditions
   Condition:
