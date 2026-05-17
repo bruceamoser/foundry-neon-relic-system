@@ -35,7 +35,9 @@
     "Handlebars": "readonly",
     "Actor": "readonly",
     "Item": "readonly",
-    "Application": "readonly"
+    "Application": "readonly",
+    "Combat": "readonly",
+    "Combatant": "readonly"
   },
   "rules": {
     "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
