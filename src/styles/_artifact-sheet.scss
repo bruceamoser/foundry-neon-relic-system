@@ -1,0 +1,233 @@
+// Neon Relic — Artifact (Relic) Sheet Styles
+// Matches relic-sheet.html reference layout
+
+.neon-relic.item-sheet {
+  // ── Artifact-specific header override ───────────
+  &:has(.artifact-sheet) {
+    .item-header {
+      border-top: 3px solid $nr-red-stamp;
+      border-bottom: 2px solid $nr-red-stamp;
+
+      .item-type {
+        color: $nr-red-stamp;
+        letter-spacing: 3px;
+      }
+    }
+  }
+
+  .artifact-sheet {
+    // ── Relic Identity Grid ─────────────────────────
+    .relic-id-grid {
+      margin-bottom: 6px;
+    }
+
+    .id-block-row {
+      display: grid;
+      gap: 0;
+      border: 1.5px solid $nr-ink;
+
+      &.four-col {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+
+      & + .id-block-row {
+        border-top: 1px solid $nr-rule;
+      }
+    }
+
+    .id-cell {
+      padding: 3px 6px 4px;
+      border-right: 1px solid $nr-rule;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    .id-label {
+      display: block;
+      font-family: $nr-font-main;
+      font-size: 5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+      margin-bottom: 2px;
+    }
+
+    .id-value {
+      display: block;
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      min-height: 13px;
+      border: none;
+      border-bottom: 1px dotted $nr-rule;
+      background: transparent;
+      width: 100%;
+      padding: 0 2px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    select.id-value {
+      appearance: auto;
+      border-radius: 0;
+    }
+
+    .corruption-cost {
+      color: $nr-red-stamp;
+      font-weight: bold;
+    }
+
+    .die-display {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-weight: bold;
+    }
+
+    .die-step-btn {
+      background: transparent;
+      border: 1px solid $nr-rule;
+      color: $nr-ink-faded;
+      cursor: pointer;
+      padding: 1px 4px;
+      font-size: 7pt;
+
+      &:hover {
+        color: $nr-red-stamp;
+        border-color: $nr-red-stamp;
+      }
+    }
+
+    // ── Status Flags ──────────────────────────────────
+    .relic-flags {
+      display: flex;
+      gap: $nr-spacing-sm;
+      flex-wrap: wrap;
+      margin: 4px 0 6px;
+    }
+
+    .relic-flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-family: $nr-font-main;
+      font-size: 6pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $nr-ink-faded;
+      cursor: pointer;
+      padding: 2px 6px;
+      border: 1px solid $nr-rule;
+      background: transparent;
+
+      input[type='checkbox'] {
+        margin: 0;
+      }
+
+      &.inline {
+        border: none;
+        padding: 0;
+        margin-top: 6px;
+      }
+    }
+
+    // ── Section Titles ────────────────────────────────
+    .section-title {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: $nr-ink;
+      border-bottom: 1.5px solid $nr-ink;
+      padding-bottom: 2px;
+      margin: 7px 0 4px;
+
+      &.red {
+        color: $nr-red-stamp;
+        border-color: $nr-red-stamp;
+      }
+
+      &.green {
+        color: $nr-green-stamp;
+        border-color: $nr-green-stamp;
+      }
+    }
+
+    // ── Field Components ──────────────────────────────
+    .field-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .field {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .field-label {
+      font-family: $nr-font-main;
+      font-size: 5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+      margin-bottom: 1px;
+    }
+
+    .field-value {
+      display: block;
+      width: 100%;
+      border: none;
+      border-bottom: 1.5px solid $nr-rule;
+      min-height: 14px;
+      padding: 1px 3px;
+      background: $nr-field-bg;
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+
+      &:focus {
+        outline: none;
+      }
+
+      &.med {
+        border: 1px solid $nr-rule;
+        border-bottom: 1.5px solid $nr-rule;
+        min-height: 32px;
+      }
+
+      &.tall {
+        border: 1px solid $nr-rule;
+        border-bottom: 1.5px solid $nr-rule;
+        min-height: 44px;
+      }
+    }
+
+    // ── Danger Box (Fracture) ─────────────────────────
+    .danger-box {
+      border: 1.5px solid $nr-red-stamp;
+      padding: 4px 6px;
+      margin-bottom: 4px;
+
+      .field-value {
+        border-color: $nr-red-stamp;
+      }
+    }
+
+    // ── Containment Truths ────────────────────────────
+    .truth-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 8px;
+      margin-bottom: 4px;
+    }
+
+    .truth-entry {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
