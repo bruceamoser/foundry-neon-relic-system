@@ -1,0 +1,149 @@
+# Weapons & Armor Compendium Pack
+# Neon Relic — Year Zero Engine
+---
+# ── Weapons ──────────────────────────────────
+- _id: wpn001
+  name: Fists
+  type: weapon
+  system:
+    description: Bare-knuckle strikes.
+    damage: 1
+    range: engaged
+    skill: brawl
+    weight: 0
+
+- _id: wpn002
+  name: Knife
+  type: weapon
+  system:
+    description: Combat knife. Concealable.
+    damage: 2
+    range: engaged
+    skill: brawl
+    weight: 1
+
+- _id: wpn003
+  name: Baseball Bat
+  type: weapon
+  system:
+    description: Aluminum or wooden bat. Common improvised weapon.
+    damage: 2
+    range: engaged
+    skill: brawl
+    weight: 2
+
+- _id: wpn004
+  name: Crowbar
+  type: weapon
+  system:
+    description: Heavy iron crowbar. Also useful for prying.
+    damage: 2
+    range: engaged
+    skill: brawl
+    weight: 2
+
+- _id: wpn005
+  name: Revolver (.38)
+  type: weapon
+  system:
+    description: Six-shot revolver. Reliable sidearm.
+    damage: 2
+    range: short
+    skill: rangedCombat
+    weight: 1
+    ammoDie: 8
+
+- _id: wpn006
+  name: Pistol (9mm)
+  type: weapon
+  system:
+    description: Semi-automatic pistol. Standard law enforcement sidearm.
+    damage: 2
+    range: short
+    skill: rangedCombat
+    weight: 1
+    ammoDie: 10
+
+- _id: wpn007
+  name: Shotgun (12-gauge)
+  type: weapon
+  system:
+    description: Pump-action shotgun. Devastating at close range.
+    damage: 3
+    range: short
+    skill: rangedCombat
+    weight: 3
+    ammoDie: 6
+
+- _id: wpn008
+  name: Hunting Rifle
+  type: weapon
+  system:
+    description: Bolt-action hunting rifle with scope.
+    damage: 3
+    range: long
+    skill: rangedCombat
+    weight: 3
+    ammoDie: 6
+
+- _id: wpn009
+  name: Submachine Gun
+  type: weapon
+  system:
+    description: Compact automatic weapon. Full-auto capable.
+    damage: 2
+    range: medium
+    skill: rangedCombat
+    weight: 2
+    ammoDie: 10
+
+- _id: wpn010
+  name: Improvised Weapon
+  type: weapon
+  system:
+    description: Anything grabbed in desperation. Chair leg, bottle, etc.
+    damage: 1
+    range: engaged
+    skill: brawl
+    weight: 1
+
+# ── Armor ────────────────────────────────────
+- _id: arm001
+  name: Leather Jacket
+  type: armor
+  system:
+    description: Thick leather jacket. Light protection, no movement penalty.
+    armorRating: 2
+    weight: 1
+
+- _id: arm002
+  name: Flak Vest
+  type: armor
+  system:
+    description: Military surplus ballistic vest.
+    armorRating: 4
+    weight: 2
+
+- _id: arm003
+  name: Riot Shield
+  type: armor
+  system:
+    description: Polycarbonate riot shield. Can be used with Cover action.
+    armorRating: 3
+    weight: 2
+
+- _id: arm004
+  name: Kevlar Vest
+  type: armor
+  system:
+    description: Modern concealed body armor.
+    armorRating: 6
+    weight: 2
+
+- _id: arm005
+  name: Hard Hat
+  type: armor
+  system:
+    description: Construction hard hat. Protects against falling debris.
+    armorRating: 1
+    weight: 1

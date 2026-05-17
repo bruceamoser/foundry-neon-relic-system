@@ -1,0 +1,305 @@
+# Critical Injuries Compendium Pack
+# Neon Relic — Year Zero Engine
+# Physical and Mental d66 tables
+---
+# ── Physical Critical Injuries (d66) ────────
+- _id: crit-p11
+  name: Winded
+  type: criticalInjury
+  system:
+    d66: 11
+    category: physical
+    lethal: false
+    effect: Lose next Fast Action. Recover after 1 round.
+    healTime: instant
+
+- _id: crit-p12
+  name: Bruised Ribs
+  type: criticalInjury
+  system:
+    d66: 12
+    category: physical
+    lethal: false
+    effect: '-1 to STR-based rolls for the scene.'
+    healTime: scene
+
+- _id: crit-p13
+  name: Sprained Ankle
+  type: criticalInjury
+  system:
+    d66: 13
+    category: physical
+    lethal: false
+    effect: Movement costs an extra Fast Action.
+    healTime: 1 day
+
+- _id: crit-p14
+  name: Deep Cut
+  type: criticalInjury
+  system:
+    d66: 14
+    category: physical
+    lethal: false
+    effect: Bleeding. Lose 1 STR per round until bandaged (Medicine Diff 1).
+    healTime: 1 day
+
+- _id: crit-p15
+  name: Dislocated Shoulder
+  type: criticalInjury
+  system:
+    d66: 15
+    category: physical
+    lethal: false
+    effect: Cannot use two-handed weapons. -2 to Brawl.
+    healTime: 3 days
+
+- _id: crit-p16
+  name: Cracked Rib
+  type: criticalInjury
+  system:
+    d66: 16
+    category: physical
+    lethal: false
+    effect: '-1 to all physical rolls. Pain on exertion.'
+    healTime: 1 week
+
+- _id: crit-p21
+  name: Broken Nose
+  type: criticalInjury
+  system:
+    d66: 21
+    category: physical
+    lethal: false
+    effect: '-1 to Persuade. Bloody mess.'
+    healTime: 3 days
+
+- _id: crit-p22
+  name: Concussion
+  type: criticalInjury
+  system:
+    d66: 22
+    category: physical
+    lethal: false
+    effect: '-1 to WIT-based rolls until healed.'
+    healTime: 1 week
+
+- _id: crit-p23
+  name: Torn Muscle
+  type: criticalInjury
+  system:
+    d66: 23
+    category: physical
+    lethal: false
+    effect: '-2 to STR-based rolls.'
+    healTime: 1 week
+
+- _id: crit-p24
+  name: Broken Fingers
+  type: criticalInjury
+  system:
+    d66: 24
+    category: physical
+    lethal: false
+    effect: Cannot use fine tools or firearms. -2 Tinker.
+    healTime: 2 weeks
+
+- _id: crit-p25
+  name: Broken Arm
+  type: criticalInjury
+  system:
+    d66: 25
+    category: physical
+    lethal: true
+    effect: Arm useless. Cannot use two-handed items. Medicine Diff 2 or permanent.
+    healTime: 1 month
+
+- _id: crit-p26
+  name: Broken Leg
+  type: criticalInjury
+  system:
+    d66: 26
+    category: physical
+    lethal: true
+    effect: Cannot move without support. Medicine Diff 2 or permanent limp.
+    healTime: 1 month
+
+- _id: crit-p31
+  name: Punctured Lung
+  type: criticalInjury
+  system:
+    d66: 31
+    category: physical
+    lethal: true
+    effect: Dying unless treated. Medicine Diff 2 within 1 round.
+    healTime: 2 weeks
+
+- _id: crit-p32
+  name: Internal Bleeding
+  type: criticalInjury
+  system:
+    d66: 32
+    category: physical
+    lethal: true
+    effect: Lose 1 STR per shift. Medicine Diff 3 to stop.
+    healTime: 1 month
+
+- _id: crit-p33
+  name: Severed Tendon
+  type: criticalInjury
+  system:
+    d66: 33
+    category: physical
+    lethal: true
+    effect: Limb partially useless. Permanent -1 AGI unless surgery.
+    healTime: permanent
+
+- _id: crit-p34
+  name: Crushed Hand
+  type: criticalInjury
+  system:
+    d66: 34
+    category: physical
+    lethal: true
+    effect: Hand destroyed. Permanent loss of hand use.
+    healTime: permanent
+
+- _id: crit-p35
+  name: Shattered Kneecap
+  type: criticalInjury
+  system:
+    d66: 35
+    category: physical
+    lethal: true
+    effect: Permanent limp. Move costs doubled permanently.
+    healTime: permanent
+
+- _id: crit-p36
+  name: Skull Fracture
+  type: criticalInjury
+  system:
+    d66: 36
+    category: physical
+    lethal: true
+    effect: Dying. Medicine Diff 3 or death within d6 rounds.
+    healTime: 1 month
+
+# ── Mental Critical Injuries (d66) ──────────
+- _id: crit-m11
+  name: Startled
+  type: criticalInjury
+  system:
+    d66: 11
+    category: mental
+    lethal: false
+    effect: Lose next Fast Action from shock. Recover after 1 round.
+    healTime: instant
+
+- _id: crit-m12
+  name: Shaken
+  type: criticalInjury
+  system:
+    d66: 12
+    category: mental
+    lethal: false
+    effect: '-1 to EMP-based rolls for the scene.'
+    healTime: scene
+
+- _id: crit-m13
+  name: Flashbacks
+  type: criticalInjury
+  system:
+    d66: 13
+    category: mental
+    lethal: false
+    effect: Vivid flashbacks. -1 to WIT rolls for 1 day.
+    healTime: 1 day
+
+- _id: crit-m14
+  name: Nightmares
+  type: criticalInjury
+  system:
+    d66: 14
+    category: mental
+    lethal: false
+    effect: Cannot benefit from Full Rest until treated. Psychoanalyze Diff 1.
+    healTime: 1 day
+
+- _id: crit-m15
+  name: Paranoia
+  type: criticalInjury
+  system:
+    d66: 15
+    category: mental
+    lethal: false
+    effect: Trust no one. -2 to Persuade and Psychoanalyze.
+    healTime: 3 days
+
+- _id: crit-m16
+  name: Obsessive Thoughts
+  type: criticalInjury
+  system:
+    d66: 16
+    category: mental
+    lethal: false
+    effect: Fixated on artifact/entity. Must make WIT roll to act on other priorities.
+    healTime: 1 week
+
+- _id: crit-m21
+  name: Dissociation
+  type: criticalInjury
+  system:
+    d66: 21
+    category: mental
+    lethal: false
+    effect: Feel detached from reality. -1 to all rolls.
+    healTime: 1 week
+
+- _id: crit-m22
+  name: Phobia
+  type: criticalInjury
+  system:
+    d66: 22
+    category: mental
+    lethal: false
+    effect: Develop phobia of encounter trigger. Fear Check when exposed.
+    healTime: permanent
+
+- _id: crit-m23
+  name: Amnesia
+  type: criticalInjury
+  system:
+    d66: 23
+    category: mental
+    lethal: false
+    effect: Lose memory of last shift. Cannot recall key information.
+    healTime: 1 week
+
+- _id: crit-m24
+  name: Fugue State
+  type: criticalInjury
+  system:
+    d66: 24
+    category: mental
+    lethal: false
+    effect: Act on autopilot for d6 rounds. DA controls character.
+    healTime: scene
+
+- _id: crit-m25
+  name: Psychosomatic Blindness
+  type: criticalInjury
+  system:
+    d66: 25
+    category: mental
+    lethal: true
+    effect: Cannot see. Psychoanalyze Diff 2 to recover.
+    healTime: varies
+
+- _id: crit-m26
+  name: Catatonia
+  type: criticalInjury
+  system:
+    d66: 26
+    category: mental
+    lethal: true
+    effect: Unresponsive. Character retirement unless Psychoanalyze Diff 3.
+    healTime: permanent

@@ -1,0 +1,138 @@
+# Gear & Consumables Compendium Pack
+# Neon Relic — Year Zero Engine
+---
+- _id: gear001
+  name: Flashlight
+  type: gear
+  system:
+    description: Standard handheld flashlight. Eliminates Dark zone penalty in immediate area.
+    weight: 1
+    cost: 1
+    resourceDie: 8
+
+- _id: gear002
+  name: Binoculars
+  type: gear
+  system:
+    description: 8x magnification binoculars. +1 die to Investigate at Long range.
+    weight: 1
+    cost: 2
+    resourceDie: 0
+
+- _id: gear003
+  name: First Aid Kit
+  type: gear
+  system:
+    description: Basic medical supplies. Required for Medicine rolls to heal attribute damage.
+    weight: 1
+    cost: 2
+    resourceDie: 8
+
+- _id: gear004
+  name: Lockpick Set
+  type: gear
+  system:
+    description: Professional locksmith tools. Required for Tinker rolls to pick locks.
+    weight: 1
+    cost: 3
+    resourceDie: 10
+
+- _id: gear005
+  name: Camera (35mm)
+  type: gear
+  system:
+    description: 35mm film camera with flash. Evidence documentation.
+    weight: 1
+    cost: 2
+    resourceDie: 6
+
+- _id: gear006
+  name: Tape Recorder
+  type: gear
+  system:
+    description: Portable cassette recorder. Records audio for playback and analysis.
+    weight: 1
+    cost: 2
+    resourceDie: 8
+
+- _id: gear007
+  name: Rope (50 ft)
+  type: gear
+  system:
+    description: Nylon rope. Essential for climbing, binding, and improvised uses.
+    weight: 2
+    cost: 1
+    resourceDie: 10
+
+- _id: gear008
+  name: Walkie-Talkie
+  type: gear
+  system:
+    description: Two-way radio. Short range communication between team members.
+    weight: 1
+    cost: 3
+    resourceDie: 8
+
+- _id: gear009
+  name: Geiger Counter
+  type: gear
+  system:
+    description: Detects radiation and certain occult emissions. +1 die to Lore identification.
+    weight: 2
+    cost: 4
+    resourceDie: 0
+
+- _id: gear010
+  name: Tool Kit
+  type: gear
+  system:
+    description: Mechanic's tools. Required for Tinker repair rolls.
+    weight: 3
+    cost: 3
+    resourceDie: 10
+
+# Consumables
+- _id: cons001
+  name: Rations (1 day)
+  type: consumable
+  system:
+    description: One day's food and water supply.
+    uses: 1
+    maxUses: 1
+    cost: 1
+
+- _id: cons002
+  name: Bandages
+  type: consumable
+  system:
+    description: Sterile bandages. Heal 1 STR damage without a Medicine roll.
+    uses: 3
+    maxUses: 3
+    cost: 1
+
+- _id: cons003
+  name: Painkillers
+  type: consumable
+  system:
+    description: Over-the-counter analgesics. Ignore Broken condition for 1 scene.
+    uses: 2
+    maxUses: 2
+    cost: 1
+
+- _id: cons004
+  name: Flare
+  type: consumable
+  system:
+    description: Emergency signal flare. Illuminates area, removes Dark for 1 round.
+    uses: 1
+    maxUses: 1
+    cost: 1
+
+- _id: cons005
+  name: Chalk
+  type: consumable
+  system:
+    description: Marking chalk. Leave signs, mark paths, draw containment circles.
+    uses: 5
+    maxUses: 5
+    cost: 1
