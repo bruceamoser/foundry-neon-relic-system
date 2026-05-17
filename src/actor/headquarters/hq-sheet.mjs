@@ -50,6 +50,29 @@ export class HeadquartersSheet extends HandlebarsApplicationMixin(ActorSheetV2) 
     };
     context.standingRankLabel = game.i18n.localize(rankKeys[system.standingRank] ?? rankKeys.unknown);
 
+    // Standing pips (0-20 in groups of 5)
+    const standingPips = [];
+    for (let i = 1; i <= 20; i++) {
+      let cssClass = 'pip';
+      if (i <= system.standing) cssClass += ' filled';
+      if (i === 5 || i === 10 || i === 15 || i === 20) cssClass += ' milestone';
+      standingPips.push({ index: i, cssClass });
+    }
+    context.standingPips = standingPips;
+
+    // Threat pips (0-6) — color-coded
+    const threatPips = [];
+    for (let i = 1; i <= 6; i++) {
+      let cssClass = 'pip';
+      if (i <= system.threat) {
+        if (i >= 5) cssClass += ' filled critical';
+        else if (i >= 3) cssClass += ' filled warning';
+        else cssClass += ' filled';
+      }
+      threatPips.push({ index: i, cssClass });
+    }
+    context.threatPips = threatPips;
+
     context.enrichedDescription = await TextEditor.enrichHTML(system.description ?? '', {
       async: true,
       relativeTo: this.document,

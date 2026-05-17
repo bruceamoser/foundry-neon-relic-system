@@ -595,6 +595,7 @@ NEONRELIC:
   # Headquarters
   HQ:
     Name: Headquarters Name
+    SheetType: Covenant Cell HQ
     Standing: Standing
     DP: Development Points
     Threat: Threat Level

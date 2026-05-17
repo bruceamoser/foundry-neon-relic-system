@@ -1,0 +1,255 @@
+// Neon Relic — Headquarters Sheet Styles
+// Standing track, threat pips, vault section
+
+.neon-relic.hq-sheet {
+  background: $nr-paper;
+
+  // ── Header ──────────────────────────────────────────
+  .hq-header {
+    display: flex;
+    align-items: center;
+    gap: $nr-spacing-sm;
+    border-top: 3px solid $nr-green-stamp;
+    border-bottom: 2px solid $nr-green-stamp;
+    padding: 6px 0;
+    margin-bottom: 8px;
+
+    .profile-img {
+      width: 56px;
+      height: 56px;
+      border: 1.5px solid $nr-rule;
+      object-fit: cover;
+    }
+
+    .header-fields {
+      flex: 1;
+
+      h1 {
+        margin: 0;
+
+        input {
+          font-family: $nr-font-main;
+          font-size: 14pt;
+          letter-spacing: 2px;
+          border: none;
+          border-bottom: 1px dotted $nr-rule;
+          background: transparent;
+          width: 100%;
+          padding: 0;
+        }
+      }
+
+      .sheet-type {
+        font-family: $nr-font-main;
+        font-size: 6pt;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: $nr-ink-faded;
+      }
+    }
+
+    .standing-badge {
+      .rank-label {
+        font-family: $nr-font-main;
+        font-size: 8pt;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: $nr-green-stamp;
+        border: 2px solid $nr-green-stamp;
+        padding: 3px 10px;
+      }
+    }
+  }
+
+  .hq-body {
+    overflow-y: auto;
+    padding: 0 2px;
+  }
+
+  // ── Section Titles ──────────────────────────────────
+  .section-title {
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: $nr-ink;
+    border-bottom: 1.5px solid $nr-ink;
+    padding-bottom: 2px;
+    margin: 8px 0 5px;
+
+    &.green {
+      color: $nr-green-stamp;
+      border-color: $nr-green-stamp;
+    }
+
+    &.red {
+      color: $nr-red-stamp;
+      border-color: $nr-red-stamp;
+    }
+  }
+
+  // ── Track Rows (Standing / Threat) ──────────────────
+  .track-row {
+    margin-bottom: 6px;
+  }
+
+  .track-pips {
+    display: flex;
+    gap: 2px;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+
+  .pip {
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid $nr-ink;
+    background: transparent;
+
+    &.filled {
+      background: $nr-green-stamp;
+      border-color: $nr-green-stamp;
+    }
+
+    &.warning {
+      background: #b8860b;
+      border-color: #8b6508;
+    }
+
+    &.critical {
+      background: $nr-red-stamp;
+      border-color: darken($nr-red-stamp, 10%);
+    }
+
+    &.milestone {
+      border-width: 2px;
+      margin-right: 4px;
+    }
+  }
+
+  .standing-pips .pip {
+    width: 14px;
+    height: 14px;
+  }
+
+  .track-input {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+
+    input {
+      width: 40px;
+      font-family: $nr-font-fill;
+      font-size: 10pt;
+      text-align: center;
+      border: 1px solid $nr-rule;
+      background: $nr-field-bg;
+    }
+
+    .track-max {
+      font-family: $nr-font-fill;
+      font-size: 9pt;
+      color: $nr-ink-faded;
+    }
+  }
+
+  // ── Stats Row ───────────────────────────────────────
+  .hq-stats-row {
+    display: flex;
+    gap: 12px;
+    margin: 6px 0;
+  }
+
+  .stat-cell {
+    flex: 1;
+    border: 1.5px solid $nr-ink;
+    padding: 4px 8px;
+    text-align: center;
+  }
+
+  .stat-label {
+    display: block;
+    font-family: $nr-font-main;
+    font-size: 5pt;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: $nr-ink-faded;
+    margin-bottom: 2px;
+  }
+
+  .stat-value {
+    display: block;
+    width: 100%;
+    font-family: $nr-font-fill;
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    background: transparent;
+    padding: 0;
+
+    &.derived {
+      color: $nr-green-stamp;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  // ── Vault ───────────────────────────────────────────
+  .vault-section {
+    margin-bottom: 6px;
+  }
+
+  .vault-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .field-label {
+    font-family: $nr-font-main;
+    font-size: 5.5pt;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: $nr-ink-faded;
+  }
+
+  .vault-input {
+    width: 50px;
+    font-family: $nr-font-fill;
+    font-size: 10pt;
+    text-align: center;
+    border: 1px solid $nr-rule;
+    background: $nr-field-bg;
+  }
+
+  .status-badge {
+    display: inline-block;
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 2px 8px;
+
+    &.critical {
+      color: $nr-red-stamp;
+      border: 1.5px solid $nr-red-stamp;
+      font-weight: bold;
+    }
+  }
+
+  // ── Description ─────────────────────────────────────
+  .description {
+    .editor {
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      min-height: 40px;
+      border: 1px solid $nr-rule;
+      padding: 4px;
+      background: $nr-field-bg;
+    }
+  }
+}
