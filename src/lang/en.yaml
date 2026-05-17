@@ -614,3 +614,70 @@ NEONRELIC:
     PartialProgress: Partial Progress
     SetbackWithSignal: Setback With Signal
     Breach: Breach
+
+  # Crafting
+  Craft:
+    Attempt: Crafting Attempt
+    Success: Item crafted successfully
+    Failed: Crafting failed
+    Lockpick: Improvised Lockpick
+    Splint: Improvised Splint
+    Torch: Improvised Torch
+    SmokeBomb: Smoke Bomb
+    Tripwire: Tripwire Alarm
+    Shiv: Improvised Shiv
+    SignalMirror: Signal Mirror
+    Caltrops: Caltrops
+    GasMask: Improvised Gas Mask
+    FaradayCage: Faraday Cage
+    Fail:
+      Waste: Components wasted
+      Fragile: Item breaks after one use
+      Slow: Takes twice as long
+      Loud: Noise alerts enemies
+      Injury: Mishap — take 1 Physical damage
+      Unstable: Unpredictable side effect
+
+  # Repair
+  Repair:
+    Attempt: Repair Attempt
+    Success: Repair successful
+    Failed: Repair failed
+    Minor: Minor Repair
+    Moderate: Moderate Repair
+    Major: Major Repair
+
+  # Emissions
+  Emission:
+    Aura: Aura (Continuous)
+    Pulse: Pulse (Periodic)
+    Burst: Burst (Single Discharge)
+    Affected: Affected
+
+  # Scavenging
+  Scavenge:
+    Attempt: Scavenging
+    Found: Found
+    NothingFound: Nothing found
+    Urban: Urban
+    Industrial: Industrial
+    Residential: Residential
+    Wilderness: Wilderness
+    Military: Military
+    Find:
+      Nothing: Nothing useful
+      Junk: Scrap junk
+      Parts: Repair parts
+      Supplies: Basic supplies
+      Gear: Usable gear
+      Rare: Rare find
+
+  # Artifact Decay
+  Decay:
+    Pristine: Pristine
+    Tarnished: Tarnished
+    Worn: Worn
+    Cracked: Cracked
+    Fractured: Fractured
+    Shattered: Shattered
+    Destroyed: Artifact destroyed
