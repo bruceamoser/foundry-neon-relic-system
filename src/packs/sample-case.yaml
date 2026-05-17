@@ -1,0 +1,147 @@
+# Sample Case Compendium Pack
+# Neon Relic — The Spear That Went Dark
+# A complete worked example case file
+---
+- _id: case001
+  name: 'The Spear That Went Dark'
+  type: journalEntry
+  system:
+    caseType: caseBrief
+    status: Active
+    threatLevel: 3
+    summary: >
+      A medieval spear believed to be a minor occult relic has gone
+      dark — it stopped emitting detectable psychic signatures after
+      decades of stable monitoring. The Verdant Covenant dispatched
+      the agents to the small German town of Kaltenberg to investigate.
+      What they find is far worse than a dormant artifact.
+    objectives:
+      - text: Locate the spear's last known position
+        complete: false
+      - text: Determine why emissions ceased
+        complete: false
+      - text: Assess threat level and containment options
+        complete: false
+      - text: Recover or contain the artifact
+        complete: false
+    relics:
+      - name: The Kaltenberg Spear
+        status: Missing
+    organizations:
+      - name: 'The Congregation of the Veil'
+        countdown: 0
+        maxCountdown: 8
+        countdownGoal: Complete the Awakening Ritual
+        description: >
+          A cult operating out of the old church in Kaltenberg.
+          They stole the spear to use in a ritual they believe
+          will open a permanent gateway.
+        members:
+          - name: Sister Maren
+            role: Cult Leader
+          - name: Brother Jens
+            role: Inner Circle
+          - name: Elke Braun
+            role: Recruit
+      - name: 'Kessler Network'
+        countdown: 0
+        maxCountdown: 6
+        countdownGoal: Acquire the spear for a private buyer
+        description: >
+          Viktor Kessler has sent an operative to Kaltenberg
+          to acquire the spear before anyone else can.
+        members:
+          - name: Viktor Kessler
+            role: Handler (remote)
+          - name: 'Rook'
+            role: Field Operative
+    notes: >
+      The spear was last monitored by the Wayfinder Division's
+      Remote Sensing Wing. Emissions flatlined on October 3, 1987.
+      Local Covenant contacts in Kaltenberg have not responded
+      to check-in requests for 72 hours.
+
+- _id: case-loc01
+  name: 'Kaltenberg — Town Square'
+  type: journalEntry
+  system:
+    locationType: urban
+    description: >
+      A quiet Bavarian town square with a fountain, a few shops,
+      and a gasthaus. The locals are suspicious of outsiders.
+    clues:
+      - The gasthaus owner saw people entering the old church at night.
+      - A local historian mentions the spear was in the town museum.
+    threats: []
+
+- _id: case-loc02
+  name: 'Kaltenberg — Old Church'
+  type: journalEntry
+  system:
+    locationType: building
+    description: >
+      A crumbling medieval church on the hill above town. The
+      Congregation of the Veil has been using the crypt for
+      their rituals. The air inside feels wrong.
+    clues:
+      - Ritual markings on the crypt floor
+      - The spear's containment case is open and empty
+    threats:
+      - Cult acolytes (2-3) guard the entrance at night
+      - Psychic residue causes -1 to EMP rolls inside
+
+- _id: case-loc03
+  name: 'Kaltenberg — Town Museum'
+  type: journalEntry
+  system:
+    locationType: building
+    description: >
+      A small museum of local history where the spear was displayed
+      for decades. The display case has been cleanly opened — no signs
+      of forced entry.
+    clues:
+      - The lock was picked by a professional (Investigate Diff 2)
+      - Security guard remembers a well-dressed man asking about the spear
+    threats: []
+
+- _id: case-npc01
+  name: 'Herr Lehmann — Museum Curator'
+  type: npc
+  system:
+    tier: 1
+    description: >
+      Elderly curator who has watched over the spear for 30 years.
+      Knows its history but not its supernatural nature. Frightened
+      by the theft and afraid the town is cursed.
+    attributes:
+      str: 1
+      agi: 1
+      wit: 4
+      emp: 3
+    skills:
+      lore: 3
+      investigate: 2
+    armorRating: 0
+    fearRating: 0
+
+- _id: case-npc02
+  name: 'Brother Jens — True Believer'
+  type: npc
+  system:
+    tier: 2
+    description: >
+      A young man drawn into the Congregation by Sister Maren's
+      charisma. Genuinely believes the ritual will bring salvation.
+      Might be turned if shown the truth about what they're summoning.
+    attributes:
+      str: 3
+      agi: 2
+      wit: 2
+      emp: 3
+    skills:
+      brawl: 2
+      lore: 1
+      persuade: 1
+    armorRating: 0
+    fearRating: 0
+    corruptionStage: 1

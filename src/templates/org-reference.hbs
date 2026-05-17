@@ -1,0 +1,43 @@
+{{! Organization Reference journal page template }}
+<div class='neon-relic org-reference'>
+  <header class='org-header'>
+    <h1>{{doc.name}}</h1>
+  </header>
+
+  <section class='org-section'>
+    <h2>{{localize 'NEONRELIC.Case.Description'}}</h2>
+    <div class='org-text'>{{{doc.system.description}}}</div>
+  </section>
+
+  <section class='org-section'>
+    <h2>{{localize 'NEONRELIC.Case.Countdown'}}</h2>
+    <div class='countdown-track'>
+      <span class='countdown-current'>{{doc.system.countdown}}</span>
+      <span class='countdown-sep'>/</span>
+      <span class='countdown-max'>{{doc.system.maxCountdown}}</span>
+    </div>
+    <p class='countdown-goal'>{{doc.system.countdownGoal}}</p>
+  </section>
+
+  <section class='org-section'>
+    <h2>{{localize 'NEONRELIC.Case.KeyMembers'}}</h2>
+    <ul class='member-list'>
+      {{#each doc.system.members}}
+        <li>
+          <strong>{{this.name}}</strong>
+          {{#if this.role}} — {{this.role}}{{/if}}
+        </li>
+      {{/each}}
+    </ul>
+  </section>
+
+  <section class='org-section'>
+    <h2>{{localize 'NEONRELIC.Case.Resources'}}</h2>
+    <div class='org-text'>{{{doc.system.resources}}}</div>
+  </section>
+
+  <section class='org-section'>
+    <h2>{{localize 'NEONRELIC.Case.Notes'}}</h2>
+    <div class='org-text'>{{{doc.system.notes}}}</div>
+  </section>
+</div>

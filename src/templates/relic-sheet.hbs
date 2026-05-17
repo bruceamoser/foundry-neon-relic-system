@@ -1,0 +1,49 @@
+{{! Relic Sheet journal page template }}
+<div class='neon-relic relic-sheet'>
+  <header class='relic-header'>
+    <h1>{{doc.name}}</h1>
+    <div class='relic-meta'>
+      <span class='label'>{{localize 'NEONRELIC.Artifact.ContainmentType'}}:</span>
+      <span class='value'>{{doc.system.containmentType}}</span>
+      <span class='label'>{{localize 'NEONRELIC.Artifact.ArtifactDie'}}:</span>
+      <span class='value'>d{{doc.system.artifactDie}}</span>
+    </div>
+  </header>
+
+  <section class='relic-section'>
+    <h2>{{localize 'NEONRELIC.Description'}}</h2>
+    <div class='relic-text'>{{{doc.system.description}}}</div>
+  </section>
+
+  <section class='relic-section'>
+    <h2>{{localize 'NEONRELIC.Artifact.Trigger'}}</h2>
+    <p>{{doc.system.triggerCondition}}</p>
+  </section>
+
+  <section class='relic-section'>
+    <h2>{{localize 'NEONRELIC.Artifact.Appetite'}}</h2>
+    <p>{{doc.system.appetite}}</p>
+  </section>
+
+  <section class='relic-section'>
+    <h2>{{localize 'NEONRELIC.Artifact.Emission'}}</h2>
+    <div class='emission-stats'>
+      <span class='label'>{{localize 'NEONRELIC.Artifact.EmissionType'}}:</span>
+      <span class='value'>{{doc.system.emissionType}}</span>
+      <span class='label'>{{localize 'NEONRELIC.Artifact.EmissionDamage'}}:</span>
+      <span class='value'>{{doc.system.emissionDamage}}</span>
+      <span class='label'>{{localize 'NEONRELIC.Artifact.EmissionDamageType'}}:</span>
+      <span class='value'>{{doc.system.emissionDamageType}}</span>
+    </div>
+  </section>
+
+  <section class='relic-section'>
+    <h2>{{localize 'NEONRELIC.Artifact.Quiescence'}}</h2>
+    <p>{{doc.system.quiescence}}</p>
+  </section>
+
+  <section class='relic-section'>
+    <h2>{{localize 'NEONRELIC.Artifact.Pressure'}}</h2>
+    <p>{{doc.system.activePressure}}</p>
+  </section>
+</div>
