@@ -1,0 +1,43 @@
+{
+  "id": "neon-relic",
+  "title": "Neon Relic",
+  "description": "An occult investigation TTRPG set in an alternate 1980s, built on the Year Zero Engine.",
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": 14,
+    "verified": 14
+  },
+  "esmodules": ["neon-relic.mjs"],
+  "styles": ["neon-relic.css"],
+  "languages": [{ "lang": "en", "name": "English", "path": "lang/en.json" }],
+  "documentTypes": {
+    "Actor": {
+      "agent": {},
+      "npc": {},
+      "mob": {},
+      "vehicle": {},
+      "headquarters": {}
+    },
+    "Item": {
+      "weapon": {},
+      "armor": {},
+      "gear": {},
+      "consumable": {},
+      "artifact": {},
+      "talent": {},
+      "criticalInjury": {},
+      "anchor": {},
+      "darkSecret": {},
+      "upgrade": {},
+      "location": {}
+    }
+  },
+  "packs": [],
+  "packFolders": [],
+  "primaryTokenAttribute": "attributes.str",
+  "secondaryTokenAttribute": "corruption",
+  "socket": true,
+  "authors": [{ "name": "Bruce", "flags": {} }],
+  "url": "https://github.com/bruceamoser/foundry-neon-relic-system",
+  "flags": {}
+}
