@@ -223,3 +223,151 @@ export class NPCDataModel extends foundry.abstract.TypeDataModel {
     };
   }
 }
+
+/* ------------------------------------------ */
+/*  HeadquartersDataModel                     */
+/* ------------------------------------------ */
+
+/**
+ * TypeDataModel for Headquarters (HQ) actors — tracks Standing,
+ * Development Points, upgrades, personnel, Threat, and vault state.
+ * @extends foundry.abstract.TypeDataModel
+ */
+export class HeadquartersDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      standing: new NumberField({ required: true, integer: true, min: 0, max: 20, initial: 0 }),
+      dp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+      threat: new NumberField({ required: true, integer: true, min: 0, max: 6, initial: 0 }),
+
+      // Cell members — Actor UUIDs
+      cellMembers: new ArrayField(new StringField()),
+
+      // Facility upgrades
+      upgrades: new ArrayField(
+        new SchemaField({
+          upgradeId: new StringField(),
+          purchased: new BooleanField({ initial: false }),
+        }),
+      ),
+
+      // Personnel
+      personnel: new ArrayField(
+        new SchemaField({
+          personnelId: new StringField(),
+          usedThisCase: new BooleanField({ initial: false }),
+          isCompromised: new BooleanField({ initial: false }),
+        }),
+      ),
+
+      // Vault
+      vault: new SchemaField({
+        storedArtifacts: new ArrayField(new StringField()), // Max 3
+        casesSinceConsecration: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+      }),
+
+      // Compromise log
+      compromiseLog: new ArrayField(
+        new SchemaField({
+          caseNumber: new NumberField({ integer: true }),
+          event: new StringField(),
+          outcome: new StringField(),
+        }),
+      ),
+
+      description: new HTMLField({ blank: true }),
+    };
+  }
+
+  /* ------------------------------------------ */
+
+  /** @override */
+  prepareDerivedData() {
+    // Standing rank from score
+    const s = this.standing;
+    if (s >= 20) this.standingRank = 'covenantElite';
+    else if (s >= 15) this.standingRank = 'honored';
+    else if (s >= 10) this.standingRank = 'trusted';
+    else if (s >= 5) this.standingRank = 'acknowledged';
+    else this.standingRank = 'unknown';
+
+    // Cell-wide CL floor from standing rank
+    const clByRank = { unknown: 1, acknowledged: 1, trusted: 2, honored: 3, covenantElite: 4 };
+    this.cellWideCL = clByRank[this.standingRank] ?? 1;
+
+    // Vault re-consecration needed every 3 cases
+    this.needsReconsecration = this.vault.casesSinceConsecration >= 3;
+  }
+}
+
+/* ------------------------------------------ */
+/*  MobDataModel                              */
+/* ------------------------------------------ */
+
+/**
+ * TypeDataModel for Mob actors — groups of enemies acting as a single unit.
+ * @extends foundry.abstract.TypeDataModel
+ */
+export class MobDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      memberCount: new NumberField({ required: true, integer: true, min: 1, max: 5, initial: 3 }),
+      memberHP: new NumberField({ required: true, integer: true, initial: 3 }),
+      sharedPool: new NumberField({ required: true, integer: true, min: 0, initial: 9 }),
+      bestPool: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+      bonusDice: new NumberField({ required: true, integer: true, min: 0, max: 3, initial: 0 }),
+      initiativeCard: new NumberField({ integer: true, nullable: true }),
+      templateNPC: new StringField({ blank: true }),
+      description: new HTMLField({ blank: true }),
+    };
+  }
+
+  /* ------------------------------------------ */
+
+  /** @override */
+  prepareDerivedData() {
+    this.sharedPool = this.memberCount * 3;
+    this.bonusDice = Math.min(this.memberCount - 1, 3);
+    this.activeMemberCount = Math.ceil(this.sharedPool / 3);
+    this.totalPool = this.bestPool + this.bonusDice;
+  }
+}
+
+/* ------------------------------------------ */
+/*  VehicleDataModel                          */
+/* ------------------------------------------ */
+
+/**
+ * TypeDataModel for Vehicle actors — wear tracking and stat management.
+ * @extends foundry.abstract.TypeDataModel
+ */
+export class VehicleDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      speed: new NumberField({ required: true, integer: true, min: 0, initial: 1 }),
+      ar: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+      reliability: new NumberField({ required: true, integer: true, min: 0, initial: 4 }),
+      handling: new NumberField({ required: true, integer: true, initial: 0 }),
+      capacity: new NumberField({ required: true, integer: true, min: 0, initial: 4 }),
+      noise: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+      wear: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+      sneakModifier: new NumberField({ required: true, integer: true, initial: 0 }),
+      crew: new SchemaField({
+        driver: new StringField({ nullable: true, initial: null }),
+        passengers: new ArrayField(new StringField()),
+      }),
+      cargo: new ArrayField(new StringField()),
+      description: new HTMLField({ blank: true }),
+    };
+  }
+
+  /* ------------------------------------------ */
+
+  /** @override */
+  prepareDerivedData() {
+    this.problemThreshold = Math.floor(this.reliability / 2);
+    this.stopsThreshold = this.reliability;
+    this.hasProblem = this.wear >= this.problemThreshold;
+    this.isStopped = this.wear >= this.stopsThreshold;
+  }
+}
