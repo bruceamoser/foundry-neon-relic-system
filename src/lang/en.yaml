@@ -548,3 +548,23 @@ NEONRELIC:
     Wear: Wear
     Problem: 'Vehicle has a problem!'
     Stopped: 'Vehicle has stopped!'
+
+  # Operations Board
+  OpsBoard:
+    Title: Operations Board
+    Shift: Shift
+    AdvanceShift: Advance Shift
+    ShiftAdvanced: Shift Advanced
+    Organizations: Organizations
+    Activate: Activate
+    Deactivate: Deactivate
+    ContainmentTruths: Containment Truths
+    Trigger: Trigger Condition
+    Appetite: Appetite
+    QuiescenceCondition: Quiescence Condition
+    AllTruthsFound: 'All containment truths identified!'
+    InformationCards: Information Cards
+    Flip: Flip
+    FoundAt: Found At
+    KnownBy: Known By
+    Hidden: '[Hidden]'
