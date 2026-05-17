@@ -145,3 +145,66 @@
     armorRating: 0
     fearRating: 0
     corruptionStage: 1
+
+# ── Information Cards ────────────────────────────────
+- _id: case-ic01
+  name: 'IC-01: Museum Break-In Report'
+  type: informationCard
+  system:
+    cardId: IC-01
+    cardType: supportingIntel
+    content: >
+      <p>The Kaltenberg Town Museum was broken into on the night of October 2.
+      The display case holding the medieval spear was opened without force — a
+      professional lockpick job. No other items were taken.</p>
+    foundAt: L3 (Town Museum)
+    knownBy: Herr Lehmann
+    hqFallback: 2
+    revealed: false
+
+- _id: case-ic02
+  name: 'IC-02: Night Visitors'
+  type: informationCard
+  system:
+    cardId: IC-02
+    cardType: supportingIntel
+    content: >
+      <p>The gasthaus owner has seen groups of 3-5 people entering the old church
+      after midnight for the past two weeks. They wear dark coats and carry
+      lanterns. She assumed they were restoration workers.</p>
+    foundAt: L1 (Town Square)
+    knownBy: Gasthaus Owner
+    hqFallback: 3
+    revealed: false
+
+- _id: case-ic03
+  name: 'IC-03: The Awakening Ritual'
+  type: informationCard
+  system:
+    cardId: IC-03
+    cardType: containmentTruth
+    content: >
+      <p>The Congregation of the Veil is performing a multi-night ritual
+      using the spear as a focus. If completed, it will permanently bond the
+      spear to the crypt, creating a localized tear in reality. The ritual
+      requires seven consecutive nights — they are on night five.</p>
+    foundAt: L2 (Old Church)
+    knownBy: ''
+    hqFallback: 5
+    revealed: false
+
+- _id: case-ic04
+  name: 'IC-04: The Well-Dressed Man'
+  type: informationCard
+  system:
+    cardId: IC-04
+    cardType: supportingIntel
+    content: >
+      <p>A well-dressed man visited the museum three days before the theft,
+      asking detailed questions about the spear's provenance and display
+      security. The curator remembers he had a slight Eastern European accent
+      and wore an expensive watch.</p>
+    foundAt: L3 (Town Museum)
+    knownBy: Herr Lehmann
+    hqFallback: 4
+    revealed: false

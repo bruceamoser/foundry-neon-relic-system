@@ -372,3 +372,27 @@ export class LocationDataModel extends foundry.abstract.TypeDataModel {
     };
   }
 }
+
+/* ------------------------------------------ */
+/*  InformationCardDataModel                  */
+/* ------------------------------------------ */
+
+/**
+ * TypeDataModel for Information Card items — case file clues, evidence,
+ * truths, and contacts with front/back reveal mechanic.
+ * @extends foundry.abstract.TypeDataModel
+ */
+export class InformationCardDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      cardId: new StringField({ initial: '', blank: true }),
+      cardType: new StringField({ initial: 'supportingIntel', blank: false }),
+      content: new HTMLField({ blank: true }),
+      foundAt: new StringField({ blank: true }),
+      knownBy: new StringField({ blank: true }),
+      hqFallback: new NumberField({ initial: 0, integer: true, min: 0 }),
+      revealed: new BooleanField({ initial: false }),
+      description: new HTMLField({ blank: true }),
+    };
+  }
+}

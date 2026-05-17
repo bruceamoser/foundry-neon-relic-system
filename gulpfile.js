@@ -97,6 +97,7 @@ async function buildPacks() {
     'darkSecret',
     'upgrade',
     'location',
+    'informationCard',
   ]);
   const ACTOR_TYPES = new Set(['agent', 'npc', 'mob', 'vehicle', 'headquarters']);
 

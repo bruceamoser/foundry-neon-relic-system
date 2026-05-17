@@ -112,6 +112,24 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         relativeTo: item,
       });
     }
+    if (item.type === 'informationCard') {
+      context.enrichedContent = await TextEditor.enrichHTML(system.content ?? '', {
+        async: true,
+        relativeTo: item,
+      });
+      // Precompute card type display class and select state
+      const typeClassMap = {
+        containmentTruth: 'truth',
+        supportingIntel: 'intel',
+      };
+      context.cardTypeClass = typeClassMap[system.cardType] ?? 'intel';
+      context.isTruth = system.cardType === 'containmentTruth';
+      context.isIntel = system.cardType === 'supportingIntel';
+      context.cardTypeChoices = {
+        supportingIntel: game.i18n.localize('NEONRELIC.InfoCard.SupportingIntel'),
+        containmentTruth: game.i18n.localize('NEONRELIC.InfoCard.ContainmentTruth'),
+      };
+    }
 
     // Render the type-specific partial to HTML
     context.typeContent = await foundry.applications.handlebars.renderTemplate(typeTemplatePath, context);

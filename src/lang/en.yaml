@@ -78,6 +78,7 @@ NEONRELIC:
     darkSecret: Dark Secret
     upgrade: Upgrade
     location: Location
+    informationCard: Information Card
 
   # Item shared
   Item:
@@ -657,6 +658,20 @@ NEONRELIC:
     SetDormant: Set Dormant
     ActivationCondition: Activation Condition
     Goal: Countdown Goal
+
+  # Information Cards
+  InfoCard:
+    Label: Information Card
+    CardId: Card ID
+    CardType: Card Type
+    Content: Content
+    FoundAt: Found At
+    KnownBy: Known By
+    HQFallback: HQ Fallback (Day)
+    ContainmentTruth: Containment Truth
+    SupportingIntel: Supporting Intel
+    DAReference: DA Reference
+    Revealed: Revealed
 
   # Scene Resolution
   Scene:
