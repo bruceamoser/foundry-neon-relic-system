@@ -173,3 +173,54 @@ export function addHelpDice(helperActor, skill, pool) {
  * @property {boolean} isPush - Whether this was a pushed roll.
  * @property {object} pool - The dice pool used.
  */
+
+/* ------------------------------------------ */
+/*  D66 Roll                                  */
+/* ------------------------------------------ */
+
+/**
+ * Roll a D66 — two d6 dice read as tens and ones (11-66).
+ * Used for critical injury tables, stunt tables, etc.
+ * @returns {Promise<{tens: number, ones: number, total: number, roll: Roll}>}
+ */
+export async function rollD66() {
+  const roll = new Roll('1d6 * 10 + 1d6');
+  await roll.evaluate();
+  const tens = roll.dice[0].results[0].result;
+  const ones = roll.dice[1].results[0].result;
+  return { tens, ones, total: tens * 10 + ones, roll };
+}
+
+/* ------------------------------------------ */
+/*  Group Roll                                */
+/* ------------------------------------------ */
+
+/**
+ * Execute a group roll — one designated leader rolls with their pool,
+ * and each helper contributes +1 die per point in the relevant skill (min 1).
+ * @param {object} params
+ * @param {object} params.leaderPool - Pool from buildPool() for the leader.
+ * @param {Actor[]} params.helpers - Array of helping actors.
+ * @param {string} params.skill - The skill key used for the group roll.
+ * @returns {Promise<{result: NRRollResult, helpDice: number, helperCount: number}>}
+ */
+export async function executeGroupRoll({ leaderPool, helpers = [], skill }) {
+  let helpDice = 0;
+  let helperCount = 0;
+
+  for (const helper of helpers) {
+    const skillValue = helper.system?.skills?.[skill] ?? 0;
+    if (skillValue >= 1) {
+      helpDice += skillValue;
+      helperCount++;
+    }
+  }
+
+  // Add help dice to the leader's pool
+  const augmentedPool = { ...leaderPool };
+  augmentedPool.skillDice += helpDice;
+  augmentedPool.totalPool += helpDice;
+
+  const result = await executeRoll(augmentedPool);
+  return { result, helpDice, helperCount };
+}
