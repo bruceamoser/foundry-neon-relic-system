@@ -127,6 +127,7 @@ export async function preloadHandlebarsTemplates() {
     'systems/neon-relic/templates/actor/mob/mob-sheet.hbs',
     'systems/neon-relic/templates/actor/hq/hq-sheet.hbs',
     'systems/neon-relic/templates/actor/vehicle/vehicle-sheet.hbs',
+    'systems/neon-relic/templates/roll/stunt-picker.hbs',
   ];
   return loadTemplates(templatePaths);
 }

@@ -1,0 +1,43 @@
+<div class='stunt-picker-content'>
+  <div class='sp-budget'>
+    <span class='sp-label'>{{localize 'NEONRELIC.Stunt.Available'}}:</span>
+    <span class='sp-total'>{{stuntPoints}}</span>
+    <span class='sp-separator'>|</span>
+    <span class='sp-label'>{{localize 'NEONRELIC.Stunt.Remaining'}}:</span>
+    <span class='sp-remaining'>{{remainingSP}}</span>
+  </div>
+
+  {{#if hasSkillStunts}}
+    <fieldset class='skill-stunts'>
+      <legend>{{skillLabel}}</legend>
+      {{#each skillStunts}}
+        <div class='stunt-entry' data-selected='{{this.selected}}' data-affordable='{{this.affordable}}'>
+          <button type='button' data-action='toggleStunt' data-stunt-id='{{this.id}}'>
+            <span class='stunt-cost'>{{this.cost}} SP</span>
+            <span class='stunt-name'>{{this.localName}}</span>
+          </button>
+          <p class='stunt-effect'>{{this.localEffect}}</p>
+        </div>
+      {{/each}}
+    </fieldset>
+  {{/if}}
+
+  <fieldset class='generic-stunts'>
+    <legend>{{localize 'NEONRELIC.Stunt.Generic'}}</legend>
+    {{#each genericStunts}}
+      <div class='stunt-entry' data-selected='{{this.selected}}' data-affordable='{{this.affordable}}'>
+        <button type='button' data-action='toggleStunt' data-stunt-id='{{this.id}}'>
+          <span class='stunt-cost'>{{this.cost}} SP</span>
+          <span class='stunt-name'>{{this.localName}}</span>
+        </button>
+        <p class='stunt-effect'>{{this.localEffect}}</p>
+      </div>
+    {{/each}}
+  </fieldset>
+
+  <div class='stunt-actions'>
+    <button type='button' data-action='confirmStunts' {{disabled (not canConfirm)}}>
+      {{localize 'NEONRELIC.Stunt.Confirm'}}
+    </button>
+  </div>
+</div>
