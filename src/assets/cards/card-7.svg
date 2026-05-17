@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 63 88">
+  <rect x="1" y="1" width="61" height="86" rx="4" fill="#f5f0e6" stroke="#333" stroke-width="1"/>
+  <text x="8" y="20" font-family="serif" font-size="14" fill="#333">7</text>
+  <text x="31.5" y="55" text-anchor="middle" font-family="serif" font-size="32" fill="#333">7</text>
+  <text x="55" y="78" text-anchor="end" font-family="serif" font-size="14" fill="#333" transform="rotate(180,55,72)">7</text>
+</svg>
