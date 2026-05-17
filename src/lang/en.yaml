@@ -554,6 +554,7 @@ NEONRELIC:
     TotalPool: Total Pool
     ActiveMembers: Active Members
     TemplateNPC: Template NPC
+    Eliminated: Mob eliminated
 
   # Headquarters
   HQ:
@@ -571,6 +572,10 @@ NEONRELIC:
       Trusted: Trusted
       Honored: Honored
       CovenantElite: Covenant Elite
+    Tier:
+      Basic: Basic
+      Improved: Improved
+      Advanced: Advanced
 
   # Vehicle
   Vehicle:
@@ -752,3 +757,59 @@ NEONRELIC:
       OrgNeutralized: Organization neutralized (+1 DP)
       LowThreat: Threat stayed low (+1 DP)
       BonusObjective: Bonus objective completed (+1 DP)
+
+  # Social Conflict
+  Social:
+    Roll: Social Roll
+    Disposition: Disposition
+    Hostile: Hostile
+    Unfriendly: Unfriendly
+    Neutral: Neutral
+    Friendly: Friendly
+    Allied: Allied
+    Stunt:
+      Shift: Shift Disposition
+      Extract: Extract Information
+      Opening: Create Opening
+      DeepRead: Deep Read
+      Turn: Turn Witness
+
+  # Chase
+  Chase:
+    Caught: Caught
+    Close: Close
+    Medium: Medium Distance
+    Far: Far
+    Escaped: Escaped
+    Position: Position
+    Accelerate: Accelerate
+    Brake: Brake
+    Shortcut: Shortcut
+    Block: Block
+
+  # Travel
+  Travel:
+    TailCheck: Tail Detection Check
+    TailDetected: Tail detected
+    NoTail: No tail detected
+    TailLoss: Tail Loss Attempt
+    TailLost: Tail lost
+    TailPersists: Tail persists
+    RoadEvent: Road Event
+    Route:
+      Highway: Highway
+      Backroad: Back Road
+      Offroad: Off-Road
+      Urban: Urban Streets
+    Weather:
+      Clear: Clear
+      Rain: Rain
+      Fog: Fog
+      Storm: Storm
+    Road:
+      Breakdown: Vehicle breakdown
+      Detour: Road blocked — detour
+      Encounter: Local encounter
+      Weather: Bad weather
+      Shortcut: Shortcut found
+      Tail: Tail detected
