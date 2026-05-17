@@ -396,6 +396,32 @@ NEONRELIC:
     CardDraw: Card Draw
     Reshuffle: Deck reshuffled
 
+  # Fear
+  Fear:
+    FearCheck: Fear Check
+    Passed: Passed
+    Failed: Failed
+    WitsDamage: Wits Damage
+    OnesCorruption: Rolled 1s — +1 Corruption
+    PanicTable: 'Panic Table'
+    FearRating: Fear Rating
+    Escalated: Escalated
+    KnownEntity: Known Entity
+    Panic:
+      Fight: Fight
+      Flight: Flight
+      Freeze: Freeze
+      Denial: Denial
+      Compulsion: Compulsion
+      Fugue: Fugue
+    PanicEffect:
+      Fight: Brawl attack at nearest target. If ally — +1 Corruption guilt.
+      Flight: Run 2 zones/round for 1d6 rounds. Drop held items.
+      Freeze: Paralyzed until ally Psychoanalyze (Diff 1) or source hidden.
+      Denial: Cannot acknowledge entity. Ally Psychoanalyze (Diff 2); becomes Shaken.
+      Compulsion: Locked in repetitive behavior. Ally Psychoanalyze (Diff 2).
+      Fugue: DA takes sheet for scene. Ally Psychoanalyze (Diff 3); then -2 dice rest of scene.
+
   # Conditions
   Condition:
     Broken: Broken
