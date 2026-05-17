@@ -26,7 +26,6 @@
 // Layered effect: horizontal line pattern + radial vignettes + noise dots
 
 @mixin paper-texture {
-  position: relative;
   background: $nr-paper;
 
   &::before {
