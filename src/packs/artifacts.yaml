@@ -1,0 +1,174 @@
+# Artifacts Compendium Pack
+# Neon Relic — Year Zero Engine
+# 9 artifacts with full stats
+---
+- _id: art001
+  name: The Crimson Lens
+  type: artifact
+  system:
+    description: >
+      A cracked monocle of deep red glass, rimmed in tarnished brass.
+      When activated, reveals hidden occult traces and entity residue.
+    containmentType: quiescence
+    artifactDie: 8
+    corruptionCost: 1
+    emissionType: aura
+    emissionDamage: 1
+    emissionDamageType: horror
+    triggerCondition: Looking through the lens at a person or scene.
+    appetite: Secrets. Feeds on concealed truths.
+    quiescence: Must be wrapped in black silk and stored in total darkness.
+    activePressure: 1
+    replicable: false
+
+- _id: art002
+  name: The Whispering Compass
+  type: artifact
+  system:
+    description: >
+      An antique brass compass whose needle spins toward sources of
+      supernatural energy. It murmurs in an unknown language when active.
+    containmentType: quiescence
+    artifactDie: 10
+    corruptionCost: 1
+    emissionType: aura
+    emissionDamage: 0
+    emissionDamageType: trauma
+    triggerCondition: Holding and focusing intention on a direction.
+    appetite: Purpose. Feeds on the user's sense of direction and certainty.
+    quiescence: Submerge in salt water. Murmuring stops after 24 hours.
+    activePressure: 1
+    replicable: false
+
+- _id: art003
+  name: The Iron Bell
+  type: artifact
+  system:
+    description: >
+      A small hand bell of black iron. When rung, it creates a zone
+      of silence where no sound enters or escapes for d6 rounds.
+    containmentType: shielding
+    artifactDie: 8
+    corruptionCost: 2
+    emissionType: pulse
+    emissionDamage: 1
+    emissionDamageType: exhaustion
+    triggerCondition: Ringing the bell with intent.
+    appetite: Sound. Absorbs ambient noise when dormant.
+    quiescence: Cannot be fully quiesced. Must be shielded.
+    activePressure: 2
+    replicable: false
+
+- _id: art004
+  name: The Bone Dice
+  type: artifact
+  system:
+    description: >
+      A pair of yellowed bone dice carved with symbols instead of pips.
+      Rolling them reveals fragments of probable futures.
+    containmentType: quiescence
+    artifactDie: 6
+    corruptionCost: 2
+    emissionType: aura
+    emissionDamage: 1
+    emissionDamageType: trauma
+    triggerCondition: Rolling the dice while asking a question.
+    appetite: Chance. Draws probability toward itself, causing minor accidents nearby.
+    quiescence: Store in a lead-lined box with grains of rice (absorbs probability flux).
+    activePressure: 1
+    replicable: false
+
+- _id: art005
+  name: "The Surgeon's Mirror"
+  type: artifact
+  system:
+    description: >
+      A hand mirror with a cracked silver surface. Shows the viewer
+      their body from the inside — organs, bones, wounds, diseases.
+    containmentType: quiescence
+    artifactDie: 8
+    corruptionCost: 1
+    emissionType: aura
+    emissionDamage: 1
+    emissionDamageType: horror
+    triggerCondition: Looking into the mirror while thinking of a person.
+    appetite: Vanity. The user becomes obsessed with self-examination.
+    quiescence: Cover with opaque cloth. Do not let reflected light touch it.
+    activePressure: 1
+    replicable: false
+
+- _id: art006
+  name: The Drowning Coin
+  type: artifact
+  system:
+    description: >
+      An ancient coin green with verdigris. When pressed to skin,
+      the holder can breathe underwater but feels a crushing pressure.
+    containmentType: quiescence
+    artifactDie: 10
+    corruptionCost: 1
+    emissionType: aura
+    emissionDamage: 0
+    emissionDamageType: exhaustion
+    triggerCondition: Pressing the coin against bare skin.
+    appetite: Breath. Those nearby feel slightly short of breath.
+    quiescence: Keep submerged in fresh water. Change water weekly.
+    activePressure: 1
+    replicable: false
+
+- _id: art007
+  name: The Charcoal Portrait
+  type: artifact
+  system:
+    description: >
+      A charcoal self-portrait that changes to reflect the viewer.
+      Studying it reveals the viewer's deepest fear made manifest.
+    containmentType: shielding
+    artifactDie: 6
+    corruptionCost: 3
+    emissionType: burst
+    emissionDamage: 3
+    emissionDamageType: horror
+    triggerCondition: Staring at the portrait for more than 10 seconds.
+    appetite: Fear. Feeds on anxiety and dread in its vicinity.
+    quiescence: Cannot be quiesced. Must be shielded behind warded glass.
+    activePressure: 3
+    replicable: false
+
+- _id: art008
+  name: The Cordite Lighter
+  type: artifact
+  system:
+    description: >
+      A Zippo-style lighter that produces a flame that cannot be
+      extinguished by wind or water. Burns through any material.
+    containmentType: quiescence
+    artifactDie: 8
+    corruptionCost: 1
+    emissionType: aura
+    emissionDamage: 1
+    emissionDamageType: physical
+    triggerCondition: Flicking the lighter open and striking.
+    appetite: Fuel. Nearby flammable materials dry out and become brittle.
+    quiescence: Close the cap and seal in asbestos-lined case. Do not open.
+    activePressure: 1
+    replicable: false
+
+- _id: art009
+  name: The Static Radio
+  type: artifact
+  system:
+    description: >
+      A 1960s transistor radio permanently tuned to a dead frequency.
+      Occasionally broadcasts messages from the other side.
+    containmentType: banishment
+    artifactDie: 12
+    corruptionCost: 2
+    emissionType: pulse
+    emissionDamage: 2
+    emissionDamageType: trauma
+    triggerCondition: Turning the dial to the dead frequency.
+    appetite: Isolation. Those nearby feel increasingly alone and disconnected.
+    quiescence: Cannot be quiesced or shielded. Must be banished.
+    activePressure: 4
+    replicable: false

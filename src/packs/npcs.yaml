@@ -1,0 +1,187 @@
+# NPCs and Supernatural Entities Compendium Pack
+# Neon Relic — Year Zero Engine
+---
+# ── Human NPCs ──────────────────────────────
+- _id: npc001
+  name: Street Informant
+  type: npc
+  system:
+    tier: 1
+    description: A low-level contact who trades rumors for cash.
+    attributes:
+      str: 2
+      agi: 3
+      wit: 3
+      emp: 2
+    skills:
+      investigate: 2
+      stealth: 2
+      persuade: 1
+    armorRating: 0
+    fearRating: 0
+
+- _id: npc002
+  name: Corrupt Officer
+  type: npc
+  system:
+    tier: 2
+    description: A police officer on someone's payroll. Dangerous when cornered.
+    attributes:
+      str: 3
+      agi: 3
+      wit: 3
+      emp: 2
+    skills:
+      rangedCombat: 3
+      investigate: 2
+      brawl: 2
+      drive: 2
+    armorRating: 2
+    fearRating: 0
+
+- _id: npc003
+  name: Cult Acolyte
+  type: npc
+  system:
+    tier: 2
+    description: A true believer in the occult. Willing to sacrifice everything.
+    attributes:
+      str: 2
+      agi: 2
+      wit: 3
+      emp: 2
+    skills:
+      lore: 3
+      brawl: 1
+      stealth: 2
+    armorRating: 0
+    fearRating: 1
+    corruptionStage: 1
+
+- _id: npc004
+  name: Cult Leader
+  type: npc
+  system:
+    tier: 3
+    description: Charismatic and dangerous. Commands loyal followers and artifact knowledge.
+    attributes:
+      str: 3
+      agi: 2
+      wit: 4
+      emp: 4
+    skills:
+      lore: 4
+      persuade: 4
+      psychoanalyze: 3
+      brawl: 2
+    armorRating: 0
+    fearRating: 2
+    corruptionStage: 2
+
+- _id: npc005
+  name: Government Agent
+  type: npc
+  system:
+    tier: 3
+    description: Federal agent investigating the same phenomena. May be ally or obstacle.
+    attributes:
+      str: 3
+      agi: 3
+      wit: 4
+      emp: 3
+    skills:
+      rangedCombat: 3
+      investigate: 4
+      persuade: 3
+      drive: 2
+      stealth: 2
+    armorRating: 4
+    fearRating: 0
+
+# ── Supernatural Entities ───────────────────
+- _id: ent001
+  name: Shadow Stalker
+  type: npc
+  system:
+    tier: 3
+    description: >
+      A semi-corporeal entity that inhabits dark spaces.
+      Drawn to fear and negative emotion. Attacks by draining warmth and hope.
+    attributes:
+      str: 2
+      agi: 5
+      wit: 3
+      emp: 1
+    skills:
+      stealth: 5
+      brawl: 3
+    armorRating: 0
+    fearRating: 3
+    escalatedFR: 5
+    corruptionStage: 3
+
+- _id: ent002
+  name: The Hollow Man
+  type: npc
+  system:
+    tier: 4
+    description: >
+      Appears as a person-shaped void. No features, no voice.
+      Contact causes memory loss and identity erosion.
+    attributes:
+      str: 4
+      agi: 3
+      wit: 5
+      emp: 0
+    skills:
+      brawl: 4
+      stealth: 4
+    armorRating: 4
+    fearRating: 4
+    escalatedFR: 6
+    corruptionStage: 4
+
+- _id: ent003
+  name: Resonance Echo
+  type: npc
+  system:
+    tier: 3
+    description: >
+      A psychic afterimage of a traumatic event. Replays endlessly,
+      drawing witnesses into the memory. Those trapped experience the
+      original trauma as if it were happening to them.
+    attributes:
+      str: 0
+      agi: 0
+      wit: 5
+      emp: 5
+    skills:
+      psychoanalyze: 4
+      lore: 3
+    armorRating: 0
+    fearRating: 3
+    escalatedFR: 5
+    corruptionStage: 2
+
+- _id: ent004
+  name: The Collector
+  type: npc
+  system:
+    tier: 5
+    description: >
+      An ancient entity that covets artifacts. Appears as a well-dressed
+      figure from another era. Trades impossible knowledge for impossible prices.
+    attributes:
+      str: 5
+      agi: 4
+      wit: 6
+      emp: 3
+    skills:
+      lore: 6
+      persuade: 5
+      brawl: 4
+      stealth: 3
+    armorRating: 6
+    fearRating: 5
+    escalatedFR: 7
+    corruptionStage: 5

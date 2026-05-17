@@ -1,0 +1,139 @@
+# Talents Compendium Pack
+# Neon Relic — Year Zero Engine
+---
+# ── General Talents ─────────────────────────
+- _id: tal-g01
+  name: Tough
+  type: talent
+  system:
+    talentType: general
+    description: You can take more punishment than most. +2 to Corruption threshold.
+    thresholdMod: 2
+
+- _id: tal-g02
+  name: Quick Reflexes
+  type: talent
+  system:
+    talentType: general
+    description: Draw 2 initiative cards and choose the best one.
+    effect: Draw 2, keep best.
+
+- _id: tal-g03
+  name: Iron Will
+  type: talent
+  system:
+    talentType: general
+    description: Once per session, ignore the effects of a Fear Check failure.
+    oncePerSession: true
+
+- _id: tal-g04
+  name: Field Medic
+  type: talent
+  system:
+    talentType: general
+    description: +1 die to Medicine rolls in combat.
+    conditionalModifier: '+1 Medicine in combat'
+
+- _id: tal-g05
+  name: Scrounger
+  type: talent
+  system:
+    talentType: general
+    description: +1 die to all scavenging rolls.
+    conditionalModifier: '+1 Investigate (scavenging)'
+
+# ── Division Talents ────────────────────────
+- _id: tal-d01
+  name: Codex Insight
+  type: talent
+  system:
+    talentType: division
+    division: wayfinder
+    description: Once per session, consult the Verdant Codex for +2 dice to a Lore roll.
+    oncePerSession: true
+
+- _id: tal-d02
+  name: Field Recovery
+  type: talent
+  system:
+    talentType: division
+    division: recovery
+    description: When recovering an artifact, ignore the first point of Corruption from handling.
+
+- _id: tal-d03
+  name: Warden's Vigil
+  type: talent
+  system:
+    talentType: division
+    division: keep
+    description: +2 dice to containment ritual rolls when in the Vault.
+    conditionalModifier: '+2 Lore (containment in Vault)'
+
+# ── Sub-Unit Talents ────────────────────────
+- _id: tal-s01
+  name: Deep Cover
+  type: talent
+  system:
+    talentType: subunit
+    subunit: counterintelligence
+    description: +2 dice to Stealth when operating under cover identity.
+    conditionalModifier: '+2 Stealth (cover identity)'
+
+- _id: tal-s02
+  name: Heavy Hitter
+  type: talent
+  system:
+    talentType: subunit
+    subunit: heavy-hitter
+    description: +1 damage to all melee attacks.
+    conditionalModifier: '+1 melee damage'
+
+- _id: tal-s03
+  name: Acquisition Expert
+  type: talent
+  system:
+    talentType: subunit
+    subunit: acquisition
+    description: +1 die to Drive and Stealth during artifact retrieval.
+    conditionalModifier: '+1 Drive/Stealth (retrieval)'
+
+# ── Background Talents ──────────────────────
+- _id: tal-b01
+  name: Streetwise
+  type: talent
+  system:
+    talentType: background
+    description: +1 die to Investigate and Persuade in urban environments.
+    conditionalModifier: '+1 Investigate/Persuade (urban)'
+
+- _id: tal-b02
+  name: Academic
+  type: talent
+  system:
+    talentType: background
+    description: +1 die to Lore and Investigate when researching in libraries or archives.
+    conditionalModifier: '+1 Lore/Investigate (research)'
+
+- _id: tal-b03
+  name: Survivor
+  type: talent
+  system:
+    talentType: background
+    description: Once per session, re-roll a failed Endure roll.
+    oncePerSession: true
+
+- _id: tal-b04
+  name: Connected
+  type: talent
+  system:
+    talentType: background
+    description: Once per session, call in a favor from an NPC contact.
+    oncePerSession: true
+
+- _id: tal-b05
+  name: Combat Veteran
+  type: talent
+  system:
+    talentType: background
+    description: '+1 die to Ranged Combat when in cover.'
+    conditionalModifier: '+1 Ranged Combat (in cover)'

@@ -1,0 +1,136 @@
+# Roll Tables Compendium Pack
+# Neon Relic — Year Zero Engine
+# d6, d12, d66 tables
+---
+- _id: rtbl001
+  name: Panic Table (d6)
+  type: rollTable
+  system:
+    formula: 1d6
+    entries:
+      - range: [1, 1]
+        result: 'Fight — Brawl attack at nearest target'
+      - range: [2, 2]
+        result: 'Flight — Run 2 zones/round for d6 rounds'
+      - range: [3, 3]
+        result: 'Freeze — Paralyzed until ally helps'
+      - range: [4, 4]
+        result: 'Denial — Refuse to acknowledge threat'
+      - range: [5, 5]
+        result: 'Compulsion — Repeat an action obsessively'
+      - range: [6, 6]
+        result: 'Fugue — Blackout, DA controls for d6 rounds'
+
+- _id: rtbl002
+  name: Compromise Events (d6)
+  type: rollTable
+  system:
+    formula: 1d6
+    entries:
+      - range: [1, 1]
+        result: Surveillance — Agents are watched for 1 shift
+      - range: [2, 2]
+        result: Interference — Rival cell disrupts next operation
+      - range: [3, 3]
+        result: 'Leak — One org gains +2 countdown'
+      - range: [4, 4]
+        result: Ambush — Extra enemies in next combat
+      - range: [5, 5]
+        result: 'Betrayal — NPC ally is compromised'
+      - range: [6, 6]
+        result: 'Escalation — All org countdowns advance +1'
+
+- _id: rtbl003
+  name: Road Events (d6)
+  type: rollTable
+  system:
+    formula: 1d6
+    entries:
+      - range: [1, 1]
+        result: 'Breakdown — Roll vehicle breakdown check'
+      - range: [2, 2]
+        result: 'Detour — Road blocked, lose 1 shift'
+      - range: [3, 3]
+        result: 'Encounter — Social check with locals'
+      - range: [4, 4]
+        result: 'Weather — -1 to Drive rolls this shift'
+      - range: [5, 5]
+        result: 'Shortcut — Save half a shift'
+      - range: [6, 6]
+        result: 'Tail — Begin chase or evasion'
+
+- _id: rtbl004
+  name: Crafting Failure (d6)
+  type: rollTable
+  system:
+    formula: 1d6
+    entries:
+      - range: [1, 1]
+        result: Waste — Components destroyed
+      - range: [2, 2]
+        result: 'Fragile — Item breaks after one use'
+      - range: [3, 3]
+        result: 'Slow — Extra action needed'
+      - range: [4, 4]
+        result: 'Loud — Enemies alerted'
+      - range: [5, 5]
+        result: 'Injury — 1 Physical damage'
+      - range: [6, 6]
+        result: 'Unstable — Unpredictable side effect'
+
+- _id: rtbl005
+  name: Scavenging Finds (d6)
+  type: rollTable
+  system:
+    formula: 1d6
+    entries:
+      - range: [1, 1]
+        result: 'Nothing useful'
+      - range: [2, 2]
+        result: 'Scrap junk (1 component)'
+      - range: [3, 3]
+        result: 'Repair parts (2 components)'
+      - range: [4, 4]
+        result: 'Basic supplies (rations, bandages)'
+      - range: [5, 5]
+        result: 'Usable gear (random common item)'
+      - range: [6, 6]
+        result: "Rare find (DA's choice)"
+
+- _id: rtbl006
+  name: Containment Backlash (d6)
+  type: rollTable
+  system:
+    formula: 1d6
+    entries:
+      - range: [1, 1]
+        result: 'Feedback — Ritualist takes 2 Horror damage'
+      - range: [2, 2]
+        result: 'Surge — Artifact emits burst, all in zone affected'
+      - range: [3, 3]
+        result: 'Tether — Artifact bonds to ritualist (+1 Corruption/shift)'
+      - range: [4, 4]
+        result: 'Echo — Entity manifests for d6 rounds'
+      - range: [5, 5]
+        result: 'Fracture — Artifact die steps down 2'
+      - range: [6, 6]
+        result: 'Breach — Containment fails, artifact fully activates'
+
+- _id: rtbl007
+  name: Rival Cell Actions (d6)
+  type: rollTable
+  system:
+    formula: 1d6
+    entries:
+      - range: [1, 1]
+        result: 'Scout — Rival gathers intel'
+      - range: [2, 2]
+        result: 'Acquire — Rival gets minor artifact'
+      - range: [3, 3]
+        result: 'Sabotage — Agent resource damaged'
+      - range: [4, 4]
+        result: 'Confront — Direct confrontation'
+      - range: [5, 5]
+        result: 'Alliance — Temporary cooperation offered'
+      - range: [6, 6]
+        result: 'Relic — Rival claims target relic'
