@@ -57,6 +57,13 @@ NEONRELIC:
     Marked: Marked
     Consumed: Consumed
     Lost: Lost
+    Nosebleeds: Nosebleeds/Migraines
+    Hallucinations: Auditory Hallucinations
+    Tremors: Eldritch Tremors
+    Distortion: Reality Distortion
+    ChronicFugue: Fugue States (Chronic)
+    Collapse: Collapse of Self
+    FugueTriggered: 'DA controls character for 1 round!'
 
   # Item Types
   ItemType:
