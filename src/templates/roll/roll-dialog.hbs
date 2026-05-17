@@ -1,0 +1,55 @@
+<div class='nr-roll-dialog'>
+  {{! Attribute }}
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Roll.Attribute'}}</label>
+    <select name='attribute'>
+      <option value=''>— {{localize 'NEONRELIC.Roll.None'}} —</option>
+      {{#each attributes as |label key|}}
+        <option value='{{key}}' {{selected key @root.attribute}}>{{localize label}}</option>
+      {{/each}}
+    </select>
+    <input type='number' name='attributeValue' value='{{attributeValue}}' min='0' max='5' />
+  </div>
+
+  {{! Skill }}
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Roll.Skill'}}</label>
+    <select name='skill'>
+      <option value=''>— {{localize 'NEONRELIC.Roll.None'}} —</option>
+      {{#each skills as |data key|}}
+        <option value='{{key}}' {{selected key @root.skill}}>{{localize data.label}}</option>
+      {{/each}}
+    </select>
+    <input type='number' name='skillValue' value='{{skillValue}}' min='0' max='5' />
+  </div>
+
+  {{! Gear Bonus }}
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Roll.GearBonus'}}</label>
+    <input type='number' name='gearBonus' value='{{gearBonus}}' min='0' />
+  </div>
+
+  {{! Modifier }}
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Roll.Modifier'}}</label>
+    <input type='number' name='modifier' value='{{modifier}}' />
+  </div>
+
+  {{! Difficulty }}
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Roll.Difficulty'}}</label>
+    <input type='number' name='difficulty' value='{{difficulty}}' min='0' max='5' />
+  </div>
+
+  {{! Total Pool }}
+  <div class='form-group pool-total'>
+    <label>{{localize 'NEONRELIC.Roll.TotalPool'}}</label>
+    <span class='pool-value'>{{totalPool}}</span>
+  </div>
+
+  {{! Notes }}
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Roll.Notes'}}</label>
+    <input type='text' name='notes' value='{{notes}}' placeholder='{{localize "NEONRELIC.Roll.NotesPlaceholder"}}' />
+  </div>
+</div>
