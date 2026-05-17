@@ -376,6 +376,21 @@ NEONRELIC:
     CapReached: Session healing cap reached
     ThresholdDrop: Threshold Reduced
     FearCheckRequired: "Corruption exceeds new threshold \u2014 immediate Fear Check required!"
+    StageChanged: Stage Changed
+
+  # Corruption Sources
+  CorruptionSource:
+    Push: Pushing a Roll
+    Talent: Division Talent
+    Artifact: Artifact Activation
+    FearOnes: "Fear Check \u2014 rolled 1s"
+    FearFailure: Failed Fear Check
+    Psychoanalyze: Psychoanalyze Contaminated NPC
+    PanicGuilt: "Panic \u2014 Fight (ally guilt)"
+    AllyContamination: Ally Contamination (Stage 10+)
+    PersonalPhase: Skipped Personal Phase
+    ArtifactPressure: Active Artifact Pressure
+    Cascade: Corruption Cascade
 
   # Resource Die
   ResourceDie:
