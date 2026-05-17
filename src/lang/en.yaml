@@ -395,6 +395,16 @@ NEONRELIC:
     CardAce: Ace
     CardDraw: Card Draw
     Reshuffle: Deck reshuffled
+    ReactiveAction: Reactive Action
+    FreeAction: Free Action
+    MoveOneZone: Move 1 Zone
+    MoveTwoZones: Move 2 Zones
+    Retreat: Retreat
+    Cover: Cover
+    InCover: In Cover
+    Surprise: Surprise Round
+    Surprised: Surprised
+    HasActed: Has Acted
 
   # Fear
   Fear:
