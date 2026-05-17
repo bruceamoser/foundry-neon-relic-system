@@ -616,6 +616,8 @@ NEONRELIC:
   # Vehicle
   Vehicle:
     Name: Vehicle Name
+    SheetType: Vehicle Record
+    Specifications: Specifications
     Speed: Speed
     AR: Armor Rating
     Reliability: Reliability
