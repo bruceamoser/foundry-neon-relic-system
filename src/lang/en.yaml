@@ -650,6 +650,14 @@ NEONRELIC:
     KnownBy: Known By
     Hidden: '[Hidden]'
 
+  # Organization Reference
+  OrgRef:
+    Title: Organization Reference
+    Activate: Activate
+    SetDormant: Set Dormant
+    ActivationCondition: Activation Condition
+    Goal: Countdown Goal
+
   # Scene Resolution
   Scene:
     Resolution: Scene Resolution

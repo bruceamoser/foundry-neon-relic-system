@@ -1,43 +1,103 @@
-{{! Organization Reference journal page template }}
-<div class='neon-relic org-reference'>
-  <header class='org-header'>
-    <h1>{{doc.name}}</h1>
+{{! Organization Reference — DA faction tracker }}
+<div class='org-reference-inner'>
+
+  {{! ── Header ── }}
+  <header class='org-ref-header'>
+    <div class='header-left'>
+      <h1 class='header-title'>{{localize 'NEONRELIC.OrgRef.Title'}}</h1>
+      <div class='header-subtitle'>Neon Relic &mdash; The Verdant Covenant</div>
+    </div>
+    <div class='header-right'>
+      <div class='classification'>{{localize 'NEONRELIC.CaseBrief.DAOnly'}}</div>
+    </div>
   </header>
 
-  <section class='org-section'>
-    <h2>{{localize 'NEONRELIC.Case.Description'}}</h2>
-    <div class='org-text'>{{{doc.system.description}}}</div>
-  </section>
+  {{! ── Organization Blocks ── }}
+  {{#each organizations}}
+    <div class='org-block {{this.statusClass}}'>
+      <div class='org-block-header'>
+        <strong class='org-name'>{{this.name}}</strong>
+        <span class='org-value'>{{this.countdown}}/{{this.maxCountdown}}</span>
+        <button type='button' data-action='toggleDormant' data-org-id='{{this.id}}' class='dormant-toggle'>
+          {{#if this.dormant}}
+            {{localize 'NEONRELIC.OrgRef.Activate'}}
+          {{else}}
+            {{localize 'NEONRELIC.OrgRef.SetDormant'}}
+          {{/if}}
+        </button>
+      </div>
 
-  <section class='org-section'>
-    <h2>{{localize 'NEONRELIC.Case.Countdown'}}</h2>
-    <div class='countdown-track'>
-      <span class='countdown-current'>{{doc.system.countdown}}</span>
-      <span class='countdown-sep'>/</span>
-      <span class='countdown-max'>{{doc.system.maxCountdown}}</span>
+      {{! Milestone countdown boxes }}
+      <div class='milestone-track'>
+        {{#each this.milestoneBoxes}}
+          <div class='{{this.boxClass}}'>
+            {{this.number}}
+          </div>
+        {{/each}}
+        <div class='milestone-controls'>
+          <button
+            type='button'
+            data-action='retreatMilestone'
+            data-org-id='{{this.id}}'
+            class='milestone-btn'
+          >&minus;</button>
+          <button
+            type='button'
+            data-action='advanceMilestone'
+            data-org-id='{{this.id}}'
+            class='milestone-btn'
+          >&plus;</button>
+        </div>
+      </div>
+
+      {{! Milestones list }}
+      {{#if this.milestones.length}}
+        <div class='milestone-list'>
+          {{#each this.milestones}}
+            <div class='milestone-row'>
+              <span class='milestone-val'>{{this.position}}</span>
+              <span class='milestone-desc'>{{this.label}}</span>
+            </div>
+          {{/each}}
+        </div>
+      {{/if}}
+
+      {{! Detail row }}
+      <div class='org-detail-row'>
+        {{#if this.activationCondition}}
+          <div class='org-detail'>
+            <span class='field-label'>{{localize 'NEONRELIC.OrgRef.ActivationCondition'}}</span>
+            <div class='field-value'>{{this.activationCondition}}</div>
+          </div>
+        {{/if}}
+        {{#if this.countdownGoal}}
+          <div class='org-detail'>
+            <span class='field-label'>{{localize 'NEONRELIC.OrgRef.Goal'}}</span>
+            <div class='field-value'>{{this.countdownGoal}}</div>
+          </div>
+        {{/if}}
+      </div>
+
+      {{! Description }}
+      {{#if this.description}}
+        <div class='org-desc'>{{this.description}}</div>
+      {{/if}}
+
+      {{! Members }}
+      {{#if this.members.length}}
+        <div class='org-members'>
+          <span class='field-label'>{{localize 'NEONRELIC.Case.KeyMembers'}}</span>
+          {{#each this.members}}
+            <span class='member'>{{this.name}} ({{this.role}})</span>
+          {{/each}}
+        </div>
+      {{/if}}
     </div>
-    <p class='countdown-goal'>{{doc.system.countdownGoal}}</p>
-  </section>
+  {{/each}}
 
-  <section class='org-section'>
-    <h2>{{localize 'NEONRELIC.Case.KeyMembers'}}</h2>
-    <ul class='member-list'>
-      {{#each doc.system.members}}
-        <li>
-          <strong>{{this.name}}</strong>
-          {{#if this.role}} — {{this.role}}{{/if}}
-        </li>
-      {{/each}}
-    </ul>
-  </section>
-
-  <section class='org-section'>
-    <h2>{{localize 'NEONRELIC.Case.Resources'}}</h2>
-    <div class='org-text'>{{{doc.system.resources}}}</div>
-  </section>
-
-  <section class='org-section'>
-    <h2>{{localize 'NEONRELIC.Case.Notes'}}</h2>
-    <div class='org-text'>{{{doc.system.notes}}}</div>
-  </section>
+  {{! ── Footer ── }}
+  <footer class='org-ref-footer'>
+    <span>VC-20 &bull; The Verdant Covenant &bull; DA Use Only</span>
+    <span>Neon Relic</span>
+  </footer>
 </div>
