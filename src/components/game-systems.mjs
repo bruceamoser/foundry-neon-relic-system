@@ -10,9 +10,9 @@
  * Division requisition bonuses.
  */
 export const DIVISION_BONUSES = {
-  wayfinder: { key: 'wayfinder', label: 'NEONRELIC.Division.Wayfinder', bonusItems: ['codex'] },
-  recovery: { key: 'recovery', label: 'NEONRELIC.Division.Recovery', bonusItems: ['satchel'] },
-  keep: { key: 'keep', label: 'NEONRELIC.Division.Keep', bonusItems: ['bracer'] },
+  wayfinder: { key: 'wayfinder', label: 'NEONRELIC.Division.wayfinder', bonusItems: ['codex'] },
+  recovery: { key: 'recovery', label: 'NEONRELIC.Division.recovery', bonusItems: ['satchel'] },
+  keep: { key: 'keep', label: 'NEONRELIC.Division.keep', bonusItems: ['bracer'] },
 };
 
 /**

@@ -38,9 +38,9 @@ NEON_RELIC.skills = {
  * Divisions within The Verdant Covenant.
  */
 NEON_RELIC.divisions = {
-  wayfinder: 'NEONRELIC.Division.Wayfinder',
-  recovery: 'NEONRELIC.Division.Recovery',
-  keep: 'NEONRELIC.Division.Keep',
+  wayfinder: 'NEONRELIC.Division.wayfinder',
+  recovery: 'NEONRELIC.Division.recovery',
+  keep: 'NEONRELIC.Division.keep',
 };
 
 /**

@@ -1,3 +1,25 @@
+# Foundry V14 document type labels (top-level, not nested)
+TYPES:
+  Actor:
+    agent: Agent
+    npc: NPC
+    mob: Mob
+    vehicle: Vehicle
+    headquarters: Headquarters
+  Item:
+    weapon: Weapon
+    armor: Armor
+    gear: Gear
+    consumable: Consumable
+    artifact: Artifact
+    talent: Talent
+    criticalInjury: Critical Injury
+    anchor: Anchor
+    darkSecret: Dark Secret
+    upgrade: Upgrade
+    location: Location
+    informationCard: Information Card
+
 NEONRELIC:
   System: Neon Relic
   Welcome: Welcome to Neon Relic
@@ -39,9 +61,9 @@ NEONRELIC:
 
   # Divisions
   Division:
-    Wayfinder: Wayfinder
-    Recovery: Recovery
-    Keep: The Keep
+    wayfinder: Wayfinder
+    recovery: Recovery
+    keep: The Keep
 
   # Damage Types
   DamageType:

@@ -1,6 +1,9 @@
 // Neon Relic — World Setup Dialog Styles
 
 .neon-relic.world-setup {
+  background: $nr-paper;
+  color: $nr-ink;
+
   .world-setup-form {
     padding: $nr-spacing-sm;
   }
