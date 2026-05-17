@@ -1,9 +1,13 @@
 <section class='tab combat' data-group='primary' data-tab='combat'>
+  <div class='section-title'>{{localize 'NEONRELIC.Tab.Combat'}}</div>
+
+  {{! Initiative & Actions }}
   <div class='combat-header'>
-    <div class='form-group'>
-      <label>{{localize 'NEONRELIC.Combat.Initiative'}}</label>
+    <div class='combat-stat'>
+      <span class='id-label'>{{localize 'NEONRELIC.Combat.Initiative'}}</span>
       <input
         type='number'
+        class='combat-stat__value'
         name='system.initiative.cardValue'
         value='{{system.initiative.cardValue}}'
         min='1'
@@ -11,9 +15,8 @@
         {{disabled (not isEditable)}}
       />
     </div>
-
-    <div class='actions-tracker'>
-      <label>
+    <div class='combat-actions'>
+      <label class='action-toggle'>
         <input
           type='checkbox'
           name='system.actions.slow'
@@ -22,7 +25,7 @@
         />
         {{localize 'NEONRELIC.Combat.SlowAction'}}
       </label>
-      <label>
+      <label class='action-toggle'>
         <input
           type='checkbox'
           name='system.actions.fast'
@@ -34,59 +37,62 @@
     </div>
   </div>
 
-  <div class='conditions'>
-    <h3>{{localize 'NEONRELIC.Combat.Conditions'}}</h3>
-    <button
-      type='button'
-      data-action='toggleCondition'
-      data-condition='isBroken'
-      class='condition-btn'
-      data-active='{{system.conditions.isBroken}}'
-    >
+  {{! Conditions }}
+  <div class='combat-conditions'>
+    <button type='button' data-action='toggleCondition' data-condition='isBroken' class='{{brokenClass}}'>
       {{localize 'NEONRELIC.Condition.Broken'}}
     </button>
-    <button
-      type='button'
-      data-action='toggleCondition'
-      data-condition='isDying'
-      class='condition-btn'
-      data-active='{{system.conditions.isDying}}'
-    >
+    <button type='button' data-action='toggleCondition' data-condition='isDying' class='{{dyingClass}}'>
       {{localize 'NEONRELIC.Condition.Dying'}}
     </button>
   </div>
 
-  <div class='equipped-weapons'>
-    <h3>{{localize 'NEONRELIC.Combat.Weapons'}}</h3>
-    {{#each weapons}}
-      <div class='weapon-entry' data-item-id='{{this.id}}'>
-        <span class='weapon-name'>{{this.name}}</span>
-        <span class='weapon-damage'>{{this.system.damage}}</span>
-        <span class='weapon-range'>{{this.system.range}}</span>
-        <span class='weapon-bonus'>{{this.system.gearBonus.value}}/{{this.system.gearBonus.max}}</span>
-      </div>
-    {{/each}}
-  </div>
+  {{! Weapons }}
+  <div class='section-title green'>{{localize 'NEONRELIC.Combat.Weapons'}}</div>
+  {{#if weapons.length}}
+    <table class='gear-table'>
+      <thead>
+        <tr>
+          <th>{{localize 'NEONRELIC.Item.Name'}}</th>
+          <th class='center'>{{localize 'NEONRELIC.Weapon.Damage'}}</th>
+          <th class='center'>{{localize 'NEONRELIC.Weapon.Range'}}</th>
+          <th class='center'>{{localize 'NEONRELIC.Weapon.Bonus'}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each weapons}}
+          <tr class='item-row' data-item-id='{{this.id}}'>
+            <td>{{this.name}}</td>
+            <td class='center'>{{this.system.damage}}</td>
+            <td class='center'>{{this.system.range}}</td>
+            <td class='center'>{{this.system.gearBonus.value}}/{{this.system.gearBonus.max}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <p class='empty-list'>{{localize 'NEONRELIC.NoItems'}}</p>
+  {{/if}}
 
-  <div class='equipped-armor'>
-    <h3>{{localize 'NEONRELIC.Combat.Armor'}}</h3>
-    {{#each armor}}
-      <div class='armor-entry' data-item-id='{{this.id}}'>
-        <span class='armor-name'>{{this.name}}</span>
-        <span class='armor-ar'>{{this.system.ar.value}}/{{this.system.ar.max}}</span>
-      </div>
-    {{/each}}
-  </div>
+  {{! Armor }}
+  <div class='section-title'>{{localize 'NEONRELIC.Combat.Armor'}}</div>
+  {{#each armor}}
+    <div class='armor-entry' data-item-id='{{this.id}}'>
+      <span class='armor-name'>{{this.name}}</span>
+      <span class='armor-ar'>AR {{this.system.ar.value}}/{{this.system.ar.max}}</span>
+    </div>
+  {{/each}}
 
-  <div class='critical-injuries'>
-    <h3>{{localize 'NEONRELIC.Combat.CriticalInjuries'}}</h3>
+  {{! Critical Injuries }}
+  {{#if criticalInjuries.length}}
+    <div class='section-title red'>{{localize 'NEONRELIC.Combat.CriticalInjuries'}}</div>
     {{#each criticalInjuries}}
       <div class='injury-entry' data-item-id='{{this.id}}'>
         <span class='injury-name'>{{this.name}}</span>
         <span class='injury-type'>{{this.system.injuryType}}</span>
-        {{#if this.system.isLethal}}<span class='lethal-badge'>†</span>{{/if}}
-        {{#if this.system.isHealed}}<span class='healed-badge'>✓</span>{{/if}}
+        {{#if this.system.isLethal}}<span class='lethal-badge'>&dagger;</span>{{/if}}
+        {{#if this.system.isHealed}}<span class='healed-badge'>&check;</span>{{/if}}
       </div>
     {{/each}}
-  </div>
+  {{/if}}
 </section>

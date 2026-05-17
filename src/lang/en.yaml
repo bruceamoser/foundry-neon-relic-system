@@ -82,6 +82,9 @@ NEONRELIC:
   # Item shared
   Item:
     Name: Item Name
+    Bonus: Bonus
+    Enc: Enc
+    Die: Die
 
   # Roll Dialog
   Roll:
@@ -209,6 +212,7 @@ NEONRELIC:
   Weapon:
     Damage: Damage
     Range: Range
+    Bonus: Bonus
     GearBonus: Gear Bonus
     TargetAttribute: Target Attribute
     Traits: Traits
@@ -245,6 +249,7 @@ NEONRELIC:
   # Artifact
   Artifact:
     Tier: Tier
+    Die: A.Die
     ArtifactDie: Artifact Die
     CorruptionCost: Corruption Cost
     Activation: Activation Condition
@@ -359,22 +364,33 @@ NEONRELIC:
   # Agent
   Agent:
     Name: Agent Name
+    Dossier: Agent Dossier
     Division: Division
     SubUnit: Sub-Unit
     Specialty: Specialty
-    CL: Covenant Level
+    CL: Clearance Level
     Origin: Country of Origin
     Skills: Skills
     Encumbrance: Encumbrance
+    Equipment: Equipment & Requisitions
     DivisionItem: Division Item
     DivisionItemActive: Active
     Backstory: Backstory
+    Identity: Agent Identity
+    QuickStats: Quick Stats
+    PsychProfile: Psychological Profile
+
+  Classified: CLASSIFIED
+  NoItems: No items
 
   # Corruption
   Corruption:
     Label: Corruption
     Current: Current
     Threshold: Threshold
+    MaxThreshold: Max Threshold
+    MarkLeftToRight: Current Corruption — mark left to right
+    Catatonic: Catatonic Revelation
     SessionHealing: Session Healing
     HealedThisSession: Healed This Session
     HealingTagUsed: Healing Tag Uses

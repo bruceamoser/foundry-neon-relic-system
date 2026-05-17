@@ -1,53 +1,105 @@
 <section class='tab summary' data-group='primary' data-tab='summary'>
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Agent.Division'}}</label>
-    <select name='system.division' {{disabled (not isEditable)}}>
-      {{#each config.divisions as |label key|}}
-        <option value='{{key}}' {{selected key @root.system.division}}>{{localize label}}</option>
-      {{/each}}
-    </select>
+
+  {{! Identity Block }}
+  <div class='section-title'>{{localize 'NEONRELIC.Agent.Identity'}}</div>
+  <div class='id-block-row' style='grid-template-columns: 2.6fr 1fr 1fr;'>
+    <div class='id-cell'>
+      <span class='id-label'>{{localize 'NEONRELIC.Agent.Name'}}</span>
+      <input class='id-value' type='text' name='name' value='{{actor.name}}' {{disabled (not isEditable)}} />
+    </div>
+    <div class='id-cell'>
+      <span class='id-label'>{{localize 'NEONRELIC.Agent.Division'}}</span>
+      <select class='id-value' name='system.division' {{disabled (not isEditable)}}>
+        {{#each config.divisions as |label key|}}
+          <option value='{{key}}' {{selected key @root.system.division}}>{{localize label}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class='id-cell'>
+      <span class='id-label'>{{localize 'NEONRELIC.Agent.SubUnit'}}</span>
+      <input
+        class='id-value'
+        type='text'
+        name='system.subUnit'
+        value='{{system.subUnit}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+  </div>
+  <div class='id-block-row' style='grid-template-columns: 1fr 0.65fr 0.75fr 1.6fr;'>
+    <div class='id-cell'>
+      <span class='id-label'>{{localize 'NEONRELIC.Agent.Specialty'}}</span>
+      <input
+        class='id-value'
+        type='text'
+        name='system.specialty'
+        value='{{system.specialty}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='id-cell'>
+      <span class='id-label'>{{localize 'NEONRELIC.Agent.CL'}}</span>
+      <input
+        class='id-value'
+        type='number'
+        name='system.clearanceLevel'
+        value='{{system.clearanceLevel}}'
+        min='1'
+        max='5'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='id-cell'>
+      <span class='id-label'>{{localize 'NEONRELIC.Agent.Origin'}}</span>
+      <input
+        class='id-value'
+        type='text'
+        name='system.countryOfOrigin'
+        value='{{system.countryOfOrigin}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='id-cell'>
+      <span class='id-label'>{{localize 'NEONRELIC.Agent.DivisionItem'}}</span>
+      <label class='id-value division-item-toggle'>
+        <input
+          type='checkbox'
+          name='system.divisionItem.active'
+          {{checked system.divisionItem.active}}
+          {{disabled (not isEditable)}}
+        />
+        {{localize 'NEONRELIC.Agent.DivisionItemActive'}}
+      </label>
+    </div>
   </div>
 
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Agent.SubUnit'}}</label>
-    <input type='text' name='system.subUnit' value='{{system.subUnit}}' {{disabled (not isEditable)}} />
-  </div>
-
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Agent.Specialty'}}</label>
-    <input type='text' name='system.specialty' value='{{system.specialty}}' {{disabled (not isEditable)}} />
-  </div>
-
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Agent.CL'}}</label>
-    <input
-      type='number'
-      name='system.clearanceLevel'
-      value='{{system.clearanceLevel}}'
-      min='1'
-      max='5'
-      {{disabled (not isEditable)}}
-    />
-  </div>
-
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Agent.Origin'}}</label>
-    <input type='text' name='system.countryOfOrigin' value='{{system.countryOfOrigin}}' {{disabled (not isEditable)}} />
-  </div>
-
-  <div class='stats-overview'>
-    {{#each config.attributes as |label key|}}
+  {{! Quick Stats }}
+  <div class='section-title'>{{localize 'NEONRELIC.Agent.QuickStats'}}</div>
+  <div class='attr-grid'>
+    {{#each attrColumns}}
       <div class='stat-box'>
-        <span class='stat-label'>{{localize label}}</span>
-        <span class='stat-value'>{{lookup (lookup @root.system.attributes key) 'value'}}
-          /
-          {{lookup (lookup @root.system.attributes key) 'max'}}</span>
+        <span class='stat-label'>{{localize this.label}}</span>
+        <span class='stat-value'>{{this.value}}</span>
       </div>
     {{/each}}
   </div>
 
+  {{! Corruption Summary }}
   <div class='corruption-summary'>
-    <span class='label'>{{localize 'NEONRELIC.Corruption.Label'}}</span>
-    <span class='value'>{{system.corruption.value}} / {{system.corruption.threshold}}</span>
+    <span class='corruption-summary__label'>{{localize 'NEONRELIC.Corruption.Label'}}</span>
+    <span class='corruption-summary__value' data-stage='{{corruptionStage}}'>
+      {{system.corruption.value}}
+      /
+      {{system.corruption.threshold}}
+    </span>
+    <span class='corruption-summary__stage'>{{localize (concat 'NEONRELIC.CorruptionStage.' corruptionStage)}}</span>
   </div>
+
+  {{! Conditions }}
+  {{#if system.conditions.isBroken}}
+    <div class='danger-box condition-alert'>{{localize 'NEONRELIC.Condition.Broken'}}</div>
+  {{/if}}
+  {{#if system.conditions.isDying}}
+    <div class='danger-box condition-alert condition-alert--lethal'>{{localize 'NEONRELIC.Condition.Dying'}}</div>
+  {{/if}}
 </section>
