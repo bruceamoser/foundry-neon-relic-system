@@ -253,6 +253,11 @@ NEONRELIC:
     Containment: Containment
     ContainmentType: Profile Type
     Contained: Contained
+    ActivatedVerb: activated
+    DieRoll: Artifact Die Roll
+    Fractured: 'FRACTURED!'
+    CascadeWarning: "Corruption Cascade \u2014 3+ activated artifacts!"
+    LoreIdentified: Lore Identified
     TriggerCondition: Trigger Condition
     Appetite: Appetite
     Quiescence: Quiescence Condition
