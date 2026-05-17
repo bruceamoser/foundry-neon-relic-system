@@ -1,0 +1,18 @@
+<header class='agent-header flexrow'>
+  <img class='profile-img' src='{{actor.img}}' data-edit='img' title='{{actor.name}}' />
+  <div class='header-fields'>
+    <h1>
+      <input
+        name='name'
+        type='text'
+        value='{{actor.name}}'
+        placeholder='{{localize "NEONRELIC.Agent.Name"}}'
+        {{disabled (not isEditable)}}
+      />
+    </h1>
+    <div class='header-details'>
+      <span class='division'>{{localize (concat 'NEONRELIC.Division.' system.division)}}</span>
+      <span class='clearance-level'>{{localize 'NEONRELIC.Agent.CL'}} {{system.clearanceLevel}}</span>
+    </div>
+  </div>
+</header>

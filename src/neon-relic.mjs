@@ -29,6 +29,7 @@ import {
   LocationDataModel,
 } from './data/item-models.mjs';
 import { NRItemSheet } from './item/item-sheet.mjs';
+import { AgentSheet } from './actor/agent/agent-sheet.mjs';
 
 Hooks.once('init', () => {
   console.log('neon-relic | Initializing Neon Relic system');
@@ -68,6 +69,14 @@ Hooks.once('init', () => {
   Items.registerSheet('neon-relic', NRItemSheet, {
     makeDefault: true,
     label: 'NEONRELIC.Sheet.Item',
+  });
+
+  // Register actor sheets
+  Actors.unregisterSheet('core', foundry.applications.sheets.ActorSheetV2);
+  Actors.registerSheet('neon-relic', AgentSheet, {
+    types: ['agent'],
+    makeDefault: true,
+    label: 'NEONRELIC.Sheet.Agent',
   });
 
   // Preload shared template partials

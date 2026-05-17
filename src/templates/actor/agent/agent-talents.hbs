@@ -1,0 +1,29 @@
+<section class='tab talents' data-group='primary' data-tab='talents'>
+  {{#each talents}}
+    <div class='talent-entry' data-item-id='{{this.id}}'>
+      <div class='talent-header'>
+        <span class='talent-name'>{{this.name}}</span>
+        <span class='talent-type'>{{this.system.talentType}}</span>
+        {{#if this.system.hasHealingTag}}
+          <span class='healing-tag' title='{{localize "NEONRELIC.Talent.HealingTag"}}'>♥</span>
+        {{/if}}
+      </div>
+      <div class='talent-uses'>
+        {{#if this.system.isOncePerSession}}
+          <span class='once-label'>{{localize 'NEONRELIC.Talent.OncePerSession'}}</span>
+        {{else}}
+          <span>{{this.system.usesPerSession.value}} / {{this.system.usesPerSession.max}}</span>
+        {{/if}}
+        {{#if @root.isEditable}}
+          <button type='button' data-action='useTalent'>
+            <i class='fa-solid fa-bolt'></i>
+          </button>
+        {{/if}}
+      </div>
+      {{#if this.system.corruptionCost}}
+        <span class='corruption-cost'>{{localize 'NEONRELIC.Talent.CorruptionCost'}}:
+          {{this.system.corruptionCost}}</span>
+      {{/if}}
+    </div>
+  {{/each}}
+</section>

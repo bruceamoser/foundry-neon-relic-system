@@ -223,3 +223,51 @@ NEONRELIC:
     PositiveResult: Positive Result
     NegativeResult: Negative Result
     MilestoneChanges: Milestone Changes
+
+  # Tabs
+  Tab:
+    Summary: Summary
+    Attributes: Attributes
+    Combat: Combat
+    Gear: Gear
+    Talents: Talents
+    Corruption: Corruption
+    Biography: Biography
+
+  # Agent
+  Agent:
+    Name: Agent Name
+    Division: Division
+    SubUnit: Sub-Unit
+    Specialty: Specialty
+    CL: Covenant Level
+    Origin: Country of Origin
+    Skills: Skills
+    Encumbrance: Encumbrance
+    DivisionItem: Division Item
+    DivisionItemActive: Active
+    Backstory: Backstory
+
+  # Corruption
+  Corruption:
+    Label: Corruption
+    Current: Current
+    Threshold: Threshold
+    SessionHealing: Session Healing
+    HealedThisSession: Healed This Session
+    HealingTagUsed: Healing Tag Uses
+
+  # Combat
+  Combat:
+    Initiative: Initiative
+    SlowAction: Slow Action
+    FastAction: Fast Action
+    Conditions: Conditions
+    Weapons: Weapons
+    Armor: Armor
+    CriticalInjuries: Critical Injuries
+
+  # Conditions
+  Condition:
+    Broken: Broken
+    Dying: Dying

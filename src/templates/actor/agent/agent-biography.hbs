@@ -1,0 +1,43 @@
+<section class='tab biography' data-group='primary' data-tab='biography'>
+  {{#if anchor}}
+    <div class='anchor-section'>
+      <h3>{{localize 'NEONRELIC.ItemType.anchor'}}</h3>
+      <div class='anchor-entry' data-item-id='{{anchor.id}}'>
+        <span class='anchor-name'>{{anchor.name}}</span>
+        <span class='anchor-uses'>{{anchor.system.uses.value}} / {{anchor.system.uses.max}}</span>
+        {{#if anchor.system.isLost}}<span class='lost-badge'>{{localize 'NEONRELIC.Anchor.Lost'}}</span>{{/if}}
+      </div>
+    </div>
+  {{/if}}
+
+  {{#if darkSecret}}
+    <div class='dark-secret-section'>
+      <h3>{{localize 'NEONRELIC.ItemType.darkSecret'}}</h3>
+      <div class='secret-entry' data-item-id='{{darkSecret.id}}'>
+        <span class='secret-name'>{{darkSecret.name}}</span>
+        <span class='xp-trigger'>{{darkSecret.system.xpTrigger}}</span>
+      </div>
+    </div>
+  {{/if}}
+
+  <div class='division-item'>
+    <h3>{{localize 'NEONRELIC.Agent.DivisionItem'}}</h3>
+    <label>
+      <input
+        type='checkbox'
+        name='system.divisionItem.active'
+        {{checked system.divisionItem.active}}
+        {{disabled (not isEditable)}}
+      />
+      {{localize 'NEONRELIC.Agent.DivisionItemActive'}}
+    </label>
+  </div>
+
+  <div class='description-section'>
+    <h3>{{localize 'NEONRELIC.Agent.Backstory'}}</h3>
+    <div class='editor'>{{{enrichedDescription}}}</div>
+    {{#if isEditable}}
+      <textarea name='system.description' style='display:none;'>{{system.description}}</textarea>
+    {{/if}}
+  </div>
+</section>

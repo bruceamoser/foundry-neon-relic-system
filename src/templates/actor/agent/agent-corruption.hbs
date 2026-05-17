@@ -1,0 +1,48 @@
+<section class='tab corruption' data-group='primary' data-tab='corruption'>
+  <div class='corruption-track'>
+    <h3>{{localize 'NEONRELIC.Corruption.Label'}}</h3>
+    <div class='track-bar' data-stage='{{corruptionStage}}'>
+      <div
+        class='track-fill'
+        style='width: {{attributeBar system.corruption.value system.corruption.threshold}}%'
+      ></div>
+    </div>
+    <div class='track-values'>
+      <span class='current'>{{system.corruption.value}}</span>
+      <span class='separator'>/</span>
+      <span class='threshold'>{{system.corruption.threshold}}</span>
+    </div>
+    <div class='stage-label'>{{localize (concat 'NEONRELIC.CorruptionStage.' corruptionStage)}}</div>
+  </div>
+
+  <div class='corruption-details'>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Corruption.Current'}}</label>
+      <input
+        type='number'
+        name='system.corruption.value'
+        value='{{system.corruption.value}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Corruption.Threshold'}}</label>
+      <span>{{system.corruption.threshold}}</span>
+      <span class='threshold-breakdown'>(10 + {{system.attributes.emp.max}} EMP + mods)</span>
+    </div>
+
+    <div class='session-healing'>
+      <h4>{{localize 'NEONRELIC.Corruption.SessionHealing'}}</h4>
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.Corruption.HealedThisSession'}}</label>
+        <span>{{system.corruption.sessionHealing}} / 5</span>
+      </div>
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.Corruption.HealingTagUsed'}}</label>
+        <span>{{system.corruption.healingTagUsed}} / 3</span>
+      </div>
+    </div>
+  </div>
+</section>
