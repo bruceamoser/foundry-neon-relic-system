@@ -1,0 +1,240 @@
+// Neon Relic — Operations Board Styles
+// Landscape case management board with countdown tracks
+
+.neon-relic.operations-board {
+  background: $nr-paper;
+
+  // ── Header ──────────────────────────────────────────
+  .ops-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 3px solid $nr-ink;
+    border-bottom: 2px solid $nr-ink;
+    padding: 6px 8px;
+    margin-bottom: 8px;
+
+    h2 {
+      font-family: $nr-font-main;
+      font-size: 14pt;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: $nr-ink;
+      margin: 0;
+      flex: 1;
+    }
+
+    .shift-counter {
+      font-family: $nr-font-fill;
+      font-size: 10pt;
+      color: $nr-green-stamp;
+      font-weight: bold;
+    }
+
+    button {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border: 1.5px solid $nr-ink;
+      background: transparent;
+      color: $nr-ink;
+      padding: 3px 10px;
+      cursor: pointer;
+
+      &:hover {
+        background: $nr-ink;
+        color: $nr-paper;
+      }
+    }
+  }
+
+  // ── Section Titles ──────────────────────────────────
+  h3 {
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: $nr-ink;
+    border-bottom: 1.5px solid $nr-ink;
+    padding-bottom: 2px;
+    margin: 8px 0 5px;
+  }
+
+  // ── Organization Countdowns ─────────────────────────
+  .org-countdowns {
+    margin-bottom: 8px;
+  }
+
+  .org-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0;
+    border-bottom: 1px solid rgba($nr-rule, 0.4);
+
+    &[data-dormant='true'] {
+      opacity: 0.4;
+    }
+  }
+
+  .org-name {
+    min-width: 160px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    strong {
+      font-family: $nr-font-main;
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    button {
+      font-family: $nr-font-main;
+      font-size: 5pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid $nr-rule;
+      background: transparent;
+      color: $nr-ink-faded;
+      padding: 1px 4px;
+      cursor: pointer;
+
+      &:hover {
+        color: $nr-ink;
+        border-color: $nr-ink;
+      }
+    }
+  }
+
+  .countdown-track {
+    display: flex;
+    gap: 1px;
+    flex: 1;
+  }
+
+  .countdown-square {
+    width: 22px;
+    height: 18px;
+    border: 1px solid $nr-rule;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $nr-font-fill;
+    font-size: 6pt;
+    color: $nr-ink-faded;
+    background: transparent;
+
+    &[data-filled='true'] {
+      background: $nr-green-stamp;
+      color: $nr-paper;
+      border-color: $nr-green-stamp;
+    }
+
+    // Last two squares = danger zone
+    &:nth-last-child(-n + 2)[data-filled='true'] {
+      background: $nr-red-stamp;
+      border-color: $nr-red-stamp;
+    }
+  }
+
+  // ── Containment Truths ──────────────────────────────
+  .containment-truths {
+    margin-bottom: 8px;
+
+    label {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $nr-ink-faded;
+      margin-right: 12px;
+      cursor: pointer;
+
+      input[type='checkbox'] {
+        margin: 0;
+      }
+    }
+
+    .all-found {
+      font-family: $nr-font-main;
+      font-size: 8pt;
+      color: $nr-green-stamp;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 4px;
+    }
+  }
+
+  // ── Information Cards ───────────────────────────────
+  .info-cards {
+    margin-bottom: 8px;
+  }
+
+  .info-card {
+    border: 1px solid $nr-rule;
+    padding: 4px 6px;
+    margin-bottom: 4px;
+
+    &[data-revealed='true'] {
+      border-color: $nr-green-stamp;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3px;
+
+    .card-type {
+      font-family: $nr-font-main;
+      font-size: 6pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+    }
+
+    button {
+      font-family: $nr-font-main;
+      font-size: 5pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid $nr-rule;
+      background: transparent;
+      color: $nr-ink-faded;
+      padding: 1px 6px;
+      cursor: pointer;
+
+      &:hover {
+        color: $nr-ink;
+        border-color: $nr-ink;
+      }
+    }
+  }
+
+  .card-content {
+    font-family: $nr-font-fill;
+    font-size: 8pt;
+
+    .card-meta {
+      font-size: 6pt;
+      color: $nr-ink-faded;
+      margin-top: 3px;
+    }
+  }
+
+  .card-back {
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    color: $nr-ink-faded;
+    text-align: center;
+    padding: 4px;
+  }
+}
