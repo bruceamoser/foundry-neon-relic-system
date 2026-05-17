@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80">
+  <rect width="300" height="80" fill="#0a0a0a"/>
+  <text x="150" y="35" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="28" fill="#4ade80">NEON RELIC</text>
+  <text x="150" y="58" text-anchor="middle" font-family="serif" font-size="12" fill="#86efac" letter-spacing="4">THE VERDANT COVENANT</text>
+  <line x1="30" y1="66" x2="270" y2="66" stroke="#1a5c1a" stroke-width="1"/>
+</svg>
