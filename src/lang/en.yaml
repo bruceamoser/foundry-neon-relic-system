@@ -886,6 +886,16 @@ NEONRELIC:
     KeyMembers: Key Members
     Resources: Resources
 
+  # Case Brief Viewer
+  CaseBrief:
+    Title: Case Brief
+    AgentBriefing: Agent Briefing
+    CaseName: Case Name
+    DAOnly: DA Eyes Only
+    Classified: Classified
+    ShowPlayer: Show Player View
+    ShowDA: Show DA View
+
   # Session
   Session:
     ResetComplete: Session reset complete
