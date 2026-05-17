@@ -1,0 +1,205 @@
+// Neon Relic — Vehicle Sheet Styles
+// 1980s analog aesthetic with wear pip tracker
+
+.neon-relic.vehicle-sheet {
+  background: $nr-paper;
+
+  // ── Header ──────────────────────────────────────────
+  .vehicle-header {
+    display: flex;
+    align-items: center;
+    gap: $nr-spacing-sm;
+    border-top: 3px solid $nr-ink;
+    border-bottom: 2px solid $nr-ink;
+    padding: 6px 0;
+    margin-bottom: 8px;
+
+    .profile-img {
+      width: 56px;
+      height: 56px;
+      border: 1.5px solid $nr-rule;
+      object-fit: cover;
+    }
+
+    .header-fields {
+      flex: 1;
+    }
+
+    h1 {
+      margin: 0;
+
+      input {
+        font-family: $nr-font-main;
+        font-size: 14pt;
+        letter-spacing: 2px;
+        border: none;
+        border-bottom: 1px dotted $nr-rule;
+        background: transparent;
+        width: 100%;
+        padding: 0;
+      }
+    }
+
+    .sheet-type {
+      font-family: $nr-font-main;
+      font-size: 6pt;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: $nr-ink-faded;
+    }
+  }
+
+  // ── Section Titles ──────────────────────────────────
+  .section-title {
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: $nr-ink;
+    border-bottom: 1.5px solid $nr-ink;
+    padding-bottom: 2px;
+    margin: 8px 0 5px;
+
+    &.red {
+      color: $nr-red-stamp;
+      border-color: $nr-red-stamp;
+    }
+  }
+
+  // ── Stat Grid ───────────────────────────────────────
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1.5px solid $nr-ink;
+    margin-bottom: 4px;
+  }
+
+  .stat-cell {
+    padding: 4px 6px;
+    border-right: 1px solid $nr-rule;
+    border-bottom: 1px solid $nr-rule;
+
+    &:nth-child(4n) {
+      border-right: none;
+    }
+
+    &:nth-last-child(-n + 3) {
+      border-bottom: none;
+    }
+  }
+
+  .stat-label {
+    display: block;
+    font-family: $nr-font-main;
+    font-size: 5pt;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: $nr-ink-faded;
+    margin-bottom: 2px;
+  }
+
+  .stat-value {
+    display: block;
+    width: 100%;
+    font-family: $nr-font-fill;
+    font-size: 11pt;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    border-bottom: 1px dotted $nr-rule;
+    background: transparent;
+    padding: 0;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  // ── Wear Tracker ────────────────────────────────────
+  .wear-tracker {
+    margin-bottom: 6px;
+  }
+
+  .wear-pips {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 4px;
+  }
+
+  .pip {
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid $nr-ink;
+    background: transparent;
+
+    &.filled {
+      background: $nr-green-stamp;
+      border-color: $nr-green-stamp;
+    }
+
+    &.warning {
+      background: #b8860b;
+      border-color: #8b6508;
+    }
+
+    &.critical {
+      background: $nr-red-stamp;
+      border-color: darken($nr-red-stamp, 10%);
+    }
+  }
+
+  .wear-input {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+
+    input {
+      width: 40px;
+      font-family: $nr-font-fill;
+      font-size: 10pt;
+      text-align: center;
+      border: 1px solid $nr-rule;
+      background: $nr-field-bg;
+    }
+  }
+
+  .wear-threshold {
+    font-family: $nr-font-fill;
+    font-size: 9pt;
+    color: $nr-ink-faded;
+  }
+
+  .status-badge {
+    display: inline-block;
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 2px 8px;
+    margin-top: 4px;
+
+    &.warning {
+      color: #8b6508;
+      border: 1.5px solid #8b6508;
+    }
+
+    &.critical {
+      color: $nr-red-stamp;
+      border: 1.5px solid $nr-red-stamp;
+      font-weight: bold;
+    }
+  }
+
+  // ── Description ─────────────────────────────────────
+  .description {
+    .editor {
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      min-height: 40px;
+      border: 1px solid $nr-rule;
+      padding: 4px;
+      background: $nr-field-bg;
+    }
+  }
+}

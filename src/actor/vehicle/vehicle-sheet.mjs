@@ -44,6 +44,20 @@ export class VehicleSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       relativeTo: this.document,
     });
 
+    // Build wear pips for visual tracker
+    const wearPips = [];
+    for (let i = 1; i <= system.reliability; i++) {
+      let cssClass = 'pip';
+      if (i <= system.wear) {
+        if (i >= system.stopsThreshold) cssClass += ' filled critical';
+        else if (i >= system.problemThreshold) cssClass += ' filled warning';
+        else cssClass += ' filled';
+      }
+      wearPips.push({ index: i, cssClass });
+    }
+    context.wearPips = wearPips;
+    context.statusClass = system.isStopped ? 'stopped' : system.hasProblem ? 'problem' : '';
+
     return context;
   }
 }
