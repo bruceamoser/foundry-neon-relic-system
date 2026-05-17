@@ -568,3 +568,16 @@ NEONRELIC:
     FoundAt: Found At
     KnownBy: Known By
     Hidden: '[Hidden]'
+
+  # Scene Resolution
+  Scene:
+    Resolution: Scene Resolution
+    Immediate: Immediate Contribution
+    Shield: Shield Contribution
+    Position: Position Contribution
+    Delayed: Delayed Contribution
+    CleanProgress: Clean Progress
+    ProgressWithCost: Progress With Cost
+    PartialProgress: Partial Progress
+    SetbackWithSignal: Setback With Signal
+    Breach: Breach
