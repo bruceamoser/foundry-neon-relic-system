@@ -1,8 +1,11 @@
 /**
  * Core roll handler for the Year Zero Engine dice pool mechanic.
  * Builds pools, counts successes, handles pushing and opposed rolls.
+ * Uses Foundry's Roll class for auditable dice.
  * @module components/roll/roll-handler
  */
+
+const CHAT_TEMPLATE = 'systems/neon-relic/templates/roll/roll-chatcard.hbs';
 
 /**
  * Build a dice pool from an actor's stats.
@@ -22,7 +25,7 @@ export function buildPool({ attribute = 0, skill = 0, gearBonus = 0, modifier = 
 }
 
 /**
- * Execute a YZE dice pool roll.
+ * Execute a YZE dice pool roll using Foundry's Roll class.
  * @param {object} pool - Pool from buildPool().
  * @param {object} [options]
  * @param {boolean} [options.isPush=false] - Whether this is a push roll.
@@ -32,62 +35,121 @@ export function buildPool({ attribute = 0, skill = 0, gearBonus = 0, modifier = 
 export async function executeRoll(pool, options = {}) {
   const { isPush = false, previousRolls = [] } = options;
 
-  // For a push, only re-roll non-6 base + skill dice; gear dice are locked
-  const rolls = [];
-  const gearRolls = [];
+  const baseCount = pool.baseDice;
+  const skillCount = pool.skillDice;
+  const gearCount = pool.gearDice;
+
+  const baseResults = [];
+  const skillResults = [];
+  const gearResults = [];
 
   if (isPush && previousRolls.length > 0) {
-    // Separate previous results into categories
-    const baseSkillCount = pool.baseDice + pool.skillDice;
+    // Push: re-roll non-6 base+skill dice, keep gear dice locked
     let idx = 0;
-
-    // Re-roll base + skill dice (keep 6s)
-    for (let i = 0; i < baseSkillCount && idx < previousRolls.length; i++, idx++) {
+    for (let i = 0; i < baseCount && idx < previousRolls.length; i++, idx++) {
       if (previousRolls[idx] === 6) {
-        rolls.push(6); // Keep successes
+        baseResults.push(6);
       } else {
-        const r = Math.ceil(Math.random() * 6);
-        rolls.push(r);
+        const r = await new Roll('1d6').evaluate();
+        baseResults.push(r.total);
       }
     }
-
-    // Gear dice are locked — keep previous results
-    for (let i = 0; i < pool.gearDice && idx < previousRolls.length; i++, idx++) {
-      const prev = previousRolls[idx];
-      gearRolls.push(prev);
-      rolls.push(prev);
+    for (let i = 0; i < skillCount && idx < previousRolls.length; i++, idx++) {
+      if (previousRolls[idx] === 6) {
+        skillResults.push(6);
+      } else {
+        const r = await new Roll('1d6').evaluate();
+        skillResults.push(r.total);
+      }
+    }
+    for (let i = 0; i < gearCount && idx < previousRolls.length; i++, idx++) {
+      gearResults.push(previousRolls[idx]);
     }
   } else {
-    // Fresh roll — roll all dice
-    const baseSkillCount = pool.baseDice + pool.skillDice;
-    for (let i = 0; i < baseSkillCount; i++) {
-      rolls.push(Math.ceil(Math.random() * 6));
+    // Fresh roll
+    if (baseCount > 0) {
+      const r = await new Roll(`${baseCount}d6`).evaluate();
+      baseResults.push(...r.dice[0].results.map(d => d.result));
     }
-    for (let i = 0; i < pool.gearDice; i++) {
-      const r = Math.ceil(Math.random() * 6);
-      gearRolls.push(r);
-      rolls.push(r);
+    if (skillCount > 0) {
+      const r = await new Roll(`${skillCount}d6`).evaluate();
+      skillResults.push(...r.dice[0].results.map(d => d.result));
+    }
+    if (gearCount > 0) {
+      const r = await new Roll(`${gearCount}d6`).evaluate();
+      gearResults.push(...r.dice[0].results.map(d => d.result));
     }
   }
 
-  const successes = rolls.filter(r => r === 6).length;
-  const ones = rolls.filter(r => r === 1).length;
-  const gearOnes = gearRolls.filter(r => r === 1).length;
+  const allRolls = [...baseResults, ...skillResults, ...gearResults];
+  const successes = allRolls.filter(r => r === 6).length;
+  const ones = allRolls.filter(r => r === 1).length;
+  const gearOnes = gearResults.filter(r => r === 1).length;
 
-  // Can push if: not already a push, and at least one non-6 base/skill die exists
-  const baseSkillDice = rolls.slice(0, pool.baseDice + pool.skillDice);
+  const baseSkillDice = [...baseResults, ...skillResults];
   const canPush = !isPush && baseSkillDice.some(r => r !== 6);
 
   return {
     successes,
     ones,
     gearOnes,
-    rolls,
-    gearRolls,
+    rolls: allRolls,
+    baseResults,
+    skillResults,
+    gearResults,
     canPush,
     isPush,
     pool,
   };
+}
+
+/**
+ * Send roll results to chat as a formatted message.
+ * @param {NRRollResult} result - From executeRoll().
+ * @param {object} context - Roll context for display.
+ * @param {string} [context.attribute] - Attribute key.
+ * @param {string} [context.skill] - Skill key.
+ * @param {number} [context.difficulty] - Required successes.
+ * @param {string} [context.notes] - Player notes.
+ * @param {string} [context.actorId] - Actor ID.
+ * @returns {Promise<ChatMessage>}
+ */
+export async function sendRollToChat(result, context = {}) {
+  const attrConfig = CONFIG.NEON_RELIC?.attributes ?? {};
+  const skillConfig = CONFIG.NEON_RELIC?.skills ?? {};
+
+  const attributeLabel = context.attribute
+    ? game.i18n.localize(attrConfig[context.attribute] ?? context.attribute)
+    : '';
+  const skillLabel = context.skill ? game.i18n.localize(skillConfig[context.skill]?.label ?? context.skill) : '';
+
+  const difficulty = context.difficulty || 0;
+
+  const templateData = {
+    actorId: context.actorId || '',
+    attributeLabel,
+    skillLabel,
+    baseDice: result.baseResults.map(v => ({ value: v, success: v === 6 })),
+    skillDice: result.skillResults.map(v => ({ value: v, success: v === 6 })),
+    gearDice: result.gearResults.map(v => ({ value: v, success: v === 6 })),
+    successes: result.successes,
+    difficulty,
+    isSuccess: difficulty > 0 ? result.successes >= difficulty : null,
+    isPush: result.isPush,
+    notes: context.notes || '',
+  };
+
+  const content = await renderTemplate(CHAT_TEMPLATE, templateData);
+
+  const speaker = context.actorId
+    ? ChatMessage.getSpeaker({ actor: game.actors.get(context.actorId) })
+    : ChatMessage.getSpeaker();
+
+  return ChatMessage.create({
+    content,
+    speaker,
+    sound: CONFIG.sounds.dice,
+  });
 }
 
 /**
@@ -168,7 +230,9 @@ export function addHelpDice(helperActor, skill, pool) {
  * @property {number} ones - Count of 1s rolled (all dice).
  * @property {number} gearOnes - Count of 1s on gear dice specifically.
  * @property {number[]} rolls - All die results.
- * @property {number[]} gearRolls - Gear die results only.
+ * @property {number[]} baseResults - Base (attribute) die results.
+ * @property {number[]} skillResults - Skill die results.
+ * @property {number[]} gearResults - Gear die results.
  * @property {boolean} canPush - Whether the roll can be pushed.
  * @property {boolean} isPush - Whether this was a pushed roll.
  * @property {object} pool - The dice pool used.

@@ -1,210 +1,96 @@
-# Sample Case Compendium Pack
+# Sample Case Compendium Pack — Journal Entries
 # Neon Relic — The Spear That Went Dark
 # A complete worked example case file
 ---
 - _id: case001
   name: 'The Spear That Went Dark'
   type: journalEntry
-  system:
-    caseType: caseBrief
-    status: Active
-    threatLevel: 3
-    summary: >
-      A medieval spear believed to be a minor occult relic has gone
-      dark — it stopped emitting detectable psychic signatures after
-      decades of stable monitoring. The Verdant Covenant dispatched
-      the agents to the small German town of Kaltenberg to investigate.
-      What they find is far worse than a dormant artifact.
-    objectives:
-      - text: Locate the spear's last known position
-        complete: false
-      - text: Determine why emissions ceased
-        complete: false
-      - text: Assess threat level and containment options
-        complete: false
-      - text: Recover or contain the artifact
-        complete: false
-    relics:
-      - name: The Kaltenberg Spear
-        status: Missing
-    organizations:
-      - name: 'The Congregation of the Veil'
-        countdown: 0
-        maxCountdown: 8
-        countdownGoal: Complete the Awakening Ritual
-        description: >
-          A cult operating out of the old church in Kaltenberg.
-          They stole the spear to use in a ritual they believe
-          will open a permanent gateway.
-        members:
-          - name: Sister Maren
-            role: Cult Leader
-          - name: Brother Jens
-            role: Inner Circle
-          - name: Elke Braun
-            role: Recruit
-      - name: 'Kessler Network'
-        countdown: 0
-        maxCountdown: 6
-        countdownGoal: Acquire the spear for a private buyer
-        description: >
-          Viktor Kessler has sent an operative to Kaltenberg
-          to acquire the spear before anyone else can.
-        members:
-          - name: Viktor Kessler
-            role: Handler (remote)
-          - name: 'Rook'
-            role: Field Operative
-    notes: >
-      The spear was last monitored by the Wayfinder Division's
-      Remote Sensing Wing. Emissions flatlined on October 3, 1987.
-      Local Covenant contacts in Kaltenberg have not responded
-      to check-in requests for 72 hours.
+  pages:
+    - name: 'Case Brief'
+      type: text
+      text:
+        content: |
+          <h2>The Spear That Went Dark</h2>
+          <p><strong>Threat Level:</strong> 3 &nbsp; <strong>Status:</strong> Active</p>
+          <h3>Summary</h3>
+          <p>A medieval spear believed to be a minor occult relic has gone
+          dark — it stopped emitting detectable psychic signatures after
+          decades of stable monitoring. The Verdant Covenant dispatched
+          the agents to the small German town of Kaltenberg to investigate.
+          What they find is far worse than a dormant artifact.</p>
+          <h3>Objectives</h3>
+          <ol>
+            <li>Locate the spear's last known position</li>
+            <li>Determine why emissions ceased</li>
+            <li>Assess threat level and containment options</li>
+            <li>Recover or contain the artifact</li>
+          </ol>
+          <h3>Relics</h3>
+          <ul><li><strong>The Kaltenberg Spear</strong> — Missing</li></ul>
+          <h3>Organizations</h3>
+          <ul>
+            <li><strong>The Congregation of the Veil</strong> (Countdown: 0/8) — Complete the Awakening Ritual.
+            A cult operating out of the old church in Kaltenberg. They stole the spear to use in a ritual they believe will open a permanent gateway.
+            Members: Sister Maren (Cult Leader), Brother Jens (Inner Circle), Elke Braun (Recruit).</li>
+            <li><strong>Kessler Network</strong> (Countdown: 0/6) — Acquire the spear for a private buyer.
+            Viktor Kessler has sent an operative to Kaltenberg to acquire the spear before anyone else can.
+            Members: Viktor Kessler (Handler, remote), Rook (Field Operative).</li>
+          </ul>
+          <h3>Notes</h3>
+          <p>The spear was last monitored by the Wayfinder Division's Remote Sensing Wing. Emissions flatlined on October 3, 1987. Local Covenant contacts in Kaltenberg have not responded to check-in requests for 72 hours.</p>
 
 - _id: case-loc01
   name: 'Kaltenberg — Town Square'
   type: journalEntry
-  system:
-    locationType: urban
-    description: >
-      A quiet Bavarian town square with a fountain, a few shops,
-      and a gasthaus. The locals are suspicious of outsiders.
-    clues:
-      - The gasthaus owner saw people entering the old church at night.
-      - A local historian mentions the spear was in the town museum.
-    threats: []
+  pages:
+    - name: 'Town Square'
+      type: text
+      text:
+        content: |
+          <h2>Kaltenberg — Town Square</h2>
+          <p><strong>Location Type:</strong> Urban</p>
+          <p>A quiet Bavarian town square with a fountain, a few shops, and a gasthaus. The locals are suspicious of outsiders.</p>
+          <h3>Clues</h3>
+          <ul>
+            <li>The gasthaus owner saw people entering the old church at night.</li>
+            <li>A local historian mentions the spear was in the town museum.</li>
+          </ul>
 
 - _id: case-loc02
   name: 'Kaltenberg — Old Church'
   type: journalEntry
-  system:
-    locationType: building
-    description: >
-      A crumbling medieval church on the hill above town. The
-      Congregation of the Veil has been using the crypt for
-      their rituals. The air inside feels wrong.
-    clues:
-      - Ritual markings on the crypt floor
-      - The spear's containment case is open and empty
-    threats:
-      - Cult acolytes (2-3) guard the entrance at night
-      - Psychic residue causes -1 to EMP rolls inside
+  pages:
+    - name: 'Old Church'
+      type: text
+      text:
+        content: |
+          <h2>Kaltenberg — Old Church</h2>
+          <p><strong>Location Type:</strong> Building</p>
+          <p>A crumbling medieval church on the hill above town. The Congregation of the Veil has been using the crypt for their rituals. The air inside feels wrong.</p>
+          <h3>Clues</h3>
+          <ul>
+            <li>Ritual markings on the crypt floor</li>
+            <li>The spear's containment case is open and empty</li>
+          </ul>
+          <h3>Threats</h3>
+          <ul>
+            <li>Cult acolytes (2–3) guard the entrance at night</li>
+            <li>Psychic residue causes −1 to EMP rolls inside</li>
+          </ul>
 
 - _id: case-loc03
   name: 'Kaltenberg — Town Museum'
   type: journalEntry
-  system:
-    locationType: building
-    description: >
-      A small museum of local history where the spear was displayed
-      for decades. The display case has been cleanly opened — no signs
-      of forced entry.
-    clues:
-      - The lock was picked by a professional (Investigate Diff 2)
-      - Security guard remembers a well-dressed man asking about the spear
-    threats: []
-
-- _id: case-npc01
-  name: 'Herr Lehmann — Museum Curator'
-  type: npc
-  system:
-    tier: 1
-    description: >
-      Elderly curator who has watched over the spear for 30 years.
-      Knows its history but not its supernatural nature. Frightened
-      by the theft and afraid the town is cursed.
-    attributes:
-      str: 1
-      agi: 1
-      wit: 4
-      emp: 3
-    skills:
-      lore: 3
-      investigate: 2
-    armorRating: 0
-    fearRating: 0
-
-- _id: case-npc02
-  name: 'Brother Jens — True Believer'
-  type: npc
-  system:
-    tier: 2
-    description: >
-      A young man drawn into the Congregation by Sister Maren's
-      charisma. Genuinely believes the ritual will bring salvation.
-      Might be turned if shown the truth about what they're summoning.
-    attributes:
-      str: 3
-      agi: 2
-      wit: 2
-      emp: 3
-    skills:
-      brawl: 2
-      lore: 1
-      persuade: 1
-    armorRating: 0
-    fearRating: 0
-    corruptionStage: 1
-
-# ── Information Cards ────────────────────────────────
-- _id: case-ic01
-  name: 'IC-01: Museum Break-In Report'
-  type: informationCard
-  system:
-    cardId: IC-01
-    cardType: supportingIntel
-    content: >
-      <p>The Kaltenberg Town Museum was broken into on the night of October 2.
-      The display case holding the medieval spear was opened without force — a
-      professional lockpick job. No other items were taken.</p>
-    foundAt: L3 (Town Museum)
-    knownBy: Herr Lehmann
-    hqFallback: 2
-    revealed: false
-
-- _id: case-ic02
-  name: 'IC-02: Night Visitors'
-  type: informationCard
-  system:
-    cardId: IC-02
-    cardType: supportingIntel
-    content: >
-      <p>The gasthaus owner has seen groups of 3-5 people entering the old church
-      after midnight for the past two weeks. They wear dark coats and carry
-      lanterns. She assumed they were restoration workers.</p>
-    foundAt: L1 (Town Square)
-    knownBy: Gasthaus Owner
-    hqFallback: 3
-    revealed: false
-
-- _id: case-ic03
-  name: 'IC-03: The Awakening Ritual'
-  type: informationCard
-  system:
-    cardId: IC-03
-    cardType: containmentTruth
-    content: >
-      <p>The Congregation of the Veil is performing a multi-night ritual
-      using the spear as a focus. If completed, it will permanently bond the
-      spear to the crypt, creating a localized tear in reality. The ritual
-      requires seven consecutive nights — they are on night five.</p>
-    foundAt: L2 (Old Church)
-    knownBy: ''
-    hqFallback: 5
-    revealed: false
-
-- _id: case-ic04
-  name: 'IC-04: The Well-Dressed Man'
-  type: informationCard
-  system:
-    cardId: IC-04
-    cardType: supportingIntel
-    content: >
-      <p>A well-dressed man visited the museum three days before the theft,
-      asking detailed questions about the spear's provenance and display
-      security. The curator remembers he had a slight Eastern European accent
-      and wore an expensive watch.</p>
-    foundAt: L3 (Town Museum)
-    knownBy: Herr Lehmann
-    hqFallback: 4
-    revealed: false
+  pages:
+    - name: 'Town Museum'
+      type: text
+      text:
+        content: |
+          <h2>Kaltenberg — Town Museum</h2>
+          <p><strong>Location Type:</strong> Building</p>
+          <p>A small museum of local history where the spear was displayed for decades. The display case has been cleanly opened — no signs of forced entry.</p>
+          <h3>Clues</h3>
+          <ul>
+            <li>The lock was picked by a professional (Investigate Diff 2)</li>
+            <li>Security guard remembers a well-dressed man asking about the spear</li>
+          </ul>

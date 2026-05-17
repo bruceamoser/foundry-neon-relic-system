@@ -1,0 +1,44 @@
+# Sample Case NPCs
+# Neon Relic — The Spear That Went Dark
+---
+- _id: case-npc01
+  name: 'Herr Lehmann — Museum Curator'
+  type: npc
+  system:
+    tier: 1
+    description: >
+      Elderly curator who has watched over the spear for 30 years.
+      Knows its history but not its supernatural nature. Frightened
+      by the theft and afraid the town is cursed.
+    attributes:
+      str: 1
+      agi: 1
+      wit: 4
+      emp: 3
+    skills:
+      lore: 3
+      investigate: 2
+    armorRating: 0
+    fearRating: 0
+
+- _id: case-npc02
+  name: 'Brother Jens — True Believer'
+  type: npc
+  system:
+    tier: 2
+    description: >
+      A young man drawn into the Congregation by Sister Maren's
+      charisma. Genuinely believes the ritual will bring salvation.
+      Might be turned if shown the truth about what they're summoning.
+    attributes:
+      str: 3
+      agi: 2
+      wit: 2
+      emp: 3
+    skills:
+      brawl: 2
+      lore: 1
+      persuade: 1
+    armorRating: 0
+    fearRating: 0
+    corruptionStage: 1

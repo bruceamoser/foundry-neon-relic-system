@@ -1,0 +1,92 @@
+// Neon Relic — Roll Chat Card
+// YZE dice pool display in chat messages
+
+.nr-roll-card {
+  font-family: $nr-font-fill;
+  padding: 4px 0;
+
+  &__header h3 {
+    font-family: $nr-font-main;
+    font-size: 11pt;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: $nr-ink;
+    margin: 0 0 6px;
+    border-bottom: 1px solid $nr-rule;
+    padding-bottom: 4px;
+  }
+
+  &__dice {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 6px 0;
+  }
+
+  &__result {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0;
+    font-size: 10pt;
+  }
+
+  &__outcome {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 9pt;
+
+    &--pass {
+      color: $nr-green-stamp;
+    }
+
+    &--fail {
+      color: $nr-red-stamp;
+    }
+  }
+
+  &__push-note,
+  &__notes {
+    font-size: 8pt;
+    color: $nr-ink-faded;
+    margin-top: 4px;
+  }
+}
+
+// Dice display
+.nr-die {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 3px;
+  font-family: $nr-font-fill;
+  font-size: 12pt;
+  font-weight: bold;
+  color: $nr-paper;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+
+  // Base dice (attribute) — white with dark text
+  &--base {
+    background: #f0ece0;
+    color: $nr-ink;
+  }
+
+  // Skill dice — green
+  &--skill {
+    background: #3a6e35;
+  }
+
+  // Gear dice — dark/black
+  &--gear {
+    background: #2a2a28;
+  }
+
+  // Success highlight
+  &--success {
+    box-shadow: 0 0 4px 1px rgba(218, 165, 32, 0.6);
+    border-color: goldenrod;
+  }
+}

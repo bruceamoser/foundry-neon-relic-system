@@ -16,7 +16,12 @@ const IMPORT_CATEGORIES = [
   { id: 'rules', label: 'NEONRELIC.WorldSetup.Rules', pack: 'rules-reference', checked: true },
   { id: 'tables', label: 'NEONRELIC.WorldSetup.RollTables', pack: 'roll-tables', checked: true },
   { id: 'macros', label: 'NEONRELIC.WorldSetup.Macros', pack: 'macros', checked: true },
-  { id: 'sample', label: 'NEONRELIC.WorldSetup.SampleCase', pack: 'sample-case', checked: false },
+  {
+    id: 'sample',
+    label: 'NEONRELIC.WorldSetup.SampleCase',
+    pack: ['sample-case', 'sample-case-npcs', 'sample-case-items'],
+    checked: false,
+  },
 ];
 
 /**
@@ -76,20 +81,32 @@ export class WorldSetupApp extends HandlebarsApplicationMixin(foundry.applicatio
 
     let totalImported = 0;
     for (const category of selected) {
-      const packId = `${SYSTEM_ID}.${category.pack}`;
-      const pack = game.packs.get(packId);
-      if (!pack) {
-        console.warn(`neon-relic | Pack ${packId} not found, skipping`);
-        continue;
-      }
-      try {
-        const docs = await pack.importAll();
-        const count = docs.length ?? 0;
-        totalImported += count;
-        console.log(`neon-relic | Imported ${count} documents from ${packId}`);
-      } catch (err) {
-        console.error(`neon-relic | Failed to import ${packId}:`, err);
-        ui.notifications.error(game.i18n.format('NEONRELIC.WorldSetup.ImportError', { pack: category.pack }));
+      const packNames = Array.isArray(category.pack) ? category.pack : [category.pack];
+      for (const packName of packNames) {
+        const packId = `${SYSTEM_ID}.${packName}`;
+        const pack = game.packs.get(packId);
+        if (!pack) {
+          console.warn(`neon-relic | Pack ${packId} not found, skipping`);
+          continue;
+        }
+        try {
+          // Filter out phantom entries with null _id (LevelDB index artifact)
+          const index = await pack.getIndex();
+          const validIds = index.filter(e => e._id).map(e => e._id);
+          const allDocs = await pack.getDocuments();
+          const validDocs = allDocs.filter(d => d.id && validIds.includes(d.id));
+          const cls = pack.documentClass;
+          const created = await cls.create(
+            validDocs.map(d => d.toObject()),
+            { keepId: true },
+          );
+          const count = Array.isArray(created) ? created.length : created ? 1 : 0;
+          totalImported += count;
+          console.log(`neon-relic | Imported ${count} documents from ${packId}`);
+        } catch (err) {
+          console.error(`neon-relic | Failed to import ${packId}:`, err);
+          ui.notifications.error(game.i18n.format('NEONRELIC.WorldSetup.ImportError', { pack: packName }));
+        }
       }
     }
 
@@ -125,7 +142,7 @@ export function checkWorldSetup() {
   if (!game.user.isGM) return;
   const initialized = game.settings.get(SYSTEM_ID, 'worldInitialized');
   if (initialized) return;
-  new WorldSetupApp().render(true);
+  new WorldSetupApp().render({ force: true });
 }
 
 /**
@@ -153,7 +170,7 @@ export function registerWorldSetupSettings() {
         // Reset the flag and show dialog
         game.settings.set(SYSTEM_ID, 'rerunWorldSetup', false);
         game.settings.set(SYSTEM_ID, 'worldInitialized', false);
-        new WorldSetupApp().render(true);
+        new WorldSetupApp().render({ force: true });
       }
     },
   });

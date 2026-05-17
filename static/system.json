@@ -126,6 +126,20 @@
       "system": "neon-relic"
     },
     {
+      "name": "sample-case-npcs",
+      "label": "Sample Case: NPCs",
+      "path": "packs/sample-case-npcs",
+      "type": "Actor",
+      "system": "neon-relic"
+    },
+    {
+      "name": "sample-case-items",
+      "label": "Sample Case: Information Cards",
+      "path": "packs/sample-case-items",
+      "type": "Item",
+      "system": "neon-relic"
+    },
+    {
       "name": "rules-reference",
       "label": "Rules Reference",
       "path": "packs/rules-reference",
@@ -156,7 +170,7 @@
     {
       "name": "The Spear That Went Dark",
       "sorting": "a",
-      "packs": ["sample-case"]
+      "packs": ["sample-case", "sample-case-npcs", "sample-case-items"]
     }
   ],
   "primaryTokenAttribute": "attributes.str",

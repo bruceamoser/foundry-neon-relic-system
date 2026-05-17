@@ -1,16 +1,19 @@
-# Neon Relic — Rules Reference JournalEntry Compendium
-# Auto-generated from docs/chapters/*.adoc
-
-- _id: rules-core-resolution
-  name: 'Core Resolution'
+# Neon Relic — Rules Reference
+# Single journal with chapter pages organized like the book
+---
+- _id: rules-reference
+  name: Neon Relic — Rules Reference
   type: JournalEntry
   pages:
-    - name: 'Dice Pool Basics'
+    - name: Dice Pool Basics
       type: text
       text:
-        content: |
+        content: >
           <h2>The Dice Pool</h2>
-          <p>When a player character attempts a risky action with uncertain outcome and dramatic consequences, they construct a dice pool of three elements:</p>
+
+          <p>When a player character attempts a risky action with uncertain outcome and dramatic consequences, they
+          construct a dice pool of three elements:</p>
+
           <table>
             <thead><tr><th>Dice Type</th><th>Color</th><th>Source</th><th>Range</th></tr></thead>
             <tbody>
@@ -19,14 +22,18 @@
               <tr><td><strong>Gear Dice</strong></td><td>Black</td><td>Equipment bonus</td><td>0–3</td></tr>
             </tbody>
           </table>
-          <p>Each <strong>6</strong> rolled counts as one success. Rolling dice should only occur when the outcome is uncertain <em>and</em> consequences of failure are dramatic.</p>
 
-    - name: 'Success & Difficulty'
+          <p>Each <strong>6</strong> rolled counts as one success. Rolling dice should only occur when the outcome is
+          uncertain <em>and</em> consequences of failure are dramatic.</p>
+    - name: Success & Difficulty
       type: text
       text:
-        content: |
+        content: >
           <h2>Success, Difficulty &amp; Extra Successes</h2>
-          <p>Every standard skill roll has a <strong>Difficulty</strong>. If a rule does not list one, the default is <strong>1</strong>.</p>
+
+          <p>Every standard skill roll has a <strong>Difficulty</strong>. If a rule does not list one, the default is
+          <strong>1</strong>.</p>
+
           <table>
             <thead><tr><th>Difficulty</th><th>Use</th></tr></thead>
             <tbody>
@@ -37,56 +44,75 @@
               <tr><td><strong>5+</strong></td><td>Near-impossible task</td></tr>
             </tbody>
           </table>
-          <p>Successes beyond the required threshold are <strong>extra successes</strong>. Each extra success becomes <strong>1 Stunt Point</strong>. Stunt Points must be spent immediately — they cannot be saved between rolls.</p>
-          <p><strong>Difficulty</strong> is how many successes a roll requires. A <strong>modifier</strong> (+X/−X) adds or removes dice from the pool. Both can stack.</p>
 
-    - name: 'Push Mechanic'
+          <p>Successes beyond the required threshold are <strong>extra successes</strong>. Each extra success becomes
+          <strong>1 Stunt Point</strong>. Stunt Points must be spent immediately — they cannot be saved between
+          rolls.</p>
+
+          <p><strong>Difficulty</strong> is how many successes a roll requires. A <strong>modifier</strong> (+X/−X) adds
+          or removes dice from the pool. Both can stack.</p>
+    - name: Push Mechanic
       type: text
       text:
-        content: |
+        content: >
           <h2>The Push Mechanic</h2>
-          <p>If an initial roll does not meet its Difficulty, or the player needs additional stunt points, they may <strong>push</strong> the roll — re-rolling all dice that do not currently show a 6.</p>
+
+          <p>If an initial roll does not meet its Difficulty, or the player needs additional stunt points, they may
+          <strong>push</strong> the roll — re-rolling all dice that do not currently show a 6.</p>
+
           <ul>
             <li>You immediately gain <strong>+1 Corruption</strong>.</li>
             <li><strong>Gear Dice are never re-rolled</strong> when pushing — they keep their initial values.</li>
             <li>Each roll may only be pushed once.</li>
           </ul>
-          <p>Pushing represents the character exerting maximum physical, mental, or material effort. The Corruption cost is the only push penalty — there is no separate Stress track.</p>
 
-    - name: 'Gear Degradation'
+          <p>Pushing represents the character exerting maximum physical, mental, or material effort. The Corruption cost
+          is the only push penalty — there is no separate Stress track.</p>
+    - name: Gear Degradation
       type: text
       text:
-        content: |
+        content: >
           <h2>Gear Degradation</h2>
+
           <p>When you roll a dice pool that includes <strong>Gear Dice</strong>, you risk damaging the item:</p>
+
           <ul>
             <li>If any Gear Die in the <strong>initial roll</strong> shows a <strong>1</strong>, the item's Gear Bonus is permanently reduced by 1 (until repaired).</li>
             <li>Gear Dice are <strong>never re-rolled when pushing</strong>.</li>
             <li>An item whose Gear Bonus reaches <strong>0</strong> is <strong>Broken</strong> — it cannot be used until repaired.</li>
           </ul>
-          <p>This rule applies identically to weapons (Gear Bonus −1), armor (Armor Rating −1), and tools. Improvised items break outright when their sole Gear Die shows a 1.</p>
 
-    - name: 'Opposed Rolls'
+          <p>This rule applies identically to weapons (Gear Bonus −1), armor (Armor Rating −1), and tools. Improvised
+          items break outright when their sole Gear Die shows a 1.</p>
+    - name: Opposed Rolls
       type: text
       text:
-        content: |
+        content: >
           <h2>Opposed Rolls</h2>
-          <p>When two characters work directly against each other, both sides roll simultaneously and compare total successes. The side with more successes wins.</p>
+
+          <p>When two characters work directly against each other, both sides roll simultaneously and compare total
+          successes. The side with more successes wins.</p>
+
           <h3>Procedure</h3>
+
           <ol>
             <li>Both characters construct dice pools normally (Attribute + Skill + Gear).</li>
             <li>Both roll simultaneously.</li>
             <li>Count 6s — these are successes.</li>
             <li>Higher total wins. Extra successes beyond the opposing total become Stunt Points.</li>
           </ol>
+
           <h3>Tie-Breaking</h3>
+
           <ul>
             <li><strong>PC vs. NPC:</strong> The PC wins.</li>
             <li><strong>NPC vs. NPC:</strong> No change.</li>
             <li><strong>PC vs. PC:</strong> DA rules in context.</li>
             <li><strong>Both zero:</strong> No change — situation remains unresolved.</li>
           </ul>
+
           <h3>Common Opposed Pairings</h3>
+
           <table>
             <thead><tr><th>Active Roll</th><th>Opposing Roll</th><th>Situation</th></tr></thead>
             <tbody>
@@ -98,12 +124,12 @@
               <tr><td>Sleight of Hand (AGI)</td><td>Investigate (WIT)</td><td>Planting/pocketing items</td></tr>
             </tbody>
           </table>
-
-    - name: 'Range Zones'
+    - name: Range Zones
       type: text
       text:
-        content: |
+        content: >
           <h2>Range Zones</h2>
+
           <table>
             <thead><tr><th>Zone</th><th>Distance</th><th>Context</th></tr></thead>
             <tbody>
@@ -114,9 +140,10 @@
               <tr><td><strong>Very Far</strong></td><td>~300 m</td><td>Long-range rifles only</td></tr>
             </tbody>
           </table>
-          <p>Helping requires <strong>Engaged or Close</strong> range. Most social rolls require at least <strong>Close</strong>.</p>
 
-    - name: 'Helping'
+          <p>Helping requires <strong>Engaged or Close</strong> range. Most social rolls require at least
+          <strong>Close</strong>.</p>
+    - name: Helping
       type: text
       text:
         content: |
@@ -133,8 +160,7 @@
             <li>Helpers do <strong>not</strong> gain Corruption when the active character pushes.</li>
             <li>In combat, helping costs a <strong>Slow Action</strong>.</li>
           </ul>
-
-    - name: 'Group Rolls'
+    - name: Group Rolls
       type: text
       text:
         content: |
@@ -154,16 +180,12 @@
             </tbody>
           </table>
           <p>Each character's push decision is independent. A character who already succeeded cannot push.</p>
-
-- _id: rules-attributes-skills
-  name: 'Attributes & Skills'
-  type: JournalEntry
-  pages:
-    - name: 'Attributes'
+    - name: Attributes
       type: text
       text:
-        content: |
+        content: >
           <h2>Four Core Attributes</h2>
+
           <table>
             <thead><tr><th>Attribute</th><th>Description</th></tr></thead>
             <tbody>
@@ -173,9 +195,10 @@
               <tr><td><strong>Empathy</strong></td><td>Charisma, social intuition, reading behavior, and psychological resilience.</td></tr>
             </tbody>
           </table>
-          <p>Attributes serve dual purposes: <strong>dice pools</strong> (added to skill rolls) and <strong>health pools</strong> (reduced by damage). If any attribute reaches 0, the agent is <strong>Broken</strong>.</p>
 
-    - name: 'Skills List'
+          <p>Attributes serve dual purposes: <strong>dice pools</strong> (added to skill rolls) and <strong>health
+          pools</strong> (reduced by damage). If any attribute reaches 0, the agent is <strong>Broken</strong>.</p>
+    - name: Skills List
       type: text
       text:
         content: |
@@ -204,14 +227,17 @@
             <li><strong>During play:</strong> Max 5 via XP</li>
             <li><strong>Unranked (0):</strong> Roll Attribute Dice only — no untrained penalty</li>
           </ul>
-
-    - name: 'Stunt Tables'
+    - name: Stunt Tables
       type: text
       text:
-        content: |
+        content: >
           <h2>Skill Stunts</h2>
-          <p>Extra 6s beyond the minimum needed to succeed become <strong>Stunt Points</strong>. Must be spent immediately.</p>
+
+          <p>Extra 6s beyond the minimum needed to succeed become <strong>Stunt Points</strong>. Must be spent
+          immediately.</p>
+
           <h3>Generic Stunts (Any Skill)</h3>
+
           <table>
             <thead><tr><th>Cost</th><th>Stunt</th><th>Effect</th></tr></thead>
             <tbody>
@@ -223,7 +249,9 @@
               <tr><td>2</td><td><strong>Additional Target</strong></td><td>Results apply to one additional target in zone</td></tr>
             </tbody>
           </table>
+
           <h3>Skill-Specific Stunts (Selected)</h3>
+
           <table>
             <thead><tr><th>Skill</th><th>Cost</th><th>Stunt</th><th>Effect</th></tr></thead>
             <tbody>
@@ -249,31 +277,32 @@
               <tr><td>Psychoanalyze</td><td>2</td><td><strong>Full Read</strong></td><td>+2 dice, Difficulty 1 for rest of scene</td></tr>
             </tbody>
           </table>
-
-- _id: rules-combat
-  name: 'Combat'
-  type: JournalEntry
-  pages:
-    - name: 'Initiative'
+    - name: Initiative
       type: text
       text:
-        content: |
+        content: >
           <h2>Initiative</h2>
-          <p>Each participant draws an <strong>Initiative Card</strong> from a standard deck (Ace–10). Higher value acts first. Aces are low (value 1). Ties: draw replacements until broken. Reshuffle each round.</p>
+
+          <p>Each participant draws an <strong>Initiative Card</strong> from a standard deck (Ace–10). Higher value acts
+          first. Aces are low (value 1). Ties: draw replacements until broken. Reshuffle each round.</p>
+
           <h3>Surprise &amp; Ambush</h3>
+
           <ul>
             <li>Ambush attempt: <strong>Sneak (AGI)</strong> opposed by target's <strong>Investigate (WIT)</strong>.</li>
             <li>If ambush succeeds: free full round of actions before initiative cards are drawn. Targets cannot Dodge or Parry.</li>
             <li>If ambush fails: draw initiative normally.</li>
           </ul>
-
-    - name: 'Actions'
+    - name: Actions
       type: text
       text:
-        content: |
+        content: >
           <h2>Action Economy</h2>
+
           <p>Each turn: <strong>1 Slow Action</strong> + <strong>1 Fast Action</strong> + any Free Actions.</p>
+
           <h3>Slow Actions</h3>
+
           <table>
             <thead><tr><th>Action</th><th>Description</th></tr></thead>
             <tbody>
@@ -285,7 +314,9 @@
               <tr><td><strong>Manipulate NPC</strong></td><td>Talk down, negotiate during combat</td></tr>
             </tbody>
           </table>
+
           <h3>Fast Actions</h3>
+
           <table>
             <thead><tr><th>Action</th><th>Description</th></tr></thead>
             <tbody>
@@ -296,9 +327,10 @@
               <tr><td><strong>Dodge</strong></td><td>Reactive — add AGI dice to defense</td></tr>
             </tbody>
           </table>
-          <p><strong>Movement:</strong> 1 zone = 1 Fast Action. 2 zones = Fast + Slow (whole turn). Max 2 zones/turn.</p>
 
-    - name: 'Attacks & Defense'
+          <p><strong>Movement:</strong> 1 zone = 1 Fast Action. 2 zones = Fast + Slow (whole turn). Max 2
+          zones/turn.</p>
+    - name: Attacks & Defense
       type: text
       text:
         content: |
@@ -334,26 +366,35 @@
             <li><strong>Dodge</strong> (Fast Action): Add AGI dice vs attacker. Ties favor defender. Costs next Fast Action.</li>
             <li><strong>Parry</strong> (Slow Action): Roll Brawl/Force vs attacker (melee only). Match or exceed = no damage. Costs next Slow Action.</li>
           </ul>
-
-    - name: 'Damage & Armor'
+    - name: Damage & Armor
       type: text
       text:
-        content: |
+        content: >
           <h2>Damage</h2>
-          <p>On hit, deal the weapon's flat <strong>Damage</strong> value to the target's Strength. Armor intercepts first.</p>
+
+          <p>On hit, deal the weapon's flat <strong>Damage</strong> value to the target's Strength. Armor intercepts
+          first.</p>
+
           <h2>Armor</h2>
+
           <p>Roll d6s equal to <strong>Armor Rating (AR)</strong>. Each 6 absorbs 1 damage.</p>
+
           <h3>Cover</h3>
+
           <ul>
             <li><strong>Soft cover</strong> (car door, desk): +2 AR vs ranged</li>
             <li><strong>Hard cover</strong> (concrete, engine block): +4 AR vs ranged</li>
             <li>Firing from cover loses the bonus until next turn</li>
           </ul>
-          <h3>Ammunition (Resource Die)</h3>
-          <p>Roll the ammo die after every turn fired. On <strong>1–2</strong>: step down (d10→d8→d6→d4→empty). At empty: weapon is dry — reload costs a Slow Action.</p>
-          <p><strong>Full Auto:</strong> Two separate attack rolls (same or split targets). Roll ammo die twice. −1 die on Firearms until next turn.</p>
 
-    - name: 'Combat Stunts'
+          <h3>Ammunition (Resource Die)</h3>
+
+          <p>Roll the ammo die after every turn fired. On <strong>1–2</strong>: step down (d10→d8→d6→d4→empty). At
+          empty: weapon is dry — reload costs a Slow Action.</p>
+
+          <p><strong>Full Auto:</strong> Two separate attack rolls (same or split targets). Roll ammo die twice. −1 die
+          on Firearms until next turn.</p>
+    - name: Combat Stunts
       type: text
       text:
         content: |
@@ -372,8 +413,7 @@
               <tr><td>3</td><td><strong>Critical Hit</strong></td><td>Roll on Critical Injury table</td></tr>
             </tbody>
           </table>
-
-    - name: 'Zone Movement & Features'
+    - name: Zone Movement & Features
       type: text
       text:
         content: |
@@ -396,17 +436,14 @@
             <li>Attacks during chase at −1 die.</li>
             <li>At Widening: Sneak (Diff 2) to break chase entirely (once per chase).</li>
           </ul>
-
-- _id: rules-social-conflict
-  name: 'Social Conflict'
-  type: JournalEntry
-  pages:
-    - name: 'Disposition'
+    - name: Disposition
       type: text
       text:
-        content: |
+        content: >
           <h2>NPC Disposition</h2>
+
           <p>Every non-cooperative NPC has a <strong>Disposition</strong> on a 5-point track:</p>
+
           <table>
             <thead><tr><th>Score</th><th>State</th><th>Behavior</th></tr></thead>
             <tbody>
@@ -417,39 +454,56 @@
               <tr><td>1</td><td><strong>Closed</strong></td><td>Won't engage. Must raise to 2 before rolls possible.</td></tr>
             </tbody>
           </table>
-          <h3>Shifting Disposition</h3>
-          <p><strong>Up (+1):</strong> Successful Psychoanalyze (calm/reassure), successful Manipulate, showing good faith, presenting evidence, performing a service.</p>
-          <p><strong>Down (−1):</strong> Failed Manipulate, detected deception, threats at Disposition 3+, revealing dangerous information.</p>
-          <p>At <strong>Disposition 1</strong>, social rolls are impossible. Non-roll actions (evidence, concessions, removing threats) must restore to 2 first.</p>
 
-    - name: 'Social Rolls'
+          <h3>Shifting Disposition</h3>
+
+          <p><strong>Up (+1):</strong> Successful Psychoanalyze (calm/reassure), successful Manipulate, showing good
+          faith, presenting evidence, performing a service.</p>
+
+          <p><strong>Down (−1):</strong> Failed Manipulate, detected deception, threats at Disposition 3+, revealing
+          dangerous information.</p>
+
+          <p>At <strong>Disposition 1</strong>, social rolls are impossible. Non-roll actions (evidence, concessions,
+          removing threats) must restore to 2 first.</p>
+    - name: Social Rolls
       type: text
       text:
-        content: |
+        content: >
           <h2>Social Rolls</h2>
+
           <h3>Manipulate (EMP)</h3>
+
           <ul>
             <li><strong>Success:</strong> NPC complies. Disposition +1.</li>
             <li><strong>Failure:</strong> Denied. Disposition −1.</li>
             <li><strong>Pushed failure:</strong> Disposition −2, +1 Corruption.</li>
           </ul>
+
           <h3>Command (EMP)</h3>
+
           <ul>
             <li>Does not work at Disposition 1. At Disposition 2: emergency directives only (Diff 2).</li>
             <li><strong>Success:</strong> NPC complies. No Disposition shift.</li>
             <li><strong>Failure:</strong> No Disposition shift.</li>
           </ul>
-          <h3>Psychoanalyze (EMP)</h3>
-          <p><strong>Reading:</strong> DA reveals one truth about NPC's state. Grants +1 die and −1 Difficulty on next social roll vs same NPC (same scene).</p>
-          <p><strong>Stabilizing:</strong> Success = Disposition +2 (max 4). Failure = Disposition −1.</p>
 
-    - name: 'NPC Reactions & Consequences'
+          <h3>Psychoanalyze (EMP)</h3>
+
+          <p><strong>Reading:</strong> DA reveals one truth about NPC's state. Grants +1 die and −1 Difficulty on next
+          social roll vs same NPC (same scene).</p>
+
+          <p><strong>Stabilizing:</strong> Success = Disposition +2 (max 4). Failure = Disposition −1.</p>
+    - name: NPC Reactions & Consequences
       type: text
       text:
-        content: |
+        content: >
           <h2>NPC Social Defense</h2>
-          <p>Canny NPCs may roll opposed <strong>Psychoanalyze</strong> to actively read agents, or use <strong>lie detection</strong> (Empathy + Psychoanalyze vs agent's Manipulate).</p>
+
+          <p>Canny NPCs may roll opposed <strong>Psychoanalyze</strong> to actively read agents, or use <strong>lie
+          detection</strong> (Empathy + Psychoanalyze vs agent's Manipulate).</p>
+
           <h2>Failed Social Scene Consequences</h2>
+
           <table>
             <thead><tr><th>Consequence</th><th>Example</th></tr></thead>
             <tbody>
@@ -460,16 +514,12 @@
               <tr><td><strong>Trust erosion</strong></td><td>Standing loss within the Covenant</td></tr>
             </tbody>
           </table>
-
-- _id: rules-health-damage
-  name: 'Health, Damage & Armor'
-  type: JournalEntry
-  pages:
-    - name: 'Damage Types'
+    - name: Damage Types
       type: text
       text:
-        content: |
+        content: >
           <h2>Damage Types</h2>
+
           <table>
             <thead><tr><th>Type</th><th>Target</th><th>Sources</th></tr></thead>
             <tbody>
@@ -478,9 +528,10 @@
               <tr><td><strong>Corruption</strong></td><td>Corruption track</td><td>Pushing, artifacts, occult exposure</td></tr>
             </tbody>
           </table>
-          <p>Physical defaults to STR (AGI for exhaustion). Mental defaults to WIT (EMP for emotional). The source specifies the target — the defender does not choose.</p>
 
-    - name: 'Conditions & Broken'
+          <p>Physical defaults to STR (AGI for exhaustion). Mental defaults to WIT (EMP for emotional). The source
+          specifies the target — the defender does not choose.</p>
+    - name: Conditions & Broken
       type: text
       text:
         content: |
@@ -501,34 +552,46 @@
               <tr><td><strong>Dead</strong></td><td>Death Check failed, or instant-death result, or window expired.</td></tr>
             </tbody>
           </table>
-
-    - name: 'Critical Injuries'
+    - name: Critical Injuries
       type: text
       text:
-        content: |
+        content: >
           <h2>Critical Injuries</h2>
+
           <p>Roll <strong>D66</strong> (two d6: first = tens, second = units) on the appropriate table when Broken.</p>
+
           <ul>
             <li><strong>Physical (STR/AGI = 0):</strong> Physical Critical Injury table</li>
             <li><strong>Mental (WIT/EMP = 0):</strong> Mental &amp; Emotional Critical Injury table</li>
           </ul>
+
           <h3>Death Check</h3>
+
           <p>Results marked <strong>†</strong> require a Death Check: roll 1d6.</p>
+
           <ul>
             <li><strong>1–2:</strong> Character dies.</li>
             <li><strong>3–6:</strong> Survives — injury still applies.</li>
           </ul>
-          <p><strong>Medical Training talent:</strong> Ally Heal (WIT) Diff 2 → patient rolls d6+1 instead (death only on natural 1).</p>
-          <h3>Insights</h3>
-          <p>Some injuries grant permanent <strong>Insights</strong> — mechanical bonuses (e.g., +1 die on Command forever). Cannot be removed even if injury is treated.</p>
-          <h3>Mental Criticals</h3>
-          <p>All mental critical injuries gain <strong>+1 Corruption</strong> upon rolling the table. Many require <strong>Psychoanalyze campaigns</strong> (multiple downtime phases of treatment) to recover.</p>
 
-    - name: 'Attribute Recovery'
+          <p><strong>Medical Training talent:</strong> Ally Heal (WIT) Diff 2 → patient rolls d6+1 instead (death only
+          on natural 1).</p>
+
+          <h3>Insights</h3>
+
+          <p>Some injuries grant permanent <strong>Insights</strong> — mechanical bonuses (e.g., +1 die on Command
+          forever). Cannot be removed even if injury is treated.</p>
+
+          <h3>Mental Criticals</h3>
+
+          <p>All mental critical injuries gain <strong>+1 Corruption</strong> upon rolling the table. Many require
+          <strong>Psychoanalyze campaigns</strong> (multiple downtime phases of treatment) to recover.</p>
+    - name: Attribute Recovery
       type: text
       text:
-        content: |
+        content: >
           <h2>Attribute Recovery</h2>
+
           <table>
             <thead><tr><th>Method</th><th>Restored</th><th>Conditions</th></tr></thead>
             <tbody>
@@ -538,19 +601,20 @@
               <tr><td><strong>Infirmary (HQ)</strong></td><td>3 points per Shift</td><td>Keep's Infirmary facility</td></tr>
             </tbody>
           </table>
-          <p><strong>Broken Recovery:</strong> Attribute at 0 requires Heal (WIT) Diff 2 + First Aid Kit + full Shift of rest. Restores attribute to 1.</p>
 
-- _id: rules-corruption-fear
-  name: 'Corruption, Fear & Healing'
-  type: JournalEntry
-  pages:
-    - name: 'Corruption Sources'
+          <p><strong>Broken Recovery:</strong> Attribute at 0 requires Heal (WIT) Diff 2 + First Aid Kit + full Shift of
+          rest. Restores attribute to 1.</p>
+    - name: Corruption Sources
       type: text
       text:
-        content: |
+        content: >
           <h2>The Corruption Track</h2>
-          <p>Starts at <strong>0</strong>. Maximum Threshold = <strong>10 + Empathy</strong>. Exceeding threshold = permanent catatonia (character retirement).</p>
+
+          <p>Starts at <strong>0</strong>. Maximum Threshold = <strong>10 + Empathy</strong>. Exceeding threshold =
+          permanent catatonia (character retirement).</p>
+
           <h2>Sources of Corruption</h2>
+
           <table>
             <thead><tr><th>Trigger</th><th>Corruption</th></tr></thead>
             <tbody>
@@ -563,8 +627,7 @@
               <tr><td>Successful Psychoanalyze on contaminated NPC</td><td>+1</td></tr>
             </tbody>
           </table>
-
-    - name: 'Corruption Effects'
+    - name: Corruption Effects
       type: text
       text:
         content: |
@@ -580,20 +643,24 @@
               <tr><td>Exceeds</td><td>Catatonic Revelation</td><td>Mind breaks permanently. Removed from campaign.</td></tr>
             </tbody>
           </table>
-
-    - name: 'Fear Checks'
+    - name: Fear Checks
       type: text
       text:
-        content: |
+        content: >
           <h2>Fear Check Procedure</h2>
-          <p>A special binary roll — does <strong>not</strong> use Difficulty. Cannot be pushed. Cannot receive helping dice.</p>
+
+          <p>A special binary roll — does <strong>not</strong> use Difficulty. Cannot be pushed. Cannot receive helping
+          dice.</p>
+
           <ol>
             <li>Roll dice equal to current <strong>Wits</strong> (no skill modifier).</li>
             <li>One or more 6s = <strong>success</strong>.</li>
             <li>Any 1s (even on success) = <strong>+1 Corruption</strong>.</li>
             <li>No 6s = <strong>failure</strong>: 1 Mental (WIT) damage + +1 Corruption + roll Panic Table.</li>
           </ol>
+
           <h3>Panic Table (d6)</h3>
+
           <table>
             <thead><tr><th>Roll</th><th>Response</th><th>Effect</th></tr></thead>
             <tbody>
@@ -605,7 +672,9 @@
               <tr><td>6</td><td><strong>Fugue</strong></td><td>DA controls character rest of scene. Psychoanalyze (Diff 3) recovers.</td></tr>
             </tbody>
           </table>
+
           <h3>Fear Ratings</h3>
+
           <table>
             <thead><tr><th>Rating</th><th>Level</th><th>Examples</th></tr></thead>
             <tbody>
@@ -616,12 +685,12 @@
               <tr><td>5</td><td>Annihilating</td><td>Class-5 entity, tear in space</td></tr>
             </tbody>
           </table>
-
-    - name: 'Healing & Recovery'
+    - name: Healing & Recovery
       type: text
       text:
-        content: |
+        content: >
           <h2>Healing Corruption</h2>
+
           <table>
             <thead><tr><th>Method</th><th>Effect</th><th>Requirements</th></tr></thead>
             <tbody>
@@ -631,13 +700,10 @@
               <tr><td><strong>Healing Talents</strong></td><td>Varies</td><td>Per talent description</td></tr>
             </tbody>
           </table>
-          <p><strong>Session Healing Cap:</strong> Max <strong>5 Corruption</strong> per session from active in-session sources (Anchor + Safe Scene + Talents). Full Rest is not subject to this cap.</p>
 
-- _id: rules-character-creation
-  name: 'Character Creation'
-  type: JournalEntry
-  pages:
-    - name: 'Step-by-Step Process'
+          <p><strong>Session Healing Cap:</strong> Max <strong>5 Corruption</strong> per session from active in-session
+          sources (Anchor + Safe Scene + Talents). Full Rest is not subject to this cap.</p>
+    - name: Step-by-Step Process
       type: text
       text:
         content: |
@@ -655,8 +721,7 @@
             <li><strong>Choose Dark Secret</strong> — From Division list or custom</li>
             <li><strong>Name, Origin &amp; Biography</strong></li>
           </ol>
-
-    - name: 'Age Groups & Attributes'
+    - name: Age Groups & Attributes
       type: text
       text:
         content: |
@@ -684,8 +749,7 @@
             <li><strong>Corruption:</strong> 0</li>
             <li><strong>Max Corruption Threshold:</strong> 10 + Empathy</li>
           </ul>
-
-    - name: 'Talents & Gear'
+    - name: Talents & Gear
       type: text
       text:
         content: |
@@ -707,21 +771,20 @@
               <tr><td>The Keep</td><td><strong>Warden's Bracer</strong></td><td>+1 AR; absorbs 1 Corruption/session</td></tr>
             </tbody>
           </table>
-
-    - name: 'Anchor & Dark Secret'
+    - name: Anchor & Dark Secret
       type: text
       text:
-        content: |
+        content: >
           <h2>Anchor</h2>
-          <p>A tangible, physical object tied to a core memory from before the Covenant. Once per session, interact with it to heal <strong>1d4 Corruption</strong>. Roll d66 on the Anchor Table or create your own.</p>
-          <h2>Dark Secret</h2>
-          <p>Something specific from your past — an event, decision, or relationship. Must be specific enough that the DA can use it as a story hook. XP question: "Did your Dark Secret complicate the mission?" = +1 XP.</p>
 
-- _id: rules-equipment
-  name: 'Equipment'
-  type: JournalEntry
-  pages:
-    - name: 'Gear Bonus & Weapons'
+          <p>A tangible, physical object tied to a core memory from before the Covenant. Once per session, interact with
+          it to heal <strong>1d4 Corruption</strong>. Roll d66 on the Anchor Table or create your own.</p>
+
+          <h2>Dark Secret</h2>
+
+          <p>Something specific from your past — an event, decision, or relationship. Must be specific enough that the
+          DA can use it as a story hook. XP question: "Did your Dark Secret complicate the mission?" = +1 XP.</p>
+    - name: Gear Bonus & Weapons
       type: text
       text:
         content: |
@@ -756,14 +819,17 @@
               <tr><td>Thermal Camera</td><td>+2 Investigate (heat, cold spots)</td><td>4</td></tr>
             </tbody>
           </table>
-
-    - name: 'Resource Die'
+    - name: Resource Die
       type: text
       text:
-        content: |
+        content: >
           <h2>Resource Dice</h2>
+
           <p>Consumable supplies are tracked with a step-down die (d12→d10→d8→d6→d4→Depleted).</p>
-          <p>Roll after each scene of meaningful use. On <strong>1–2</strong>: step down one size. At d4, rolling 1–2 = <strong>depleted</strong>.</p>
+
+          <p>Roll after each scene of meaningful use. On <strong>1–2</strong>: step down one size. At d4, rolling 1–2 =
+          <strong>depleted</strong>.</p>
+
           <table>
             <thead><tr><th>Die</th><th>Level</th></tr></thead>
             <tbody>
@@ -774,8 +840,7 @@
               <tr><td>d4</td><td>Critical — final uses</td></tr>
             </tbody>
           </table>
-
-    - name: 'Encumbrance'
+    - name: Encumbrance
       type: text
       text:
         content: |
@@ -796,13 +861,14 @@
               <tr><td>5</td><td>Maximum — prototype equipment</td></tr>
             </tbody>
           </table>
-
-    - name: 'Crafting & Repair'
+    - name: Crafting & Repair
       type: text
       text:
-        content: |
+        content: >
           <h2>Repair Rules</h2>
+
           <p>Repairing gear requires time, parts, and a <strong>Tech (WIT)</strong> roll.</p>
+
           <table>
             <thead><tr><th>Condition</th><th>Diff</th><th>Time</th></tr></thead>
             <tbody>
@@ -812,20 +878,22 @@
               <tr><td>Artifact-adjacent damage</td><td>4</td><td>Occult Lab or Wayfinder</td></tr>
             </tbody>
           </table>
-          <p>Each success restores Gear Bonus by 1 (up to max). Repairs consume a <strong>Junk Die</strong> (d6 Resource Die for parts).</p>
 
-- _id: rules-artifacts
-  name: 'Artifacts'
-  type: JournalEntry
-  pages:
-    - name: 'Artifact Die & Activation'
+          <p>Each success restores Gear Bonus by 1 (up to max). Repairs consume a <strong>Junk Die</strong> (d6 Resource
+          Die for parts).</p>
+    - name: Artifact Die & Activation
       type: text
       text:
-        content: |
+        content: >
           <h2>The Artifact Die</h2>
+
           <p>A usage die tracking stability: <strong>d20 → d12 → d10 → d8 → d6 → d4 → Fractured</strong>.</p>
-          <p>On a roll of <strong>1</strong>, the die steps down one level. Past d4 = <strong>Fracture</strong> (catastrophic failure).</p>
+
+          <p>On a roll of <strong>1</strong>, the die steps down one level. Past d4 = <strong>Fracture</strong>
+          (catastrophic failure).</p>
+
           <h2>Activation Procedure</h2>
+
           <ol>
             <li><strong>Meet activation condition</strong> (spoken phrase, physical action, etc.)</li>
             <li><strong>Declare activation</strong> — costs a Slow Action</li>
@@ -833,9 +901,9 @@
             <li><strong>Effect resolves</strong> — automatic, no additional roll</li>
             <li><strong>Roll Artifact Die</strong> — on 1: step down (or Fracture at d4)</li>
           </ol>
-          <p>The effect <strong>always fires</strong>, even when the die fractures.</p>
 
-    - name: 'Corruption Tiers'
+          <p>The effect <strong>always fires</strong>, even when the die fractures.</p>
+    - name: Corruption Tiers
       type: text
       text:
         content: |
@@ -858,8 +926,7 @@
               <tr><td><strong>Unknown</strong></td><td>Not yet understood; treat as last resort</td></tr>
             </tbody>
           </table>
-
-    - name: 'Emission & Containment'
+    - name: Emission & Containment
       type: text
       text:
         content: |
@@ -882,14 +949,17 @@
               <tr><td><strong>Banishment</strong></td><td>3</td><td>Full scene</td><td>Disperse manifestation or collapse ritual site</td></tr>
             </tbody>
           </table>
-
-    - name: 'Truths & Fracture'
+    - name: Truths & Fracture
       type: text
       text:
-        content: |
+        content: >
           <h2>Containment-First Principle</h2>
-          <p>Artifact activation is <strong>not</strong> the default objective. Many missions are won by preventing activation, isolating carriers, or transferring to secure containment.</p>
+
+          <p>Artifact activation is <strong>not</strong> the default objective. Many missions are won by preventing
+          activation, isolating carriers, or transferring to secure containment.</p>
+
           <h2>Artifact Carry Weight</h2>
+
           <ul>
             <li><strong>Tier 1:</strong> 1 Enc.</li>
             <li><strong>Tier 2:</strong> 2 Enc.</li>
@@ -898,19 +968,19 @@
             <li>If Encumbered by artifact: +1 Corruption per scene.</li>
             <li><strong>3+ artifacts carried:</strong> Corruption Cascade — all leak Corruption at end of scene.</li>
           </ul>
-          <h2>Fracture</h2>
-          <p>When the Artifact Die steps past d4, the artifact fractures. The Fracture Condition (defined per artifact) triggers immediately, thematically linked to its origin.</p>
 
-- _id: rules-headquarters
-  name: 'Headquarters'
-  type: JournalEntry
-  pages:
-    - name: 'Standing & Threat'
+          <h2>Fracture</h2>
+
+          <p>When the Artifact Die steps past d4, the artifact fractures. The Fracture Condition (defined per artifact)
+          triggers immediately, thematically linked to its origin.</p>
+    - name: Standing & Threat
       type: text
       text:
-        content: |
+        content: >
           <h2>Covenant Standing</h2>
+
           <p>Per-cell score from <strong>0–20</strong> measuring institutional trust.</p>
+
           <table>
             <thead><tr><th>Score</th><th>Rank</th><th>Key Benefit</th></tr></thead>
             <tbody>
@@ -921,10 +991,12 @@
               <tr><td>20</td><td>Elite</td><td>No resource limits; legacy recorded</td></tr>
             </tbody>
           </table>
-          <h2>Threat Meter</h2>
-          <p>Hidden DA track (0–6). At 6: Compromise Event. Increases from explosives use, escaped agents, containment leaks, law enforcement links.</p>
 
-    - name: 'Development Points & Upgrades'
+          <h2>Threat Meter</h2>
+
+          <p>Hidden DA track (0–6). At 6: Compromise Event. Increases from explosives use, escaped agents, containment
+          leaks, law enforcement links.</p>
+    - name: Development Points & Upgrades
       type: text
       text:
         content: |
@@ -960,8 +1032,7 @@
             <li><strong>Corruption Dampening Vault</strong> (6 DP) — Store 3 artifacts safely</li>
             <li><strong>Safe House Network</strong> (6 DP) — Fallback safe house anywhere</li>
           </ul>
-
-    - name: 'Personnel'
+    - name: Personnel
       type: text
       text:
         content: |
@@ -976,12 +1047,7 @@
               <tr><td><strong>Signals Technician</strong></td><td>4</td><td>Plant audio tap (1/Case File); +1 Tech die at HQ</td></tr>
             </tbody>
           </table>
-
-- _id: rules-divisions
-  name: 'Divisions'
-  type: JournalEntry
-  pages:
-    - name: 'Wayfinder'
+    - name: Wayfinder
       type: text
       text:
         content: |
@@ -1006,8 +1072,7 @@
               <tr><td>Eldritch Empathy</td><td>+1</td><td>Sense entity's emotional state or intent</td></tr>
             </tbody>
           </table>
-
-    - name: 'Recovery'
+    - name: Recovery
       type: text
       text:
         content: |
@@ -1033,14 +1098,16 @@
               <tr><td>Combat Reflexes</td><td>—</td><td>Draw 2 initiative cards, keep 1</td></tr>
             </tbody>
           </table>
-
-    - name: 'The Keep'
+    - name: The Keep
       type: text
       text:
-        content: |
+        content: >
           <h2>Division 3: The Keep</h2>
+
           <p><em>"What is contained must be guarded."</em></p>
+
           <p>Custodial authority. Handling, documentation, containment, and protection of artifacts.</p>
+
           <ul>
             <li><strong>Key Attributes:</strong> Empathy, Wits</li>
             <li><strong>Key Skill (Cap 4):</strong> Command</li>
@@ -1048,10 +1115,12 @@
             <li><strong>Division Item:</strong> Warden's Bracer (+1 AR; absorbs 1 Corruption/session)</li>
             <li><strong>Departments:</strong> Catalogers, Wardens, Internal CI, Stack (Logistics)</li>
           </ul>
-          <h3>Stack (Logistics)</h3>
-          <p>Technicians, quartermasters, engineers, and inventors maintaining Covenant gear stores. Gain +1 requisition die for crafting materials.</p>
 
-    - name: 'Division Items'
+          <h3>Stack (Logistics)</h3>
+
+          <p>Technicians, quartermasters, engineers, and inventors maintaining Covenant gear stores. Gain +1 requisition
+          die for crafting materials.</p>
+    - name: Division Items
       type: text
       text:
         content: |
@@ -1064,17 +1133,15 @@
               <tr><td>The Keep</td><td><strong>Warden's Bracer</strong></td><td>+1 Armor Rating; absorbs 1 Corruption/session (automatic); dampens emissions during handling; warns of containment failure</td></tr>
             </tbody>
           </table>
-
-- _id: rules-travel
-  name: 'Travel'
-  type: JournalEntry
-  pages:
-    - name: 'Travel Rules'
+    - name: Travel Rules
       type: text
       text:
-        content: |
+        content: >
           <h2>Travel as a Shift Type</h2>
-          <p>Travel shifts count against the Operations Board. Every shift in transit is a shift organizations keep advancing.</p>
+
+          <p>Travel shifts count against the Operations Board. Every shift in transit is a shift organizations keep
+          advancing.</p>
+
           <table>
             <thead><tr><th>Distance</th><th>Cost</th></tr></thead>
             <tbody>
@@ -1085,26 +1152,32 @@
               <tr><td>Cross-country / international</td><td>Multiple shifts + logistics</td></tr>
             </tbody>
           </table>
+
           <h3>Resolving a Travel Shift</h3>
+
           <p>Only roll when the route is contested:</p>
+
           <ul>
             <li><strong>Vehicle:</strong> Investigate (WIT) — Diff 1 clear, 2 at night/weather, 3 under pursuit</li>
             <li><strong>Foot/urban:</strong> Sneak (AGI) — Diff 1 normal, 2 hostile areas</li>
             <li><strong>Charter flight:</strong> Tech (WIT) — Diff 2</li>
           </ul>
-
-    - name: 'Surveillance & Pursuit'
+    - name: Surveillance & Pursuit
       type: text
       text:
-        content: |
+        content: >
           <h2>Being Followed</h2>
+
           <h3>Noticing a Tail</h3>
+
           <ul>
             <li><strong>Passive:</strong> Investigate (WIT) Diff 2</li>
             <li><strong>Actively looking:</strong> Investigate (WIT) Diff 1</li>
             <li>Professional tail: +1 Difficulty</li>
           </ul>
+
           <h3>Losing a Tail</h3>
+
           <table>
             <thead><tr><th>Option</th><th>Skill</th><th>Diff</th><th>Result</th></tr></thead>
             <tbody>
@@ -1113,8 +1186,12 @@
               <tr><td><strong>Double Back</strong></td><td>Investigate (WIT)</td><td>3</td><td>Tail lost + identity revealed</td></tr>
             </tbody>
           </table>
-          <p>If the tail arrives at the destination: additional hostile element in arrival scene; one Organization advances on the Board.</p>
+
+          <p>If the tail arrives at the destination: additional hostile element in arrival scene; one Organization
+          advances on the Board.</p>
+
           <h2>Road Event Table (d12)</h2>
+
           <table>
             <thead><tr><th>Roll</th><th>Event</th></tr></thead>
             <tbody>
@@ -1132,18 +1209,17 @@
               <tr><td>12</td><td>Clean Run — arrive ahead</td></tr>
             </tbody>
           </table>
-
-- _id: rules-case-file
-  name: 'Case File System'
-  type: JournalEntry
-  pages:
-    - name: 'Shifts & Structure'
+    - name: Shifts & Structure
       type: text
       text:
-        content: |
+        content: >
           <h2>Case File Structure</h2>
-          <p>A case runs over <strong>14 days</strong>, each with 4 shifts (Morning, Day, Evening, Night) = <strong>56 shifts</strong> total.</p>
+
+          <p>A case runs over <strong>14 days</strong>, each with 4 shifts (Morning, Day, Evening, Night) = <strong>56
+          shifts</strong> total.</p>
+
           <h3>Running a Shift (6 Steps)</h3>
+
           <ol>
             <li><strong>Set the Scene</strong> — describe what changed since last shift</li>
             <li><strong>Choose Undertaking</strong> — Scene, Travel, Surveillance, Research, Preparation, or Recovery</li>
@@ -1152,32 +1228,48 @@
             <li><strong>Advance the Board</strong> — fill shift quadrant, advance organization rows, check milestones</li>
             <li><strong>Note Delayed Returns</strong> — record what will come back and when</li>
           </ol>
-
-    - name: 'Operations Board'
+    - name: Operations Board
       type: text
       text:
-        content: |
+        content: >
           <h2>The Operations Board</h2>
-          <p>A grid with 14 columns (days 14→1). Column 14 = case start. Column 1 = catastrophe.</p>
-          <h3>Shift Row</h3>
-          <p>Top row. Each day divided into 4 quadrants. Fill quadrants as shifts pass. <strong>Relic milestones</strong> trigger when a milestone day is completed.</p>
-          <h3>Organization Rows</h3>
-          <p>External pressure sources with their own countdown tracks. Each row has 14 squares; when a milestone square is reached, its event fires.</p>
-          <p>Organizations escalate based on: agent activity, visible anomalies, publicity, faction paranoia, missed opportunities, and cross-links from other organization milestones.</p>
 
-    - name: 'Locations & NPCs'
+          <p>A grid with 14 columns (days 14→1). Column 14 = case start. Column 1 = catastrophe.</p>
+
+          <h3>Shift Row</h3>
+
+          <p>Top row. Each day divided into 4 quadrants. Fill quadrants as shifts pass. <strong>Relic
+          milestones</strong> trigger when a milestone day is completed.</p>
+
+          <h3>Organization Rows</h3>
+
+          <p>External pressure sources with their own countdown tracks. Each row has 14 squares; when a milestone square
+          is reached, its event fires.</p>
+
+          <p>Organizations escalate based on: agent activity, visible anomalies, publicity, faction paranoia, missed
+          opportunities, and cross-links from other organization milestones.</p>
+    - name: Locations & NPCs
       type: text
       text:
-        content: |
+        content: >
           <h2>Case Entities</h2>
-          <h3>Locations</h3>
-          <p>Each Location form tracks: Name, Description, Availability (open/clue-locked/contact-locked/time-locked/packet-locked), NPCs Present, Information Available (I# codes), Organizations Present, Positive/Negative Results, Milestone Changes.</p>
-          <h3>NPC Cards</h3>
-          <p>Playing-card-sized references: Name, Organization (O#), Secret, Goal, Artifact Connection, Starting Knowledge (I# refs), Gained Knowledge (milestone-driven), Positive/Negative Results.</p>
-          <h3>Information Cards</h3>
-          <p>Discoverable facts identified by I# codes. Each lists: Location sources, NPC sources, HQ fallback timing, and type (Containment Truth or intel).</p>
 
-    - name: 'Packets & Scene Resolution'
+          <h3>Locations</h3>
+
+          <p>Each Location form tracks: Name, Description, Availability
+          (open/clue-locked/contact-locked/time-locked/packet-locked), NPCs Present, Information Available (I# codes),
+          Organizations Present, Positive/Negative Results, Milestone Changes.</p>
+
+          <h3>NPC Cards</h3>
+
+          <p>Playing-card-sized references: Name, Organization (O#), Secret, Goal, Artifact Connection, Starting
+          Knowledge (I# refs), Gained Knowledge (milestone-driven), Positive/Negative Results.</p>
+
+          <h3>Information Cards</h3>
+
+          <p>Discoverable facts identified by I# codes. Each lists: Location sources, NPC sources, HQ fallback timing,
+          and type (Containment Truth or intel).</p>
+    - name: Packets & Scene Resolution
       type: text
       text:
         content: |
@@ -1206,12 +1298,7 @@
               <tr><td><strong>Breach</strong></td><td>Loud, public, or unstable — organization advances</td></tr>
             </tbody>
           </table>
-
-- _id: rules-advancement
-  name: 'Advancement'
-  type: JournalEntry
-  pages:
-    - name: 'Experience Points'
+    - name: Experience Points
       type: text
       text:
         content: |
@@ -1232,8 +1319,7 @@
               <tr><td>New Talent</td><td>6 XP</td><td>General, Division, or Sub-unit</td></tr>
             </tbody>
           </table>
-
-    - name: 'Clearance Level Progression'
+    - name: Clearance Level Progression
       type: text
       text:
         content: |
@@ -1244,12 +1330,7 @@
             <li>Team <strong>Standing</strong> grants a cell-wide equipping cap (CL 3 at Standing 5; CL 4 at Standing 10)</li>
             <li>Use whichever is higher during Equipping Phase</li>
           </ul>
-
-- _id: rules-glossary
-  name: 'Glossary'
-  type: JournalEntry
-  pages:
-    - name: 'Game Terms'
+    - name: Game Terms
       type: text
       text:
         content: |

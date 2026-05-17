@@ -4,7 +4,7 @@
  * @module components/roll/roll-dialog
  */
 
-import { buildPool, executeRoll, pushRoll } from './roll-handler.mjs';
+import { buildPool, executeRoll, sendRollToChat } from './roll-handler.mjs';
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ApplicationV2 } = foundry.applications.api;
@@ -136,10 +136,15 @@ export class NRRollDialog extends HandlebarsApplicationMixin(ApplicationV2) {
     });
 
     const result = await executeRoll(pool);
-    result.difficulty = Number(data.difficulty) || 0;
-    result.notes = data.notes || '';
-    result.attribute = data.attribute || '';
-    result.skill = data.skill || '';
+
+    // Send to chat
+    await sendRollToChat(result, {
+      attribute: data.attribute || '',
+      skill: data.skill || '',
+      difficulty: Number(data.difficulty) || 0,
+      notes: data.notes || '',
+      actorId: this.rollData.actorId,
+    });
 
     if (this._resolve) {
       this._resolve(result);

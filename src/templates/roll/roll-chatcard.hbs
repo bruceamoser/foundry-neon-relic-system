@@ -1,0 +1,58 @@
+{{! Roll result chat card }}
+<div class='nr-roll-card' data-actor-id='{{actorId}}'>
+  <header class='nr-roll-card__header'>
+    <h3>
+      {{#if skillLabel}}{{skillLabel}} ({{attributeLabel}}){{else}}{{attributeLabel}}{{/if}}
+    </h3>
+  </header>
+
+  <div class='nr-roll-card__dice'>
+    {{#each baseDice}}
+      {{#if this.success}}
+        <span class='nr-die nr-die--base nr-die--success'>{{this.value}}</span>
+      {{else}}
+        <span class='nr-die nr-die--base'>{{this.value}}</span>
+      {{/if}}
+    {{/each}}
+    {{#each skillDice}}
+      {{#if this.success}}
+        <span class='nr-die nr-die--skill nr-die--success'>{{this.value}}</span>
+      {{else}}
+        <span class='nr-die nr-die--skill'>{{this.value}}</span>
+      {{/if}}
+    {{/each}}
+    {{#each gearDice}}
+      {{#if this.success}}
+        <span class='nr-die nr-die--gear nr-die--success'>{{this.value}}</span>
+      {{else}}
+        <span class='nr-die nr-die--gear'>{{this.value}}</span>
+      {{/if}}
+    {{/each}}
+  </div>
+
+  <div class='nr-roll-card__result'>
+    <span class='nr-roll-card__successes'>
+      {{localize 'NEONRELIC.Roll.Successes'}}:
+      <strong>{{successes}}</strong>
+    </span>
+    {{#if difficulty}}
+      {{#if isSuccess}}
+        <span class='nr-roll-card__outcome nr-roll-card__outcome--pass'>{{localize 'NEONRELIC.Roll.Success'}}</span>
+      {{else}}
+        <span class='nr-roll-card__outcome nr-roll-card__outcome--fail'>{{localize 'NEONRELIC.Roll.Failure'}}</span>
+      {{/if}}
+    {{/if}}
+  </div>
+
+  {{#if isPush}}
+    <div class='nr-roll-card__push-note'>
+      <em>{{localize 'NEONRELIC.Roll.PushNote'}}</em>
+    </div>
+  {{/if}}
+
+  {{#if notes}}
+    <div class='nr-roll-card__notes'>
+      <em>{{notes}}</em>
+    </div>
+  {{/if}}
+</div>

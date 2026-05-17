@@ -2,6 +2,7 @@ import fs from 'fs-extra';
 import gulp from 'gulp';
 import yaml from 'gulp-yaml';
 import YAML from 'js-yaml';
+import crypto from 'node:crypto';
 import { ClassicLevel } from 'classic-level';
 import esBuild from './esbuild.config.js';
 
@@ -111,93 +112,132 @@ async function buildPacks() {
 
     // Clean and create LevelDB directory.
     await fs.remove(packPath);
-    const db = new ClassicLevel(packPath, { keyEncoding: 'utf8', valueEncoding: 'utf8' });
+    const db = new ClassicLevel(packPath, { keyEncoding: 'utf8', valueEncoding: 'json' });
 
     let count = 0;
     for (const doc of documents) {
-      const entry = _transformDocument(doc, ITEM_TYPES, ACTOR_TYPES);
-      if (!entry) {
+      const entries = _transformDocument(doc, ITEM_TYPES, ACTOR_TYPES);
+      if (!entries) {
         console.warn(`neon-relic | Unknown type "${doc.type}" in ${file}, skipping`);
         continue;
       }
-      await db.put(entry.key, JSON.stringify(entry.data));
+      // _transformDocument returns an array of {key, data} entries
+      for (const entry of entries) {
+        await db.put(entry.key, entry.data);
+      }
       count++;
     }
 
+    // Force compaction from WAL (.log) to SST (.ldb) before closing.
+    // Without this, Foundry may create phantom index entries when reading
+    // un-compacted LevelDB data.
+    await db.compactRange('\x00', '\xff');
     await db.close();
     console.log(`neon-relic | Compiled ${count} entries → packs/${packName}`);
   }
 }
 
+/* ------------------------------------------ */
+/*  ID Generation                             */
+/* ------------------------------------------ */
+
+// Characters used by Foundry's randomID()
+const ID_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
 /**
- * Transform a YAML source document into a Foundry-native document with the correct LevelDB key.
+ * Generate a deterministic 16-character Foundry-compatible ID from a slug.
+ * Uses SHA-256 hash to map arbitrary slugs to the Base62 alphabet Foundry expects.
+ * @param {string} slug - Human-readable ID from YAML (e.g. "macro001").
+ * @returns {string} 16-character alphanumeric ID.
+ */
+function toFoundryId(slug) {
+  const hash = crypto.createHash('sha256').update(slug).digest();
+  let id = '';
+  for (let i = 0; i < 16; i++) {
+    id += ID_CHARS[hash[i] % ID_CHARS.length];
+  }
+  return id;
+}
+
+/**
+ * Transform a YAML source document into Foundry-native LevelDB entries.
+ * Returns an array of {key, data} entries. For journals, this includes
+ * separate entries for pages (Foundry V14 requirement).
  * @param {object} doc - Parsed YAML document.
  * @param {Set} itemTypes - Set of Item sub-types.
  * @param {Set} actorTypes - Set of Actor sub-types.
- * @returns {{key: string, data: object}|null}
+ * @returns {Array<{key: string, data: object}>|null}
  */
 function _transformDocument(doc, itemTypes, actorTypes) {
+  const id = toFoundryId(doc._id);
+
   if (itemTypes.has(doc.type)) {
-    return {
-      key: `!items!${doc._id}`,
-      data: {
-        _id: doc._id,
-        name: doc.name,
-        type: doc.type,
-        img: doc.img || '',
-        system: doc.system || {},
-        effects: doc.effects || [],
-        flags: doc.flags || {},
-        folder: doc.folder || null,
-        sort: doc.sort || 0,
-        ownership: doc.ownership || { default: 0 },
-        _stats: doc._stats || {},
+    return [
+      {
+        key: `!items!${id}`,
+        data: {
+          _id: id,
+          name: doc.name,
+          type: doc.type,
+          img: doc.img || '',
+          system: doc.system || {},
+          effects: doc.effects || [],
+          flags: doc.flags || {},
+          folder: doc.folder || null,
+          sort: doc.sort || 0,
+          ownership: doc.ownership || { default: 0 },
+          _stats: doc._stats || {},
+        },
       },
-    };
+    ];
   }
 
   if (actorTypes.has(doc.type)) {
-    return {
-      key: `!actors!${doc._id}`,
-      data: {
-        _id: doc._id,
-        name: doc.name,
-        type: doc.type,
-        img: doc.img || '',
-        system: doc.system || {},
-        items: doc.items || [],
-        effects: doc.effects || [],
-        flags: doc.flags || {},
-        folder: doc.folder || null,
-        sort: doc.sort || 0,
-        ownership: doc.ownership || { default: 0 },
-        prototypeToken: doc.prototypeToken || {},
-        _stats: doc._stats || {},
+    return [
+      {
+        key: `!actors!${id}`,
+        data: {
+          _id: id,
+          name: doc.name,
+          type: doc.type,
+          img: doc.img || '',
+          system: doc.system || {},
+          items: doc.items || [],
+          effects: doc.effects || [],
+          flags: doc.flags || {},
+          folder: doc.folder || null,
+          sort: doc.sort || 0,
+          ownership: doc.ownership || { default: 0 },
+          prototypeToken: doc.prototypeToken || {},
+          _stats: doc._stats || {},
+        },
       },
-    };
+    ];
   }
 
   if (doc.type === 'macro') {
-    return {
-      key: `!macros!${doc._id}`,
-      data: {
-        _id: doc._id,
-        name: doc.name,
-        type: doc.system?.macroType || 'script',
-        img: doc.img || 'icons/svg/dice-target.svg',
-        command: doc.system?.script || '',
-        flags: doc.flags || {},
-        folder: doc.folder || null,
-        sort: doc.sort || 0,
-        ownership: doc.ownership || { default: 0 },
-        _stats: doc._stats || {},
+    return [
+      {
+        key: `!macros!${id}`,
+        data: {
+          _id: id,
+          name: doc.name,
+          type: doc.system?.macroType || 'script',
+          img: doc.img || 'icons/svg/dice-target.svg',
+          command: doc.system?.script || '',
+          flags: doc.flags || {},
+          folder: doc.folder || null,
+          sort: doc.sort || 0,
+          ownership: doc.ownership || { default: 0 },
+          _stats: doc._stats || {},
+        },
       },
-    };
+    ];
   }
 
   if (doc.type === 'rollTable') {
     const results = (doc.system?.entries || []).map((e, i) => ({
-      _id: `${doc._id}r${String(i + 1).padStart(3, '0')}`,
+      _id: toFoundryId(`${doc._id}r${String(i + 1).padStart(3, '0')}`),
       type: 0,
       text: e.result,
       range: e.range,
@@ -205,23 +245,25 @@ function _transformDocument(doc, itemTypes, actorTypes) {
       drawn: false,
       flags: {},
     }));
-    return {
-      key: `!tables!${doc._id}`,
-      data: {
-        _id: doc._id,
-        name: doc.name,
-        img: doc.img || 'icons/svg/d20-grey.svg',
-        formula: doc.system?.formula || '1d6',
-        replacement: true,
-        displayRoll: true,
-        results,
-        flags: doc.flags || {},
-        folder: doc.folder || null,
-        sort: doc.sort || 0,
-        ownership: doc.ownership || { default: 0 },
-        _stats: doc._stats || {},
+    return [
+      {
+        key: `!tables!${id}`,
+        data: {
+          _id: id,
+          name: doc.name,
+          img: doc.img || 'icons/svg/d20-grey.svg',
+          formula: doc.system?.formula || '1d6',
+          replacement: true,
+          displayRoll: true,
+          results,
+          flags: doc.flags || {},
+          folder: doc.folder || null,
+          sort: doc.sort || 0,
+          ownership: doc.ownership || { default: 0 },
+          _stats: doc._stats || {},
+        },
       },
-    };
+    ];
   }
 
   if (doc.type === 'journalEntry' || doc.type === 'JournalEntry') {
@@ -229,7 +271,7 @@ function _transformDocument(doc, itemTypes, actorTypes) {
     if (Array.isArray(doc.pages)) {
       // New format: explicit pages array (rules-reference, etc.)
       pages = doc.pages.map((p, i) => ({
-        _id: `${doc._id}p${String(i + 1).padStart(3, '0')}`,
+        _id: toFoundryId(`${doc._id}p${String(i + 1).padStart(3, '0')}`),
         name: p.name,
         type: p.type || 'text',
         text: { content: p.text?.content || '', format: 1 },
@@ -242,7 +284,7 @@ function _transformDocument(doc, itemTypes, actorTypes) {
       // Legacy format: single page from system.summary
       pages = [
         {
-          _id: `${doc._id}p001`,
+          _id: toFoundryId(`${doc._id}p001`),
           name: doc.name,
           type: 'text',
           text: { content: doc.system?.summary || '', format: 1 },
@@ -253,19 +295,34 @@ function _transformDocument(doc, itemTypes, actorTypes) {
         },
       ];
     }
-    return {
-      key: `!journal!${doc._id}`,
-      data: {
-        _id: doc._id,
-        name: doc.name,
-        pages,
-        flags: doc.flags || {},
-        folder: doc.folder || null,
-        sort: doc.sort || 0,
-        ownership: doc.ownership || { default: 0 },
-        _stats: doc._stats || {},
+
+    // Foundry V14: pages are stored as separate LevelDB entries AND referenced
+    // by ID in the journal document's pages array.
+    const entries = [
+      {
+        key: `!journal!${id}`,
+        data: {
+          _id: id,
+          name: doc.name,
+          pages: pages.map(p => p._id),
+          flags: doc.flags || {},
+          folder: doc.folder || null,
+          sort: doc.sort || 0,
+          ownership: doc.ownership || { default: 0 },
+          _stats: doc._stats || {},
+        },
       },
-    };
+    ];
+
+    // Add each page as a separate entry
+    for (const page of pages) {
+      entries.push({
+        key: `!journal.pages!${id}.${page._id}`,
+        data: page,
+      });
+    }
+
+    return entries;
   }
 
   return null;

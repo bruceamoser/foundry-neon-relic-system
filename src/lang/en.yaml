@@ -123,6 +123,10 @@ NEONRELIC:
     NotesPlaceholder: Roll notes...
     None: None
     PushCorruption: Pushing a roll
+    Successes: Successes
+    Success: Success
+    Failure: Failure
+    PushNote: Pushed — +1 Corruption
 
   # Stunts
   Stunt:

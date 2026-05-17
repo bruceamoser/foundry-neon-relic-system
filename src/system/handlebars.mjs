@@ -92,13 +92,6 @@ export function registerHandlebarsHelpers() {
  */
 export async function preloadHandlebarsTemplates() {
   const templatePaths = [
-    'systems/neon-relic/templates/partials/attribute-box.hbs',
-    'systems/neon-relic/templates/partials/skill-row.hbs',
-    'systems/neon-relic/templates/partials/resource-die.hbs',
-    'systems/neon-relic/templates/partials/corruption-track.hbs',
-    'systems/neon-relic/templates/partials/condition-badge.hbs',
-    'systems/neon-relic/templates/partials/item-row.hbs',
-    'systems/neon-relic/templates/partials/roll-button.hbs',
     'systems/neon-relic/templates/item/item-header.hbs',
     'systems/neon-relic/templates/item/item-body.hbs',
     'systems/neon-relic/templates/item/weapon.hbs',

@@ -5,7 +5,8 @@
 
 export function registerTours() {
   // Register the welcome tour
-  game.tours.register('neon-relic', 'welcome', {
+  /* global Tour */
+  const tour = new Tour({
     title: 'NEONRELIC.Tour.WelcomeTitle',
     description: 'NEONRELIC.Tour.WelcomeDesc',
     canBeResumed: false,
@@ -48,4 +49,5 @@ export function registerTours() {
       },
     ],
   });
+  game.tours.register('neon-relic', 'welcome', tour);
 }

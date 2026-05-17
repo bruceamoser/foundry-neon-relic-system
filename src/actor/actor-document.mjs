@@ -211,6 +211,12 @@ export class NeonRelicActor extends Actor {
   async _preCreate(data, options, user) {
     await super._preCreate(data, options, user);
     const prototypeToken = {};
+    const updates = {};
+
+    // Set default portrait if none provided
+    if (!data.img || data.img === 'icons/svg/mystery-man.svg') {
+      updates.img = 'systems/neon-relic/assets/ui/placeholder-agent.svg';
+    }
 
     if (this.type === 'agent') {
       prototypeToken.actorLink = true;
@@ -225,7 +231,10 @@ export class NeonRelicActor extends Actor {
     }
 
     if (Object.keys(prototypeToken).length > 0) {
-      this.updateSource({ prototypeToken });
+      updates.prototypeToken = prototypeToken;
+    }
+    if (Object.keys(updates).length > 0) {
+      this.updateSource(updates);
     }
   }
 }

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260" width="200" height="260">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a2a28"/>
+      <stop offset="100%" stop-color="#1a1a18"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="200" height="260" fill="url(#bg)"/>
+  <!-- Scan lines overlay -->
+  <g opacity="0.08">
+    <line x1="0" y1="0" x2="200" y2="0" stroke="#e8e4d8" stroke-width="1" repeat="130"/>
+    <!-- Simulated scan lines every 2px -->
+    <rect x="0" y="0" width="200" height="260" fill="url(#scanlines)"/>
+  </g>
+  <!-- Head silhouette -->
+  <circle cx="100" cy="85" r="38" fill="#3a3a36"/>
+  <!-- Shoulders silhouette -->
+  <ellipse cx="100" cy="180" rx="62" ry="46" fill="#3a3a36"/>
+  <!-- Neon accent line -->
+  <line x1="20" y1="230" x2="180" y2="230" stroke="#00ccaa" stroke-width="1.5" opacity="0.6"/>
+  <!-- CLASSIFIED text -->
+  <text x="100" y="250" font-family="monospace" font-size="10" fill="#00ccaa" text-anchor="middle" opacity="0.5" letter-spacing="4">CLASSIFIED</text>
+</svg>
