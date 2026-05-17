@@ -509,6 +509,10 @@ NEONRELIC:
   Condition:
     Broken: Broken
     Dying: Dying
+    Grappled: Grappled
+    Prone: Prone
+    Terrified: Terrified
+    Stunned: Stunned
 
   # NPC
   NPC:
@@ -681,3 +685,70 @@ NEONRELIC:
     Fractured: Fractured
     Shattered: Shattered
     Destroyed: Artifact destroyed
+
+  # Death States
+  Death:
+    Active: Active
+    Broken: Broken
+    Dying: Dying
+    Dead: Dead
+    Stabilize: Stabilization Attempt
+    Stabilized: Stabilized
+    StabilizeFailed: Stabilization failed
+
+  # Downtime
+  Downtime:
+    Recovery: Recovery Phase
+    Requisition: Requisition Phase
+    Training: Training Phase
+    Projects: Personal Projects
+    Briefing: Case Briefing
+
+  # Threat
+  Threat:
+    Compromised: Compromised
+    Surveillance: Surveillance
+    Interference: Interference
+    Leak: Information Leak
+    Ambush: Ambush
+    Betrayal: Betrayal
+    Escalation: Escalation
+
+  # Rival Cells
+  Rival:
+    Scout: Rival scouts
+    Acquire: Rival acquires artifact
+    Sabotage: Rival sabotages resources
+    Confront: Rival confrontation
+    Alliance: Rival offers alliance
+    Relic: Rival claims relic
+
+  # Personnel
+  Personnel:
+    Analyst: Analyst
+    Medic: Medic
+    Mechanic: Mechanic
+    Guard: Guard
+    Occultist: Occultist
+
+  # HQ Defense
+  HQDefense:
+    Approach: Approach Phase
+    Breach: Breach Phase
+    Combat: Combat Phase
+    VaultDefense: Vault Defense
+
+  # Debrief
+  Debrief:
+    Survived: Did you survive the case?
+    SecuredRelic: Did you secure the relic?
+    UncoveredClue: Did you uncover a key clue?
+    MadeSacrifice: Did you make a personal sacrifice?
+    ServedDivision: Did you serve your division's goals?
+    HonoredBond: Did you honor a bond with an ally?
+    DP:
+      RelicContained: Relic contained (+2 DP)
+      NoDeaths: No agent deaths (+1 DP)
+      OrgNeutralized: Organization neutralized (+1 DP)
+      LowThreat: Threat stayed low (+1 DP)
+      BonusObjective: Bonus objective completed (+1 DP)
