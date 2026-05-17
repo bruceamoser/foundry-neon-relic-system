@@ -253,6 +253,7 @@ NEONRELIC:
     ArtifactDie: Artifact Die
     CorruptionCost: Corruption Cost
     Activation: Activation Condition
+    ActivationAndEffect: Activation & Effect
     Activated: Activated This Case
     Effect: Effect
     FractureCondition: Fracture Condition
@@ -262,8 +263,9 @@ NEONRELIC:
     EmissionTrigger: Trigger
     EmissionCorruption: Corruption Amount
     Suppressed: Suppressed
-    Containment: Containment
+    Containment: Containment Profile
     ContainmentType: Profile Type
+    ContainmentTruths: Containment Truths
     Contained: Contained
     ActivatedVerb: activated
     DieRoll: Artifact Die Roll
