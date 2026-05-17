@@ -6,7 +6,13 @@
 
 import { NEON_RELIC } from './system/config.mjs';
 import { registerHandlebarsHelpers, preloadHandlebarsTemplates } from './system/handlebars.mjs';
-import { AgentDataModel, NPCDataModel } from './data/actor-models.mjs';
+import {
+  AgentDataModel,
+  NPCDataModel,
+  HeadquartersDataModel,
+  MobDataModel,
+  VehicleDataModel,
+} from './data/actor-models.mjs';
 
 Hooks.once('init', () => {
   console.log('neon-relic | Initializing Neon Relic system');
@@ -17,6 +23,9 @@ Hooks.once('init', () => {
   // Register data models
   CONFIG.Actor.dataModels.agent = AgentDataModel;
   CONFIG.Actor.dataModels.npc = NPCDataModel;
+  CONFIG.Actor.dataModels.headquarters = HeadquartersDataModel;
+  CONFIG.Actor.dataModels.mob = MobDataModel;
+  CONFIG.Actor.dataModels.vehicle = VehicleDataModel;
 
   // Register custom Handlebars helpers
   registerHandlebarsHelpers();
