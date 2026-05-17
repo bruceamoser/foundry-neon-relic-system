@@ -6,6 +6,7 @@
 
 import { NEON_RELIC } from './system/config.mjs';
 import { registerHandlebarsHelpers, preloadHandlebarsTemplates } from './system/handlebars.mjs';
+import { NeonRelicActor } from './actor/actor-document.mjs';
 import {
   AgentDataModel,
   NPCDataModel,
@@ -32,6 +33,9 @@ Hooks.once('init', () => {
 
   // Store system config on global CONFIG
   CONFIG.NEON_RELIC = NEON_RELIC;
+
+  // Register document classes
+  CONFIG.Actor.documentClass = NeonRelicActor;
 
   // Register actor data models
   CONFIG.Actor.dataModels.agent = AgentDataModel;
