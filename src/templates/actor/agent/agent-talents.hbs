@@ -1,29 +1,33 @@
 <section class='tab talents' data-group='primary' data-tab='talents'>
-  {{#each talents}}
-    <div class='talent-entry' data-item-id='{{this.id}}'>
-      <div class='talent-header'>
-        <span class='talent-name'>{{this.name}}</span>
-        <span class='talent-type'>{{this.system.talentType}}</span>
-        {{#if this.system.hasHealingTag}}
-          <span class='healing-tag' title='{{localize "NEONRELIC.Talent.HealingTag"}}'>♥</span>
-        {{/if}}
-      </div>
-      <div class='talent-uses'>
-        {{#if this.system.isOncePerSession}}
-          <span class='once-label'>{{localize 'NEONRELIC.Talent.OncePerSession'}}</span>
-        {{else}}
-          <span>{{this.system.usesPerSession.value}} / {{this.system.usesPerSession.max}}</span>
-        {{/if}}
+  <div class='section-title green'>{{localize 'NEONRELIC.Tab.Talents'}}</div>
+  <div class='three-col talent-grid'>
+    {{#each talents}}
+      <div class='talent-block' data-item-id='{{this.id}}'>
+        <div class='talent-type'>{{this.system.talentType}}</div>
+        <div class='talent-name'>{{this.name}}</div>
+        <div class='talent-meta'>
+          {{#if this.system.isOncePerSession}}
+            <span class='talent-uses'>{{localize 'NEONRELIC.Talent.OncePerSession'}}</span>
+          {{else}}
+            <span class='talent-uses'>{{this.system.usesPerSession.value}} / {{this.system.usesPerSession.max}}</span>
+          {{/if}}
+          {{#if this.system.hasHealingTag}}
+            <span class='healing-tag' title='{{localize "NEONRELIC.Talent.HealingTag"}}'>&#9829;</span>
+          {{/if}}
+          {{#if this.system.corruptionCost}}
+            <span class='corruption-cost'>&#9760; {{this.system.corruptionCost}}</span>
+          {{/if}}
+        </div>
         {{#if @root.isEditable}}
-          <button type='button' data-action='useTalent'>
+          <button type='button' class='talent-use-btn' data-action='useTalent'>
             <i class='fa-solid fa-bolt'></i>
+            {{localize 'NEONRELIC.Talent.Use'}}
           </button>
         {{/if}}
       </div>
-      {{#if this.system.corruptionCost}}
-        <span class='corruption-cost'>{{localize 'NEONRELIC.Talent.CorruptionCost'}}:
-          {{this.system.corruptionCost}}</span>
-      {{/if}}
-    </div>
-  {{/each}}
+    {{/each}}
+  </div>
+  {{#unless talents.length}}
+    <p class='empty-list'>{{localize 'NEONRELIC.NoItems'}}</p>
+  {{/unless}}
 </section>

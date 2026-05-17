@@ -1,18 +1,27 @@
-<header class='agent-header flexrow'>
-  <img class='profile-img' src='{{actor.img}}' data-edit='img' title='{{actor.name}}' />
-  <div class='header-fields'>
-    <h1>
-      <input
-        name='name'
-        type='text'
-        value='{{actor.name}}'
-        placeholder='{{localize "NEONRELIC.Agent.Name"}}'
-        {{disabled (not isEditable)}}
-      />
-    </h1>
-    <div class='header-details'>
-      <span class='division'>{{localize (concat 'NEONRELIC.Division.' system.division)}}</span>
-      <span class='clearance-level'>{{localize 'NEONRELIC.Agent.CL'}} {{system.clearanceLevel}}</span>
+<header class='agent-header'>
+  <div class='agent-header__left'>
+    <img class='agent-header__portrait' src='{{actor.img}}' data-edit='img' title='{{actor.name}}' />
+    <div class='agent-header__identity'>
+      <h1 class='agent-header__title'>
+        <input
+          name='name'
+          type='text'
+          value='{{actor.name}}'
+          placeholder='{{localize "NEONRELIC.Agent.Name"}}'
+          {{disabled (not isEditable)}}
+        />
+      </h1>
+      <div class='agent-header__subtitle'>
+        {{localize 'NEONRELIC.Agent.Dossier'}}
+        &mdash; The Verdant Covenant
+      </div>
+    </div>
+  </div>
+  <div class='agent-header__right'>
+    <div class='classification'>{{localize 'NEONRELIC.Classified'}}</div>
+    <div class='agent-header__meta'>
+      <span class='agent-header__division'>{{localize (concat 'NEONRELIC.Division.' system.division)}}</span>
+      <span class='agent-header__cl'>CL-{{system.clearanceLevel}}</span>
     </div>
   </div>
 </header>

@@ -136,7 +136,61 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       relativeTo: actor,
     });
 
-    // Skill data with linked attributes for display
+    // Damage type labels per attribute
+    const damageLabels = {};
+    for (const [, dt] of Object.entries(CONFIG.NEON_RELIC.damageTypes)) {
+      damageLabels[dt.attribute] = dt.label;
+    }
+
+    // Skills grouped by attribute for 4-column layout
+    const skillsByAttr = { str: [], agi: [], wit: [], emp: [] };
+    for (const [key, skillConfig] of Object.entries(CONFIG.NEON_RELIC.skills)) {
+      skillsByAttr[skillConfig.attribute].push({
+        key,
+        label: skillConfig.label,
+        value: system.skills[key] ?? 0,
+      });
+    }
+
+    // Build attribute columns for the attr-skill grid
+    context.attrColumns = [];
+    for (const [attrKey, attrLabel] of Object.entries(CONFIG.NEON_RELIC.attributes)) {
+      const attr = system.attributes[attrKey];
+      const dmg = attr.max - attr.value;
+      const dmgPips = [];
+      for (let i = 0; i < attr.max; i++) {
+        const filled = i < dmg;
+        dmgPips.push({ filled, cssClass: filled ? 'pip filled' : 'pip' });
+      }
+      context.attrColumns.push({
+        key: attrKey,
+        label: attrLabel,
+        value: attr.value,
+        max: attr.max,
+        damageLabel: damageLabels[attrKey] ?? '',
+        damagePips: dmgPips,
+        skills: skillsByAttr[attrKey],
+      });
+    }
+
+    // Corruption pip array for numbered track
+    const threshold = system.corruption.threshold;
+    context.corruptionPips = [];
+    for (let i = 1; i <= threshold; i++) {
+      const filled = i <= cv;
+      const danger = i > threshold - 3;
+      let cls = 'pip';
+      if (filled) cls += ' filled';
+      if (danger) cls += ' danger';
+      context.corruptionPips.push({
+        number: i,
+        filled,
+        danger,
+        cssClass: cls,
+      });
+    }
+
+    // Flat skill entries (kept for backward compat)
     context.skillEntries = [];
     for (const [key, skillConfig] of Object.entries(CONFIG.NEON_RELIC.skills)) {
       context.skillEntries.push({
@@ -147,6 +201,10 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
         attrValue: system.attributes[skillConfig.attribute]?.value ?? 0,
       });
     }
+
+    // Precomputed CSS classes for conditions
+    context.brokenClass = system.conditions.isBroken ? 'condition-btn active' : 'condition-btn';
+    context.dyingClass = system.conditions.isDying ? 'condition-btn active' : 'condition-btn';
 
     return context;
   }

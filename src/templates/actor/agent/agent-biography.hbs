@@ -1,41 +1,39 @@
 <section class='tab biography' data-group='primary' data-tab='biography'>
-  {{#if anchor}}
-    <div class='anchor-section'>
-      <h3>{{localize 'NEONRELIC.ItemType.anchor'}}</h3>
-      <div class='anchor-entry' data-item-id='{{anchor.id}}'>
-        <span class='anchor-name'>{{anchor.name}}</span>
-        <span class='anchor-uses'>{{anchor.system.uses.value}} / {{anchor.system.uses.max}}</span>
-        {{#if anchor.system.isLost}}<span class='lost-badge'>{{localize 'NEONRELIC.Anchor.Lost'}}</span>{{/if}}
+  {{! Psychological Profile }}
+  <div class='section-title red'>{{localize 'NEONRELIC.Agent.PsychProfile'}}</div>
+  <div class='two-col'>
+    {{#if anchor}}
+      <div class='anchor-box' data-item-id='{{anchor.id}}'>
+        <div class='id-label'>{{localize 'NEONRELIC.ItemType.anchor'}} &mdash; {{anchor.name}}</div>
+        <div class='anchor-uses'>{{anchor.system.uses.value}} / {{anchor.system.uses.max}}</div>
+        {{#if anchor.system.isLost}}
+          <span class='lost-badge'>{{localize 'NEONRELIC.Anchor.Lost'}}</span>
+        {{/if}}
       </div>
-    </div>
-  {{/if}}
-
-  {{#if darkSecret}}
-    <div class='dark-secret-section'>
-      <h3>{{localize 'NEONRELIC.ItemType.darkSecret'}}</h3>
-      <div class='secret-entry' data-item-id='{{darkSecret.id}}'>
-        <span class='secret-name'>{{darkSecret.name}}</span>
-        <span class='xp-trigger'>{{darkSecret.system.xpTrigger}}</span>
+    {{else}}
+      <div class='anchor-box anchor-box--empty'>
+        <div class='id-label'>{{localize 'NEONRELIC.ItemType.anchor'}}</div>
+        <div class='empty-placeholder'>{{localize 'NEONRELIC.NoItems'}}</div>
       </div>
-    </div>
-  {{/if}}
+    {{/if}}
 
-  <div class='division-item'>
-    <h3>{{localize 'NEONRELIC.Agent.DivisionItem'}}</h3>
-    <label>
-      <input
-        type='checkbox'
-        name='system.divisionItem.active'
-        {{checked system.divisionItem.active}}
-        {{disabled (not isEditable)}}
-      />
-      {{localize 'NEONRELIC.Agent.DivisionItemActive'}}
-    </label>
+    {{#if darkSecret}}
+      <div class='secret-box' data-item-id='{{darkSecret.id}}'>
+        <div class='id-label'>{{localize 'NEONRELIC.ItemType.darkSecret'}} &mdash; {{darkSecret.name}}</div>
+        <div class='secret-trigger'>{{darkSecret.system.xpTrigger}}</div>
+      </div>
+    {{else}}
+      <div class='secret-box secret-box--empty'>
+        <div class='id-label'>{{localize 'NEONRELIC.ItemType.darkSecret'}}</div>
+        <div class='empty-placeholder'>{{localize 'NEONRELIC.NoItems'}}</div>
+      </div>
+    {{/if}}
   </div>
 
-  <div class='description-section'>
-    <h3>{{localize 'NEONRELIC.Agent.Backstory'}}</h3>
-    <div class='editor'>{{{enrichedDescription}}}</div>
+  {{! Backstory }}
+  <div class='section-title'>{{localize 'NEONRELIC.Agent.Backstory'}}</div>
+  <div class='biography-editor'>
+    <div class='editor-content'>{{{enrichedDescription}}}</div>
     {{#if isEditable}}
       <textarea name='system.description' style='display:none;'>{{system.description}}</textarea>
     {{/if}}

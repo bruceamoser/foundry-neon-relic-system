@@ -1,0 +1,838 @@
+// Neon Relic — Agent Sheet Styles
+// Matches character-sheet.html reference layout
+
+.neon-relic.agent-sheet {
+  // ── Header ──────────────────────────────────────────
+  .agent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-top: 3px solid $nr-ink;
+    border-bottom: 2px solid $nr-ink;
+    padding: 6px 0 7px;
+    margin-bottom: $nr-spacing-sm;
+
+    &__left {
+      display: flex;
+      gap: $nr-spacing-sm;
+      align-items: center;
+      flex: 1;
+    }
+
+    &__portrait {
+      @include portrait-frame(48px, 56px);
+      border: 1.5px solid $nr-ink;
+      cursor: pointer;
+    }
+
+    &__identity {
+      flex: 1;
+    }
+
+    &__title {
+      font-family: $nr-font-main;
+      font-size: 18pt;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      line-height: 1;
+      margin: 0;
+
+      input {
+        font-family: $nr-font-main;
+        font-size: 18pt;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        width: 100%;
+        border: none;
+        border-bottom: none;
+        background: transparent;
+        padding: 0;
+
+        &:focus {
+          border-bottom: 1px dotted $nr-rule;
+        }
+      }
+    }
+
+    &__subtitle {
+      font-family: $nr-font-main;
+      font-size: 7.5pt;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: $nr-ink-faded;
+      margin-top: 2px;
+    }
+
+    &__right {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    &__meta {
+      font-family: $nr-font-main;
+      font-size: 6.5pt;
+      color: $nr-ink-faded;
+      line-height: 1.6;
+      margin-top: 4px;
+    }
+
+    &__division {
+      display: block;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    &__cl {
+      display: block;
+      letter-spacing: 3px;
+      font-weight: bold;
+    }
+  }
+
+  // ── Identity Block ──────────────────────────────────
+  .id-label {
+    display: block;
+    font-family: $nr-font-main;
+    font-size: 5.5pt;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: $nr-ink-faded;
+    margin-bottom: 2px;
+  }
+
+  .id-value {
+    display: block;
+    font-family: $nr-font-fill;
+    font-size: 9pt;
+    min-height: 14px;
+    border-bottom: 1px dotted $nr-rule;
+    padding: 1px 3px;
+    background: transparent;
+    color: $nr-ink;
+    width: 100%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+
+    &:focus {
+      outline: none;
+      border-bottom-color: $nr-ink;
+    }
+  }
+
+  select.id-value {
+    border: none;
+    border-bottom: 1px dotted $nr-rule;
+    border-radius: 0;
+    background: transparent;
+    appearance: auto;
+  }
+
+  .division-item-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: $nr-font-fill;
+    font-size: 8pt;
+    cursor: pointer;
+    min-height: 14px;
+    border-bottom: none;
+
+    input[type='checkbox'] {
+      margin: 0;
+    }
+  }
+
+  // ── Quick Stats ─────────────────────────────────────
+  .stat-box {
+    text-align: center;
+    padding: $nr-spacing-xs;
+    border: 1px solid $nr-rule;
+    background: $nr-field-bg;
+
+    .stat-label {
+      display: block;
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: $nr-ink-faded;
+    }
+
+    .stat-value {
+      font-family: $nr-font-fill;
+      font-size: 16pt;
+      font-weight: bold;
+    }
+  }
+
+  // ── Corruption Summary ──────────────────────────────
+  .corruption-summary {
+    display: flex;
+    align-items: center;
+    gap: $nr-spacing-sm;
+    margin: $nr-spacing-sm 0;
+    padding: $nr-spacing-xs $nr-spacing-sm;
+    border: 1.5px solid $nr-red-stamp;
+    background: rgba(139, 26, 26, 0.03);
+
+    &__label {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: $nr-red-stamp;
+    }
+
+    &__value {
+      font-family: $nr-font-fill;
+      font-size: 14pt;
+      font-weight: bold;
+
+      &[data-stage='consumed'],
+      &[data-stage='lost'] {
+        color: $nr-red-stamp;
+      }
+    }
+
+    &__stage {
+      font-family: $nr-font-main;
+      font-size: 6pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $nr-ink-faded;
+    }
+  }
+
+  // ── Condition Alerts ────────────────────────────────
+  .condition-alert {
+    text-align: center;
+    font-family: $nr-font-main;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: $nr-red-stamp;
+    padding: $nr-spacing-xs;
+
+    &--lethal {
+      border-color: $nr-ink;
+      background: rgba(0, 0, 0, 0.05);
+      color: $nr-ink;
+    }
+  }
+
+  // ── Attr + Skill Grid ──────────────────────────────
+  .attr-skill-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+    margin: 4px 0 6px;
+  }
+
+  .attr-skill-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .attr-box {
+    border: 1.5px solid $nr-ink;
+    border-bottom: none;
+    text-align: center;
+    padding: 4px 3px 5px;
+    background: $nr-field-bg;
+
+    .attr-name {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: $nr-ink;
+      background: rgba(0, 0, 0, 0.06);
+      margin: -4px -3px 4px;
+      padding: 3px 0 2px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .attr-score {
+      input {
+        font-family: $nr-font-fill;
+        font-size: 22pt;
+        font-weight: bold;
+        text-align: center;
+        width: 100%;
+        border: none;
+        border-bottom: none;
+        background: transparent;
+        padding: 0;
+        min-height: 26px;
+        line-height: 1;
+      }
+    }
+
+    .attr-max {
+      font-size: 5.5pt;
+      color: $nr-ink-light;
+      letter-spacing: 1px;
+
+      input {
+        width: 28px;
+        font-size: 8pt;
+        text-align: center;
+        border: none;
+        border-bottom: 1px dotted $nr-rule;
+        background: transparent;
+        padding: 0;
+      }
+    }
+
+    .attr-dmg-label {
+      font-size: 5pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $nr-ink-faded;
+      margin-top: 5px;
+    }
+
+    .attr-dmg-track {
+      display: flex;
+      justify-content: center;
+      gap: 3px;
+      margin-top: 3px;
+
+      .pip {
+        width: 9px;
+        height: 9px;
+        border: 1px solid $nr-ink;
+        background: transparent;
+
+        &.filled {
+          background: $nr-ink;
+        }
+      }
+    }
+
+    .attr-roll-btn {
+      margin-top: 4px;
+      background: transparent;
+      border: 1px solid $nr-rule;
+      color: $nr-ink-faded;
+      cursor: pointer;
+      padding: 2px 6px;
+      font-size: 8pt;
+
+      &:hover {
+        color: $nr-ink;
+        border-color: $nr-ink;
+      }
+    }
+  }
+
+  .skill-area {
+    border: 1.5px solid $nr-ink;
+    border-top: 1px solid $nr-rule-light;
+    background: rgba(255, 255, 255, 0.12);
+    flex: 1;
+
+    .skill-area-header {
+      background: rgba(0, 0, 0, 0.055);
+      text-align: center;
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: $nr-ink-faded;
+      padding: 2px 0;
+      border-bottom: 1px solid $nr-rule-light;
+    }
+
+    .skill-row {
+      display: flex;
+      align-items: center;
+      padding: 2px 4px 2px 3px;
+      border-bottom: 1px dotted $nr-rule-light;
+      gap: 3px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .skill-roll-btn {
+        background: transparent;
+        border: none;
+        color: $nr-ink-light;
+        cursor: pointer;
+        padding: 0 2px;
+        font-size: 7pt;
+        flex-shrink: 0;
+
+        &:hover {
+          color: $nr-ink;
+        }
+      }
+
+      .skill-name {
+        flex: 1;
+        font-family: $nr-font-main;
+        font-size: 6.5pt;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .skill-value {
+        width: 22px;
+        height: 17px;
+        text-align: center;
+        font-family: $nr-font-fill;
+        font-size: 8pt;
+        border: 1px solid $nr-rule;
+        border-bottom: 1px solid $nr-rule;
+        background: $nr-field-bg;
+        padding: 0;
+        flex-shrink: 0;
+      }
+    }
+  }
+
+  // ── Corruption Tab ──────────────────────────────────
+  .corruption-layout {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin: 4px 0;
+  }
+
+  .corruption-track-wrap {
+    flex: 1;
+
+    .corr-label {
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $nr-ink-faded;
+      margin-bottom: 4px;
+    }
+
+    .corruption-pips {
+      gap: 3px;
+    }
+
+    .corruption-input {
+      margin-top: $nr-spacing-sm;
+      display: flex;
+      align-items: center;
+      gap: $nr-spacing-xs;
+
+      label {
+        font-family: $nr-font-main;
+        font-size: 6pt;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: $nr-ink-faded;
+      }
+
+      input {
+        width: 40px;
+        text-align: center;
+        font-size: 10pt;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .corruption-threshold-box {
+    text-align: center;
+    min-width: 90px;
+
+    .corr-label {
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $nr-ink-faded;
+    }
+
+    .threshold-formula {
+      font-size: 5.5pt;
+      color: $nr-ink-faded;
+      margin-top: 1px;
+    }
+
+    .threshold-value {
+      font-family: $nr-font-fill;
+      font-size: 22pt;
+      font-weight: bold;
+      border: 2px solid $nr-red-stamp;
+      width: 46px;
+      height: 34px;
+      margin: 3px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .corruption-stages {
+    font-family: $nr-font-main;
+    font-size: 6pt;
+    color: $nr-ink-faded;
+    line-height: 1.7;
+    min-width: 140px;
+
+    .corr-stage-line {
+      strong {
+        color: $nr-ink;
+        font-weight: normal;
+      }
+
+      &--fatal {
+        color: $nr-red-stamp;
+
+        strong {
+          color: $nr-red-stamp;
+        }
+      }
+    }
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    .field-value {
+      font-family: $nr-font-fill;
+      font-size: 10pt;
+      font-weight: bold;
+    }
+  }
+
+  // ── Combat Tab ──────────────────────────────────────
+  .combat-header {
+    display: flex;
+    align-items: center;
+    gap: $nr-spacing-md;
+    margin-bottom: $nr-spacing-sm;
+  }
+
+  .combat-stat {
+    .combat-stat__value {
+      font-family: $nr-font-fill;
+      font-size: 18pt;
+      font-weight: bold;
+      text-align: center;
+      width: 46px;
+      border: 2px solid $nr-ink;
+      background: $nr-field-bg;
+      padding: 2px;
+    }
+  }
+
+  .combat-actions {
+    display: flex;
+    gap: $nr-spacing-sm;
+  }
+
+  .action-toggle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+
+    input[type='checkbox'] {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  .combat-conditions {
+    display: flex;
+    gap: $nr-spacing-sm;
+    margin-bottom: $nr-spacing-sm;
+
+    .condition-btn {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding: 4px 12px;
+      border: 1.5px solid $nr-rule;
+      background: transparent;
+      color: $nr-ink-faded;
+      cursor: pointer;
+
+      &.active {
+        border-color: $nr-red-stamp;
+        color: $nr-red-stamp;
+        background: rgba(139, 26, 26, 0.05);
+      }
+
+      &:hover {
+        border-color: $nr-ink;
+        color: $nr-ink;
+      }
+    }
+  }
+
+  // ── Gear Table ──────────────────────────────────────
+  .gear-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 7.5pt;
+    margin-bottom: $nr-spacing-sm;
+
+    th {
+      text-align: left;
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+      border-bottom: 1.5px solid $nr-ink;
+      padding: 2px 4px 3px;
+      background: rgba(0, 0, 0, 0.04);
+
+      &.center {
+        text-align: center;
+        width: 52px;
+      }
+    }
+
+    td {
+      padding: 2px 4px;
+      border-bottom: 1px dotted $nr-rule-light;
+      font-family: $nr-font-fill;
+
+      &.center {
+        text-align: center;
+      }
+    }
+
+    .item-img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      vertical-align: middle;
+    }
+
+    .item-row {
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.03);
+      }
+    }
+  }
+
+  .armor-entry {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 4px;
+    border-bottom: 1px dotted $nr-rule-light;
+    font-family: $nr-font-fill;
+    font-size: 8pt;
+
+    .armor-ar {
+      font-weight: bold;
+    }
+  }
+
+  .injury-entry {
+    display: flex;
+    align-items: center;
+    gap: $nr-spacing-xs;
+    padding: 2px 4px;
+    border-bottom: 1px dotted $nr-rule-light;
+    font-family: $nr-font-fill;
+    font-size: 7.5pt;
+
+    .injury-type {
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $nr-ink-faded;
+    }
+
+    .lethal-badge {
+      color: $nr-red-stamp;
+      font-weight: bold;
+    }
+
+    .healed-badge {
+      color: $nr-green-stamp;
+    }
+  }
+
+  // ── Encumbrance Bar ─────────────────────────────────
+  .encumbrance-bar {
+    display: flex;
+    align-items: center;
+    gap: $nr-spacing-sm;
+    margin-bottom: $nr-spacing-sm;
+    padding: $nr-spacing-xs;
+
+    .encumbrance-track {
+      flex: 1;
+      height: 8px;
+      border: 1px solid $nr-rule;
+      background: $nr-field-bg;
+      position: relative;
+
+      .encumbrance-fill {
+        height: 100%;
+        background: $nr-ink;
+        transition: width 0.2s ease;
+      }
+    }
+
+    .encumbrance-values {
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      white-space: nowrap;
+    }
+
+    &[data-tier='encumbered'] .encumbrance-fill {
+      background: #b8860b;
+    }
+
+    &[data-tier='overloaded'] .encumbrance-fill {
+      background: $nr-red-stamp;
+    }
+  }
+
+  // ── Talent Grid ─────────────────────────────────────
+  .talent-grid {
+    .talent-block {
+      border: 1.5px solid $nr-rule;
+      padding: 4px 6px 5px;
+      background: $nr-field-bg;
+      min-height: 54px;
+      cursor: pointer;
+
+      &:hover {
+        border-color: $nr-ink;
+      }
+
+      .talent-type {
+        font-family: $nr-font-main;
+        font-size: 5.5pt;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: $nr-ink-faded;
+        margin-bottom: 3px;
+        border-bottom: 1px dotted $nr-rule-light;
+        padding-bottom: 2px;
+      }
+
+      .talent-name {
+        font-family: $nr-font-fill;
+        font-size: 8.5pt;
+        font-weight: bold;
+        margin-bottom: 3px;
+      }
+
+      .talent-meta {
+        display: flex;
+        align-items: center;
+        gap: $nr-spacing-xs;
+        font-family: $nr-font-main;
+        font-size: 6pt;
+        color: $nr-ink-faded;
+      }
+
+      .healing-tag {
+        color: $nr-green-stamp;
+        font-size: 9pt;
+      }
+
+      .corruption-cost {
+        color: $nr-red-stamp;
+      }
+
+      .talent-use-btn {
+        margin-top: 3px;
+        font-family: $nr-font-main;
+        font-size: 6pt;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 2px 6px;
+        border: 1px solid $nr-rule;
+        background: transparent;
+        color: $nr-ink-faded;
+        cursor: pointer;
+
+        &:hover {
+          color: $nr-ink;
+          border-color: $nr-ink;
+        }
+      }
+    }
+  }
+
+  // ── Biography Tab ───────────────────────────────────
+  .anchor-box,
+  .secret-box {
+    min-height: 60px;
+
+    .anchor-uses {
+      font-family: $nr-font-fill;
+      font-size: 10pt;
+      font-weight: bold;
+      margin-top: 4px;
+    }
+
+    .lost-badge {
+      display: inline-block;
+      @include classified-stamp;
+      font-size: 7pt;
+      padding: 1px 6px;
+      margin-top: 4px;
+    }
+
+    .secret-trigger {
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      margin-top: 4px;
+      color: $nr-ink-faded;
+    }
+
+    .empty-placeholder {
+      font-family: $nr-font-main;
+      font-size: 6.5pt;
+      color: $nr-ink-light;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 8px 0;
+    }
+  }
+
+  .biography-editor {
+    border: 1px solid $nr-rule;
+    background: $nr-field-bg;
+    padding: $nr-spacing-sm;
+    min-height: 120px;
+
+    .editor-content {
+      font-family: $nr-font-fill;
+      font-size: 9pt;
+      line-height: 1.5;
+    }
+  }
+
+  // ── Empty list state ────────────────────────────────
+  .empty-list {
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: $nr-ink-light;
+    text-align: center;
+    padding: $nr-spacing-md;
+  }
+}
