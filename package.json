@@ -1,0 +1,46 @@
+{
+  "name": "neon-relic",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Foundry VTT game system for Neon Relic — an occult investigation TTRPG set in an alternate 1980s, built on the Year Zero Engine.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bruceamoser/foundry-neon-relic-system.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bruceamoser/foundry-neon-relic-system/issues"
+  },
+  "homepage": "https://github.com/bruceamoser/foundry-neon-relic-system#readme",
+  "keywords": [
+    "Neon Relic",
+    "Year Zero Engine",
+    "RPG",
+    "Foundry",
+    "VTT"
+  ],
+  "author": "Bruce",
+  "license": "MIT",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development gulp build",
+    "dev:watch": "cross-env NODE_ENV=development gulp watch",
+    "build": "cross-env NODE_ENV=production gulp build",
+    "clean": "gulp clean",
+    "lint": "eslint --ext .js,.mjs .",
+    "lint:fix": "eslint --ext .js,.mjs --fix .",
+    "format": "prettier --check \"**/*.{hbs,js,mjs,json,scss,yaml,yml}\"",
+    "format:fix": "prettier --write \"**/*.{hbs,js,mjs,json,scss,yaml,yml}\"",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.27.3",
+    "esbuild-sass-plugin": "^3.3.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "fs-extra": "^11.2.0",
+    "gulp": "^5.0.0",
+    "gulp-yaml": "^2.0.4",
+    "husky": "^9.1.0",
+    "prettier": "^3.5.0"
+  }
+}

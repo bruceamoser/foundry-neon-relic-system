@@ -1,0 +1,1 @@
+npx eslint --ext .js,.mjs . && npx prettier --check "**/*.{hbs,js,mjs,json,scss,yaml,yml}"
