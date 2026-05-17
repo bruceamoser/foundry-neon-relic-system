@@ -895,6 +895,27 @@ NEONRELIC:
     CurrentSession: Current Session Number
     SessionResetDone: Session Reset Done
 
+  # World Setup
+  WorldSetup:
+    Title: Welcome to Neon Relic
+    Welcome: Welcome to Neon Relic
+    Description: >-
+      Your world is ready. Select which starter content to import
+      from the system compendium packs.
+    SelectContent: Select Content to Import
+    Rules: Rules Reference Journals
+    RollTables: Roll Tables
+    Macros: System Macros
+    SampleCase: 'Sample Case: The Spear That Went Dark'
+    Import: Import Selected
+    Skip: Skip Setup
+    NoneSelected: No categories selected for import.
+    ImportError: 'Failed to import pack: {pack}'
+    Complete: 'World setup complete — imported {count} documents.'
+    Done: World setup complete!
+    RerunName: Re-run World Setup
+    RerunHint: Enable this to re-show the world setup dialog on next load.
+
   # Case File
   Case:
     Status: Status

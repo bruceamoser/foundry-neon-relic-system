@@ -1,0 +1,97 @@
+// Neon Relic — World Setup Dialog Styles
+
+.neon-relic.world-setup {
+  .world-setup-form {
+    padding: $nr-spacing-sm;
+  }
+
+  .setup-header {
+    text-align: center;
+    margin-bottom: 12px;
+    border-bottom: 2px solid $nr-ink;
+    padding-bottom: 8px;
+
+    h2 {
+      font-family: $nr-font-main;
+      font-size: 16pt;
+      letter-spacing: 2px;
+      margin: 0 0 6px;
+    }
+
+    .setup-desc {
+      font-family: $nr-font-fill;
+      font-size: 10pt;
+      color: $nr-ink-faded;
+      line-height: 1.4;
+      margin: 0;
+    }
+  }
+
+  .setup-categories {
+    margin-bottom: 12px;
+
+    h3 {
+      font-family: $nr-font-main;
+      font-size: 10pt;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 0 0 8px;
+    }
+  }
+
+  .category-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 0;
+    font-family: $nr-font-fill;
+    font-size: 10pt;
+    cursor: pointer;
+
+    input[type='checkbox'] {
+      width: 16px;
+      height: 16px;
+      accent-color: $nr-green-stamp;
+    }
+  }
+
+  .setup-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    padding-top: 8px;
+    border-top: 1px solid $nr-rule;
+
+    button {
+      font-family: $nr-font-main;
+      font-size: 10pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 6px 16px;
+      cursor: pointer;
+      border: 1px solid $nr-ink;
+      background: $nr-field-bg;
+      color: $nr-ink;
+
+      &:hover {
+        background: $nr-ink;
+        color: $nr-paper;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+
+    .import-btn {
+      border-color: $nr-green-stamp;
+      color: $nr-green-stamp;
+
+      &:hover {
+        background: $nr-green-stamp;
+        color: $nr-paper;
+      }
+    }
+  }
+}
