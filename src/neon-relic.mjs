@@ -36,12 +36,18 @@ import { HeadquartersSheet } from './actor/headquarters/hq-sheet.mjs';
 import { VehicleSheet } from './actor/vehicle/vehicle-sheet.mjs';
 import { NeonRelicCombat } from './combat/combat.mjs';
 import { NeonRelicCombatant } from './combat/combatant.mjs';
+import { registerSettings, initTheme } from './system/settings.mjs';
+import { registerSocketListeners } from './system/sockets.mjs';
+import { clearSessionResetFlag } from './system/session-tracker.mjs';
 
 Hooks.once('init', () => {
   console.log('neon-relic | Initializing Neon Relic system');
 
   // Store system config on global CONFIG
   CONFIG.NEON_RELIC = NEON_RELIC;
+
+  // Register system settings
+  registerSettings();
 
   // Register document classes
   CONFIG.Actor.documentClass = NeonRelicActor;
@@ -113,4 +119,13 @@ Hooks.once('init', () => {
 
 Hooks.once('ready', () => {
   console.log('neon-relic | Neon Relic system ready');
+
+  // Apply visual theme
+  initTheme();
+
+  // Register socket listeners
+  registerSocketListeners();
+
+  // Clear session reset flag for new session
+  clearSessionResetFlag();
 });

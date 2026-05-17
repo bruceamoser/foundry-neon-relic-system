@@ -813,3 +813,28 @@ NEONRELIC:
       Weather: Bad weather
       Shortcut: Shortcut found
       Tail: Tail detected
+
+  # Settings
+  Settings:
+    ArtifactDecay: Artifact Decay Track
+    ArtifactDecayHint: Enable optional 0-5 artifact degradation system.
+    RivalCells: Rival Cells
+    RivalCellsHint: Enable competing Covenant cell mechanics.
+    AutoCorruption: Auto Corruption
+    AutoCorruptionHint: Automatically apply corruption from sources.
+    FearChecks: Fear Checks
+    FearChecksHint: Enable fear check procedures.
+    GearDegradation: Gear Degradation
+    GearDegradationHint: Enable resource die gear degradation.
+    Theme: Visual Theme
+    ThemeHint: Choose between CRT retro or clean modern theme.
+    ThemeCRT: CRT/VHS (Retro)
+    ThemeClean: Clean (Modern)
+    CurrentSession: Current Session Number
+    SessionResetDone: Session Reset Done
+
+  # Session
+  Session:
+    ResetComplete: Session reset complete
+    GMOnly: Only the GM can reset the session
+    AlreadyReset: Session already reset
