@@ -221,6 +221,9 @@ NEONRELIC:
     GearBonus: Gear Bonus
     SkillBonus: Skill Bonus
     Broken: Broken
+    Degraded: 'Gear degraded!'
+    ArmorDegraded: 'Armor damaged!'
+    BrokenUnusable: Item is broken and unusable.
 
   # Consumable
   Consumable:
@@ -364,10 +367,16 @@ NEONRELIC:
     Total: Total
     Stage: Stage
     Breached: Threshold Breached
-    Catatonia: Character falls into permanent catatonia — retired.
-    CapReached: Session healing cap reached.
+    Catatonia: "Character falls into permanent catatonia \u2014 retired."
+    CapReached: Session healing cap reached
     ThresholdDrop: Threshold Reduced
-    FearCheckRequired: Corruption exceeds new threshold — immediate Fear Check required!
+    FearCheckRequired: "Corruption exceeds new threshold \u2014 immediate Fear Check required!"
+
+  # Resource Die
+  ResourceDie:
+    OK: No degradation.
+    SteppedDown: 'Resource die stepped down!'
+    Depleted: 'Resource depleted!'
 
   # Combat
   Combat:
@@ -434,7 +443,7 @@ NEONRELIC:
     CellWideCL: Cell-Wide CL
     Vault: Vault
     CasesSinceConsecration: Cases Since Consecration
-    NeedsReconsecration: Vault needs re-consecration!
+    NeedsReconsecration: 'Vault needs re-consecration!'
     Rank:
       Unknown: Unknown
       Acknowledged: Acknowledged
@@ -453,5 +462,5 @@ NEONRELIC:
     Noise: Noise
     SneakMod: Sneak Modifier
     Wear: Wear
-    Problem: Vehicle has a problem!
-    Stopped: Vehicle has stopped!
+    Problem: 'Vehicle has a problem!'
+    Stopped: 'Vehicle has stopped!'
