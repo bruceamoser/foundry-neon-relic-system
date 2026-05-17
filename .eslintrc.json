@@ -32,7 +32,10 @@
     "fromUuidSync": "readonly",
     "renderTemplate": "readonly",
     "loadTemplates": "readonly",
-    "Handlebars": "readonly"
+    "Handlebars": "readonly",
+    "Actor": "readonly",
+    "Item": "readonly",
+    "Application": "readonly"
   },
   "rules": {
     "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
