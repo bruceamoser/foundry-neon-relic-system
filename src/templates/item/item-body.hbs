@@ -1,0 +1,11 @@
+<section class='item-body'>
+  {{{typeContent}}}
+
+  <div class='form-group description'>
+    <label>{{localize 'NEONRELIC.Description'}}</label>
+    <div class='editor'>{{{enrichedDescription}}}</div>
+    {{#if isEditable}}
+      <textarea name='system.description' style='display:none;'>{{system.description}}</textarea>
+    {{/if}}
+  </div>
+</section>

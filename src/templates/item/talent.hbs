@@ -1,0 +1,120 @@
+{{! Talent item type template }}
+<div class='talent-fields'>
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Talent.Type'}}</label>
+    <select name='system.talentType' {{disabled (not isEditable)}}>
+      <option value='general' {{selected system.talentType 'general'}}>{{localize 'NEONRELIC.Talent.General'}}</option>
+      <option value='division' {{selected system.talentType 'division'}}>{{localize
+          'NEONRELIC.Talent.Division'
+        }}</option>
+      <option value='subunit' {{selected system.talentType 'subunit'}}>{{localize 'NEONRELIC.Talent.SubUnit'}}</option>
+      <option value='background' {{selected system.talentType 'background'}}>{{localize
+          'NEONRELIC.Talent.Background'
+        }}</option>
+    </select>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Talent.CorruptionCost'}}</label>
+    <input
+      type='number'
+      name='system.corruptionCost'
+      value='{{system.corruptionCost}}'
+      min='0'
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Talent.ThresholdMod'}}</label>
+    <input
+      type='number'
+      name='system.corruptionThresholdMod'
+      value='{{system.corruptionThresholdMod}}'
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Talent.HealingTag'}}</label>
+    <input type='checkbox' name='system.hasHealingTag' {{checked system.hasHealingTag}} {{disabled (not isEditable)}} />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Talent.OncePerSession'}}</label>
+    <input
+      type='checkbox'
+      name='system.isOncePerSession'
+      {{checked system.isOncePerSession}}
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Talent.Uses'}}</label>
+    <input
+      type='number'
+      name='system.usesPerSession.value'
+      value='{{system.usesPerSession.value}}'
+      min='0'
+      {{disabled (not isEditable)}}
+    />
+    <span>/</span>
+    <input
+      type='number'
+      name='system.usesPerSession.max'
+      value='{{system.usesPerSession.max}}'
+      min='0'
+      {{disabled (not isEditable)}}
+    />
+    {{#if isEditable}}
+      <button type='button' data-action='useTalent'>
+        <i class='fa-solid fa-bolt'></i>
+        {{localize 'NEONRELIC.Talent.Use'}}
+      </button>
+    {{/if}}
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Talent.Effect'}}</label>
+    <div class='editor'>{{{enrichedEffect}}}</div>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Talent.Prerequisites'}}</label>
+    <div class='editor'>{{{enrichedPrerequisites}}}</div>
+  </div>
+
+  <fieldset class='conditional-modifier'>
+    <legend>{{localize 'NEONRELIC.Talent.ConditionalModifier'}}</legend>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Roll.Skill'}}</label>
+      <select name='system.conditionalModifier.skill' {{disabled (not isEditable)}}>
+        <option value=''>— {{localize 'NEONRELIC.Roll.None'}} —</option>
+        {{#each config.skills as |data key|}}
+          <option value='{{key}}' {{selected key @root.system.conditionalModifier.skill}}>{{localize
+              data.label
+            }}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Talent.Bonus'}}</label>
+      <input
+        type='number'
+        name='system.conditionalModifier.bonus'
+        value='{{system.conditionalModifier.bonus}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Talent.Condition'}}</label>
+      <input
+        type='text'
+        name='system.conditionalModifier.condition'
+        value='{{system.conditionalModifier.condition}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+  </fieldset>
+</div>

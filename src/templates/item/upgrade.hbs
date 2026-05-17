@@ -1,0 +1,48 @@
+{{! Upgrade item type template }}
+<div class='upgrade-fields'>
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Upgrade.Tier'}}</label>
+    <select name='system.tier' {{disabled (not isEditable)}}>
+      <option value='1' {{selected system.tier 1}}>1</option>
+      <option value='2' {{selected system.tier 2}}>2</option>
+      <option value='3' {{selected system.tier 3}}>3</option>
+    </select>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Upgrade.DPCost'}}</label>
+    <input type='number' name='system.dpCost' value='{{system.dpCost}}' min='0' {{disabled (not isEditable)}} />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Upgrade.StandingRequirement'}}</label>
+    <input
+      type='number'
+      name='system.standingRequirement'
+      value='{{system.standingRequirement}}'
+      min='0'
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Upgrade.Category'}}</label>
+    <select name='system.category' {{disabled (not isEditable)}}>
+      <option value='facility' {{selected system.category 'facility'}}>{{localize
+          'NEONRELIC.Upgrade.Facility'
+        }}</option>
+      <option value='personnel' {{selected system.category 'personnel'}}>{{localize
+          'NEONRELIC.Upgrade.Personnel'
+        }}</option>
+      <option value='security' {{selected system.category 'security'}}>{{localize
+          'NEONRELIC.Upgrade.Security'
+        }}</option>
+      <option value='vault' {{selected system.category 'vault'}}>{{localize 'NEONRELIC.Upgrade.Vault'}}</option>
+    </select>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Upgrade.Purchased'}}</label>
+    <input type='checkbox' name='system.isPurchased' {{checked system.isPurchased}} {{disabled (not isEditable)}} />
+  </div>
+</div>

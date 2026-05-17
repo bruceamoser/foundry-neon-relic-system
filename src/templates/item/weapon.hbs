@@ -1,0 +1,106 @@
+{{! Weapon item type template }}
+<div class='weapon-fields'>
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Weapon.Damage'}}</label>
+    <input type='number' name='system.damage' value='{{system.damage}}' min='0' {{disabled (not isEditable)}} />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Weapon.Range'}}</label>
+    <select name='system.range' {{disabled (not isEditable)}}>
+      <option value='engaged' {{selected system.range 'engaged'}}>{{localize 'NEONRELIC.Range.Engaged'}}</option>
+      <option value='near' {{selected system.range 'near'}}>{{localize 'NEONRELIC.Range.Near'}}</option>
+      <option value='short' {{selected system.range 'short'}}>{{localize 'NEONRELIC.Range.Short'}}</option>
+      <option value='long' {{selected system.range 'long'}}>{{localize 'NEONRELIC.Range.Long'}}</option>
+      <option value='extreme' {{selected system.range 'extreme'}}>{{localize 'NEONRELIC.Range.Extreme'}}</option>
+    </select>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Weapon.GearBonus'}}</label>
+    <input
+      type='number'
+      name='system.gearBonus.value'
+      value='{{system.gearBonus.value}}'
+      min='0'
+      {{disabled (not isEditable)}}
+    />
+    <span>/</span>
+    <input
+      type='number'
+      name='system.gearBonus.max'
+      value='{{system.gearBonus.max}}'
+      min='0'
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Weapon.TargetAttribute'}}</label>
+    <select name='system.targetAttribute' {{disabled (not isEditable)}}>
+      {{#each config.attributes as |label key|}}
+        <option value='{{key}}' {{selected key @root.system.targetAttribute}}>{{localize label}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Weapon.Traits'}}</label>
+    <div class='trait-checkboxes'>
+      <label><input
+          type='checkbox'
+          name='system.traits.reliable'
+          {{checked system.traits.reliable}}
+          {{disabled (not isEditable)}}
+        />
+        {{localize 'NEONRELIC.Weapon.Reliable'}}</label>
+      <label><input
+          type='checkbox'
+          name='system.traits.highCapacity'
+          {{checked system.traits.highCapacity}}
+          {{disabled (not isEditable)}}
+        />
+        {{localize 'NEONRELIC.Weapon.HighCapacity'}}</label>
+      <label><input
+          type='checkbox'
+          name='system.traits.fullAuto'
+          {{checked system.traits.fullAuto}}
+          {{disabled (not isEditable)}}
+        />
+        {{localize 'NEONRELIC.Weapon.FullAuto'}}</label>
+      <label><input
+          type='checkbox'
+          name='system.traits.stunned'
+          {{checked system.traits.stunned}}
+          {{disabled (not isEditable)}}
+        />
+        {{localize 'NEONRELIC.Weapon.Stunned'}}</label>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Weapon.AmmoDie'}}</label>
+    <span class='die-display'>{{system.ammoDie.current}}</span>
+    {{#if isEditable}}
+      <button type='button' data-action='stepDownAmmo' {{disabled (not system.ammoDie.current)}}>
+        <i class='fa-solid fa-arrow-down'></i>
+      </button>
+    {{/if}}
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Encumbrance'}}</label>
+    <input
+      type='number'
+      name='system.encumbrance'
+      value='{{system.encumbrance}}'
+      min='0'
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.CL'}}</label>
+    <input type='number' name='system.cl' value='{{system.cl}}' min='1' max='5' {{disabled (not isEditable)}} />
+  </div>
+</div>
