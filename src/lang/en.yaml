@@ -554,6 +554,11 @@ NEONRELIC:
     Incorporeal: Incorporeal
     ZoneLocked: Zone-Locked
     CardData: NPC Card Data
+    CardTitle: NPC Reference Card
+    DAEyesOnly: DA Eyes Only
+    DANotes: DA Notes
+    Knowledge: Knowledge
+    EngagementResults: Engagement Results
     Organization: Organization
     Secret: Secret
     Goal: Goal
