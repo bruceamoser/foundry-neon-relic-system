@@ -48,6 +48,7 @@ import { registerKeybindings } from './system/keybindings.mjs';
 import { registerTours } from './system/tours.mjs';
 import { registerTextEnrichers } from './system/enrichers.mjs';
 import { registerMigrationSetting, migrateWorld } from './system/migration.mjs';
+import { registerWorldSetupSettings, checkWorldSetup } from './system/world-setup.mjs';
 
 Hooks.once('init', () => {
   console.log('neon-relic | Initializing Neon Relic system');
@@ -58,6 +59,7 @@ Hooks.once('init', () => {
   // Register system settings
   registerSettings();
   registerMigrationSetting();
+  registerWorldSetupSettings();
 
   // Register document classes
   CONFIG.Actor.documentClass = NeonRelicActor;
@@ -155,4 +157,7 @@ Hooks.once('ready', () => {
 
   // Run data migrations if needed
   migrateWorld();
+
+  // Check for first-run world setup
+  checkWorldSetup();
 });

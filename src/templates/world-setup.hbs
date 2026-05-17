@@ -1,0 +1,31 @@
+{{! World Setup Dialog — first-run content import }}
+<form class='world-setup-form'>
+  <div class='setup-header'>
+    <h2>{{localize 'NEONRELIC.WorldSetup.Welcome'}}</h2>
+    <p class='setup-desc'>{{localize 'NEONRELIC.WorldSetup.Description'}}</p>
+  </div>
+
+  <div class='setup-categories'>
+    <h3>{{localize 'NEONRELIC.WorldSetup.SelectContent'}}</h3>
+    {{#each categories}}
+      <label class='category-row'>
+        {{#if this.checked}}
+          <input type='checkbox' name='category' value='{{this.id}}' checked />
+        {{else}}
+          <input type='checkbox' name='category' value='{{this.id}}' />
+        {{/if}}
+        <span class='category-label'>{{this.label}}</span>
+      </label>
+    {{/each}}
+  </div>
+
+  <div class='setup-actions'>
+    <button type='button' data-action='importContent' class='import-btn'>
+      <i class='fas fa-download'></i>
+      {{localize 'NEONRELIC.WorldSetup.Import'}}
+    </button>
+    <button type='button' data-action='skipSetup' class='skip-btn'>
+      {{localize 'NEONRELIC.WorldSetup.Skip'}}
+    </button>
+  </div>
+</form>
