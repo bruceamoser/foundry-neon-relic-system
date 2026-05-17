@@ -16,13 +16,14 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   static DEFAULT_OPTIONS = {
     classes: [SYSTEM_ID, 'npc-sheet'],
     position: {
-      width: 520,
+      width: 480,
       height: 'auto',
     },
     actions: {
       rollAttribute: NPCSheet.#onRollAttribute,
       adjustDisposition: NPCSheet.#onAdjustDisposition,
       toggleSimplified: NPCSheet.#onToggleSimplified,
+      flipCard: NPCSheet.#onFlipCard,
     },
     form: {
       submitOnChange: true,
@@ -60,10 +61,37 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     context.config = CONFIG.NEON_RELIC;
     context.isEditable = this.isEditable;
     context.isSimplified = system.useSimplifiedView;
+    context.showBack = this._showBack ?? false;
 
     // Corruption stage label
     const stages = ['clean', 'touched', 'marked', 'consumed'];
     context.corruptionStageLabel = stages[system.corruptionStage] ?? 'clean';
+
+    // Tier badge class
+    context.tierClass = `tier-${system.tier}`;
+
+    // Disposition pips (1-5)
+    context.dispositionPips = [];
+    for (let i = 1; i <= 5; i++) {
+      context.dispositionPips.push({
+        number: i,
+        filled: i <= system.disposition,
+        cssClass: i <= system.disposition ? 'pip filled' : 'pip',
+      });
+    }
+
+    // Attribute entries for compact display
+    context.attrEntries = [];
+    for (const [key, label] of Object.entries(CONFIG.NEON_RELIC.attributes)) {
+      context.attrEntries.push({
+        key,
+        label,
+        value: system.attributes[key] ?? 0,
+      });
+    }
+
+    // Broken state class
+    context.brokenClass = system.isBroken ? 'broken-badge active' : 'broken-badge';
 
     // Enriched description
     context.enrichedDescription = await TextEditor.enrichHTML(system.description ?? '', {
@@ -76,6 +104,12 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
     return context;
   }
+
+  /**
+   * Track whether the card is flipped to show DA notes.
+   * @type {boolean}
+   */
+  _showBack = false;
 
   /* ------------------------------------------ */
   /*  Action Handlers                            */
@@ -117,5 +151,13 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     await this.document.update({
       'system.useSimplifiedView': !this.document.system.useSimplifiedView,
     });
+  }
+
+  /**
+   * Flip between front (stat card) and back (DA notes).
+   */
+  static #onFlipCard() {
+    this._showBack = !this._showBack;
+    this.render();
   }
 }

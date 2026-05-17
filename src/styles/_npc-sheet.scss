@@ -1,0 +1,503 @@
+// Neon Relic — NPC Card Sheet Styles
+// Matches npc-card.html reference layout
+
+.neon-relic.npc-sheet {
+  // ── Card Header ─────────────────────────────────
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-top: 2.5px solid $nr-ink;
+    border-bottom: 1.5px solid $nr-ink;
+    padding: 4px 0 5px;
+    margin-bottom: 6px;
+  }
+
+  .card-title {
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: $nr-ink-faded;
+  }
+
+  .card-stamp {
+    font-family: $nr-font-main;
+    font-size: 6pt;
+    letter-spacing: 3px;
+    color: $nr-red-stamp;
+  }
+
+  // ── NPC Identity Row ────────────────────────────
+  .npc-identity-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 5px;
+  }
+
+  .npc-portrait {
+    width: 65px;
+    height: 72px;
+    border: 1.5px solid $nr-rule;
+    background: $nr-field-bg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: pointer;
+    }
+  }
+
+  .npc-identity-fields {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .name-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 3px;
+  }
+
+  .name-col {
+    flex: 1.5;
+  }
+
+  .org-col {
+    flex: 1;
+  }
+
+  .npc-name {
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid $nr-ink;
+    min-height: 18px;
+    font-family: $nr-font-fill;
+    font-size: 11pt;
+    font-weight: bold;
+    padding: 1px 3px;
+    background: transparent;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .npc-org {
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1.5px solid $nr-rule;
+    min-height: 16px;
+    font-family: $nr-font-fill;
+    font-size: 8pt;
+    padding: 1px 3px;
+    background: $nr-field-bg;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  // ── Field Components ────────────────────────────
+  .field-label {
+    display: block;
+    font-family: $nr-font-main;
+    font-size: 5pt;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: $nr-ink-faded;
+    margin-bottom: 1px;
+  }
+
+  .field-value {
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid $nr-rule;
+    min-height: 14px;
+    padding: 1px 3px;
+    background: $nr-field-bg;
+    font-family: $nr-font-fill;
+    font-size: 7.5pt;
+    margin-bottom: 4px;
+
+    &:focus {
+      outline: none;
+    }
+
+    &.med {
+      border: 1px solid $nr-rule;
+      border-bottom: 1.5px solid $nr-rule;
+      min-height: 28px;
+    }
+
+    &.tall {
+      border: 1px solid $nr-rule;
+      border-bottom: 1.5px solid $nr-rule;
+      min-height: 38px;
+    }
+  }
+
+  select.field-value {
+    appearance: auto;
+    border-radius: 0;
+  }
+
+  .field-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .field-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  // ── Section Dividers ────────────────────────────
+  .section-label {
+    font-family: $nr-font-main;
+    font-size: 5.5pt;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: $nr-green-stamp;
+    border-bottom: 1px solid $nr-green-stamp;
+    padding-bottom: 1px;
+    margin: 4px 0 3px;
+
+    &.red {
+      color: $nr-red-stamp;
+      border-color: $nr-red-stamp;
+    }
+  }
+
+  // ── Badges Row ──────────────────────────────────
+  .npc-badges {
+    display: flex;
+    align-items: center;
+    gap: $nr-spacing-sm;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+
+  .tier-badge {
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 2px 6px;
+    border: 1.5px solid $nr-ink;
+    background: $nr-field-bg;
+
+    &.tier-1 {
+      border-color: $nr-rule;
+    }
+
+    &.tier-2 {
+      border-color: $nr-ink;
+    }
+
+    &.tier-3 {
+      border-color: $nr-red-stamp;
+      color: $nr-red-stamp;
+    }
+
+    &.tier-4 {
+      border-color: $nr-red-stamp;
+      color: #fff;
+      background: $nr-red-stamp;
+    }
+  }
+
+  .fear-badge {
+    font-family: $nr-font-main;
+    font-size: 6.5pt;
+    letter-spacing: 1px;
+    color: $nr-red-stamp;
+    padding: 2px 6px;
+    border: 1px solid $nr-red-stamp;
+    background: rgba(139, 26, 26, 0.04);
+  }
+
+  .corruption-stage-badge {
+    font-family: $nr-font-main;
+    font-size: 6pt;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: $nr-ink-faded;
+    padding: 2px 6px;
+    border: 1px solid $nr-rule;
+
+    &.stage-marked,
+    &.stage-consumed {
+      color: $nr-red-stamp;
+      border-color: $nr-red-stamp;
+    }
+  }
+
+  .flip-btn {
+    background: transparent;
+    border: 1px solid $nr-rule;
+    color: $nr-ink-faded;
+    cursor: pointer;
+    padding: 2px 6px;
+    font-size: 8pt;
+
+    &:hover {
+      color: $nr-ink;
+      border-color: $nr-ink;
+    }
+  }
+
+  // ── NPC Attributes ─────────────────────────────
+  .npc-attributes {
+    display: flex;
+    gap: 6px;
+    margin: 3px 0 5px;
+  }
+
+  .npc-attr-box {
+    flex: 1;
+    text-align: center;
+    border: 1.5px solid $nr-ink;
+    background: $nr-field-bg;
+    padding: 3px 2px;
+
+    .attr-roll-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      padding: 0;
+
+      &:hover {
+        .attr-value {
+          color: $nr-red-stamp;
+        }
+      }
+    }
+
+    .attr-label {
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+    }
+
+    .attr-value {
+      font-family: $nr-font-fill;
+      font-size: 16pt;
+      font-weight: bold;
+      line-height: 1.1;
+    }
+
+    .attr-edit {
+      width: 100%;
+      text-align: center;
+      font-size: 8pt;
+      border: none;
+      border-top: 1px dotted $nr-rule;
+      background: transparent;
+      padding: 1px;
+      margin-top: 2px;
+    }
+  }
+
+  // ── Combat Stats Row ────────────────────────────
+  .npc-combat-row {
+    display: flex;
+    gap: 6px;
+    margin: 3px 0 5px;
+    flex-wrap: wrap;
+  }
+
+  .combat-field {
+    flex: 1;
+    min-width: 60px;
+
+    .combat-input {
+      width: 100%;
+      text-align: center;
+      font-family: $nr-font-fill;
+      font-size: 9pt;
+      font-weight: bold;
+      border: 1px solid $nr-rule;
+      background: $nr-field-bg;
+      padding: 2px;
+    }
+
+    select.combat-input {
+      appearance: auto;
+      border-radius: 0;
+      font-weight: normal;
+      font-size: 7pt;
+    }
+  }
+
+  // ── Disposition ─────────────────────────────────
+  .disposition-row {
+    display: flex;
+    align-items: center;
+    gap: $nr-spacing-sm;
+    margin: 4px 0;
+  }
+
+  .disposition-controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    button {
+      width: 20px;
+      height: 20px;
+      border: 1px solid $nr-rule;
+      background: transparent;
+      cursor: pointer;
+      font-size: 10pt;
+      line-height: 1;
+      padding: 0;
+
+      &:hover {
+        border-color: $nr-ink;
+        color: $nr-ink;
+      }
+    }
+  }
+
+  .disposition-pips {
+    display: flex;
+    gap: 3px;
+
+    .pip {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid $nr-ink;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: $nr-font-fill;
+      font-size: 7pt;
+      color: $nr-ink-light;
+      background: transparent;
+
+      &.filled {
+        background: $nr-ink;
+        color: $nr-paper;
+      }
+    }
+  }
+
+  // ── Broken Badge ────────────────────────────────
+  .broken-row {
+    margin: 3px 0;
+  }
+
+  .broken-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: $nr-ink-faded;
+    cursor: pointer;
+    padding: 2px 8px;
+    border: 1px solid transparent;
+
+    &.active {
+      color: $nr-red-stamp;
+      border-color: $nr-red-stamp;
+      background: rgba(139, 26, 26, 0.05);
+    }
+
+    input[type='checkbox'] {
+      margin: 0;
+    }
+  }
+
+  // ── Abilities ───────────────────────────────────
+  .ability-entry {
+    padding: 2px 4px;
+    border-bottom: 1px dotted $nr-rule-light;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    .ability-name {
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+    }
+  }
+
+  // ── Entity Flags ────────────────────────────────
+  .entity-flags {
+    display: flex;
+    gap: $nr-spacing-md;
+    margin: 4px 0;
+  }
+
+  .entity-flag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: $nr-font-main;
+    font-size: 6.5pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+
+    input[type='checkbox'] {
+      margin: 0;
+    }
+  }
+
+  // ── NPC Description ─────────────────────────────
+  .npc-description {
+    margin-top: 4px;
+    padding: $nr-spacing-xs;
+    border: 1px solid $nr-rule;
+    background: $nr-field-bg;
+    min-height: 60px;
+
+    .editor {
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      line-height: 1.4;
+    }
+  }
+
+  // ── Empty list state ────────────────────────────
+  .empty-list {
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: $nr-ink-light;
+    text-align: center;
+    padding: $nr-spacing-sm;
+  }
+
+  // ── Back card styling ───────────────────────────
+  .npc-back {
+    .npc-description {
+      min-height: 100px;
+    }
+  }
+}
