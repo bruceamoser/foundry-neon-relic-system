@@ -399,6 +399,24 @@ NEONRELIC:
     ArtifactPressure: Active Artifact Pressure
     Cascade: Corruption Cascade
 
+  # Containment Ritual
+  Ritual:
+    Quiescence: Quiescence Ritual
+    Shielding: Shielding Ritual
+    Banishment: Banishment Ritual
+    Success: 'Containment successful!'
+    Failure: 'Containment failed!'
+    InsufficientLore: Insufficient Lore skill for this ritual
+    ActiveTargetCorruption: '+1 Corruption (active target)'
+    Backlash: Backlash
+    BacklashEffect:
+      CorruptionSurge: '+1 Corruption to all within boundary'
+      BoundaryRupture: +1 Diff on next containment attempt
+      ClockAdvance: Organization countdown advances 2
+      PsychicRecoil: 1 WIT or EMP damage to ritual leader
+      AnchorShift: "Artifact's containment profile changes"
+      HostileBacklash: Entity lashes out OR electronics lose 1 Gear Bonus
+
   # Resource Die
   ResourceDie:
     OK: No degradation.
