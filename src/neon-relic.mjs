@@ -30,6 +30,7 @@ import {
 } from './data/item-models.mjs';
 import { NRItemSheet } from './item/item-sheet.mjs';
 import { AgentSheet } from './actor/agent/agent-sheet.mjs';
+import { NPCSheet } from './actor/npc/npc-sheet.mjs';
 
 Hooks.once('init', () => {
   console.log('neon-relic | Initializing Neon Relic system');
@@ -77,6 +78,11 @@ Hooks.once('init', () => {
     types: ['agent'],
     makeDefault: true,
     label: 'NEONRELIC.Sheet.Agent',
+  });
+  Actors.registerSheet('neon-relic', NPCSheet, {
+    types: ['npc'],
+    makeDefault: true,
+    label: 'NEONRELIC.Sheet.NPC',
   });
 
   // Preload shared template partials

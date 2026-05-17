@@ -1,0 +1,102 @@
+<section class='npc-stats'>
+  <div class='attributes-line'>
+    {{#each config.attributes as |label key|}}
+      <div class='attr-box'>
+        <button type='button' data-action='rollAttribute' data-attribute='{{key}}'>
+          <span class='attr-label'>{{localize label}}</span>
+          <span class='attr-value'>{{lookup @root.system.attributes key}}</span>
+        </button>
+        {{#if @root.isEditable}}
+          <input
+            type='number'
+            name='system.attributes.{{key}}'
+            value='{{lookup @root.system.attributes key}}'
+            min='0'
+          />
+        {{/if}}
+      </div>
+    {{/each}}
+  </div>
+
+  <div class='combat-line'>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.NPC.Tier'}}</label>
+      <input type='number' name='system.tier' value='{{system.tier}}' min='1' max='4' {{disabled (not isEditable)}} />
+    </div>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.NPC.AR'}}</label>
+      <input
+        type='number'
+        name='system.armorRating'
+        value='{{system.armorRating}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.NPC.FR'}}</label>
+      <input
+        type='number'
+        name='system.fearRating'
+        value='{{system.fearRating}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.NPC.EscalatedFR'}}</label>
+      <input
+        type='number'
+        name='system.escalatedFearRating'
+        value='{{system.escalatedFearRating}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+  </div>
+
+  <div class='corruption-stage'>
+    <label>{{localize 'NEONRELIC.NPC.CorruptionStage'}}</label>
+    <select name='system.corruptionStage' {{disabled (not isEditable)}}>
+      <option value='0' {{selected system.corruptionStage 0}}>0 —
+        {{localize 'NEONRELIC.CorruptionStage.Clean'}}</option>
+      <option value='1' {{selected system.corruptionStage 1}}>1 —
+        {{localize 'NEONRELIC.CorruptionStage.Touched'}}</option>
+      <option value='2' {{selected system.corruptionStage 2}}>2 —
+        {{localize 'NEONRELIC.CorruptionStage.Marked'}}</option>
+      <option value='3' {{selected system.corruptionStage 3}}>3 —
+        {{localize 'NEONRELIC.CorruptionStage.Consumed'}}</option>
+    </select>
+  </div>
+
+  {{#unless isSimplified}}
+    <div class='disposition-scale'>
+      <label>{{localize 'NEONRELIC.NPC.Disposition'}}</label>
+      <div class='disposition-controls'>
+        <button type='button' data-action='adjustDisposition' data-delta='-1'>−</button>
+        <span class='disposition-value' data-threshold='{{gte system.disposition 3}}'>{{system.disposition}}</span>
+        <button type='button' data-action='adjustDisposition' data-delta='1'>+</button>
+      </div>
+    </div>
+  {{/unless}}
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.NPC.Broken'}}</label>
+    <input type='checkbox' name='system.isBroken' {{checked system.isBroken}} {{disabled (not isEditable)}} />
+  </div>
+
+  {{#unless isSimplified}}
+    <div class='abilities-list'>
+      <h3>{{localize 'NEONRELIC.NPC.Abilities'}}</h3>
+      {{#each abilities}}
+        <div class='ability-entry' data-item-id='{{this.id}}'>
+          <span class='ability-name'>{{this.name}}</span>
+        </div>
+      {{/each}}
+    </div>
+  {{/unless}}
+
+  <div class='description'>
+    <div class='editor'>{{{enrichedDescription}}}</div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+<header class='npc-header flexrow'>
+  <img class='profile-img' src='{{actor.img}}' data-edit='img' title='{{actor.name}}' />
+  <div class='header-fields'>
+    <h1>
+      <input
+        name='name'
+        type='text'
+        value='{{actor.name}}'
+        placeholder='{{localize "NEONRELIC.NPC.Name"}}'
+        {{disabled (not isEditable)}}
+      />
+    </h1>
+    <div class='header-details'>
+      <span class='tier-badge'>T{{system.tier}}</span>
+      <span class='fear-rating'>
+        {{localize 'NEONRELIC.NPC.FR'}}
+        {{system.fearRating}}
+        {{#if system.escalatedFearRating}} / {{system.escalatedFearRating}}{{/if}}
+      </span>
+      {{#if isEditable}}
+        <button type='button' data-action='toggleSimplified'>
+          <i class='fa-solid fa-compress'></i>
+        </button>
+      {{/if}}
+    </div>
+  </div>
+</header>
