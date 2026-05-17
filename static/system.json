@@ -29,7 +29,8 @@
       "anchor": {},
       "darkSecret": {},
       "upgrade": {},
-      "location": {}
+      "location": {},
+      "informationCard": {}
     }
   },
   "packs": [

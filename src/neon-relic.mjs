@@ -27,6 +27,7 @@ import {
   DarkSecretDataModel,
   UpgradeDataModel,
   LocationDataModel,
+  InformationCardDataModel,
 } from './data/item-models.mjs';
 import { NRItemSheet } from './item/item-sheet.mjs';
 import { AgentSheet } from './actor/agent/agent-sheet.mjs';
@@ -83,6 +84,7 @@ Hooks.once('init', () => {
   CONFIG.Item.dataModels.darkSecret = DarkSecretDataModel;
   CONFIG.Item.dataModels.upgrade = UpgradeDataModel;
   CONFIG.Item.dataModels.location = LocationDataModel;
+  CONFIG.Item.dataModels.informationCard = InformationCardDataModel;
 
   // Register custom Handlebars helpers
   registerHandlebarsHelpers();
