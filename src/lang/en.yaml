@@ -359,6 +359,15 @@ NEONRELIC:
     SessionHealing: Session Healing
     HealedThisSession: Healed This Session
     HealingTagUsed: Healing Tag Uses
+    Gained: Corruption Gained
+    Healed: Corruption Healed
+    Total: Total
+    Stage: Stage
+    Breached: Threshold Breached
+    Catatonia: Character falls into permanent catatonia — retired.
+    CapReached: Session healing cap reached.
+    ThresholdDrop: Threshold Reduced
+    FearCheckRequired: Corruption exceeds new threshold — immediate Fear Check required!
 
   # Combat
   Combat:
