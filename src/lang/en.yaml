@@ -271,3 +271,32 @@ NEONRELIC:
   Condition:
     Broken: Broken
     Dying: Dying
+
+  # NPC
+  NPC:
+    Name: NPC Name
+    Tier: Tier
+    AR: Armor Rating
+    FR: Fear Rating
+    EscalatedFR: Escalated FR
+    CorruptionStage: Corruption Stage
+    Disposition: Disposition
+    Broken: Broken
+    Abilities: Special Abilities
+    EntityFields: Entity Fields
+    EntityAnchor: Entity Anchor
+    ReconstitutionTimer: Reconstitution Timer
+    ArtifactTetherRange: Artifact Tether Range
+    CorruptionOnContact: Corruption on Contact
+    DissolutionMethod: Dissolution Method
+    Incorporeal: Incorporeal
+    ZoneLocked: Zone-Locked
+    CardData: NPC Card Data
+    Organization: Organization
+    Secret: Secret
+    Goal: Goal
+    ArtifactConnection: Artifact Connection
+    StartingKnowledge: Starting Knowledge
+    GainedKnowledge: Gained Knowledge
+    PositiveResult: Positive Result
+    NegativeResult: Negative Result

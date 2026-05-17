@@ -120,6 +120,10 @@ export async function preloadHandlebarsTemplates() {
     'systems/neon-relic/templates/actor/agent/agent-talents.hbs',
     'systems/neon-relic/templates/actor/agent/agent-corruption.hbs',
     'systems/neon-relic/templates/actor/agent/agent-biography.hbs',
+    'systems/neon-relic/templates/actor/npc/npc-header.hbs',
+    'systems/neon-relic/templates/actor/npc/npc-stats.hbs',
+    'systems/neon-relic/templates/actor/npc/npc-entity.hbs',
+    'systems/neon-relic/templates/actor/npc/npc-card.hbs',
   ];
   return loadTemplates(templatePaths);
 }

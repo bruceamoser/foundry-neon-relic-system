@@ -1,0 +1,65 @@
+{{#unless isSimplified}}
+  <section class='npc-entity'>
+    <fieldset class='entity-fields'>
+      <legend>{{localize 'NEONRELIC.NPC.EntityFields'}}</legend>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.NPC.EntityAnchor'}}</label>
+        <input type='text' name='system.entityAnchor' value='{{system.entityAnchor}}' {{disabled (not isEditable)}} />
+      </div>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.NPC.ReconstitutionTimer'}}</label>
+        <input
+          type='number'
+          name='system.reconstitutionTimer'
+          value='{{system.reconstitutionTimer}}'
+          min='0'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.NPC.ArtifactTetherRange'}}</label>
+        <input
+          type='number'
+          name='system.artifactTetherRange'
+          value='{{system.artifactTetherRange}}'
+          min='0'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.NPC.CorruptionOnContact'}}</label>
+        <input
+          type='number'
+          name='system.corruptionCostOnContact'
+          value='{{system.corruptionCostOnContact}}'
+          min='0'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.NPC.DissolutionMethod'}}</label>
+        <input
+          type='text'
+          name='system.dissolutionMethod'
+          value='{{system.dissolutionMethod}}'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.NPC.Incorporeal'}}</label>
+        <input type='checkbox' name='system.incorporeal' {{checked system.incorporeal}} {{disabled (not isEditable)}} />
+      </div>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.NPC.ZoneLocked'}}</label>
+        <input type='checkbox' name='system.zoneLocked' {{checked system.zoneLocked}} {{disabled (not isEditable)}} />
+      </div>
+    </fieldset>
+  </section>
+{{/unless}}

@@ -1,0 +1,72 @@
+{{#unless isSimplified}}
+  <section class='npc-card'>
+    <fieldset class='card-fields'>
+      <legend>{{localize 'NEONRELIC.NPC.CardData'}}</legend>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.NPC.Organization'}}</label>
+        <input type='text' name='system.organization' value='{{system.organization}}' {{disabled (not isEditable)}} />
+      </div>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.NPC.Secret'}}</label>
+        <input type='text' name='system.secret' value='{{system.secret}}' {{disabled (not isEditable)}} />
+      </div>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.NPC.Goal'}}</label>
+        <input type='text' name='system.goal' value='{{system.goal}}' {{disabled (not isEditable)}} />
+      </div>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.NPC.ArtifactConnection'}}</label>
+        <input
+          type='text'
+          name='system.artifactConnection'
+          value='{{system.artifactConnection}}'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.NPC.StartingKnowledge'}}</label>
+        <input
+          type='text'
+          name='system.startingKnowledge'
+          value='{{system.startingKnowledge}}'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.NPC.GainedKnowledge'}}</label>
+        <input
+          type='text'
+          name='system.gainedKnowledge'
+          value='{{system.gainedKnowledge}}'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.NPC.PositiveResult'}}</label>
+        <input
+          type='text'
+          name='system.positiveResult'
+          value='{{system.positiveResult}}'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.NPC.NegativeResult'}}</label>
+        <input
+          type='text'
+          name='system.negativeResult'
+          value='{{system.negativeResult}}'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+    </fieldset>
+  </section>
+{{/unless}}
