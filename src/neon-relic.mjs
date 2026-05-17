@@ -31,6 +31,9 @@ import {
 import { NRItemSheet } from './item/item-sheet.mjs';
 import { AgentSheet } from './actor/agent/agent-sheet.mjs';
 import { NPCSheet } from './actor/npc/npc-sheet.mjs';
+import { MobSheet } from './actor/mob/mob-sheet.mjs';
+import { HeadquartersSheet } from './actor/headquarters/hq-sheet.mjs';
+import { VehicleSheet } from './actor/vehicle/vehicle-sheet.mjs';
 
 Hooks.once('init', () => {
   console.log('neon-relic | Initializing Neon Relic system');
@@ -83,6 +86,21 @@ Hooks.once('init', () => {
     types: ['npc'],
     makeDefault: true,
     label: 'NEONRELIC.Sheet.NPC',
+  });
+  Actors.registerSheet('neon-relic', MobSheet, {
+    types: ['mob'],
+    makeDefault: true,
+    label: 'NEONRELIC.Sheet.Mob',
+  });
+  Actors.registerSheet('neon-relic', HeadquartersSheet, {
+    types: ['headquarters'],
+    makeDefault: true,
+    label: 'NEONRELIC.Sheet.Headquarters',
+  });
+  Actors.registerSheet('neon-relic', VehicleSheet, {
+    types: ['vehicle'],
+    makeDefault: true,
+    label: 'NEONRELIC.Sheet.Vehicle',
   });
 
   // Preload shared template partials

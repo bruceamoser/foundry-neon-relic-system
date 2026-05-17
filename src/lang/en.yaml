@@ -10,6 +10,9 @@ NEONRELIC:
     Item: Neon Relic Item Sheet
     Agent: Neon Relic Agent Sheet
     NPC: Neon Relic NPC Sheet
+    Mob: Neon Relic Mob Sheet
+    Headquarters: Neon Relic Headquarters Sheet
+    Vehicle: Neon Relic Vehicle Sheet
 
   # Attributes
   Attribute:
@@ -300,3 +303,46 @@ NEONRELIC:
     GainedKnowledge: Gained Knowledge
     PositiveResult: Positive Result
     NegativeResult: Negative Result
+
+  # Mob
+  Mob:
+    Name: Mob Name
+    MemberCount: Member Count
+    MemberHP: Member HP
+    BestPool: Best Pool
+    SharedPool: Shared Pool
+    BonusDice: Bonus Dice
+    TotalPool: Total Pool
+    ActiveMembers: Active Members
+    TemplateNPC: Template NPC
+
+  # Headquarters
+  HQ:
+    Name: Headquarters Name
+    Standing: Standing
+    DP: Development Points
+    Threat: Threat Level
+    CellWideCL: Cell-Wide CL
+    Vault: Vault
+    CasesSinceConsecration: Cases Since Consecration
+    NeedsReconsecration: Vault needs re-consecration!
+    Rank:
+      Unknown: Unknown
+      Acknowledged: Acknowledged
+      Trusted: Trusted
+      Honored: Honored
+      CovenantElite: Covenant Elite
+
+  # Vehicle
+  Vehicle:
+    Name: Vehicle Name
+    Speed: Speed
+    AR: Armor Rating
+    Reliability: Reliability
+    Handling: Handling
+    Capacity: Capacity
+    Noise: Noise
+    SneakMod: Sneak Modifier
+    Wear: Wear
+    Problem: Vehicle has a problem!
+    Stopped: Vehicle has stopped!

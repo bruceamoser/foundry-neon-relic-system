@@ -1,0 +1,79 @@
+<div class='vehicle-sheet'>
+  <header class='vehicle-header flexrow'>
+    <img class='profile-img' src='{{actor.img}}' data-edit='img' title='{{actor.name}}' />
+    <h1>
+      <input
+        name='name'
+        type='text'
+        value='{{actor.name}}'
+        placeholder='{{localize "NEONRELIC.Vehicle.Name"}}'
+        {{disabled (not isEditable)}}
+      />
+    </h1>
+  </header>
+
+  <section class='vehicle-stats'>
+    <div class='stat-row'>
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.Vehicle.Speed'}}</label>
+        <input type='number' name='system.speed' value='{{system.speed}}' min='0' {{disabled (not isEditable)}} />
+      </div>
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.Vehicle.AR'}}</label>
+        <input type='number' name='system.ar' value='{{system.ar}}' min='0' {{disabled (not isEditable)}} />
+      </div>
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.Vehicle.Reliability'}}</label>
+        <input
+          type='number'
+          name='system.reliability'
+          value='{{system.reliability}}'
+          min='0'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.Vehicle.Handling'}}</label>
+        <input type='number' name='system.handling' value='{{system.handling}}' {{disabled (not isEditable)}} />
+      </div>
+    </div>
+
+    <div class='stat-row'>
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.Vehicle.Capacity'}}</label>
+        <input type='number' name='system.capacity' value='{{system.capacity}}' min='0' {{disabled (not isEditable)}} />
+      </div>
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.Vehicle.Noise'}}</label>
+        <input type='number' name='system.noise' value='{{system.noise}}' min='0' {{disabled (not isEditable)}} />
+      </div>
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.Vehicle.SneakMod'}}</label>
+        <input
+          type='number'
+          name='system.sneakModifier'
+          value='{{system.sneakModifier}}'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+    </div>
+
+    <div class='wear-tracker'>
+      <label>{{localize 'NEONRELIC.Vehicle.Wear'}}</label>
+      <div class='wear-row'>
+        <input type='number' name='system.wear' value='{{system.wear}}' min='0' {{disabled (not isEditable)}} />
+        <span class='wear-threshold'>/ {{system.reliability}}</span>
+      </div>
+      {{#if system.hasProblem}}
+        <p class='warning'>{{localize 'NEONRELIC.Vehicle.Problem'}}</p>
+      {{/if}}
+      {{#if system.isStopped}}
+        <p class='critical'>{{localize 'NEONRELIC.Vehicle.Stopped'}}</p>
+      {{/if}}
+    </div>
+  </section>
+
+  <div class='description'>
+    <div class='editor'>{{{enrichedDescription}}}</div>
+  </div>
+</div>

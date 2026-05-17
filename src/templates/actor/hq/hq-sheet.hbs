@@ -1,0 +1,78 @@
+<div class='hq-sheet'>
+  <header class='hq-header flexrow'>
+    <img class='profile-img' src='{{actor.img}}' data-edit='img' title='{{actor.name}}' />
+    <h1>
+      <input
+        name='name'
+        type='text'
+        value='{{actor.name}}'
+        placeholder='{{localize "NEONRELIC.HQ.Name"}}'
+        {{disabled (not isEditable)}}
+      />
+    </h1>
+    <div class='standing-badge'>
+      <span class='rank-label'>{{standingRankLabel}}</span>
+    </div>
+  </header>
+
+  <div class='hq-body'>
+    <section class='hq-stats'>
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.HQ.Standing'}}</label>
+        <input
+          type='number'
+          name='system.standing'
+          value='{{system.standing}}'
+          min='0'
+          max='20'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.HQ.DP'}}</label>
+        <input type='number' name='system.dp' value='{{system.dp}}' min='0' {{disabled (not isEditable)}} />
+      </div>
+
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.HQ.Threat'}}</label>
+        <input
+          type='number'
+          name='system.threat'
+          value='{{system.threat}}'
+          min='0'
+          max='6'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+
+      <div class='derived-stats'>
+        <div class='stat-box'>
+          <span class='stat-label'>{{localize 'NEONRELIC.HQ.CellWideCL'}}</span>
+          <span class='stat-value'>{{system.cellWideCL}}</span>
+        </div>
+      </div>
+    </section>
+
+    <section class='hq-vault'>
+      <h3>{{localize 'NEONRELIC.HQ.Vault'}}</h3>
+      <div class='form-group'>
+        <label>{{localize 'NEONRELIC.HQ.CasesSinceConsecration'}}</label>
+        <input
+          type='number'
+          name='system.vault.casesSinceConsecration'
+          value='{{system.vault.casesSinceConsecration}}'
+          min='0'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+      {{#if system.needsReconsecration}}
+        <p class='warning'>{{localize 'NEONRELIC.HQ.NeedsReconsecration'}}</p>
+      {{/if}}
+    </section>
+
+    <div class='description'>
+      <div class='editor'>{{{enrichedDescription}}}</div>
+    </div>
+  </div>
+</div>

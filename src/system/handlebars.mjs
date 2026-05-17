@@ -124,6 +124,9 @@ export async function preloadHandlebarsTemplates() {
     'systems/neon-relic/templates/actor/npc/npc-stats.hbs',
     'systems/neon-relic/templates/actor/npc/npc-entity.hbs',
     'systems/neon-relic/templates/actor/npc/npc-card.hbs',
+    'systems/neon-relic/templates/actor/mob/mob-sheet.hbs',
+    'systems/neon-relic/templates/actor/hq/hq-sheet.hbs',
+    'systems/neon-relic/templates/actor/vehicle/vehicle-sheet.hbs',
   ];
   return loadTemplates(templatePaths);
 }
