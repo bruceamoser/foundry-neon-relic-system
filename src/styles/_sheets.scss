@@ -73,6 +73,11 @@
     resize: vertical;
   }
 
+  // ── Window header title (light text on dark Foundry chrome) ──
+  .window-header h1 {
+    color: $nr-paper;
+  }
+
   // ── Headings ──
   h1,
   h2,
