@@ -132,7 +132,32 @@
       "system": "neon-relic"
     }
   ],
-  "packFolders": [],
+  "packFolders": [
+    {
+      "name": "Neon Relic — Core",
+      "sorting": "a",
+      "packs": [
+        "rules-reference",
+        "gear",
+        "weapons-armor",
+        "artifacts",
+        "talents",
+        "critical-injuries",
+        "hq-upgrades",
+        "npcs",
+        "faction-operatives",
+        "hq-personnel",
+        "vehicles",
+        "roll-tables",
+        "macros"
+      ]
+    },
+    {
+      "name": "The Spear That Went Dark",
+      "sorting": "a",
+      "packs": ["sample-case"]
+    }
+  ],
   "primaryTokenAttribute": "attributes.str",
   "secondaryTokenAttribute": "corruption",
   "socket": true,
