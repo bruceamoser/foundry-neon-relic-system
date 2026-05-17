@@ -39,6 +39,10 @@ import { NeonRelicCombatant } from './combat/combatant.mjs';
 import { registerSettings, initTheme } from './system/settings.mjs';
 import { registerSocketListeners } from './system/sockets.mjs';
 import { clearSessionResetFlag } from './system/session-tracker.mjs';
+import { configureTokenDefaults } from './system/token-defaults.mjs';
+import { registerDiceSoNice } from './integrations/dice-so-nice.mjs';
+import { registerYZECombat } from './integrations/yze-combat.mjs';
+import { registerItemPiles } from './integrations/item-piles.mjs';
 
 Hooks.once('init', () => {
   console.log('neon-relic | Initializing Neon Relic system');
@@ -115,6 +119,14 @@ Hooks.once('init', () => {
 
   // Preload shared template partials
   preloadHandlebarsTemplates();
+
+  // Configure token defaults for all actor types
+  configureTokenDefaults();
+
+  // Register module integrations
+  registerDiceSoNice();
+  registerYZECombat();
+  registerItemPiles();
 });
 
 Hooks.once('ready', () => {

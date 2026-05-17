@@ -1,0 +1,34 @@
+{{! Chat message template for skill/attribute rolls }}
+<div class='neon-relic chat-roll'>
+  <header class='roll-header'>
+    <img src='{{actorImg}}' alt='{{actorName}}' width='36' height='36' />
+    <div class='roll-title'>
+      <strong>{{actorName}}</strong>
+      <span class='roll-label'>{{label}}</span>
+    </div>
+  </header>
+
+  <div class='roll-pool'>
+    {{#each dice}}
+      <span class='die-result' data-success='{{this.success}}'>{{this.result}}</span>
+    {{/each}}
+  </div>
+
+  <div class='roll-summary'>
+    <span class='successes'>{{successes}} {{localize 'NEONRELIC.Roll.Successes'}}</span>
+    {{#if canPush}}
+      <button class='roll-push' data-action='push'>{{localize 'NEONRELIC.Roll.Push'}}</button>
+    {{/if}}
+  </div>
+
+  {{#if stunts}}
+    <div class='roll-stunts'>
+      <strong>{{localize 'NEONRELIC.Roll.Stunts'}}:</strong>
+      <ul>
+        {{#each stunts}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+</div>

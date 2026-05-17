@@ -1,0 +1,36 @@
+{{! Chat message template for corruption gain/loss }}
+<div class='neon-relic chat-corruption'>
+  <header class='corruption-header'>
+    <img src='{{actorImg}}' alt='{{actorName}}' width='36' height='36' />
+    <div class='corruption-title'>
+      <strong>{{actorName}}</strong>
+      <span class='corruption-label'>{{label}}</span>
+    </div>
+  </header>
+
+  <div class='corruption-details'>
+    <span class='corruption-change' data-direction='{{direction}}'>
+      {{#if isGain}}+{{/if}}{{amount}}
+      {{localize 'NEONRELIC.Corruption.Label'}}
+    </span>
+    <span class='corruption-total'>
+      {{localize 'NEONRELIC.Corruption.Total'}}:
+      {{newTotal}}
+      /
+      {{threshold}}
+    </span>
+  </div>
+
+  {{#if stageChange}}
+    <div class='corruption-stage-alert'>
+      <strong>{{localize 'NEONRELIC.CorruptionStage.Label'}}:</strong>
+      {{stageName}}
+    </div>
+  {{/if}}
+
+  {{#if source}}
+    <div class='corruption-source'>
+      <em>{{source}}</em>
+    </div>
+  {{/if}}
+</div>

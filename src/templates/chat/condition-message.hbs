@@ -1,0 +1,29 @@
+{{! Chat message template for condition application/removal }}
+<div class='neon-relic chat-condition'>
+  <header class='condition-header'>
+    <img src='{{actorImg}}' alt='{{actorName}}' width='36' height='36' />
+    <div class='condition-title'>
+      <strong>{{actorName}}</strong>
+    </div>
+  </header>
+
+  <div class='condition-details'>
+    <span class='condition-icon'>
+      {{#if applied}}+{{else}}-{{/if}}
+    </span>
+    <span class='condition-name'>{{conditionName}}</span>
+    <span class='condition-action'>
+      {{#if applied}}
+        {{localize 'NEONRELIC.Condition.Applied'}}
+      {{else}}
+        {{localize 'NEONRELIC.Condition.Removed'}}
+      {{/if}}
+    </span>
+  </div>
+
+  {{#if description}}
+    <div class='condition-description'>
+      <em>{{description}}</em>
+    </div>
+  {{/if}}
+</div>
