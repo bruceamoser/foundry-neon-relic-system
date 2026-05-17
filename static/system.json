@@ -123,6 +123,13 @@
       "path": "packs/sample-case",
       "type": "JournalEntry",
       "system": "neon-relic"
+    },
+    {
+      "name": "rules-reference",
+      "label": "Rules Reference",
+      "path": "packs/rules-reference",
+      "type": "JournalEntry",
+      "system": "neon-relic"
     }
   ],
   "packFolders": [],

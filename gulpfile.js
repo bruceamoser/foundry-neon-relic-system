@@ -223,19 +223,35 @@ function _transformDocument(doc, itemTypes, actorTypes) {
     };
   }
 
-  if (doc.type === 'journalEntry') {
-    const pages = [
-      {
-        _id: `${doc._id}p001`,
-        name: doc.name,
-        type: 'text',
-        text: { content: doc.system?.summary || '', format: 1 },
-        sort: 0,
+  if (doc.type === 'journalEntry' || doc.type === 'JournalEntry') {
+    let pages;
+    if (Array.isArray(doc.pages)) {
+      // New format: explicit pages array (rules-reference, etc.)
+      pages = doc.pages.map((p, i) => ({
+        _id: `${doc._id}p${String(i + 1).padStart(3, '0')}`,
+        name: p.name,
+        type: p.type || 'text',
+        text: { content: p.text?.content || '', format: 1 },
+        sort: i * 100000,
         flags: {},
         ownership: { default: -1 },
         _stats: {},
-      },
-    ];
+      }));
+    } else {
+      // Legacy format: single page from system.summary
+      pages = [
+        {
+          _id: `${doc._id}p001`,
+          name: doc.name,
+          type: 'text',
+          text: { content: doc.system?.summary || '', format: 1 },
+          sort: 0,
+          flags: {},
+          ownership: { default: -1 },
+          _stats: {},
+        },
+      ];
+    }
     return {
       key: `!journal!${doc._id}`,
       data: {
