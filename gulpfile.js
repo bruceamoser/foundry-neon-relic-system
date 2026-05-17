@@ -1,6 +1,8 @@
 import fs from 'fs-extra';
 import gulp from 'gulp';
 import yaml from 'gulp-yaml';
+import YAML from 'js-yaml';
+import { ClassicLevel } from 'classic-level';
 import esBuild from './esbuild.config.js';
 
 /* ------------------------------------------ */
@@ -34,10 +36,10 @@ async function pipeTemplates() {
   const templateFiles = await glob(`${sourceDirectory}/**/*.${templateExt}`);
   if (templateFiles && templateFiles.length > 0) {
     for (const file of templateFiles) {
-      await fs.copy(
-        file,
-        `${distDirectory}/templates/${file.replace(`${sourceDirectory}/`, '').replace('templates/', '')}`,
-      );
+      // Normalize to forward slashes and strip src/ and templates/ prefixes.
+      const normalized = file.replace(/\\/g, '/');
+      const relPath = normalized.replace(/^\.?\/?src\/templates\//, '');
+      await fs.copy(file, `${distDirectory}/templates/${relPath}`);
     }
   }
 }
@@ -71,7 +73,6 @@ async function pipeStatics() {
 
 /**
  * Compiles YAML pack source files to LevelDB compendium packs.
- * Placeholder — will be implemented when compendium content is created.
  */
 async function buildPacks() {
   const packDir = `${sourceDirectory}/packs`;
@@ -79,8 +80,178 @@ async function buildPacks() {
   const files = await fs.readdir(packDir);
   const yamlFiles = files.filter(f => f.endsWith('.yaml') || f.endsWith('.yml'));
   if (yamlFiles.length === 0) return;
-  // LevelDB compilation will be added when packs have content
-  console.log(`neon-relic | Found ${yamlFiles.length} pack source files (compilation pending)`);
+
+  const outputDir = `${distDirectory}/packs`;
+  await fs.ensureDir(outputDir);
+
+  // Map YAML type values to Foundry document types and LevelDB key prefixes.
+  const ITEM_TYPES = new Set([
+    'weapon',
+    'armor',
+    'gear',
+    'consumable',
+    'artifact',
+    'talent',
+    'criticalInjury',
+    'anchor',
+    'darkSecret',
+    'upgrade',
+    'location',
+  ]);
+  const ACTOR_TYPES = new Set(['agent', 'npc', 'mob', 'vehicle', 'headquarters']);
+
+  for (const file of yamlFiles) {
+    const raw = await fs.readFile(`${packDir}/${file}`, 'utf8');
+    const documents = YAML.load(raw);
+    if (!Array.isArray(documents) || documents.length === 0) continue;
+
+    const packName = file.replace(/\.(yaml|yml)$/, '');
+    const packPath = `${outputDir}/${packName}`;
+
+    // Clean and create LevelDB directory.
+    await fs.remove(packPath);
+    const db = new ClassicLevel(packPath, { keyEncoding: 'utf8', valueEncoding: 'utf8' });
+
+    let count = 0;
+    for (const doc of documents) {
+      const entry = _transformDocument(doc, ITEM_TYPES, ACTOR_TYPES);
+      if (!entry) {
+        console.warn(`neon-relic | Unknown type "${doc.type}" in ${file}, skipping`);
+        continue;
+      }
+      await db.put(entry.key, JSON.stringify(entry.data));
+      count++;
+    }
+
+    await db.close();
+    console.log(`neon-relic | Compiled ${count} entries → packs/${packName}`);
+  }
+}
+
+/**
+ * Transform a YAML source document into a Foundry-native document with the correct LevelDB key.
+ * @param {object} doc - Parsed YAML document.
+ * @param {Set} itemTypes - Set of Item sub-types.
+ * @param {Set} actorTypes - Set of Actor sub-types.
+ * @returns {{key: string, data: object}|null}
+ */
+function _transformDocument(doc, itemTypes, actorTypes) {
+  if (itemTypes.has(doc.type)) {
+    return {
+      key: `!items!${doc._id}`,
+      data: {
+        _id: doc._id,
+        name: doc.name,
+        type: doc.type,
+        img: doc.img || '',
+        system: doc.system || {},
+        effects: doc.effects || [],
+        flags: doc.flags || {},
+        folder: doc.folder || null,
+        sort: doc.sort || 0,
+        ownership: doc.ownership || { default: 0 },
+        _stats: doc._stats || {},
+      },
+    };
+  }
+
+  if (actorTypes.has(doc.type)) {
+    return {
+      key: `!actors!${doc._id}`,
+      data: {
+        _id: doc._id,
+        name: doc.name,
+        type: doc.type,
+        img: doc.img || '',
+        system: doc.system || {},
+        items: doc.items || [],
+        effects: doc.effects || [],
+        flags: doc.flags || {},
+        folder: doc.folder || null,
+        sort: doc.sort || 0,
+        ownership: doc.ownership || { default: 0 },
+        prototypeToken: doc.prototypeToken || {},
+        _stats: doc._stats || {},
+      },
+    };
+  }
+
+  if (doc.type === 'macro') {
+    return {
+      key: `!macros!${doc._id}`,
+      data: {
+        _id: doc._id,
+        name: doc.name,
+        type: doc.system?.macroType || 'script',
+        img: doc.img || 'icons/svg/dice-target.svg',
+        command: doc.system?.script || '',
+        flags: doc.flags || {},
+        folder: doc.folder || null,
+        sort: doc.sort || 0,
+        ownership: doc.ownership || { default: 0 },
+        _stats: doc._stats || {},
+      },
+    };
+  }
+
+  if (doc.type === 'rollTable') {
+    const results = (doc.system?.entries || []).map((e, i) => ({
+      _id: `${doc._id}r${String(i + 1).padStart(3, '0')}`,
+      type: 0,
+      text: e.result,
+      range: e.range,
+      weight: 1,
+      drawn: false,
+      flags: {},
+    }));
+    return {
+      key: `!tables!${doc._id}`,
+      data: {
+        _id: doc._id,
+        name: doc.name,
+        img: doc.img || 'icons/svg/d20-grey.svg',
+        formula: doc.system?.formula || '1d6',
+        replacement: true,
+        displayRoll: true,
+        results,
+        flags: doc.flags || {},
+        folder: doc.folder || null,
+        sort: doc.sort || 0,
+        ownership: doc.ownership || { default: 0 },
+        _stats: doc._stats || {},
+      },
+    };
+  }
+
+  if (doc.type === 'journalEntry') {
+    const pages = [
+      {
+        _id: `${doc._id}p001`,
+        name: doc.name,
+        type: 'text',
+        text: { content: doc.system?.summary || '', format: 1 },
+        sort: 0,
+        flags: {},
+        ownership: { default: -1 },
+        _stats: {},
+      },
+    ];
+    return {
+      key: `!journal!${doc._id}`,
+      data: {
+        _id: doc._id,
+        name: doc.name,
+        pages,
+        flags: doc.flags || {},
+        folder: doc.folder || null,
+        sort: doc.sort || 0,
+        ownership: doc.ownership || { default: 0 },
+        _stats: doc._stats || {},
+      },
+    };
+  }
+
+  return null;
 }
 
 /* ------------------------------------------ */

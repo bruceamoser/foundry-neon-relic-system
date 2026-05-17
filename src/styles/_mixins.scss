@@ -1,4 +1,7 @@
 // Neon Relic — SCSS Mixins
+// Extracted from HTML reference sheets (character-sheet.html, npc-card.html, relic-sheet.html)
+
+// ── Layout ───────────────────────────────────────────────
 
 @mixin flex-row($gap: $nr-spacing-sm) {
   display: flex;
@@ -13,8 +16,294 @@
 }
 
 @mixin nr-panel {
-  background: $nr-bg-light;
-  border: $nr-border-width solid $nr-border;
+  background: $nr-paper;
+  border: $nr-border-width solid $nr-rule;
   border-radius: $nr-border-radius;
   padding: $nr-spacing-md;
+}
+
+// ── Paper Texture ────────────────────────────────────────
+// Layered effect: horizontal line pattern + radial vignettes + noise dots
+
+@mixin paper-texture {
+  position: relative;
+  background: $nr-paper;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 11px,
+        rgba(0, 0, 0, 0.012) 11px,
+        rgba(0, 0, 0, 0.012) 12px
+      ),
+      radial-gradient(ellipse at 15% 78%, rgba(139, 119, 80, 0.07), transparent 55%),
+      radial-gradient(ellipse at 88% 18%, rgba(139, 119, 80, 0.05), transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 3px 3px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  // Ensure content sits above texture layers
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+// ── Watermark ────────────────────────────────────────────
+
+@mixin watermark($color: rgba(45, 90, 39, 0.033), $size: 80pt) {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-35deg);
+  font-family: $nr-font-main;
+  font-size: $size;
+  letter-spacing: 18px;
+  color: $color;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+}
+
+// ── Classified Stamp ─────────────────────────────────────
+// Red rotated stamp overlay (e.g., "CLASSIFIED", "RESTRICTED")
+
+@mixin classified-stamp {
+  display: inline-block;
+  border: 2.5px solid $nr-red-stamp;
+  color: $nr-red-stamp;
+  font-family: $nr-font-main;
+  font-size: 11pt;
+  letter-spacing: 5px;
+  padding: 2px 12px;
+  transform: rotate(-2deg);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+// ── Section Title ────────────────────────────────────────
+// Uppercase label with bottom border (green or red variant)
+
+@mixin section-title($color: $nr-ink) {
+  font-family: $nr-font-main;
+  font-size: 7pt;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: $color;
+  border-bottom: 1.5px solid $color;
+  padding-bottom: 2px;
+  margin: 9px 0 5px;
+}
+
+// ── Section Label ────────────────────────────────────────
+// Smaller variant for card layouts
+
+@mixin section-label($color: $nr-green-stamp) {
+  font-family: $nr-font-main;
+  font-size: 5.5pt;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: $color;
+  border-bottom: 1px solid $color;
+  padding-bottom: 1px;
+  margin: 4px 0 3px;
+}
+
+// ── Form Fields ──────────────────────────────────────────
+
+// Dotted underline field (identity blocks, read-only display)
+@mixin field-dotted {
+  display: block;
+  font-family: $nr-font-fill;
+  font-size: 9pt;
+  min-height: 14px;
+  border: none;
+  border-bottom: 1px dotted $nr-rule;
+  background: transparent;
+  padding: 1px 3px;
+  color: $nr-ink;
+
+  &:focus {
+    outline: none;
+    border-bottom-color: $nr-ink;
+  }
+}
+
+// Solid underline field (editable data entry)
+@mixin field-solid {
+  border: none;
+  border-bottom: 1.5px solid $nr-rule;
+  min-height: 16px;
+  padding: 1px 3px;
+  background: $nr-field-bg;
+  font-family: $nr-font-fill;
+  font-size: 9pt;
+  color: $nr-ink;
+
+  &:focus {
+    outline: none;
+    border-bottom-color: $nr-ink;
+  }
+}
+
+// ── Pip Track ────────────────────────────────────────────
+// Numbered pip row for corruption/damage tracks
+
+@mixin pip-track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+
+  .pip {
+    width: 21px;
+    height: 21px;
+    border: 1.5px solid $nr-ink;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $nr-font-main;
+    font-size: 6.5pt;
+    color: $nr-ink-faded;
+    background: $nr-field-bg;
+    flex-shrink: 0;
+    cursor: pointer;
+
+    &.filled {
+      background: $nr-ink;
+      color: $nr-paper;
+    }
+
+    &.danger {
+      border-color: $nr-red-stamp;
+      border-width: 2px;
+      color: $nr-red-stamp;
+
+      &.filled {
+        background: $nr-red-stamp;
+        color: $nr-paper;
+      }
+    }
+  }
+}
+
+// ── Card Border ──────────────────────────────────────────
+// Colored left-border for NPC/information card type indicators
+
+@mixin card-border($color: $nr-ink) {
+  border-left: 4px solid $color;
+  padding-left: $nr-spacing-sm;
+}
+
+// ── Accent Boxes ─────────────────────────────────────────
+
+@mixin anchor-box {
+  border: 1.5px solid $nr-anchor-border;
+  padding: 5px 7px;
+  background: $nr-anchor-bg;
+  margin: 4px 0;
+}
+
+@mixin secret-box {
+  border: 1.5px solid $nr-secret-border;
+  padding: 5px 7px;
+  background: $nr-secret-bg;
+  margin: 4px 0;
+}
+
+@mixin danger-box {
+  border: 1.5px solid $nr-danger-border;
+  padding: 4px 6px;
+  margin-bottom: 4px;
+}
+
+// ── Portrait Frame ───────────────────────────────────────
+
+@mixin portrait-frame($width: 0.9in, $height: 1in) {
+  width: $width;
+  height: $height;
+  border: 1.5px solid $nr-rule;
+  background: $nr-field-bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// ── Cut Line ─────────────────────────────────────────────
+// Dashed line with scissors icon for printable card sheets
+
+@mixin cut-line {
+  border-top: 1.5px dashed #aaa;
+  margin: 0;
+  position: relative;
+
+  &::before {
+    content: '✂';
+    position: absolute;
+    left: 8px;
+    top: -7px;
+    font-size: 8pt;
+    color: #aaa;
+  }
+}
+
+// ── ID Block Grid ────────────────────────────────────────
+// Grid row for identity/stat blocks with internal cell borders
+
+@mixin id-block-row {
+  display: grid;
+  gap: 0;
+  border: 1.5px solid $nr-ink;
+
+  & + & {
+    border-top: 1px solid $nr-rule;
+  }
+}
+
+@mixin id-cell {
+  padding: 3px 6px 4px;
+  border-right: 1px solid $nr-rule;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+// ── Tier Badge ───────────────────────────────────────────
+
+@mixin tier-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $nr-font-main;
+  font-size: 8pt;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: $nr-red-stamp;
+  border: 2px solid $nr-red-stamp;
+  padding: 2px 8px;
+  text-transform: uppercase;
 }

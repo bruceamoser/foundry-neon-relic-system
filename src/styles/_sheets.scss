@@ -1,0 +1,269 @@
+// Neon Relic — Base Sheet Styles
+// Applied to all actor/item sheets via .neon-relic scoping
+
+.neon-relic {
+  font-family: $nr-font-fill;
+  font-size: $nr-font-size-base;
+  line-height: $nr-line-height;
+  color: $nr-ink;
+
+  // ── Paper background for all sheets ──
+  &.app,
+  &.application {
+    @include paper-texture;
+  }
+
+  // ── Watermark (placed via data attribute) ──
+  .watermark {
+    @include watermark;
+  }
+
+  .watermark--red {
+    @include watermark(rgba(139, 26, 26, 0.025));
+  }
+
+  // ── Classification stamp ──
+  .classification {
+    @include classified-stamp;
+  }
+
+  // ── Section headings ──
+  .section-title {
+    @include section-title;
+
+    &.green {
+      @include section-title($nr-green-stamp);
+    }
+    &.red {
+      @include section-title($nr-red-stamp);
+    }
+  }
+
+  .section-label {
+    @include section-label;
+
+    &.red {
+      @include section-label($nr-red-stamp);
+    }
+  }
+
+  // ── Form inputs ──
+  input[type='text'],
+  input[type='number'] {
+    @include field-dotted;
+  }
+
+  select {
+    font-family: $nr-font-fill;
+    font-size: 9pt;
+    color: $nr-ink;
+    background: $nr-field-bg;
+    border: 1px solid $nr-rule;
+    border-radius: 2px;
+    padding: 1px 3px;
+  }
+
+  textarea {
+    font-family: $nr-font-fill;
+    font-size: 9pt;
+    color: $nr-ink;
+    background: $nr-field-bg;
+    border: 1px solid $nr-rule;
+    padding: 4px 6px;
+    resize: vertical;
+  }
+
+  // ── Headings ──
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: $nr-font-main;
+    color: $nr-ink;
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 18pt;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    font-size: 12pt;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    font-size: 9pt;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  h4 {
+    font-size: 7pt;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  // ── Pip tracks ──
+  .pip-track {
+    @include pip-track;
+  }
+
+  // ── Accent boxes ──
+  .anchor-box {
+    @include anchor-box;
+  }
+
+  .secret-box {
+    @include secret-box;
+  }
+
+  .danger-box {
+    @include danger-box;
+  }
+
+  // ── Card borders ──
+  .card--entity {
+    @include card-border($nr-card-entity);
+  }
+
+  .card--contact {
+    @include card-border($nr-card-contact);
+  }
+
+  // ── Portrait frames ──
+  .portrait {
+    @include portrait-frame;
+  }
+
+  .portrait--large {
+    @include portrait-frame(2in, 2in);
+  }
+
+  // ── Tier badge ──
+  .tier-badge {
+    @include tier-badge;
+  }
+
+  // ── ID block grids ──
+  .id-block-row {
+    @include id-block-row;
+  }
+
+  .id-cell {
+    @include id-cell;
+  }
+
+  // ── Cut lines for printing ──
+  .cut-line {
+    @include cut-line;
+  }
+
+  // ── Tabs (Foundry ApplicationV2 tab styling) ──
+  .sheet-tabs {
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1.5px solid $nr-ink;
+    margin-bottom: $nr-spacing-sm;
+
+    .item {
+      color: $nr-ink-faded;
+      padding: 4px 8px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition:
+        color 0.15s,
+        border-color 0.15s;
+
+      &:hover {
+        color: $nr-ink;
+      }
+
+      &.active {
+        color: $nr-ink;
+        border-bottom-color: $nr-red-stamp;
+      }
+    }
+  }
+
+  // ── Sheet header ──
+  .sheet-header {
+    border-bottom: 2.5px solid $nr-ink;
+    padding-bottom: $nr-spacing-sm;
+    margin-bottom: $nr-spacing-sm;
+  }
+
+  // ── Sheet body ──
+  .sheet-body {
+    padding: $nr-spacing-sm;
+  }
+
+  // ── Attribute grid (4-column) ──
+  .attr-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+    margin: 4px 0 6px;
+  }
+
+  // ── Multi-column layouts ──
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+
+  // ── Skill rows ──
+  .skill-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px dotted $nr-rule-light;
+    padding: 2px 0;
+    font-family: $nr-font-fill;
+    font-size: 8pt;
+
+    .skill-name {
+      font-family: $nr-font-main;
+      font-size: 6pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $nr-ink-faded;
+    }
+
+    .skill-pips {
+      display: flex;
+      gap: 3px;
+
+      .pip {
+        width: 10px;
+        height: 10px;
+        border: 1px solid $nr-ink;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &.filled {
+          background: $nr-ink;
+        }
+      }
+    }
+  }
+
+  // ── Scrollable content areas ──
+  .scrollable {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: $nr-rule $nr-paper;
+  }
+}

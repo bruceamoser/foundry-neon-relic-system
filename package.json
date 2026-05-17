@@ -29,9 +29,12 @@
     "lint:fix": "eslint --ext .js,.mjs --fix .",
     "format": "prettier --check \"**/*.{hbs,js,mjs,json,scss,yaml,yml}\"",
     "format:fix": "prettier --write \"**/*.{hbs,js,mjs,json,scss,yaml,yml}\"",
+    "release:local": "powershell -NoProfile -ExecutionPolicy Bypass -File local-release.ps1",
+    "release:local:skip-build": "powershell -NoProfile -ExecutionPolicy Bypass -File local-release.ps1 -SkipBuild",
     "prepare": "husky"
   },
   "devDependencies": {
+    "classic-level": "^3.0.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.27.3",
     "esbuild-sass-plugin": "^3.3.0",
@@ -42,6 +45,7 @@
     "gulp": "^5.0.0",
     "gulp-yaml": "^2.0.4",
     "husky": "^9.1.0",
+    "js-yaml": "^4.1.1",
     "prettier": "^3.5.0"
   }
 }

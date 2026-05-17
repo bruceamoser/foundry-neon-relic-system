@@ -19,3 +19,4 @@ pathconfig
 
 # Distribution Files
 /dist
+/local-release

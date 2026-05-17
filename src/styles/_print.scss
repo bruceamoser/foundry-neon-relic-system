@@ -1,0 +1,36 @@
+// Neon Relic — Print Styles
+// Preserve colors and layout for printable sheets and cards
+
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    background: none;
+  }
+
+  .neon-relic {
+    .page {
+      box-shadow: none;
+      margin: 0;
+    }
+
+    .page-break {
+      page-break-after: always;
+    }
+
+    .no-print {
+      display: none !important;
+    }
+  }
+}
+
+@page {
+  size: letter portrait;
+  margin: 0;
+}
+
+// Force exact color reproduction
+body {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}

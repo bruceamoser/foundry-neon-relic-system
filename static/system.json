@@ -32,7 +32,99 @@
       "location": {}
     }
   },
-  "packs": [],
+  "packs": [
+    {
+      "name": "gear",
+      "label": "Gear & Consumables",
+      "path": "packs/gear",
+      "type": "Item",
+      "system": "neon-relic"
+    },
+    {
+      "name": "weapons-armor",
+      "label": "Weapons & Armor",
+      "path": "packs/weapons-armor",
+      "type": "Item",
+      "system": "neon-relic"
+    },
+    {
+      "name": "artifacts",
+      "label": "Artifacts",
+      "path": "packs/artifacts",
+      "type": "Item",
+      "system": "neon-relic"
+    },
+    {
+      "name": "talents",
+      "label": "Talents",
+      "path": "packs/talents",
+      "type": "Item",
+      "system": "neon-relic"
+    },
+    {
+      "name": "critical-injuries",
+      "label": "Critical Injuries",
+      "path": "packs/critical-injuries",
+      "type": "Item",
+      "system": "neon-relic"
+    },
+    {
+      "name": "hq-upgrades",
+      "label": "HQ Upgrades",
+      "path": "packs/hq-upgrades",
+      "type": "Item",
+      "system": "neon-relic"
+    },
+    {
+      "name": "npcs",
+      "label": "NPCs & Entities",
+      "path": "packs/npcs",
+      "type": "Actor",
+      "system": "neon-relic"
+    },
+    {
+      "name": "faction-operatives",
+      "label": "Faction Operatives",
+      "path": "packs/faction-operatives",
+      "type": "Actor",
+      "system": "neon-relic"
+    },
+    {
+      "name": "hq-personnel",
+      "label": "HQ Personnel",
+      "path": "packs/hq-personnel",
+      "type": "Actor",
+      "system": "neon-relic"
+    },
+    {
+      "name": "vehicles",
+      "label": "Vehicles",
+      "path": "packs/vehicles",
+      "type": "Actor",
+      "system": "neon-relic"
+    },
+    {
+      "name": "roll-tables",
+      "label": "Roll Tables",
+      "path": "packs/roll-tables",
+      "type": "RollTable",
+      "system": "neon-relic"
+    },
+    {
+      "name": "macros",
+      "label": "Macros",
+      "path": "packs/macros",
+      "type": "Macro",
+      "system": "neon-relic"
+    },
+    {
+      "name": "sample-case",
+      "label": "Sample Case: The Spear That Went Dark",
+      "path": "packs/sample-case",
+      "type": "JournalEntry",
+      "system": "neon-relic"
+    }
+  ],
   "packFolders": [],
   "primaryTokenAttribute": "attributes.str",
   "secondaryTokenAttribute": "corruption",

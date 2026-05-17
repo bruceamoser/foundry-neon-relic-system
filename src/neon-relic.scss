@@ -1,7 +1,16 @@
 /**
  * Neon Relic — Main SCSS entry
+ * 1980s analog aesthetic: typewriter fonts, paper textures, classified stamps
  */
 
+// Foundation
+@import 'styles/fonts';
 @import 'styles/variables';
 @import 'styles/reset';
 @import 'styles/mixins';
+
+// Base sheet styling
+@import 'styles/sheets';
+
+// Print support
+@import 'styles/print';

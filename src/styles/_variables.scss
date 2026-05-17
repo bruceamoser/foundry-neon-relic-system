@@ -1,34 +1,64 @@
 // Neon Relic — SCSS Variables
-// Late 1980s analog aesthetic
+// Late 1980s analog aesthetic — design tokens from HTML reference sheets
 
-// Colors
-$nr-primary: #1a1a2e;
-$nr-secondary: #16213e;
-$nr-accent: #e94560;
-$nr-text: #eaeaea;
-$nr-text-muted: #a0a0a0;
-$nr-border: #333;
-$nr-bg-dark: #0f0f1a;
-$nr-bg-light: #2a2a3e;
+// ── Ink & Paper ──────────────────────────────────────────
+$nr-ink: #1a1a18;
+$nr-ink-faded: #4a4a42;
+$nr-ink-light: #8a8a7e;
+$nr-paper: #e8e4d8;
+$nr-field-bg: rgba(255, 255, 255, 0.3);
 
-// Corruption
+// ── Stamp Colors ─────────────────────────────────────────
+$nr-green-stamp: #2d5a27;
+$nr-red-stamp: #8b1a1a;
+
+// ── Rules & Borders ──────────────────────────────────────
+$nr-rule: #999;
+$nr-rule-light: #ccc;
+
+// ── Corruption ───────────────────────────────────────────
 $nr-corruption-low: #7b68ee;
 $nr-corruption-mid: #9b59b6;
 $nr-corruption-high: #e74c3c;
 
-// Typography
-$nr-font-body: 'Courier New', Courier, monospace;
-$nr-font-heading: 'Courier New', Courier, monospace;
+// ── Card Type Colors ─────────────────────────────────────
+$nr-card-entity: $nr-red-stamp;
+$nr-card-contact: $nr-green-stamp;
+$nr-card-evidence: $nr-green-stamp;
+$nr-card-truth: $nr-red-stamp;
+$nr-card-contact-blue: #1a4a8b;
+
+// ── Accent Boxes ─────────────────────────────────────────
+$nr-anchor-bg: rgba(45, 90, 39, 0.04);
+$nr-anchor-border: $nr-green-stamp;
+$nr-secret-bg: rgba(139, 26, 26, 0.03);
+$nr-secret-border: $nr-red-stamp;
+$nr-danger-border: $nr-red-stamp;
+
+// ── Legacy aliases (backward compat) ─────────────────────
+$nr-primary: $nr-ink;
+$nr-accent: $nr-red-stamp;
+$nr-text: $nr-ink;
+$nr-text-muted: $nr-ink-faded;
+$nr-border: $nr-rule;
+$nr-bg-dark: darken($nr-paper, 15%);
+$nr-bg-light: $nr-paper;
+
+// ── Typography ───────────────────────────────────────────
+$nr-font-main: 'SpecialElite', 'Courier New', monospace;
+$nr-font-fill: 'CourierPrime', 'Courier New', monospace;
+$nr-font-heading: $nr-font-main;
+$nr-font-body: $nr-font-fill;
 $nr-font-size-base: 14px;
 $nr-line-height: 1.5;
 
-// Spacing
+// ── Spacing ──────────────────────────────────────────────
 $nr-spacing-xs: 4px;
 $nr-spacing-sm: 8px;
 $nr-spacing-md: 16px;
 $nr-spacing-lg: 24px;
 $nr-spacing-xl: 32px;
 
-// Borders
+// ── Borders ──────────────────────────────────────────────
 $nr-border-radius: 3px;
 $nr-border-width: 1px;

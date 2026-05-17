@@ -3,7 +3,7 @@
 ---
 - _id: hq-fac01
   name: Armory
-  type: hqFacility
+  type: upgrade
   system:
     tier: 1
     maxTier: 3
@@ -15,7 +15,7 @@
 
 - _id: hq-fac02
   name: Infirmary
-  type: hqFacility
+  type: upgrade
   system:
     tier: 1
     maxTier: 3
@@ -27,7 +27,7 @@
 
 - _id: hq-fac03
   name: Vault
-  type: hqFacility
+  type: upgrade
   system:
     tier: 1
     maxTier: 3
@@ -39,7 +39,7 @@
 
 - _id: hq-fac04
   name: Library
-  type: hqFacility
+  type: upgrade
   system:
     tier: 1
     maxTier: 3
@@ -51,7 +51,7 @@
 
 - _id: hq-fac05
   name: Motor Pool
-  type: hqFacility
+  type: upgrade
   system:
     tier: 1
     maxTier: 3
@@ -63,7 +63,7 @@
 
 - _id: hq-fac06
   name: Communications Room
-  type: hqFacility
+  type: upgrade
   system:
     tier: 1
     maxTier: 3
@@ -75,7 +75,7 @@
 
 - _id: hq-fac07
   name: Training Room
-  type: hqFacility
+  type: upgrade
   system:
     tier: 1
     maxTier: 3
@@ -87,7 +87,7 @@
 
 - _id: hq-fac08
   name: Quarters
-  type: hqFacility
+  type: upgrade
   system:
     tier: 1
     maxTier: 3
@@ -99,7 +99,7 @@
 
 - _id: hq-fac09
   name: Interrogation Room
-  type: hqFacility
+  type: upgrade
   system:
     tier: 1
     maxTier: 3
@@ -111,7 +111,7 @@
 
 - _id: hq-fac10
   name: Workshop
-  type: hqFacility
+  type: upgrade
   system:
     tier: 1
     maxTier: 3
