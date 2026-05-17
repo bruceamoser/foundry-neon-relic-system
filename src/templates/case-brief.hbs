@@ -1,0 +1,57 @@
+{{! Case Brief journal page template }}
+<div class='neon-relic case-brief'>
+  <header class='case-header'>
+    <h1>{{doc.name}}</h1>
+    <div class='case-meta'>
+      <span class='label'>{{localize 'NEONRELIC.Case.Status'}}:</span>
+      <span class='value'>{{doc.system.status}}</span>
+      <span class='label'>{{localize 'NEONRELIC.Case.ThreatLevel'}}:</span>
+      <span class='value'>{{doc.system.threatLevel}}</span>
+    </div>
+  </header>
+
+  <section class='case-section'>
+    <h2>{{localize 'NEONRELIC.Case.Summary'}}</h2>
+    <div class='case-text'>{{{doc.system.summary}}}</div>
+  </section>
+
+  <section class='case-section'>
+    <h2>{{localize 'NEONRELIC.Case.Objectives'}}</h2>
+    <ul class='objective-list'>
+      {{#each doc.system.objectives}}
+        <li data-complete='{{this.complete}}'>
+          <span class='objective-text'>{{this.text}}</span>
+        </li>
+      {{/each}}
+    </ul>
+  </section>
+
+  <section class='case-section'>
+    <h2>{{localize 'NEONRELIC.Case.KnownRelics'}}</h2>
+    <div class='relic-list'>
+      {{#each doc.system.relics}}
+        <div class='relic-entry'>
+          <strong>{{this.name}}</strong>
+          <span class='relic-status'>{{this.status}}</span>
+        </div>
+      {{/each}}
+    </div>
+  </section>
+
+  <section class='case-section'>
+    <h2>{{localize 'NEONRELIC.Case.Organizations'}}</h2>
+    <div class='org-list'>
+      {{#each doc.system.organizations}}
+        <div class='org-entry'>
+          <strong>{{this.name}}</strong>
+          <span class='org-countdown'>{{this.countdown}}/{{this.maxCountdown}}</span>
+        </div>
+      {{/each}}
+    </div>
+  </section>
+
+  <section class='case-section'>
+    <h2>{{localize 'NEONRELIC.Case.Notes'}}</h2>
+    <div class='case-text'>{{{doc.system.notes}}}</div>
+  </section>
+</div>

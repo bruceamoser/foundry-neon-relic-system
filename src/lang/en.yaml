@@ -271,6 +271,10 @@ NEONRELIC:
     ActivePressure: Active Pressure
     Replicable: Replicable
     Identified: Lore Identified
+    EmissionDamage: Emission Damage
+    EmissionDamageType: Damage Type
+    Pressure: Artifact Pressure
+    Trigger: Trigger
 
   # Talent
   Talent:
@@ -832,6 +836,20 @@ NEONRELIC:
     ThemeClean: Clean (Modern)
     CurrentSession: Current Session Number
     SessionResetDone: Session Reset Done
+
+  # Case File
+  Case:
+    Status: Status
+    ThreatLevel: Threat Level
+    Summary: Summary
+    Objectives: Objectives
+    KnownRelics: Known Relics
+    Organizations: Organizations
+    Notes: Notes
+    Description: Description
+    Countdown: Countdown
+    KeyMembers: Key Members
+    Resources: Resources
 
   # Session
   Session:
