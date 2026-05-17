@@ -1,0 +1,81 @@
+<section class='operations-board'>
+  <header class='ops-header'>
+    <h2>{{localize 'NEONRELIC.OpsBoard.Title'}}</h2>
+    <span class='shift-counter'>{{localize 'NEONRELIC.OpsBoard.Shift'}} {{currentShift}}</span>
+    <button type='button' data-action='advanceShift'>{{localize 'NEONRELIC.OpsBoard.AdvanceShift'}}</button>
+  </header>
+
+  {{! Organization Countdowns }}
+  <section class='org-countdowns'>
+    <h3>{{localize 'NEONRELIC.OpsBoard.Organizations'}}</h3>
+    {{#each organizations as |org|}}
+      <div class='org-row' data-dormant='{{org.dormant}}'>
+        <div class='org-name'>
+          <strong>{{org.name}}</strong>
+          <button type='button' data-action='toggleDormant' data-org-id='{{org.id}}'>
+            {{#if org.dormant}}
+              {{localize 'NEONRELIC.OpsBoard.Activate'}}
+            {{else}}
+              {{localize 'NEONRELIC.OpsBoard.Deactivate'}}
+            {{/if}}
+          </button>
+          <button type='button' data-action='advanceOrg' data-org-id='{{org.id}}'>+1</button>
+        </div>
+        <div class='countdown-track' data-current='{{org.currentValue}}'>
+          {{! Rendered via JS to avoid ../  Glimmer limitation }}
+        </div>
+      </div>
+    {{/each}}
+  </section>
+
+  {{! Containment Truths }}
+  <section class='containment-truths'>
+    <h3>{{localize 'NEONRELIC.OpsBoard.ContainmentTruths'}}</h3>
+    <label>
+      <input type='checkbox' name='containmentTruths.trigger' checked='{{containmentTruths.trigger}}' />
+      {{localize 'NEONRELIC.OpsBoard.Trigger'}}
+    </label>
+    <label>
+      <input type='checkbox' name='containmentTruths.appetite' checked='{{containmentTruths.appetite}}' />
+      {{localize 'NEONRELIC.OpsBoard.Appetite'}}
+    </label>
+    <label>
+      <input type='checkbox' name='containmentTruths.quiescence' checked='{{containmentTruths.quiescence}}' />
+      {{localize 'NEONRELIC.OpsBoard.QuiescenceCondition'}}
+    </label>
+    {{#if allContainmentTruthsFound}}
+      <p class='all-found'>{{localize 'NEONRELIC.OpsBoard.AllTruthsFound'}}</p>
+    {{/if}}
+  </section>
+
+  {{! Information Cards }}
+  <section class='info-cards'>
+    <h3>{{localize 'NEONRELIC.OpsBoard.InformationCards'}}</h3>
+    {{#each informationCards as |card|}}
+      <div class='info-card' data-revealed='{{card.revealed}}'>
+        <div class='card-header'>
+          <span class='card-type'>{{card.type}}</span>
+          <button type='button' data-action='flipCard' data-card-id='{{card.id}}'>
+            {{localize 'NEONRELIC.OpsBoard.Flip'}}
+          </button>
+        </div>
+        {{#if card.revealed}}
+          <div class='card-content'>
+            <p>{{card.content}}</p>
+            <p class='card-meta'>
+              {{localize 'NEONRELIC.OpsBoard.FoundAt'}}:
+              {{card.foundAt}}
+              |
+              {{localize 'NEONRELIC.OpsBoard.KnownBy'}}:
+              {{card.knownBy}}
+            </p>
+          </div>
+        {{else}}
+          <div class='card-back'>
+            <em>{{localize 'NEONRELIC.OpsBoard.Hidden'}}</em>
+          </div>
+        {{/if}}
+      </div>
+    {{/each}}
+  </section>
+</section>
