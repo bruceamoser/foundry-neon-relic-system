@@ -131,6 +131,9 @@ export async function preloadHandlebarsTemplates() {
     'systems/neon-relic/templates/case-brief.hbs',
     'systems/neon-relic/templates/relic-sheet.hbs',
     'systems/neon-relic/templates/org-reference.hbs',
+    'systems/neon-relic/templates/chat/roll-message.hbs',
+    'systems/neon-relic/templates/chat/corruption-message.hbs',
+    'systems/neon-relic/templates/chat/condition-message.hbs',
   ];
   return loadTemplates(templatePaths);
 }
