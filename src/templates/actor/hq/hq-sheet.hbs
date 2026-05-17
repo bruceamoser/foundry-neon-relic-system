@@ -1,24 +1,36 @@
 <div class='hq-sheet'>
-  <header class='hq-header flexrow'>
+  {{! Header }}
+  <header class='hq-header'>
     <img class='profile-img' src='{{actor.img}}' data-edit='img' title='{{actor.name}}' />
-    <h1>
-      <input
-        name='name'
-        type='text'
-        value='{{actor.name}}'
-        placeholder='{{localize "NEONRELIC.HQ.Name"}}'
-        {{disabled (not isEditable)}}
-      />
-    </h1>
+    <div class='header-fields'>
+      <h1>
+        <input
+          name='name'
+          type='text'
+          value='{{actor.name}}'
+          placeholder='{{localize "NEONRELIC.HQ.Name"}}'
+          {{disabled (not isEditable)}}
+        />
+      </h1>
+      <span class='sheet-type'>{{localize 'NEONRELIC.HQ.SheetType'}}</span>
+    </div>
     <div class='standing-badge'>
       <span class='rank-label'>{{standingRankLabel}}</span>
     </div>
   </header>
 
   <div class='hq-body'>
-    <section class='hq-stats'>
-      <div class='form-group'>
-        <label>{{localize 'NEONRELIC.HQ.Standing'}}</label>
+    {{! Standing Track }}
+    <div class='section-title green'>
+      {{localize 'NEONRELIC.HQ.Standing'}}
+    </div>
+    <div class='track-row'>
+      <div class='track-pips standing-pips'>
+        {{#each standingPips}}
+          <span class='{{this.cssClass}}'></span>
+        {{/each}}
+      </div>
+      <div class='track-input'>
         <input
           type='number'
           name='system.standing'
@@ -27,15 +39,21 @@
           max='20'
           {{disabled (not isEditable)}}
         />
+        <span class='track-max'>/ 20</span>
       </div>
+    </div>
 
-      <div class='form-group'>
-        <label>{{localize 'NEONRELIC.HQ.DP'}}</label>
-        <input type='number' name='system.dp' value='{{system.dp}}' min='0' {{disabled (not isEditable)}} />
+    {{! Threat Level }}
+    <div class='section-title red'>
+      {{localize 'NEONRELIC.HQ.Threat'}}
+    </div>
+    <div class='track-row'>
+      <div class='track-pips threat-pips'>
+        {{#each threatPips}}
+          <span class='{{this.cssClass}}'></span>
+        {{/each}}
       </div>
-
-      <div class='form-group'>
-        <label>{{localize 'NEONRELIC.HQ.Threat'}}</label>
+      <div class='track-input'>
         <input
           type='number'
           name='system.threat'
@@ -44,21 +62,40 @@
           max='6'
           {{disabled (not isEditable)}}
         />
+        <span class='track-max'>/ 6</span>
       </div>
+    </div>
 
-      <div class='derived-stats'>
-        <div class='stat-box'>
-          <span class='stat-label'>{{localize 'NEONRELIC.HQ.CellWideCL'}}</span>
-          <span class='stat-value'>{{system.cellWideCL}}</span>
-        </div>
-      </div>
-    </section>
-
-    <section class='hq-vault'>
-      <h3>{{localize 'NEONRELIC.HQ.Vault'}}</h3>
-      <div class='form-group'>
-        <label>{{localize 'NEONRELIC.HQ.CasesSinceConsecration'}}</label>
+    {{! Stats Row }}
+    <div class='hq-stats-row'>
+      <div class='stat-cell'>
+        <span class='stat-label'>{{localize 'NEONRELIC.HQ.DP'}}</span>
         <input
+          class='stat-value'
+          type='number'
+          name='system.dp'
+          value='{{system.dp}}'
+          min='0'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+      <div class='stat-cell'>
+        <span class='stat-label'>
+          {{localize 'NEONRELIC.HQ.CellWideCL'}}
+        </span>
+        <span class='stat-value derived'>{{system.cellWideCL}}</span>
+      </div>
+    </div>
+
+    {{! Vault }}
+    <div class='section-title'>{{localize 'NEONRELIC.HQ.Vault'}}</div>
+    <div class='vault-section'>
+      <div class='vault-row'>
+        <span class='field-label'>
+          {{localize 'NEONRELIC.HQ.CasesSinceConsecration'}}
+        </span>
+        <input
+          class='vault-input'
           type='number'
           name='system.vault.casesSinceConsecration'
           value='{{system.vault.casesSinceConsecration}}'
@@ -67,10 +104,14 @@
         />
       </div>
       {{#if system.needsReconsecration}}
-        <p class='warning'>{{localize 'NEONRELIC.HQ.NeedsReconsecration'}}</p>
+        <div class='status-badge critical'>
+          {{localize 'NEONRELIC.HQ.NeedsReconsecration'}}
+        </div>
       {{/if}}
-    </section>
+    </div>
 
+    {{! Description }}
+    <div class='section-title'>{{localize 'NEONRELIC.Description'}}</div>
     <div class='description'>
       <div class='editor'>{{{enrichedDescription}}}</div>
     </div>
