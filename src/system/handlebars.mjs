@@ -99,6 +99,19 @@ export async function preloadHandlebarsTemplates() {
     'systems/neon-relic/templates/partials/condition-badge.hbs',
     'systems/neon-relic/templates/partials/item-row.hbs',
     'systems/neon-relic/templates/partials/roll-button.hbs',
+    'systems/neon-relic/templates/item/item-header.hbs',
+    'systems/neon-relic/templates/item/item-body.hbs',
+    'systems/neon-relic/templates/item/weapon.hbs',
+    'systems/neon-relic/templates/item/armor.hbs',
+    'systems/neon-relic/templates/item/gear.hbs',
+    'systems/neon-relic/templates/item/consumable.hbs',
+    'systems/neon-relic/templates/item/artifact.hbs',
+    'systems/neon-relic/templates/item/talent.hbs',
+    'systems/neon-relic/templates/item/criticalInjury.hbs',
+    'systems/neon-relic/templates/item/anchor.hbs',
+    'systems/neon-relic/templates/item/darkSecret.hbs',
+    'systems/neon-relic/templates/item/upgrade.hbs',
+    'systems/neon-relic/templates/item/location.hbs',
   ];
   return loadTemplates(templatePaths);
 }

@@ -1,0 +1,61 @@
+{{! Critical Injury item type template }}
+<div class='critical-injury-fields'>
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.CriticalInjury.InjuryType'}}</label>
+    <select name='system.injuryType' {{disabled (not isEditable)}}>
+      <option value='physical' {{selected system.injuryType 'physical'}}>{{localize
+          'NEONRELIC.CriticalInjury.Physical'
+        }}</option>
+      <option value='mental' {{selected system.injuryType 'mental'}}>{{localize
+          'NEONRELIC.CriticalInjury.Mental'
+        }}</option>
+    </select>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.CriticalInjury.D66Roll'}}</label>
+    <input
+      type='number'
+      name='system.d66Roll'
+      value='{{system.d66Roll}}'
+      min='11'
+      max='66'
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.CriticalInjury.Effect'}}</label>
+    <div class='editor'>{{{enrichedEffect}}}</div>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.CriticalInjury.TimeLimit'}}</label>
+    <input type='text' name='system.timeLimit' value='{{system.timeLimit}}' {{disabled (not isEditable)}} />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.CriticalInjury.Lethal'}}</label>
+    <input type='checkbox' name='system.isLethal' {{checked system.isLethal}} {{disabled (not isEditable)}} />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.CriticalInjury.Healed'}}</label>
+    <input type='checkbox' name='system.isHealed' {{checked system.isHealed}} {{disabled (not isEditable)}} />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.CriticalInjury.ThresholdMod'}}</label>
+    <input
+      type='number'
+      name='system.corruptionThresholdMod'
+      value='{{system.corruptionThresholdMod}}'
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.CriticalInjury.Insight'}}</label>
+    <div class='editor'>{{{enrichedInsight}}}</div>
+  </div>
+</div>

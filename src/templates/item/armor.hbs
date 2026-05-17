@@ -1,0 +1,30 @@
+{{! Armor item type template }}
+<div class='armor-fields'>
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Armor.AR'}}</label>
+    <input type='number' name='system.ar.value' value='{{system.ar.value}}' min='0' {{disabled (not isEditable)}} />
+    <span>/</span>
+    <input type='number' name='system.ar.max' value='{{system.ar.max}}' min='0' {{disabled (not isEditable)}} />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Armor.AgilityPenalty'}}</label>
+    <input type='number' name='system.agilityPenalty' value='{{system.agilityPenalty}}' {{disabled (not isEditable)}} />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Encumbrance'}}</label>
+    <input
+      type='number'
+      name='system.encumbrance'
+      value='{{system.encumbrance}}'
+      min='0'
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.CL'}}</label>
+    <input type='number' name='system.cl' value='{{system.cl}}' min='1' max='5' {{disabled (not isEditable)}} />
+  </div>
+</div>

@@ -28,6 +28,7 @@ import {
   UpgradeDataModel,
   LocationDataModel,
 } from './data/item-models.mjs';
+import { NRItemSheet } from './item/item-sheet.mjs';
 
 Hooks.once('init', () => {
   console.log('neon-relic | Initializing Neon Relic system');
@@ -61,6 +62,13 @@ Hooks.once('init', () => {
 
   // Register custom Handlebars helpers
   registerHandlebarsHelpers();
+
+  // Register item sheets
+  Items.unregisterSheet('core', foundry.applications.sheets.ItemSheetV2);
+  Items.registerSheet('neon-relic', NRItemSheet, {
+    makeDefault: true,
+    label: 'NEONRELIC.Sheet.Item',
+  });
 
   // Preload shared template partials
   preloadHandlebarsTemplates();

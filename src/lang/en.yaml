@@ -1,3 +1,225 @@
 NEONRELIC:
   System: Neon Relic
   Welcome: Welcome to Neon Relic
+  Description: Description
+  Encumbrance: Encumbrance
+  CL: Covenant Level
+
+  # Sheet labels
+  Sheet:
+    Item: Neon Relic Item Sheet
+    Agent: Neon Relic Agent Sheet
+    NPC: Neon Relic NPC Sheet
+
+  # Attributes
+  Attribute:
+    Str: Strength
+    Agi: Agility
+    Wit: Wits
+    Emp: Empathy
+
+  # Skills
+  Skill:
+    Force: Force
+    Endure: Endure
+    Brawl: Brawl
+    Firearms: Firearms
+    SleightOfHand: Sleight of Hand
+    Sneak: Sneak
+    Tech: Tech
+    Investigate: Investigate
+    Lore: Lore
+    Psychoanalyze: Psychoanalyze
+    Manipulate: Manipulate
+    Command: Command
+    Heal: Heal
+
+  # Divisions
+  Division:
+    Wayfinder: Wayfinder
+    Recovery: Recovery
+    Keep: The Keep
+
+  # Damage Types
+  DamageType:
+    Physical: Physical
+    Exhaustion: Exhaustion
+    Horror: Horror
+    Trauma: Trauma
+
+  # Corruption Stages
+  CorruptionStage:
+    Clean: Clean
+    Touched: Touched
+    Marked: Marked
+    Consumed: Consumed
+    Lost: Lost
+
+  # Item Types
+  ItemType:
+    weapon: Weapon
+    armor: Armor
+    gear: Gear
+    consumable: Consumable
+    artifact: Artifact
+    talent: Talent
+    criticalInjury: Critical Injury
+    anchor: Anchor
+    darkSecret: Dark Secret
+    upgrade: Upgrade
+    location: Location
+
+  # Item shared
+  Item:
+    Name: Item Name
+
+  # Roll Dialog
+  Roll:
+    ConfigTitle: Roll Configuration
+    Roll: Roll
+    Attribute: Attribute
+    Skill: Skill
+    GearBonus: Gear Bonus
+    Modifier: Modifier
+    Difficulty: Difficulty
+    TotalPool: Total Pool
+    Notes: Notes
+    NotesPlaceholder: Roll notes...
+    None: None
+
+  # Ranges
+  Range:
+    Engaged: Engaged
+    Near: Near
+    Short: Short
+    Long: Long
+    Extreme: Extreme
+
+  # Weapon
+  Weapon:
+    Damage: Damage
+    Range: Range
+    GearBonus: Gear Bonus
+    TargetAttribute: Target Attribute
+    Traits: Traits
+    Reliable: Reliable
+    HighCapacity: High Capacity
+    FullAuto: Full Auto
+    Stunned: Stunned
+    AmmoDie: Ammo Die
+
+  # Armor
+  Armor:
+    AR: Armor Rating
+    AgilityPenalty: Agility Penalty
+
+  # Gear
+  Gear:
+    GearBonus: Gear Bonus
+    SkillBonus: Skill Bonus
+    Broken: Broken
+
+  # Consumable
+  Consumable:
+    Type: Type
+    CurrentDie: Current Die
+    StartingDie: Starting Die
+    Supply: Supply
+    Medical: Medical
+    Ammo: Ammo
+    Fuel: Fuel
+
+  # Artifact
+  Artifact:
+    Tier: Tier
+    ArtifactDie: Artifact Die
+    CorruptionCost: Corruption Cost
+    Activation: Activation Condition
+    Activated: Activated This Case
+    Effect: Effect
+    FractureCondition: Fracture Condition
+    Emission: Emission
+    EmissionType: Type
+    EmissionRadius: Radius
+    EmissionTrigger: Trigger
+    EmissionCorruption: Corruption Amount
+    Suppressed: Suppressed
+    Containment: Containment
+    ContainmentType: Profile Type
+    Contained: Contained
+    TriggerCondition: Trigger Condition
+    Appetite: Appetite
+    Quiescence: Quiescence Condition
+    ActivePressure: Active Pressure
+    Replicable: Replicable
+    Identified: Lore Identified
+
+  # Talent
+  Talent:
+    Type: Talent Type
+    General: General
+    Division: Division
+    SubUnit: Sub-Unit
+    Background: Background
+    CorruptionCost: Corruption Cost
+    ThresholdMod: Threshold Modifier
+    HealingTag: Healing Tag
+    OncePerSession: Once Per Session
+    Uses: Uses
+    Use: Use
+    Effect: Effect
+    Prerequisites: Prerequisites
+    ConditionalModifier: Conditional Modifier
+    Bonus: Bonus
+    Condition: Condition
+
+  # Critical Injury
+  CriticalInjury:
+    InjuryType: Injury Type
+    Physical: Physical
+    Mental: Mental
+    D66Roll: D66 Roll
+    Effect: Effect
+    TimeLimit: Time Limit
+    Lethal: Lethal
+    Healed: Healed
+    ThresholdMod: Threshold Modifier
+    Insight: Insight
+
+  # Anchor
+  Anchor:
+    Relationship: Relationship
+    Memory: Memory
+    Uses: Uses
+    Lost: Lost
+
+  # Dark Secret
+  DarkSecret:
+    XPTrigger: XP Trigger
+    ExposurePenalties: Exposure Penalties
+    StandingLoss: Standing Loss
+    FactionConsequence: Faction Consequence
+
+  # Upgrade
+  Upgrade:
+    Tier: Tier
+    DPCost: DP Cost
+    StandingRequirement: Standing Requirement
+    Category: Category
+    Facility: Facility
+    Personnel: Personnel
+    Security: Security
+    Vault: Vault
+    Purchased: Purchased
+
+  # Location
+  Location:
+    Availability: Availability
+    Open: Open
+    Clue: Clue-Locked
+    Contact: Contact-Locked
+    Time: Time-Locked
+    Packet: Packet-Locked
+    PositiveResult: Positive Result
+    NegativeResult: Negative Result
+    MilestoneChanges: Milestone Changes

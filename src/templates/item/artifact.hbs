@@ -1,0 +1,185 @@
+{{! Artifact item type template }}
+<div class='artifact-fields'>
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Artifact.Tier'}}</label>
+    <select name='system.tier' {{disabled (not isEditable)}}>
+      <option value='1' {{selected system.tier 1}}>1</option>
+      <option value='2' {{selected system.tier 2}}>2</option>
+      <option value='3' {{selected system.tier 3}}>3</option>
+    </select>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Artifact.ArtifactDie'}}</label>
+    <span class='die-display'>{{system.artifactDie.current}}</span>
+    {{#if isEditable}}
+      <button type='button' data-action='stepDownArtifact'>
+        <i class='fa-solid fa-arrow-down'></i>
+      </button>
+    {{/if}}
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Artifact.CorruptionCost'}}</label>
+    <span>{{system.corruptionCost}}</span>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Encumbrance'}}</label>
+    <span>{{system.encumbrance}}</span>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Artifact.Activation'}}</label>
+    <input
+      type='text'
+      name='system.activationCondition'
+      value='{{system.activationCondition}}'
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Artifact.Activated'}}</label>
+    <input
+      type='checkbox'
+      name='system.isActivatedThisCase'
+      {{checked system.isActivatedThisCase}}
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Artifact.Effect'}}</label>
+    <div class='editor'>{{{enrichedEffect}}}</div>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Artifact.FractureCondition'}}</label>
+    <input
+      type='text'
+      name='system.fractureCondition'
+      value='{{system.fractureCondition}}'
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  <fieldset class='emission-fields'>
+    <legend>{{localize 'NEONRELIC.Artifact.Emission'}}</legend>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Artifact.EmissionType'}}</label>
+      <input type='text' name='system.emission.type' value='{{system.emission.type}}' {{disabled (not isEditable)}} />
+    </div>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Artifact.EmissionRadius'}}</label>
+      <input
+        type='text'
+        name='system.emission.radius'
+        value='{{system.emission.radius}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Artifact.EmissionTrigger'}}</label>
+      <input
+        type='text'
+        name='system.emission.trigger'
+        value='{{system.emission.trigger}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Artifact.EmissionCorruption'}}</label>
+      <input
+        type='number'
+        name='system.emission.corruptionAmount'
+        value='{{system.emission.corruptionAmount}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Artifact.Suppressed'}}</label>
+      <input
+        type='checkbox'
+        name='system.emission.isSuppressed'
+        {{checked system.emission.isSuppressed}}
+        {{disabled (not isEditable)}}
+      />
+    </div>
+  </fieldset>
+
+  <fieldset class='containment-fields'>
+    <legend>{{localize 'NEONRELIC.Artifact.Containment'}}</legend>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Artifact.ContainmentType'}}</label>
+      <input
+        type='text'
+        name='system.containmentProfile.type'
+        value='{{system.containmentProfile.type}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Artifact.Contained'}}</label>
+      <input
+        type='checkbox'
+        name='system.containmentProfile.isContained'
+        {{checked system.containmentProfile.isContained}}
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Artifact.TriggerCondition'}}</label>
+      <input
+        type='text'
+        name='system.containmentProfile.truths.triggerCondition'
+        value='{{system.containmentProfile.truths.triggerCondition}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Artifact.Appetite'}}</label>
+      <input
+        type='text'
+        name='system.containmentProfile.truths.appetite'
+        value='{{system.containmentProfile.truths.appetite}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Artifact.Quiescence'}}</label>
+      <input
+        type='text'
+        name='system.containmentProfile.truths.quiescenceCondition'
+        value='{{system.containmentProfile.truths.quiescenceCondition}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+  </fieldset>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Artifact.ActivePressure'}}</label>
+    <input
+      type='checkbox'
+      name='system.activePressure'
+      {{checked system.activePressure}}
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Artifact.Replicable'}}</label>
+    <input type='checkbox' name='system.replicable' {{checked system.replicable}} {{disabled (not isEditable)}} />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Artifact.Identified'}}</label>
+    <input
+      type='checkbox'
+      name='system.loreIdentified'
+      {{checked system.loreIdentified}}
+      {{disabled (not isEditable)}}
+    />
+  </div>
+</div>

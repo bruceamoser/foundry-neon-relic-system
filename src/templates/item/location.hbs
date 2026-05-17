@@ -1,0 +1,30 @@
+{{! Location item type template }}
+<div class='location-fields'>
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Location.Availability'}}</label>
+    <select name='system.availability' {{disabled (not isEditable)}}>
+      <option value='open' {{selected system.availability 'open'}}>{{localize 'NEONRELIC.Location.Open'}}</option>
+      <option value='clue' {{selected system.availability 'clue'}}>{{localize 'NEONRELIC.Location.Clue'}}</option>
+      <option value='contact' {{selected system.availability 'contact'}}>{{localize
+          'NEONRELIC.Location.Contact'
+        }}</option>
+      <option value='time' {{selected system.availability 'time'}}>{{localize 'NEONRELIC.Location.Time'}}</option>
+      <option value='packet' {{selected system.availability 'packet'}}>{{localize 'NEONRELIC.Location.Packet'}}</option>
+    </select>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Location.PositiveResult'}}</label>
+    <textarea name='system.positiveResult' {{disabled (not isEditable)}}>{{system.positiveResult}}</textarea>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Location.NegativeResult'}}</label>
+    <textarea name='system.negativeResult' {{disabled (not isEditable)}}>{{system.negativeResult}}</textarea>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Location.MilestoneChanges'}}</label>
+    <textarea name='system.milestoneChanges' {{disabled (not isEditable)}}>{{system.milestoneChanges}}</textarea>
+  </div>
+</div>

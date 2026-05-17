@@ -1,0 +1,24 @@
+{{! Anchor item type template }}
+<div class='anchor-fields'>
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Anchor.Relationship'}}</label>
+    <textarea name='system.relationship' {{disabled (not isEditable)}}>{{system.relationship}}</textarea>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Anchor.Memory'}}</label>
+    <textarea name='system.memory' {{disabled (not isEditable)}}>{{system.memory}}</textarea>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Anchor.Uses'}}</label>
+    <input type='number' name='system.uses.value' value='{{system.uses.value}}' min='0' {{disabled (not isEditable)}} />
+    <span>/</span>
+    <input type='number' name='system.uses.max' value='{{system.uses.max}}' min='0' {{disabled (not isEditable)}} />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Anchor.Lost'}}</label>
+    <input type='checkbox' name='system.isLost' {{checked system.isLost}} {{disabled (not isEditable)}} />
+  </div>
+</div>
