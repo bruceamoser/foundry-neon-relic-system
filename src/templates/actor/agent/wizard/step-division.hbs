@@ -1,0 +1,22 @@
+{{! Step 2: Choose Your Division }}
+<div class='wizard-step-division'>
+  <p class='step-description'>{{localize 'NEONRELIC.Wizard.Division.Description'}}</p>
+
+  <div class='division-cards'>
+    {{#each divisionChoices as |div|}}
+      <label class='division-card {{div.cssClass}}'>
+        {{#if div.selected}}
+          <input type='radio' name='system.division' value='{{div.key}}' checked />
+        {{else}}
+          <input type='radio' name='system.division' value='{{div.key}}' />
+        {{/if}}
+        <div class='division-card-body'>
+          <h3 class='division-name'>{{div.label}}</h3>
+          <div class='division-meta'>
+            <span>{{localize 'NEONRELIC.Wizard.Division.BaseCL'}}: {{div.baseCL}}</span>
+          </div>
+        </div>
+      </label>
+    {{/each}}
+  </div>
+</div>

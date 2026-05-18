@@ -131,9 +131,131 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     });
 
     // Render step-specific content
+    await this.#prepareStepContext(context);
     context.stepContent = await this.#renderStepContent(context);
 
     return context;
+  }
+
+  /**
+   * Prepare step-specific context data.
+   * @param {object} context  The context to augment.
+   */
+  async #prepareStepContext(context) {
+    const system = this.actor.system;
+
+    switch (this.stepConfig.id) {
+      case 'division': {
+        // Build division choice cards
+        const subdivisions = this.actor.items.filter(i => i.type === 'subdivision');
+        context.divisionChoices = Object.entries(CONFIG.NEON_RELIC.divisions).map(([key, label]) => {
+          const sub = subdivisions.find(s => s.system.division === key);
+          return {
+            key,
+            label: game.i18n.localize(label),
+            baseCL: sub?.system.baseCL ?? 2,
+            selected: system.division === key,
+            cssClass: system.division === key ? 'selected' : '',
+            checkedAttr: system.division === key ? 'checked' : '',
+          };
+        });
+        break;
+      }
+
+      case 'subunit': {
+        // Filter subdivisions by selected division
+        const pack = game.packs.get('neon-relic.subdivisions');
+        const allSubs = pack ? await pack.getDocuments() : [];
+        context.subUnitChoices = allSubs
+          .filter(s => s.system.division === system.division)
+          .map(s => ({
+            id: s.id,
+            name: s.name,
+            keySkill: s.system.keySkill,
+            baseCL: s.system.baseCL,
+            selected: system.subUnit === s.name,
+          }));
+        break;
+      }
+
+      case 'specialty': {
+        // Filter specialties from current subdivision
+        const pack = game.packs.get('neon-relic.subdivisions');
+        const allSubs = pack ? await pack.getDocuments() : [];
+        const currentSub = allSubs.find(s => s.name === system.subUnit);
+        context.specialtyChoices = (currentSub?.system.specialties ?? []).map(sp => ({
+          name: sp,
+          selected: system.specialty === sp,
+        }));
+        break;
+      }
+
+      case 'gear': {
+        // List starting gear from items
+        context.gearItems = this.actor.items.filter(
+          i => i.type === 'gear' || i.type === 'weapon' || i.type === 'armor' || i.type === 'consumable',
+        );
+        context.divisionItem = this.actor.items.find(i => i.type === 'divisionItem') ?? null;
+        break;
+      }
+
+      case 'attributes': {
+        context.attributes = {};
+        for (const [key, cfg] of Object.entries(CONFIG.NEON_RELIC.attributes)) {
+          context.attributes[key] = {
+            key,
+            label: game.i18n.localize(cfg.label),
+            value: system.attributes[key].max,
+          };
+        }
+        context.attrBudget = system.budget;
+        break;
+      }
+
+      case 'skills': {
+        context.skillList = [];
+        const sub = this.actor.items.find(i => i.type === 'subdivision');
+        const keySkill = sub?.system.keySkill ?? '';
+        for (const [key, cfg] of Object.entries(CONFIG.NEON_RELIC.skills)) {
+          context.skillList.push({
+            key,
+            label: game.i18n.localize(cfg.label),
+            value: system.skills[key] ?? 0,
+            isKeySkill: key === keySkill,
+            max: key === keySkill ? 4 : 3,
+          });
+        }
+        context.skillBudget = system.budget;
+        context.keySkillName = keySkill ? game.i18n.localize(CONFIG.NEON_RELIC.skills[keySkill]?.label ?? '') : '';
+        break;
+      }
+
+      case 'talents': {
+        context.talentSlots = this.actor.items.filter(i => i.type === 'talent');
+        break;
+      }
+
+      case 'anchorsecret': {
+        context.anchor = this.actor.items.find(i => i.type === 'anchor') ?? null;
+        context.darkSecret = this.actor.items.find(i => i.type === 'darkSecret') ?? null;
+        break;
+      }
+
+      case 'summary': {
+        // Gather summary data
+        const sub = this.actor.items.find(i => i.type === 'subdivision');
+        context.summaryDivision = system.division
+          ? game.i18n.localize(CONFIG.NEON_RELIC.divisions[system.division] ?? '')
+          : '';
+        context.summarySubUnit = system.subUnit || '';
+        context.summarySpecialty = system.specialty || '';
+        context.summaryAnchor = this.actor.items.find(i => i.type === 'anchor')?.name ?? '';
+        context.summaryDarkSecret = this.actor.items.find(i => i.type === 'darkSecret')?.name ?? '';
+        context.summaryTalents = this.actor.items.filter(i => i.type === 'talent').map(t => t.name);
+        context.summaryKeySkill = sub?.system.keySkill ?? '';
+        break;
+      }
+    }
   }
 
   /**
