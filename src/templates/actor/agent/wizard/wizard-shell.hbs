@@ -1,0 +1,64 @@
+{{! Character Creation Wizard Shell }}
+<div class='wizard-container'>
+
+  {{! Step Progress Bar }}
+  <nav class='wizard-progress' aria-label='{{localize "NEONRELIC.Wizard.Title"}}'>
+    <ol class='wizard-steps-list'>
+      {{#each steps as |step i|}}
+        <li
+          class='wizard-step-indicator {{lookup @root.stepStates i}}'
+          data-step='{{i}}'
+          data-tooltip='{{localize step.label}}'
+        >
+          <span class='step-icon'><i class='{{step.icon}}'></i></span>
+          <span class='step-number'>{{math i '+' 1}}</span>
+        </li>
+      {{/each}}
+    </ol>
+    <div class='step-label'>{{stepLabel}}</div>
+  </nav>
+
+  {{! Step Content Area }}
+  <section class='wizard-step-content'>
+    <h2 class='step-title'>
+      <i class='{{stepConfig.icon}}'></i>
+      {{localize stepConfig.label}}
+    </h2>
+
+    {{! Step-specific content will be rendered here by individual step issues }}
+    <div class='step-body' data-step='{{stepConfig.id}}'>
+      <p class='step-placeholder'><em>Step content pending implementation.</em></p>
+    </div>
+  </section>
+
+  {{! Navigation Footer }}
+  <footer class='wizard-footer'>
+    <div class='wizard-nav-left'>
+      {{#unless isFirstStep}}
+        <button type='button' data-action='back' class='wizard-btn wizard-btn-back'>
+          <i class='fa-solid fa-arrow-left'></i>
+          {{localize 'NEONRELIC.Wizard.Back'}}
+        </button>
+      {{/unless}}
+    </div>
+
+    <div class='wizard-nav-right'>
+      <button type='button' data-action='cancel' class='wizard-btn wizard-btn-cancel'>
+        {{localize 'NEONRELIC.Wizard.Cancel'}}
+      </button>
+
+      {{#if isLastStep}}
+        <button type='button' data-action='complete' class='wizard-btn wizard-btn-complete'>
+          <i class='fa-solid fa-check'></i>
+          {{localize 'NEONRELIC.Wizard.Complete'}}
+        </button>
+      {{else}}
+        <button type='button' data-action='next' class='wizard-btn wizard-btn-next'>
+          {{localize 'NEONRELIC.Wizard.Next'}}
+          <i class='fa-solid fa-arrow-right'></i>
+        </button>
+      {{/if}}
+    </div>
+  </footer>
+
+</div>
