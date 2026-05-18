@@ -403,6 +403,7 @@ NEONRELIC:
     DivisionItem: Division Item
     Specialties: Specialties
     StartingGear: Starting Gear
+    Applied: 'Subdivision applied: {name}'
 
   # Tabs
   Tab:
