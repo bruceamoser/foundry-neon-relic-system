@@ -444,8 +444,15 @@ NEONRELIC:
     DivisionItemActive: Active
     Backstory: Backstory
     Identity: Agent Identity
+    Sex: Sex
+    CreationComplete: Creation Complete
     QuickStats: Quick Stats
     PsychProfile: Psychological Profile
+
+  Sex:
+    Male: Male
+    Female: Female
+    Other: Other
 
   Classified: CLASSIFIED
   NoItems: No items

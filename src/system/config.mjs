@@ -44,6 +44,15 @@ NEON_RELIC.divisions = {
 };
 
 /**
+ * Sex options for agent creation.
+ */
+NEON_RELIC.sexOptions = {
+  male: 'NEONRELIC.Sex.Male',
+  female: 'NEONRELIC.Sex.Female',
+  other: 'NEONRELIC.Sex.Other',
+};
+
+/**
  * Age groups for agent creation.
  */
 NEON_RELIC.ageGroups = {

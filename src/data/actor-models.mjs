@@ -35,6 +35,8 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
       countryOfOrigin: new StringField({ blank: true }),
       ageGroup: new StringField({ initial: 'experienced', blank: false }),
       age: new NumberField({ required: true, integer: true, min: 18, initial: 35 }),
+      sex: new StringField({ initial: '', blank: true }),
+      creationComplete: new BooleanField({ initial: false }),
 
       // Attributes
       attributes: new SchemaField({
