@@ -99,6 +99,7 @@ async function buildPacks() {
     'upgrade',
     'location',
     'informationCard',
+    'subdivision',
   ]);
   const ACTOR_TYPES = new Set(['agent', 'npc', 'mob', 'vehicle', 'headquarters']);
 
