@@ -111,6 +111,11 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
       // Fear tracking — entity types already passed Fear Check against
       knownEntities: new SetField(new StringField()),
 
+      // Experience
+      experience: new SchemaField({
+        current: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+      }),
+
       // Description
       description: new HTMLField({ blank: true }),
     };
