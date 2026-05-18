@@ -1038,6 +1038,7 @@ NEONRELIC:
     Attributes:
       Title: Distribute Attribute Points
       Description: Assign points to your four attributes. Each must be between 2 and 5.
+      Budget: Attribute Points
       Remaining: 'Points Remaining: {remaining} / {total}'
       CorruptionNote: 'Max Corruption Threshold = 10 + Empathy ({threshold})'
 
