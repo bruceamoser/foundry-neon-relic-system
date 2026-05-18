@@ -1,0 +1,57 @@
+{{! Subdivision item type template }}
+<div class='subdivision-fields'>
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Agent.Division'}}</label>
+    <select name='system.division' {{disabled (not isEditable)}}>
+      {{#each config.divisions as |label key|}}
+        <option value='{{key}}' {{selected key @root.system.division}}>{{localize label}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Subdivision.KeySkill'}}</label>
+    <select name='system.keySkill' {{disabled (not isEditable)}}>
+      {{#each config.skills as |data key|}}
+        <option value='{{key}}' {{selected key @root.system.keySkill}}>{{localize data.label}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Subdivision.BaseCL'}}</label>
+    <input type='number' name='system.baseCL' value='{{system.baseCL}}' min='1' max='5' {{disabled (not isEditable)}} />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Subdivision.DivisionItem'}}</label>
+    <input
+      type='text'
+      name='system.divisionItemName'
+      value='{{system.divisionItemName}}'
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  {{#if system.specialties.length}}
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Subdivision.Specialties'}}</label>
+      <ul class='specialty-list'>
+        {{#each system.specialties}}
+          <li>{{this.label}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+
+  {{#if system.startingGear.length}}
+    <div class='form-group'>
+      <label>{{localize 'NEONRELIC.Subdivision.StartingGear'}}</label>
+      <ul class='starting-gear-list'>
+        {{#each system.startingGear}}
+          <li>{{this.name}}</li>
+        {{/each}}
+      </ul>
+    </div>
+  {{/if}}
+</div>
