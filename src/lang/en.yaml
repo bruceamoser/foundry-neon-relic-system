@@ -390,6 +390,14 @@ NEONRELIC:
     MilestoneChanges: Milestone Changes
     MilestoneHint: How this location changes when organization milestones are reached
 
+  # Subdivision
+  Subdivision:
+    KeySkill: Key Skill
+    BaseCL: Base Clearance Level
+    DivisionItem: Division Item
+    Specialties: Specialties
+    StartingGear: Starting Gear
+
   # Tabs
   Tab:
     Summary: Summary
