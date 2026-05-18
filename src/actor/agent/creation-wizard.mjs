@@ -172,8 +172,12 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             id: s.id,
             name: s.name,
             keySkill: s.system.keySkill,
+            keySkillLabel: s.system.keySkill
+              ? game.i18n.localize(CONFIG.NEON_RELIC.skills[s.system.keySkill]?.label ?? '')
+              : '',
             baseCL: s.system.baseCL,
             selected: system.subUnit === s.name,
+            cssClass: system.subUnit === s.name ? 'selected' : '',
           }));
         break;
       }

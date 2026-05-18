@@ -1020,6 +1020,8 @@ NEONRELIC:
     SubUnit:
       Title: Choose Your Sub-Unit
       Description: Select a Wing, Paradigm, or Department within your division.
+      KeySkill: Key Skill
+      NoDivision: Please go back and select a division first.
 
     Specialty:
       Title: Choose Your Specialty
