@@ -284,6 +284,14 @@
         background: transparent;
         padding: 0;
       }
+
+      .attr-max-value {
+        display: inline-block;
+        width: 28px;
+        font-size: 8pt;
+        text-align: center;
+        border-bottom: 1px dotted $nr-rule;
+      }
     }
 
     .attr-dmg-label {

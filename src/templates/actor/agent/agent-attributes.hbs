@@ -1,4 +1,4 @@
-<section class='tab attributes' data-group='primary' data-tab='attributes'>
+<section class='tab attributes {{tab.cssClass}}' data-group='primary' data-tab='attributes'>
   <div class='section-title'>{{localize 'NEONRELIC.Tab.Attributes'}} &amp; {{localize 'NEONRELIC.Agent.Skills'}}</div>
 
   {{! Point Budgets }}
@@ -50,13 +50,7 @@
                 data-delta='-1'
               >−</button>
             {{/if}}
-            <input
-              type='number'
-              name='system.attributes.{{this.key}}.max'
-              value='{{this.max}}'
-              min='0'
-              {{disabled (not @root.isEditable)}}
-            />
+            <span class='attr-max-value'>{{this.max}}</span>
             {{#if @root.isEditable}}
               <button
                 type='button'
@@ -96,15 +90,7 @@
                   data-delta='-1'
                 >−</button>
               {{/if}}
-              <input
-                type='number'
-                class='skill-value'
-                name='system.skills.{{this.key}}'
-                value='{{this.value}}'
-                min='0'
-                max='5'
-                {{disabled (not @root.isEditable)}}
-              />
+              <span class='skill-value'>{{this.value}}</span>
               {{#if @root.isEditable}}
                 <button
                   type='button'
