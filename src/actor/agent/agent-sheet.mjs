@@ -106,6 +106,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     context.system = system;
     context.config = CONFIG.NEON_RELIC;
     context.isEditable = this.isEditable;
+    context.actor = actor;
 
     // Organize items by type
     context.weapons = actor.items.filter(i => i.type === 'weapon');
@@ -133,10 +134,13 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     else context.encumbranceTier = 'overloaded';
 
     // Enriched HTML
-    context.enrichedDescription = await TextEditor.enrichHTML(system.description ?? '', {
-      async: true,
-      relativeTo: actor,
-    });
+    context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+      system.description ?? '',
+      {
+        async: true,
+        relativeTo: actor,
+      },
+    );
 
     // Damage type labels per attribute
     const damageLabels = {};
@@ -216,7 +220,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   /** @override */
   async _preparePartContext(partId, context, options) {
     const partContext = await super._preparePartContext(partId, context, options);
-    partContext.tab = context.tabs?.primary?.[partId] ?? {};
+    partContext.tab = context.tabs?.[partId] ?? {};
     return partContext;
   }
 

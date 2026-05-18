@@ -39,6 +39,7 @@ export class HeadquartersSheet extends HandlebarsApplicationMixin(ActorSheetV2) 
 
     context.system = system;
     context.isEditable = this.isEditable;
+    context.actor = this.document;
 
     // Standing rank label
     const rankKeys = {
@@ -73,10 +74,13 @@ export class HeadquartersSheet extends HandlebarsApplicationMixin(ActorSheetV2) 
     }
     context.threatPips = threatPips;
 
-    context.enrichedDescription = await TextEditor.enrichHTML(system.description ?? '', {
-      async: true,
-      relativeTo: this.document,
-    });
+    context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+      system.description ?? '',
+      {
+        async: true,
+        relativeTo: this.document,
+      },
+    );
 
     return context;
   }

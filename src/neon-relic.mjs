@@ -94,35 +94,35 @@ Hooks.once('init', () => {
   registerHandlebarsHelpers();
 
   // Register item sheets
-  Items.unregisterSheet('core', foundry.applications.sheets.ItemSheetV2);
-  Items.registerSheet('neon-relic', NRItemSheet, {
+  foundry.documents.collections.Items.unregisterSheet('core', foundry.applications.sheets.ItemSheetV2);
+  foundry.documents.collections.Items.registerSheet('neon-relic', NRItemSheet, {
     makeDefault: true,
     label: 'NEONRELIC.Sheet.Item',
   });
 
   // Register actor sheets
-  Actors.unregisterSheet('core', foundry.applications.sheets.ActorSheetV2);
-  Actors.registerSheet('neon-relic', AgentSheet, {
+  foundry.documents.collections.Actors.unregisterSheet('core', foundry.applications.sheets.ActorSheetV2);
+  foundry.documents.collections.Actors.registerSheet('neon-relic', AgentSheet, {
     types: ['agent'],
     makeDefault: true,
     label: 'NEONRELIC.Sheet.Agent',
   });
-  Actors.registerSheet('neon-relic', NPCSheet, {
+  foundry.documents.collections.Actors.registerSheet('neon-relic', NPCSheet, {
     types: ['npc'],
     makeDefault: true,
     label: 'NEONRELIC.Sheet.NPC',
   });
-  Actors.registerSheet('neon-relic', MobSheet, {
+  foundry.documents.collections.Actors.registerSheet('neon-relic', MobSheet, {
     types: ['mob'],
     makeDefault: true,
     label: 'NEONRELIC.Sheet.Mob',
   });
-  Actors.registerSheet('neon-relic', HeadquartersSheet, {
+  foundry.documents.collections.Actors.registerSheet('neon-relic', HeadquartersSheet, {
     types: ['headquarters'],
     makeDefault: true,
     label: 'NEONRELIC.Sheet.Headquarters',
   });
-  Actors.registerSheet('neon-relic', VehicleSheet, {
+  foundry.documents.collections.Actors.registerSheet('neon-relic', VehicleSheet, {
     types: ['vehicle'],
     makeDefault: true,
     label: 'NEONRELIC.Sheet.Vehicle',
@@ -139,14 +139,16 @@ Hooks.once('init', () => {
   registerYZECombat();
   registerItemPiles();
 
-  // Register keybindings, tours, and text enrichers
+  // Register keybindings and text enrichers
   registerKeybindings();
-  registerTours();
   registerTextEnrichers();
 });
 
 Hooks.once('ready', () => {
   console.log('neon-relic | Neon Relic system ready');
+
+  // Register tours (must be in ready hook — Tour reads core settings)
+  registerTours();
 
   // Apply visual theme
   initTheme();

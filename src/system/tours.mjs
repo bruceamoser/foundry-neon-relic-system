@@ -5,8 +5,7 @@
 
 export function registerTours() {
   // Register the welcome tour
-  /* global Tour */
-  const tour = new Tour({
+  const tour = new foundry.nue.Tour({
     title: 'NEONRELIC.Tour.WelcomeTitle',
     description: 'NEONRELIC.Tour.WelcomeDesc',
     canBeResumed: false,
@@ -49,5 +48,5 @@ export function registerTours() {
       },
     ],
   });
-  game.tours.register('neon-relic', 'welcome', tour);
+  game.tours?.register('neon-relic', 'welcome', tour);
 }

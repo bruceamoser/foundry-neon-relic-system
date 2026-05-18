@@ -82,7 +82,7 @@ export function registerHandlebarsHelpers() {
 
   // HTML enrichment
   Handlebars.registerHelper('enrichHTML', text => {
-    return TextEditor.enrichHTML(text, { async: false });
+    return foundry.applications.ux.TextEditor.implementation.enrichHTML(text, { async: false });
   });
 }
 
@@ -128,5 +128,5 @@ export async function preloadHandlebarsTemplates() {
     'systems/neon-relic/templates/chat/corruption-message.hbs',
     'systems/neon-relic/templates/chat/condition-message.hbs',
   ];
-  return loadTemplates(templatePaths);
+  return foundry.applications.handlebars.loadTemplates(templatePaths);
 }
