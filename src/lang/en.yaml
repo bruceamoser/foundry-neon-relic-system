@@ -1033,6 +1033,7 @@ NEONRELIC:
       Description: The following items have been added to your inventory based on your division and sub-unit.
       DivisionItem: Division Item (Automatic)
       StartingKit: Starting Kit
+      NoGear: Starting equipment will be assigned based on your division and sub-unit selections.
 
     Attributes:
       Title: Distribute Attribute Points
