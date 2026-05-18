@@ -1067,6 +1067,8 @@ NEONRELIC:
       AnchorLabel: Anchor
       DarkSecretLabel: Dark Secret
       RollAnchor: Roll Random Anchor
+      CustomAnchor: Create Custom Anchor
+      BrowseSecrets: Browse Dark Secrets
       SelectSecret: Select Dark Secret
       AnchorName: Anchor Name
       AnchorMemory: 'Anchor Memory — a single, vivid sensory moment'

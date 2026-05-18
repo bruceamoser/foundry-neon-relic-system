@@ -61,6 +61,11 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       complete: CreationWizard.#onComplete,
       openTalentCompendium: CreationWizard.#onOpenTalentCompendium,
       removeTalent: CreationWizard.#onRemoveTalent,
+      rollAnchor: CreationWizard.#onRollAnchor,
+      customAnchor: CreationWizard.#onCustomAnchor,
+      removeAnchor: CreationWizard.#onRemoveItem,
+      openDarkSecretCompendium: CreationWizard.#onOpenDarkSecretCompendium,
+      removeDarkSecret: CreationWizard.#onRemoveItem,
     },
     form: {
       submitOnChange: true,
@@ -378,5 +383,72 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     const item = this.actor.items.get(itemId);
     if (item) await item.delete();
     this.render();
+  }
+
+  /**
+   * Remove an item from the actor by ID.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   */
+  static async #onRemoveItem(_event, target) {
+    const itemId = target.dataset.itemId;
+    if (!itemId) return;
+    const item = this.actor.items.get(itemId);
+    if (item) await item.delete();
+    this.render();
+  }
+
+  /**
+   * Roll a random anchor from the anchor roll table.
+   */
+  static async #onRollAnchor(_event, _target) {
+    const pack = game.packs.get('neon-relic.roll-tables');
+    if (!pack) return;
+    const tables = await pack.getDocuments();
+    const anchorTable = tables.find(t => t.name.includes('Anchor'));
+    if (!anchorTable) return;
+    const { results } = await anchorTable.roll();
+    if (results.length) {
+      const result = results[0];
+      await this.actor.createEmbeddedDocuments('Item', [
+        {
+          name: result.text,
+          type: 'anchor',
+          system: { relationship: result.text },
+        },
+      ]);
+      this.render();
+    }
+  }
+
+  /**
+   * Create a custom anchor with a dialog prompt.
+   */
+  static async #onCustomAnchor(_event, _target) {
+    const name = await foundry.applications.api.DialogV2.prompt({
+      window: { title: game.i18n.localize('NEONRELIC.Wizard.AnchorSecret.AnchorLabel') },
+      content: `<input type="text" name="name" placeholder="${game.i18n.localize('NEONRELIC.Wizard.AnchorSecret.AnchorName')}" autofocus />`,
+      ok: {
+        callback: (event, button) => button.form.elements.name.value,
+      },
+    });
+    if (name) {
+      await this.actor.createEmbeddedDocuments('Item', [
+        {
+          name,
+          type: 'anchor',
+          system: { relationship: '' },
+        },
+      ]);
+      this.render();
+    }
+  }
+
+  /**
+   * Open the dark secrets compendium.
+   */
+  static async #onOpenDarkSecretCompendium(_event, _target) {
+    const pack = game.packs.get('neon-relic.dark-secrets');
+    if (pack) pack.render(true);
   }
 }
