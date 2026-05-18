@@ -232,6 +232,23 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       return this.#applySubdivision(item);
     }
 
+    // Handle talent drop — enforce free talent limit and XP cost
+    if (item.type === 'talent') {
+      const talentCount = this.document.items.filter(i => i.type === 'talent').size;
+      const freeTalents = 3;
+      if (talentCount >= freeTalents) {
+        const xpCost = 6;
+        const xp = this.document.system.experience.current;
+        if (xp < xpCost) {
+          ui.notifications.warn(game.i18n.localize('NEONRELIC.Talent.InsufficientXP'));
+          return;
+        }
+        // Deduct XP and allow the drop
+        await this.document.update({ 'system.experience.current': xp - xpCost });
+        ui.notifications.info(game.i18n.format('NEONRELIC.Talent.XPSpent', { cost: xpCost }));
+      }
+    }
+
     return super._onDropItem(event, data);
   }
 
