@@ -104,9 +104,29 @@ export class WorldSetupApp extends HandlebarsApplicationMixin(foundry.applicatio
           console.log(
             `neon-relic | Pack ${packId}: ${allDocs.length} documents loaded, ${validDocs.length} valid after filter`,
           );
+
+          // Skip documents that already exist in the world collection
+          const collectionMap = {
+            JournalEntry: 'journal',
+            RollTable: 'tables',
+            Macro: 'macros',
+            Actor: 'actors',
+            Item: 'items',
+          };
+          const collectionName = collectionMap[pack.metadata.type] ?? 'items';
+          const collection = game[collectionName];
+          const existingIds = new Set(collection?.map(d => d.id) ?? []);
+          const newDocs = validDocs.filter(d => !existingIds.has(d.id));
+          if (newDocs.length < validDocs.length) {
+            console.log(
+              `neon-relic | Pack ${packId}: ${validDocs.length - newDocs.length} documents already exist, importing ${newDocs.length} new`,
+            );
+          }
+          if (newDocs.length === 0) continue;
+
           const cls = pack.documentClass;
           const created = await cls.create(
-            validDocs.map(d => d.toObject()),
+            newDocs.map(d => d.toObject()),
             { keepId: true },
           );
           const count = Array.isArray(created) ? created.length : created ? 1 : 0;
