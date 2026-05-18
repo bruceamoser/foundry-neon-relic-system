@@ -415,6 +415,11 @@ NEONRELIC:
     Corruption: Corruption
     Biography: Biography
 
+  # Point Budgets
+  Budget:
+    Attributes: Attribute Points
+    Skills: Skill Points
+
   # Agent
   Agent:
     Name: Agent Name

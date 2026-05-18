@@ -1,6 +1,28 @@
 <section class='tab attributes' data-group='primary' data-tab='attributes'>
   <div class='section-title'>{{localize 'NEONRELIC.Tab.Attributes'}} &amp; {{localize 'NEONRELIC.Agent.Skills'}}</div>
 
+  {{! Point Budgets }}
+  <div class='budget-bar'>
+    <span class='budget-item'>
+      {{localize 'NEONRELIC.Budget.Attributes'}}:
+      {{system.budget.attrSpent}}
+      /
+      {{system.budget.attrTotal}}
+      {{#if (ne system.budget.attrRemaining 0)}}
+        <span class='budget-remaining'>({{system.budget.attrRemaining}})</span>
+      {{/if}}
+    </span>
+    <span class='budget-item'>
+      {{localize 'NEONRELIC.Budget.Skills'}}:
+      {{system.budget.skillSpent}}
+      /
+      {{system.budget.skillTotal}}
+      {{#if (ne system.budget.skillRemaining 0)}}
+        <span class='budget-remaining'>({{system.budget.skillRemaining}})</span>
+      {{/if}}
+    </span>
+  </div>
+
   <div class='attr-skill-grid'>
     {{#each attrColumns}}
       <div class='attr-skill-col'>
@@ -19,6 +41,15 @@
           </div>
           <div class='attr-max'>
             max
+            {{#if @root.isEditable}}
+              <button
+                type='button'
+                class='adj-btn'
+                data-action='adjustAttribute'
+                data-attribute='{{this.key}}'
+                data-delta='-1'
+              >−</button>
+            {{/if}}
             <input
               type='number'
               name='system.attributes.{{this.key}}.max'
@@ -26,6 +57,15 @@
               min='0'
               {{disabled (not @root.isEditable)}}
             />
+            {{#if @root.isEditable}}
+              <button
+                type='button'
+                class='adj-btn'
+                data-action='adjustAttribute'
+                data-attribute='{{this.key}}'
+                data-delta='1'
+              >+</button>
+            {{/if}}
           </div>
           <div class='attr-dmg-label'>{{localize this.damageLabel}}</div>
           <div class='attr-dmg-track'>
@@ -47,6 +87,15 @@
                 <i class='fa-solid fa-dice-d6'></i>
               </button>
               <span class='skill-name'>{{localize this.label}}</span>
+              {{#if @root.isEditable}}
+                <button
+                  type='button'
+                  class='adj-btn'
+                  data-action='adjustSkill'
+                  data-skill='{{this.key}}'
+                  data-delta='-1'
+                >−</button>
+              {{/if}}
               <input
                 type='number'
                 class='skill-value'
@@ -56,6 +105,15 @@
                 max='5'
                 {{disabled (not @root.isEditable)}}
               />
+              {{#if @root.isEditable}}
+                <button
+                  type='button'
+                  class='adj-btn'
+                  data-action='adjustSkill'
+                  data-skill='{{this.key}}'
+                  data-delta='1'
+                >+</button>
+              {{/if}}
             </div>
           {{/each}}
         </div>
