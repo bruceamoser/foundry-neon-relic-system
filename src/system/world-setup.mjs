@@ -155,7 +155,18 @@ export function checkWorldSetup() {
   }
   const initialized = game.settings.get(SYSTEM_ID, 'worldInitialized');
   console.log(`neon-relic | World setup: worldInitialized = ${initialized}`);
-  if (initialized) return;
+  if (initialized) {
+    // Auto-recovery: if flag is set but no journals exist, the previous import
+    // likely failed or the world was reset. Clear the flag and re-show the dialog.
+    const journalCount = game.journal?.size ?? 0;
+    if (journalCount === 0) {
+      console.warn('neon-relic | World setup: worldInitialized=true but 0 journals found — resetting flag');
+      game.settings.set(SYSTEM_ID, 'worldInitialized', false);
+      new WorldSetupApp().render({ force: true });
+      return;
+    }
+    return;
+  }
   console.log('neon-relic | World setup: showing setup dialog');
   new WorldSetupApp().render({ force: true });
 }
