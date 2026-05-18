@@ -60,6 +60,10 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       cancel: CreationWizard.#onCancel,
       complete: CreationWizard.#onComplete,
     },
+    form: {
+      submitOnChange: true,
+      handler: CreationWizard.#onFormSubmit,
+    },
   };
 
   /** @override */
@@ -126,12 +130,48 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       return '';
     });
 
+    // Render step-specific content
+    context.stepContent = await this.#renderStepContent(context);
+
     return context;
+  }
+
+  /**
+   * Render the content for the current wizard step.
+   * @param {object} context  The prepared context.
+   * @returns {Promise<string>}  Rendered HTML for the step body.
+   */
+  async #renderStepContent(context) {
+    const stepId = this.stepConfig.id;
+    const templatePath = `systems/${SYSTEM_ID}/templates/actor/agent/wizard/step-${stepId}.hbs`;
+
+    // Check if the step template exists; fall back to a placeholder
+    const templates = Handlebars.partials;
+    if (!templates[templatePath]) {
+      try {
+        await foundry.applications.handlebars.loadTemplates([templatePath]);
+      } catch {
+        return `<p class="step-placeholder"><em>Step "${stepId}" content pending implementation.</em></p>`;
+      }
+    }
+
+    return foundry.applications.handlebars.renderTemplate(templatePath, context);
   }
 
   /* ------------------------------------------ */
   /*  Navigation Actions                        */
   /* ------------------------------------------ */
+
+  /**
+   * Handle form submission — save form data to the actor.
+   * @param {SubmitEvent} _event
+   * @param {HTMLFormElement} form
+   * @param {FormDataExtended} formData
+   */
+  static async #onFormSubmit(_event, form, formData) {
+    const updateData = foundry.utils.expandObject(formData.object);
+    await this.actor.update(updateData);
+  }
 
   /**
    * Advance to the next wizard step.

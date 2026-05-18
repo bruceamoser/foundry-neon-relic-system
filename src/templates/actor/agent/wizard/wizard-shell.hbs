@@ -25,9 +25,9 @@
       {{localize stepConfig.label}}
     </h2>
 
-    {{! Step-specific content will be rendered here by individual step issues }}
+    {{! Step-specific content rendered by the wizard }}
     <div class='step-body' data-step='{{stepConfig.id}}'>
-      <p class='step-placeholder'><em>Step content pending implementation.</em></p>
+      {{{stepContent}}}
     </div>
   </section>
 

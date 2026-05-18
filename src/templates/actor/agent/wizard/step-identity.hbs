@@ -1,0 +1,67 @@
+{{! Step 1: Agent Identity }}
+<div class='wizard-step-identity'>
+  <p class='step-description'>{{localize 'NEONRELIC.Wizard.Identity.Description'}}</p>
+
+  <div class='identity-fields'>
+    {{! Name }}
+    <div class='field-group'>
+      <label for='wizard-name'>{{localize 'NEONRELIC.Agent.Name'}}</label>
+      <input
+        id='wizard-name'
+        type='text'
+        name='name'
+        value='{{actor.name}}'
+        placeholder='{{localize "NEONRELIC.Wizard.Identity.NamePlaceholder"}}'
+      />
+    </div>
+
+    {{! Age Group }}
+    <div class='field-group'>
+      <label for='wizard-ageGroup'>{{localize 'NEONRELIC.Agent.AgeGroup'}}</label>
+      <select id='wizard-ageGroup' name='system.ageGroup'>
+        {{selectOptions config.ageGroups selected=system.ageGroup localize=true}}
+      </select>
+    </div>
+
+    {{! Age }}
+    <div class='field-group'>
+      <label for='wizard-age'>{{localize 'NEONRELIC.Agent.Age'}}</label>
+      <input id='wizard-age' type='number' name='system.age' value='{{system.age}}' min='18' max='80' />
+    </div>
+
+    {{! Sex }}
+    <div class='field-group'>
+      <label for='wizard-sex'>{{localize 'NEONRELIC.Agent.Sex'}}</label>
+      <select id='wizard-sex' name='system.sex'>
+        {{selectOptions config.sexOptions selected=system.sex localize=true}}
+      </select>
+    </div>
+
+    {{! Country of Origin }}
+    <div class='field-group'>
+      <label for='wizard-country'>{{localize 'NEONRELIC.Agent.Country'}}</label>
+      <input
+        id='wizard-country'
+        type='text'
+        name='system.countryOfOrigin'
+        value='{{system.countryOfOrigin}}'
+        placeholder='{{localize "NEONRELIC.Wizard.Identity.CountryPlaceholder"}}'
+      />
+    </div>
+  </div>
+
+  {{! Budget Preview }}
+  <div class='budget-preview'>
+    <h3>{{localize 'NEONRELIC.Wizard.Identity.BudgetPreview'}}</h3>
+    <div class='budget-stats'>
+      <span class='budget-item'>
+        <strong>{{localize 'NEONRELIC.Wizard.Identity.AttrPoints'}}:</strong>
+        {{system.budget.attrTotal}}
+      </span>
+      <span class='budget-item'>
+        <strong>{{localize 'NEONRELIC.Wizard.Identity.SkillPoints'}}:</strong>
+        {{system.budget.skillTotal}}
+      </span>
+    </div>
+  </div>
+</div>
