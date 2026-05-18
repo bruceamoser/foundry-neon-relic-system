@@ -4,6 +4,7 @@
  */
 
 import { NRRollDialog } from '../../components/roll/roll-dialog.mjs';
+import { CreationWizard } from './creation-wizard.mjs';
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -25,6 +26,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       useTalent: AgentSheet.#onUseTalent,
       adjustAttribute: AgentSheet.#onAdjustAttribute,
       adjustSkill: AgentSheet.#onAdjustSkill,
+      launchWizard: AgentSheet.#onLaunchWizard,
     },
     form: {
       submitOnChange: true,
@@ -295,6 +297,15 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   /* ------------------------------------------ */
   /*  Action Handlers                            */
   /* ------------------------------------------ */
+
+  /**
+   * Launch the character creation wizard.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} _target
+   */
+  static #onLaunchWizard(_event, _target) {
+    new CreationWizard(this.document).render(true);
+  }
 
   /**
    * Roll an attribute check.

@@ -1,4 +1,12 @@
 <header class='agent-header'>
+  {{#unless system.creationComplete}}
+    <div class='agent-header__wizard-banner'>
+      <button type='button' data-action='launchWizard' class='wizard-launch-btn'>
+        <i class='fa-solid fa-wand-magic-sparkles'></i>
+        {{localize 'NEONRELIC.Wizard.Launch'}}
+      </button>
+    </div>
+  {{/unless}}
   <div class='agent-header__left'>
     <img class='agent-header__portrait' src='{{actor.img}}' data-edit='img' title='{{actor.name}}' />
     <div class='agent-header__identity'>
