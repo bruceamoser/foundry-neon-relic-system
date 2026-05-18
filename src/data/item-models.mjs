@@ -237,6 +237,8 @@ export class TalentDataModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
       talentType: new StringField({ initial: 'general', blank: false }),
+      division: new StringField({ initial: '', blank: true }),
+      subUnit: new StringField({ initial: '', blank: true }),
       corruptionCost: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
       corruptionThresholdMod: new NumberField({ required: true, integer: true, initial: 0 }),
       prerequisites: new HTMLField({ blank: true }),

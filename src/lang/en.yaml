@@ -454,6 +454,13 @@ NEONRELIC:
     Female: Female
     Other: Other
 
+  # Talent Types
+  TalentType:
+    General: General
+    Division: Division
+    SubUnit: Sub-Unit
+    Background: Background
+
   Classified: CLASSIFIED
   NoItems: No items
 
