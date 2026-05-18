@@ -16,6 +16,7 @@ const IMPORT_CATEGORIES = [
   { id: 'rules', label: 'NEONRELIC.WorldSetup.Rules', pack: 'rules-reference', checked: true },
   { id: 'tables', label: 'NEONRELIC.WorldSetup.RollTables', pack: 'roll-tables', checked: true },
   { id: 'macros', label: 'NEONRELIC.WorldSetup.Macros', pack: 'macros', checked: true },
+  { id: 'subdivisions', label: 'NEONRELIC.WorldSetup.Subdivisions', pack: 'subdivisions', checked: true },
   {
     id: 'sample',
     label: 'NEONRELIC.WorldSetup.SampleCase',

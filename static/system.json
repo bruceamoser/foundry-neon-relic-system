@@ -64,6 +64,13 @@
       "system": "neon-relic"
     },
     {
+      "name": "subdivisions",
+      "label": "Subdivisions",
+      "path": "packs/subdivisions",
+      "type": "Item",
+      "system": "neon-relic"
+    },
+    {
       "name": "critical-injuries",
       "label": "Critical Injuries",
       "path": "packs/critical-injuries",
