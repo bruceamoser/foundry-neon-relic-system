@@ -170,6 +170,18 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
       skillSpent,
       skillRemaining: group.skill - skillSpent,
     };
+
+    // Auto-compute Clearance Level
+    const ageMods = { young: -1, experienced: 0, senior: 1 };
+    const ageMod = ageMods[this.ageGroup] ?? 0;
+    let baseCL = 2; // default
+    if (this.parent?.items) {
+      const subdivision = this.parent.items.find(i => i.type === 'subdivision');
+      if (subdivision) baseCL = subdivision.system.baseCL ?? 2;
+    }
+    // Count required authorizations (items with reqAuth flag — future extension)
+    // For now, CL = baseCL + ageMod, clamped 1–5
+    this.clearanceLevel = Math.clamp(baseCL + ageMod, 1, 5);
   }
 }
 

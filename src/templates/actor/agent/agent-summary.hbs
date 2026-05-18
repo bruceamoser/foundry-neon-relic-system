@@ -39,15 +39,7 @@
     </div>
     <div class='id-cell'>
       <span class='id-label'>{{localize 'NEONRELIC.Agent.CL'}}</span>
-      <input
-        class='id-value'
-        type='number'
-        name='system.clearanceLevel'
-        value='{{system.clearanceLevel}}'
-        min='1'
-        max='5'
-        {{disabled (not isEditable)}}
-      />
+      <span class='id-value'>{{system.clearanceLevel}}</span>
     </div>
     <div class='id-cell'>
       <span class='id-label'>{{localize 'NEONRELIC.Agent.Origin'}}</span>
