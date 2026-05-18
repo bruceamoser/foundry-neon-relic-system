@@ -89,4 +89,5 @@ NEON_RELIC.itemTypes = [
   'darkSecret',
   'upgrade',
   'location',
+  'subdivision',
 ];

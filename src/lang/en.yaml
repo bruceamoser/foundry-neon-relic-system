@@ -19,6 +19,7 @@ TYPES:
     upgrade: Upgrade
     location: Location
     informationCard: Information Card
+    subdivision: Subdivision
 
 NEONRELIC:
   System: Neon Relic

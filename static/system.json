@@ -30,7 +30,8 @@
       "darkSecret": {},
       "upgrade": {},
       "location": {},
-      "informationCard": {}
+      "informationCard": {},
+      "subdivision": {}
     }
   },
   "packs": [

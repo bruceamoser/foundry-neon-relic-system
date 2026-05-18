@@ -396,3 +396,37 @@ export class InformationCardDataModel extends foundry.abstract.TypeDataModel {
     };
   }
 }
+
+/* ------------------------------------------ */
+/*  SubdivisionDataModel                      */
+/* ------------------------------------------ */
+
+/**
+ * TypeDataModel for Subdivision items — draggable items representing
+ * a Covenant Wing, Paradigm, or Department within a Division.
+ * @extends foundry.abstract.TypeDataModel
+ */
+export class SubdivisionDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      division: new StringField({ initial: 'recovery', blank: false }),
+      keySkill: new StringField({ initial: 'firearms', blank: false }),
+      baseCL: new NumberField({ required: true, integer: true, min: 1, max: 5, initial: 2 }),
+      specialties: new ArrayField(
+        new SchemaField({
+          key: new StringField({ blank: false }),
+          label: new StringField({ blank: false }),
+        }),
+      ),
+      startingGear: new ArrayField(
+        new SchemaField({
+          name: new StringField({ blank: false }),
+          type: new StringField({ initial: 'gear', blank: false }),
+          pack: new StringField({ blank: true }),
+        }),
+      ),
+      divisionItemName: new StringField({ blank: true }),
+      description: new HTMLField({ blank: true }),
+    };
+  }
+}
