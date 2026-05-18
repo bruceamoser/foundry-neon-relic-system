@@ -72,6 +72,28 @@
       </label>
     </div>
   </div>
+  <div class='id-block-row' style='grid-template-columns: 1fr 0.65fr 1.35fr;'>
+    <div class='id-cell'>
+      <span class='id-label'>{{localize 'NEONRELIC.Agent.AgeGroup'}}</span>
+      <select class='id-value' name='system.ageGroup' {{disabled (not isEditable)}}>
+        {{#each config.ageGroups as |label key|}}
+          <option value='{{key}}' {{selected key @root.system.ageGroup}}>{{localize label}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class='id-cell'>
+      <span class='id-label'>{{localize 'NEONRELIC.Agent.Age'}}</span>
+      <input
+        class='id-value'
+        type='number'
+        name='system.age'
+        value='{{system.age}}'
+        min='18'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='id-cell'></div>
+  </div>
 
   {{! Quick Stats }}
   <div class='section-title'>{{localize 'NEONRELIC.Agent.QuickStats'}}</div>

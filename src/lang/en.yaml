@@ -66,6 +66,12 @@ NEONRELIC:
     recovery: Recovery
     keep: The Keep
 
+  # Age Groups
+  AgeGroup:
+    Young: Young
+    Experienced: Experienced
+    Senior: Senior
+
   # Damage Types
   DamageType:
     Physical: Physical
@@ -413,6 +419,8 @@ NEONRELIC:
     Name: Agent Name
     Dossier: Agent Dossier
     Division: Division
+    AgeGroup: Age Group
+    Age: Age
     SubUnit: Sub-Unit
     Specialty: Specialty
     CL: Clearance Level

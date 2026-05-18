@@ -44,6 +44,15 @@ NEON_RELIC.divisions = {
 };
 
 /**
+ * Age groups for agent creation.
+ */
+NEON_RELIC.ageGroups = {
+  young: 'NEONRELIC.AgeGroup.Young',
+  experienced: 'NEONRELIC.AgeGroup.Experienced',
+  senior: 'NEONRELIC.AgeGroup.Senior',
+};
+
+/**
  * Damage types and their target attributes.
  */
 NEON_RELIC.damageTypes = {
