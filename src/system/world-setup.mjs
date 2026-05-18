@@ -79,6 +79,9 @@ export class WorldSetupApp extends HandlebarsApplicationMixin(foundry.applicatio
     const buttons = this.element.querySelectorAll('button');
     buttons.forEach(b => (b.disabled = true));
 
+    console.log(
+      `neon-relic | World setup: importing ${selected.length} categories: ${selected.map(c => c.id).join(', ')}`,
+    );
     let totalImported = 0;
     for (const category of selected) {
       const packNames = Array.isArray(category.pack) ? category.pack : [category.pack];
@@ -93,8 +96,14 @@ export class WorldSetupApp extends HandlebarsApplicationMixin(foundry.applicatio
           // Filter out phantom entries with null _id (LevelDB index artifact)
           const index = await pack.getIndex();
           const validIds = index.filter(e => e._id).map(e => e._id);
+          console.log(
+            `neon-relic | Pack ${packId}: ${index.contents.length} index entries, ${validIds.length} valid IDs`,
+          );
           const allDocs = await pack.getDocuments();
           const validDocs = allDocs.filter(d => d.id && validIds.includes(d.id));
+          console.log(
+            `neon-relic | Pack ${packId}: ${allDocs.length} documents loaded, ${validDocs.length} valid after filter`,
+          );
           const cls = pack.documentClass;
           const created = await cls.create(
             validDocs.map(d => d.toObject()),
@@ -111,6 +120,7 @@ export class WorldSetupApp extends HandlebarsApplicationMixin(foundry.applicatio
     }
 
     // Set flag and close
+    console.log(`neon-relic | World setup: import complete — ${totalImported} total documents imported`);
     await game.settings.set(SYSTEM_ID, 'worldInitialized', true);
 
     // Completion message
@@ -139,9 +149,14 @@ export class WorldSetupApp extends HandlebarsApplicationMixin(foundry.applicatio
  * Called from Hooks.once('ready').
  */
 export function checkWorldSetup() {
-  if (!game.user.isGM) return;
+  if (!game.user.isGM) {
+    console.log('neon-relic | World setup: skipped (not GM)');
+    return;
+  }
   const initialized = game.settings.get(SYSTEM_ID, 'worldInitialized');
+  console.log(`neon-relic | World setup: worldInitialized = ${initialized}`);
   if (initialized) return;
+  console.log('neon-relic | World setup: showing setup dialog');
   new WorldSetupApp().render({ force: true });
 }
 
