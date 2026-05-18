@@ -190,6 +190,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         context.specialtyChoices = (currentSub?.system.specialties ?? []).map(sp => ({
           name: sp,
           selected: system.specialty === sp,
+          cssClass: system.specialty === sp ? 'selected' : '',
         }));
         break;
       }

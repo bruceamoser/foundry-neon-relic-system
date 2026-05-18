@@ -1026,6 +1026,7 @@ NEONRELIC:
     Specialty:
       Title: Choose Your Specialty
       Description: Select your specific role within the sub-unit.
+      NoSubUnit: Please go back and select a sub-unit first.
 
     Gear:
       Title: Starting Equipment
