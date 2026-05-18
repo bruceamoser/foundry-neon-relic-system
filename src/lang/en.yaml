@@ -335,6 +335,8 @@ NEONRELIC:
     ConditionalModifier: Conditional Modifier
     Bonus: Bonus
     Condition: Condition
+    InsufficientXP: Not enough XP to learn a new talent (6 XP required).
+    XPSpent: 'Spent {cost} XP to learn a new talent.'
 
   # Critical Injury
   CriticalInjury:
