@@ -23,6 +23,8 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       rollSkill: AgentSheet.#onRollSkill,
       toggleCondition: AgentSheet.#onToggleCondition,
       useTalent: AgentSheet.#onUseTalent,
+      adjustAttribute: AgentSheet.#onAdjustAttribute,
+      adjustSkill: AgentSheet.#onAdjustSkill,
     },
     form: {
       submitOnChange: true,
@@ -328,5 +330,78 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const itemId = target.closest('[data-item-id]')?.dataset.itemId;
     const item = this.document.items.get(itemId);
     if (item) await item.useTalent();
+  }
+
+  /**
+   * Adjust an attribute max by +/−1.
+   * During creation (budget remaining ≥ 0): free within 2–5.
+   * Attributes never increase with XP.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   */
+  static async #onAdjustAttribute(_event, target) {
+    const key = target.dataset.attribute;
+    const delta = Number(target.dataset.delta);
+    const sys = this.document.system;
+    const current = sys.attributes[key].max;
+    const newVal = current + delta;
+
+    // Enforce min 2, max 5
+    if (newVal < 2 || newVal > 5) return;
+
+    // Check budget when increasing
+    if (delta > 0 && sys.budget.attrRemaining <= 0) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Budget.NoneRemaining'));
+      return;
+    }
+
+    await this.document.update({
+      [`system.attributes.${key}.max`]: newVal,
+      [`system.attributes.${key}.value`]: newVal,
+    });
+  }
+
+  /**
+   * Adjust a skill value by +/−1.
+   * During creation: free within budget (max 3, key skill max 4).
+   * During play: +1 costs 5 XP.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   */
+  static async #onAdjustSkill(_event, target) {
+    const key = target.dataset.skill;
+    const delta = Number(target.dataset.delta);
+    const sys = this.document.system;
+    const current = sys.skills[key] ?? 0;
+    const newVal = current + delta;
+
+    if (newVal < 0 || newVal > 5) return;
+
+    // Determine max at creation (3 normally, 4 for key skill)
+    const keySkill = this.document.items.find(i => i.type === 'subdivision')?.system.keySkill;
+    const creationMax = key === keySkill ? 4 : 3;
+
+    // If increasing and no budget remaining, require XP
+    if (delta > 0 && sys.budget.skillRemaining <= 0) {
+      const xpCost = 5;
+      if (sys.experience.current < xpCost) {
+        ui.notifications.warn(game.i18n.localize('NEONRELIC.Budget.InsufficientXP'));
+        return;
+      }
+      // Spend XP
+      await this.document.update({
+        [`system.skills.${key}`]: newVal,
+        'system.experience.current': sys.experience.current - xpCost,
+      });
+      return;
+    }
+
+    // During creation: enforce max
+    if (delta > 0 && newVal > creationMax) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Budget.SkillMaxReached'));
+      return;
+    }
+
+    await this.document.update({ [`system.skills.${key}`]: newVal });
   }
 }
