@@ -146,6 +146,30 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
     this.encumbrance.current = enc;
     this.encumbrance.max = this.attributes.str.max * 2;
     this.encumbrance.overloaded = this.attributes.str.max * 3;
+
+    // Point budgets based on age group
+    const budgets = {
+      young: { attr: 14, skill: 10 },
+      experienced: { attr: 13, skill: 12 },
+      senior: { attr: 12, skill: 14 },
+    };
+    const group = budgets[this.ageGroup] ?? budgets.experienced;
+    let attrSpent = 0;
+    for (const attr of Object.values(this.attributes)) {
+      attrSpent += attr.max;
+    }
+    let skillSpent = 0;
+    for (const val of Object.values(this.skills)) {
+      skillSpent += val;
+    }
+    this.budget = {
+      attrTotal: group.attr,
+      attrSpent,
+      attrRemaining: group.attr - attrSpent,
+      skillTotal: group.skill,
+      skillSpent,
+      skillRemaining: group.skill - skillSpent,
+    };
   }
 }
 
