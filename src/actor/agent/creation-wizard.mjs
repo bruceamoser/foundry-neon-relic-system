@@ -35,10 +35,14 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     super(options);
     this.actor = actor;
     this.#currentStep = 0;
+    this.#snapshot = this.#takeSnapshot();
   }
 
   /** The current step index (0-based). */
   #currentStep;
+
+  /** Snapshot of key actor data for change detection. */
+  #snapshot;
 
   /** @override */
   static DEFAULT_OPTIONS = {
@@ -294,6 +298,85 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   /* ------------------------------------------ */
+  /*  State Management                          */
+  /* ------------------------------------------ */
+
+  /**
+   * Take a snapshot of key actor data for change detection.
+   * @returns {object}  The snapshot object.
+   */
+  #takeSnapshot() {
+    const s = this.actor.system;
+    return {
+      ageGroup: s.ageGroup,
+      division: s.division,
+      subUnit: s.subUnit,
+    };
+  }
+
+  /**
+   * Detect upstream changes and reset downstream data.
+   * Called when advancing from the current step.
+   */
+  async #resetDownstream() {
+    const prev = this.#snapshot;
+    const curr = this.#takeSnapshot();
+    const updates = {};
+    const itemsToDelete = [];
+
+    // Step 0 (Identity): age group changed → reset attributes and skills
+    if (prev.ageGroup !== curr.ageGroup) {
+      updates['system.attributes.str.max'] = 3;
+      updates['system.attributes.agi.max'] = 3;
+      updates['system.attributes.wit.max'] = 3;
+      updates['system.attributes.emp.max'] = 3;
+      for (const key of Object.keys(CONFIG.NEON_RELIC.skills)) {
+        updates[`system.skills.${key}`] = 0;
+      }
+    }
+
+    // Step 1 (Division): division changed → clear sub-unit, specialty, Slot 1 & 2 talents
+    if (prev.division !== curr.division) {
+      updates['system.subUnit'] = '';
+      updates['system.specialty'] = '';
+      // Remove division and sub-unit talents (Slots 1 & 2)
+      for (const item of this.actor.items) {
+        if (item.type === 'talent' && (item.system.talentType === 'division' || item.system.talentType === 'subunit')) {
+          itemsToDelete.push(item.id);
+        }
+        // Remove division-specific gear
+        if (item.type === 'divisionItem') {
+          itemsToDelete.push(item.id);
+        }
+      }
+    }
+
+    // Step 2 (Sub-Unit): sub-unit changed → clear specialty, Slot 2 talent
+    if (prev.subUnit !== curr.subUnit) {
+      updates['system.specialty'] = '';
+      // Remove sub-unit talents (Slot 2 only)
+      if (prev.division === curr.division) {
+        for (const item of this.actor.items) {
+          if (item.type === 'talent' && item.system.talentType === 'subunit') {
+            itemsToDelete.push(item.id);
+          }
+        }
+      }
+    }
+
+    // Apply updates
+    if (Object.keys(updates).length) {
+      await this.actor.update(updates);
+    }
+    if (itemsToDelete.length) {
+      await this.actor.deleteEmbeddedDocuments('Item', itemsToDelete);
+    }
+
+    // Update snapshot
+    this.#snapshot = this.#takeSnapshot();
+  }
+
+  /* ------------------------------------------ */
   /*  Navigation Actions                        */
   /* ------------------------------------------ */
 
@@ -315,6 +398,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
    */
   static async #onNext(_event, _target) {
     if (this.isLastStep) return;
+    await this.#resetDownstream();
     this.#currentStep++;
     this.render();
   }
