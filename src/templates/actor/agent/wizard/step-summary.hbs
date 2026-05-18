@@ -1,0 +1,74 @@
+{{! Step 10: Character Summary }}
+<div class='wizard-step-summary'>
+  <p class='step-description'>
+    {{localize 'NEONRELIC.Wizard.Summary.Description'}}
+  </p>
+
+  <div class='summary-sections'>
+    {{! Identity }}
+    <div class='summary-section'>
+      <h3>{{localize 'NEONRELIC.Wizard.Summary.Identity'}}</h3>
+      <dl class='summary-data'>
+        <dt>{{localize 'NEONRELIC.Wizard.Identity.Name'}}</dt>
+        <dd>{{actor.name}}</dd>
+        <dt>{{localize 'NEONRELIC.Wizard.Identity.AgeGroup'}}</dt>
+        <dd>{{system.ageGroup}}</dd>
+        <dt>{{localize 'NEONRELIC.Wizard.Identity.Age'}}</dt>
+        <dd>{{system.age}}</dd>
+      </dl>
+    </div>
+
+    {{! Division & Role }}
+    <div class='summary-section'>
+      <h3>{{localize 'NEONRELIC.Wizard.Summary.Division'}}</h3>
+      <dl class='summary-data'>
+        <dt>{{localize 'NEONRELIC.Division.Label'}}</dt>
+        <dd>{{#if summaryDivision}}{{summaryDivision}}{{else}}{{localize 'NEONRELIC.Wizard.Summary.NotSet'}}{{/if}}</dd>
+        <dt>{{localize 'NEONRELIC.SubUnit.Label'}}</dt>
+        <dd>{{#if summarySubUnit}}{{summarySubUnit}}{{else}}{{localize 'NEONRELIC.Wizard.Summary.NotSet'}}{{/if}}</dd>
+        <dt>{{localize 'NEONRELIC.Specialty.Label'}}</dt>
+        <dd>{{#if summarySpecialty}}{{summarySpecialty}}{{else}}{{localize
+              'NEONRELIC.Wizard.Summary.NotSet'
+            }}{{/if}}</dd>
+      </dl>
+    </div>
+
+    {{! Attributes }}
+    <div class='summary-section'>
+      <h3>{{localize 'NEONRELIC.Wizard.Summary.Stats'}}</h3>
+      <dl class='summary-data'>
+        {{#each system.attributes as |attr key|}}
+          <dt>{{key}}</dt>
+          <dd>{{attr.max}}</dd>
+        {{/each}}
+      </dl>
+    </div>
+
+    {{! Talents }}
+    <div class='summary-section'>
+      <h3>{{localize 'NEONRELIC.Wizard.Summary.Talents'}}</h3>
+      {{#if summaryTalents.length}}
+        <ul class='summary-list'>
+          {{#each summaryTalents as |name|}}
+            <li>{{name}}</li>
+          {{/each}}
+        </ul>
+      {{else}}
+        <p>{{localize 'NEONRELIC.Wizard.Summary.NotSet'}}</p>
+      {{/if}}
+    </div>
+
+    {{! Anchor & Dark Secret }}
+    <div class='summary-section'>
+      <h3>{{localize 'NEONRELIC.Wizard.Summary.AnchorSecret'}}</h3>
+      <dl class='summary-data'>
+        <dt>{{localize 'NEONRELIC.Wizard.AnchorSecret.AnchorLabel'}}</dt>
+        <dd>{{#if summaryAnchor}}{{summaryAnchor}}{{else}}{{localize 'NEONRELIC.Wizard.Summary.NotSet'}}{{/if}}</dd>
+        <dt>{{localize 'NEONRELIC.Wizard.AnchorSecret.DarkSecretLabel'}}</dt>
+        <dd>{{#if summaryDarkSecret}}{{summaryDarkSecret}}{{else}}{{localize
+              'NEONRELIC.Wizard.Summary.NotSet'
+            }}{{/if}}</dd>
+      </dl>
+    </div>
+  </div>
+</div>
