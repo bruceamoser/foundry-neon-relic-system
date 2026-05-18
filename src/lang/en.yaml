@@ -419,6 +419,9 @@ NEONRELIC:
   Budget:
     Attributes: Attribute Points
     Skills: Skill Points
+    NoneRemaining: No budget points remaining.
+    InsufficientXP: Not enough XP for this advancement.
+    SkillMaxReached: Skill has reached its creation maximum.
 
   # Agent
   Agent:
