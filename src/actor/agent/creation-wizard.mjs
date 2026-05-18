@@ -59,6 +59,8 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       back: CreationWizard.#onBack,
       cancel: CreationWizard.#onCancel,
       complete: CreationWizard.#onComplete,
+      openTalentCompendium: CreationWizard.#onOpenTalentCompendium,
+      removeTalent: CreationWizard.#onRemoveTalent,
     },
     form: {
       submitOnChange: true,
@@ -354,6 +356,27 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   goToStep(stepIndex) {
     if (stepIndex < 0 || stepIndex >= STEPS.length) return;
     this.#currentStep = stepIndex;
+    this.render();
+  }
+
+  /**
+   * Open the talents compendium browser.
+   */
+  static async #onOpenTalentCompendium(_event, _target) {
+    const pack = game.packs.get('neon-relic.talents');
+    if (pack) pack.render(true);
+  }
+
+  /**
+   * Remove a talent item from the actor.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   */
+  static async #onRemoveTalent(_event, target) {
+    const itemId = target.dataset.itemId;
+    if (!itemId) return;
+    const item = this.actor.items.get(itemId);
+    if (item) await item.delete();
     this.render();
   }
 }

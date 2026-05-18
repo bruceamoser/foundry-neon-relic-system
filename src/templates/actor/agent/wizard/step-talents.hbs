@@ -1,0 +1,82 @@
+{{! Step 8: Choose Starting Talents }}
+<div class='wizard-step-talents'>
+  <p class='step-description'>
+    {{localize 'NEONRELIC.Wizard.Talents.Description'}}
+  </p>
+
+  <div class='talent-slots'>
+    <div class='talent-slot' data-slot='1'>
+      <h3>{{localize 'NEONRELIC.Wizard.Talents.Slot1'}}</h3>
+      <div class='talent-drop-zone' data-slot-type='division'>
+        {{#each talentSlots as |talent|}}
+          {{#if (eq talent.system.talentType 'division')}}
+            <div class='talent-item' data-item-id='{{talent.id}}'>
+              <img src='{{talent.img}}' alt='{{talent.name}}' />
+              <span>{{talent.name}}</span>
+              <button type='button' class='remove-talent' data-action='removeTalent' data-item-id='{{talent.id}}'>
+                <i class='fas fa-times'></i>
+              </button>
+            </div>
+          {{/if}}
+          {{#if (eq talent.system.talentType 'general')}}
+            <div class='talent-item' data-item-id='{{talent.id}}'>
+              <img src='{{talent.img}}' alt='{{talent.name}}' />
+              <span>{{talent.name}}</span>
+              <button type='button' class='remove-talent' data-action='removeTalent' data-item-id='{{talent.id}}'>
+                <i class='fas fa-times'></i>
+              </button>
+            </div>
+          {{/if}}
+        {{/each}}
+        <p class='slot-empty'>
+          {{localize 'NEONRELIC.Wizard.Talents.SlotEmpty'}}
+        </p>
+      </div>
+    </div>
+
+    <div class='talent-slot' data-slot='2'>
+      <h3>{{localize 'NEONRELIC.Wizard.Talents.Slot2'}}</h3>
+      <div class='talent-drop-zone' data-slot-type='subunit'>
+        {{#each talentSlots as |talent|}}
+          {{#if (eq talent.system.talentType 'subunit')}}
+            <div class='talent-item' data-item-id='{{talent.id}}'>
+              <img src='{{talent.img}}' alt='{{talent.name}}' />
+              <span>{{talent.name}}</span>
+              <button type='button' class='remove-talent' data-action='removeTalent' data-item-id='{{talent.id}}'>
+                <i class='fas fa-times'></i>
+              </button>
+            </div>
+          {{/if}}
+        {{/each}}
+        <p class='slot-empty'>
+          {{localize 'NEONRELIC.Wizard.Talents.SlotEmpty'}}
+        </p>
+      </div>
+    </div>
+
+    <div class='talent-slot' data-slot='3'>
+      <h3>{{localize 'NEONRELIC.Wizard.Talents.Slot3'}}</h3>
+      <div class='talent-drop-zone' data-slot-type='background'>
+        {{#each talentSlots as |talent|}}
+          {{#if (eq talent.system.talentType 'background')}}
+            <div class='talent-item' data-item-id='{{talent.id}}'>
+              <img src='{{talent.img}}' alt='{{talent.name}}' />
+              <span>{{talent.name}}</span>
+              <button type='button' class='remove-talent' data-action='removeTalent' data-item-id='{{talent.id}}'>
+                <i class='fas fa-times'></i>
+              </button>
+            </div>
+          {{/if}}
+        {{/each}}
+        <p class='slot-empty'>
+          {{localize 'NEONRELIC.Wizard.Talents.SlotEmpty'}}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <button type='button' class='open-compendium' data-action='openTalentCompendium'>
+    <i class='fas fa-book-open'></i>
+    {{localize 'NEONRELIC.Wizard.Talents.OpenCompendium'}}
+  </button>
+</div>
