@@ -1,0 +1,191 @@
+# Subdivisions Compendium Pack
+# Neon Relic — Year Zero Engine
+# Source: docs/chapters/09-divisions.adoc
+---
+# ── WAYFINDER ───────────────────────────────
+- _id: sub-w01
+  name: Research Wing
+  type: subdivision
+  system:
+    division: wayfinder
+    keySkill: lore
+    baseCL: 3
+    divisionItemName: Verdant Codex
+    specialties:
+      - key: research-desk-analyst
+        label: Research Desk Analyst
+      - key: research-field-analyst
+        label: Research Field Analyst
+      - key: research-liaison
+        label: Research Liaison
+    startingGear: []
+    description: >-
+      <p>The Research Wing studies historical documents, translates ancient texts,
+      analyzes cultural records, and conducts investigative fieldwork at
+      archaeological sites and scholarly institutions.</p>
+
+- _id: sub-w02
+  name: Counterintelligence Wing
+  type: subdivision
+  system:
+    division: wayfinder
+    keySkill: lore
+    baseCL: 3
+    divisionItemName: Verdant Codex
+    specialties:
+      - key: ci-desk-analyst
+        label: Counterintelligence Desk Analyst
+      - key: ci-field-analyst
+        label: Counterintelligence Field Analyst
+      - key: ci-technical-analyst
+        label: Counterintelligence Technical Analyst
+    startingGear: []
+    description: >-
+      <p>The Counterintelligence Wing monitors global communications, investigates
+      threats, conducts surveillance, and disrupts activities that could expose
+      the Covenant.</p>
+
+# ── RECOVERY ────────────────────────────────
+- _id: sub-r01
+  name: Ex-Agency Operative
+  type: subdivision
+  system:
+    division: recovery
+    keySkill: firearms
+    baseCL: 2
+    divisionItemName: Verdant Satchel
+    specialties:
+      - key: handler
+        label: Handler
+      - key: breacher
+        label: Breacher
+      - key: ghost
+        label: Ghost
+    startingGear: []
+    description: >-
+      <p>Ex-Agency Operatives bring tradecraft from intelligence services.
+      They run covert assets, breach hostile positions, and operate deep
+      undercover for extended periods.</p>
+
+- _id: sub-r02
+  name: Heavy-Hitter
+  type: subdivision
+  system:
+    division: recovery
+    keySkill: firearms
+    baseCL: 2
+    divisionItemName: Verdant Satchel
+    specialties:
+      - key: enforcer
+        label: Enforcer
+      - key: close-protection
+        label: Close Protection
+      - key: wrecker
+        label: Wrecker
+    startingGear: []
+    description: >-
+      <p>Heavy-Hitters are the Covenant's blunt instruments — enforcers,
+      bodyguards, and demolition specialists who overwhelm threats through
+      raw physical force.</p>
+
+- _id: sub-r03
+  name: Acquisition Specialist
+  type: subdivision
+  system:
+    division: recovery
+    keySkill: firearms
+    baseCL: 2
+    divisionItemName: Verdant Satchel
+    specialties:
+      - key: infiltrator
+        label: Infiltrator
+      - key: grifter
+        label: Grifter
+      - key: wheelman
+        label: Wheelman
+    startingGear: []
+    description: >-
+      <p>Acquisition Specialists defeat security, assume false identities,
+      and handle extraction logistics — whatever it takes to get the artifact
+      out cleanly.</p>
+
+# ── THE KEEP ────────────────────────────────
+- _id: sub-k01
+  name: Catalogers
+  type: subdivision
+  system:
+    division: keep
+    keySkill: command
+    baseCL: 3
+    divisionItemName: "Warden's Bracer"
+    specialties:
+      - key: intake-officer
+        label: Intake Officer
+      - key: archivist
+        label: Archivist
+      - key: containment-architect
+        label: Containment Architect
+    startingGear: []
+    description: >-
+      <p>The Department of Catalogers handles artifact intake, maintains
+      the master registry, and designs specialized containment vaults.</p>
+
+- _id: sub-k02
+  name: Wardens
+  type: subdivision
+  system:
+    division: keep
+    keySkill: command
+    baseCL: 3
+    divisionItemName: "Warden's Bracer"
+    specialties:
+      - key: vault-guardian
+        label: Vault Guardian
+      - key: escort-warden
+        label: Escort Warden
+      - key: field-warden
+        label: Field Warden
+    startingGear: []
+    description: >-
+      <p>Wardens provide physical security for vaults, escort artifact
+      transports, and deploy externally when threats escalate.</p>
+
+- _id: sub-k03
+  name: Internal Counterintelligence
+  type: subdivision
+  system:
+    division: keep
+    keySkill: command
+    baseCL: 3
+    divisionItemName: "Warden's Bracer"
+    specialties:
+      - key: counter-exposure-analyst
+        label: Counter-Exposure Analyst
+      - key: infiltration-investigator
+        label: Infiltration Investigator
+      - key: vetting-officer
+        label: Vetting Officer
+    startingGear: []
+    description: >-
+      <p>Internal CI monitors personnel behavior, investigates external
+      threats, and conducts background assessments and clearance monitoring.</p>
+
+- _id: sub-k04
+  name: Stack
+  type: subdivision
+  system:
+    division: keep
+    keySkill: command
+    baseCL: 3
+    divisionItemName: "Warden's Bracer"
+    specialties:
+      - key: quartermaster
+        label: The Quartermaster
+      - key: retro-engineer
+        label: The Retro-Engineer
+      - key: paratech-inventor
+        label: The Paratech Inventor
+    startingGear: []
+    description: >-
+      <p>The Stack (Logistics Department) manages equipment stores, repairs
+      and modifies technology, and designs experimental paranatural devices.</p>
