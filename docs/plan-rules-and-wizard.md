@@ -171,15 +171,15 @@ Cross-referenced all 23 AsciiDoc chapter files against the plan and GitHub issue
 
 ### Gaps Found and Resolved
 
-| #   | Gap                                               | Resolution                                                                     |
-| --- | ------------------------------------------------- | ------------------------------------------------------------------------------ |
-| 1   | Biography missing from wizard                     | Added to #236 (Step 1: Identity) — optional textarea for `system.description`  |
-| 2   | Numeric `age` field not in data model or wizard   | Added `age` NumberField to #232; added age input to #236 with range validation |
-| 3   | No Dark Secret items in any compendium pack       | Created #250 — populate `dark-secrets.yaml` with 20 items from Ch. 13          |
-| 4   | No Anchor d66 roll table                          | Created #251 — add Anchor Table from Ch. 8 to `roll-tables.yaml`               |
-| 5   | Stack gear variant not called out                 | Updated #238 — explicit acceptance criterion for Stack variant kit             |
-| 6   | Stack has 6 sub-unit talents (not 3)              | Updated #244 — talent count table and Stack exception noted                    |
-| 7   | Summary step missing anchor/dark secret/biography | Updated #243 — now includes all fields and embedded item creation              |
+| #   | Gap                                               | Resolution                                                                         |
+| --- | ------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| 1   | Biography missing from wizard                     | Added to #236 (Step 1: Identity) — optional textarea for `system.description`      |
+| 2   | Numeric `age` field not in data model or wizard   | Added `age` NumberField to #232; added age input to #236 with range validation     |
+| 3   | No Dark Secret items in any compendium pack       | Created #250 — populate `dark-secrets.yaml` with 20 items from Ch. 13              |
+| 4   | No Anchor d66 roll table                          | Created #251 — add Anchor Table from Ch. 8 to `roll-tables.yaml`                   |
+| 5   | Stack gear variant not called out                 | Updated #238 — explicit acceptance criterion for Stack variant kit                 |
+| 6   | Stack has 6 sub-unit talents (not 3)              | Updated #252/#253 (split from #244) — talent count table and Stack exception noted |
+| 7   | Summary step missing anchor/dark secret/biography | Updated #243 — now includes all fields and embedded item creation                  |
 
 ### Verified Coverage (No Gaps)
 
@@ -192,9 +192,9 @@ Cross-referenced all 23 AsciiDoc chapter files against the plan and GitHub issue
 | Corruption starts at 0                           | Data model default |
 | Max Corruption = 10 + Empathy                    | #240 preview       |
 | Division Item automatic                          | #238               |
-| 3 talent slots with type enforcement             | #242, #244         |
+| 3 talent slots with type enforcement             | #242, #252/#253    |
 | State reset on upstream changes                  | #245               |
-| Pre-existing character migration                 | #247               |
+| Pre-existing character migration                 | #254               |
 | All 20 chapters in compendium                    | #231               |
 
 ### Not In Scope (Play-Time Rules)
@@ -209,7 +209,7 @@ These rules are correct in the chapter files but not relevant to character creat
 
 ---
 
-## GitHub Issues — Complete List (22 total)
+## GitHub Issues — Complete List (24 total)
 
 ### Rules Compendium (2 issues)
 
@@ -218,28 +218,37 @@ These rules are correct in the chapter files but not relevant to character creat
 | #231 | Create asciidoctor.js conversion script for rules compendium       |
 | #230 | Add npm script and gulp task integration for rules-reference build |
 
-### Character Creation Wizard (18 issues)
+### Character Creation Wizard (20 issues)
 
-| #    | Title                                                                   | Phase |
-| ---- | ----------------------------------------------------------------------- | ----- |
-| #232 | Add `sex`, `age`, and `creationComplete` fields to Agent data model     | A     |
-| #233 | Add "Create Character" button to agent sheet header                     | B     |
-| #234 | Create CharacterCreationWizard ApplicationV2 shell with step navigation | B     |
-| #236 | Wizard Step 1: Identity (Name, Age, Sex, Country, Biography)            | B     |
-| #237 | Wizard Step 2: Division selection                                       | B     |
-| #235 | Wizard Step 3: Sub-Unit selection (filtered by division)                | B     |
-| #239 | Wizard Step 4: Specialty selection (from sub-unit)                      | B     |
-| #238 | Wizard Step 5: Auto-add division item and starting gear                 | C     |
-| #240 | Wizard Step 6: Distribute attribute points within budget                | B     |
-| #241 | Wizard Step 7: Distribute skill points with key skill exception         | B     |
-| #242 | Wizard Step 8: Talent selection with 3-slot enforcement                 | C     |
-| #249 | Wizard Step 9: Anchor and Dark Secret selection                         | B     |
-| #243 | Wizard Step 10: Summary review and apply all data to actor              | B     |
-| #244 | Add talent type taxonomy fields for wizard slot enforcement             | A     |
-| #245 | Wizard state management: reset downstream steps on upstream changes     | B     |
-| #246 | Style the character creation wizard (SCSS)                              | D     |
-| #247 | Add "Reset Character Creation" and handle pre-existing characters       | D     |
-| #248 | Add all wizard localization strings to en.json                          | D     |
+| #    | Title                                                                   | Phase | Notes                  |
+| ---- | ----------------------------------------------------------------------- | ----- | ---------------------- |
+| #232 | Add `sex`, `age`, and `creationComplete` fields to Agent data model     | A     |                        |
+| #233 | Add "Create Character" button to agent sheet header                     | B     |                        |
+| #234 | Create CharacterCreationWizard ApplicationV2 shell with step navigation | B     |                        |
+| #236 | Wizard Step 1: Identity (Name, Age, Sex, Country, Biography)            | B     |                        |
+| #237 | Wizard Step 2: Division selection                                       | B     |                        |
+| #235 | Wizard Step 3: Sub-Unit selection (filtered by division)                | B     |                        |
+| #239 | Wizard Step 4: Specialty selection (from sub-unit)                      | B     |                        |
+| #238 | Wizard Step 5: Auto-add division item and starting gear                 | C     |                        |
+| #240 | Wizard Step 6: Distribute attribute points within budget                | B     |                        |
+| #241 | Wizard Step 7: Distribute skill points with key skill exception         | B     |                        |
+| #242 | Wizard Step 8: Talent selection with 3-slot enforcement                 | C     |                        |
+| #249 | Wizard Step 9: Anchor and Dark Secret selection                         | B     |                        |
+| #243 | Wizard Step 10: Summary review and apply all data to actor              | B     |                        |
+| #252 | Extend TalentDataModel schema with talentType, division, subUnit fields | A     | Split from closed #244 |
+| #253 | Tag all talents in talents.yaml with taxonomy data                      | A     | Split from closed #244 |
+| #245 | Wizard state management: reset downstream steps on upstream changes     | B     |                        |
+| #246 | Style the character creation wizard (SCSS)                              | D     |                        |
+| #255 | Add "Reset Character Creation" GM action to agent sheet                 | D     | Split from closed #247 |
+| #254 | Migrate pre-existing agents to set creationComplete flag                | D     | Split from closed #247 |
+| #248 | Add all wizard localization strings to en.json                          | D     |                        |
+
+### Closed / Superseded
+
+| #    | Title                                                             | Replaced By |
+| ---- | ----------------------------------------------------------------- | ----------- |
+| #244 | Add talent type taxonomy fields for wizard slot enforcement       | #252 + #253 |
+| #247 | Add "Reset Character Creation" and handle pre-existing characters | #255 + #254 |
 
 ### Supporting Data Packs (2 issues)
 
@@ -255,12 +264,13 @@ These rules are correct in the chapter files but not relevant to character creat
                     ├─→ #236 (Identity) ──→ #237 (Division) ──→ #235 (Sub-Unit) ──→ #239 (Specialty)
 #234 (wizard shell) ┘                                               │
                                                                     ├─→ #238 (Gear)
-#244 (talent taxonomy) ──→ #242 (Talents)                           │
+#252 (talent schema) ──→ #253 (talent YAML) ──→ #242 (Talents)     │
                                                                     ├─→ #240 (Attributes) ──→ #241 (Skills)
 #250 (Dark Secrets pack) ──→ #249 (Anchor & Dark Secret)            │
 #251 (Anchor roll table) ──┘                                        │
                                                                     └─→ #243 (Summary) ──→ #245 (State mgmt)
                                                                                         ──→ #246 (SCSS)
-                                                                                        ──→ #247 (Reset)
+                                                                                        ──→ #255 (Reset)
+                                                                                        ──→ #254 (Migration)
                                                                                         ──→ #248 (i18n)
 ```
