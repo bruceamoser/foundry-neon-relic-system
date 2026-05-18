@@ -222,7 +222,51 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
   /** @override */
   async _onDropItem(event, data) {
+    const item = await Item.implementation.fromDropData(data);
+    if (!item) return super._onDropItem(event, data);
+
+    // Handle subdivision drop — configure agent identity fields
+    if (item.type === 'subdivision') {
+      return this.#applySubdivision(item);
+    }
+
     return super._onDropItem(event, data);
+  }
+
+  /**
+   * Apply a subdivision item to the agent — sets division, sub-unit,
+   * and prompts the user to choose a specialty.
+   * @param {Item} subdivision
+   */
+  async #applySubdivision(subdivision) {
+    const sys = subdivision.system;
+    const specialties = sys.specialties ?? [];
+
+    // Build specialty choices
+    let specialty = '';
+    if (specialties.length === 1) {
+      specialty = specialties[0].label;
+    } else if (specialties.length > 1) {
+      const options = specialties.map(s => `<option value="${s.label}">${s.label}</option>`).join('');
+      const content = `<form><div class="form-group"><label>${game.i18n.localize('NEONRELIC.Agent.Specialty')}</label><select name="specialty">${options}</select></div></form>`;
+      const result = await foundry.applications.api.DialogV2.prompt({
+        window: { title: game.i18n.localize('NEONRELIC.Agent.Specialty') },
+        content,
+        ok: {
+          callback: (event, button) => new FormData(button.form).get('specialty'),
+        },
+      });
+      if (result === null) return; // cancelled
+      specialty = result;
+    }
+
+    await this.document.update({
+      'system.division': sys.division,
+      'system.subUnit': subdivision.name,
+      'system.specialty': specialty,
+    });
+
+    ui.notifications.info(game.i18n.format('NEONRELIC.Subdivision.Applied', { name: subdivision.name }));
   }
 
   /* ------------------------------------------ */
