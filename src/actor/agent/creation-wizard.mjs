@@ -228,6 +228,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             value: system.skills[key] ?? 0,
             isKeySkill: key === keySkill,
             max: key === keySkill ? 4 : 3,
+            cssClass: key === keySkill ? 'key-skill' : '',
           });
         }
         context.skillBudget = system.budget;

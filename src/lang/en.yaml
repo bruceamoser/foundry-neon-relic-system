@@ -1045,6 +1045,7 @@ NEONRELIC:
     Skills:
       Title: Distribute Skill Points
       Description: 'Assign points to your skills. Max 3 per skill (4 for your Key Skill: {keySkill}).'
+      Budget: Skill Points
       Remaining: 'Points Remaining: {remaining} / {total}'
       KeySkillNote: '★ Key Skill (max 4)'
 
