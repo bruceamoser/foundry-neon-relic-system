@@ -20,7 +20,7 @@ NEON_RELIC.attributes = {
  */
 NEON_RELIC.skills = {
   force: { label: 'NEONRELIC.Skill.Force', attribute: 'str' },
-  endure: { label: 'NEONRELIC.Skill.Endure', attribute: 'agi' },
+  endure: { label: 'NEONRELIC.Skill.Endure', attribute: 'str' },
   brawl: { label: 'NEONRELIC.Skill.Brawl', attribute: 'str' },
   firearms: { label: 'NEONRELIC.Skill.Firearms', attribute: 'agi' },
   sleightOfHand: { label: 'NEONRELIC.Skill.SleightOfHand', attribute: 'agi' },
@@ -31,7 +31,7 @@ NEON_RELIC.skills = {
   psychoanalyze: { label: 'NEONRELIC.Skill.Psychoanalyze', attribute: 'emp' },
   manipulate: { label: 'NEONRELIC.Skill.Manipulate', attribute: 'emp' },
   command: { label: 'NEONRELIC.Skill.Command', attribute: 'emp' },
-  heal: { label: 'NEONRELIC.Skill.Heal', attribute: 'emp' },
+  heal: { label: 'NEONRELIC.Skill.Heal', attribute: 'wit' },
 };
 
 /**
