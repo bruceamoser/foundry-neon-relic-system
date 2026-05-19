@@ -9,11 +9,11 @@
     <div class='summary-section'>
       <h3>{{localize 'NEONRELIC.Wizard.Summary.Identity'}}</h3>
       <dl class='summary-data'>
-        <dt>{{localize 'NEONRELIC.Wizard.Identity.Name'}}</dt>
+        <dt>{{localize 'NEONRELIC.Agent.Name'}}</dt>
         <dd>{{actor.name}}</dd>
-        <dt>{{localize 'NEONRELIC.Wizard.Identity.AgeGroup'}}</dt>
+        <dt>{{localize 'NEONRELIC.Agent.AgeGroup'}}</dt>
         <dd>{{system.ageGroup}}</dd>
-        <dt>{{localize 'NEONRELIC.Wizard.Identity.Age'}}</dt>
+        <dt>{{localize 'NEONRELIC.Agent.Age'}}</dt>
         <dd>{{system.age}}</dd>
       </dl>
     </div>
@@ -22,11 +22,11 @@
     <div class='summary-section'>
       <h3>{{localize 'NEONRELIC.Wizard.Summary.Division'}}</h3>
       <dl class='summary-data'>
-        <dt>{{localize 'NEONRELIC.Division.Label'}}</dt>
+        <dt>{{localize 'NEONRELIC.Agent.Division'}}</dt>
         <dd>{{#if summaryDivision}}{{summaryDivision}}{{else}}{{localize 'NEONRELIC.Wizard.Summary.NotSet'}}{{/if}}</dd>
-        <dt>{{localize 'NEONRELIC.SubUnit.Label'}}</dt>
+        <dt>{{localize 'NEONRELIC.Agent.SubUnit'}}</dt>
         <dd>{{#if summarySubUnit}}{{summarySubUnit}}{{else}}{{localize 'NEONRELIC.Wizard.Summary.NotSet'}}{{/if}}</dd>
-        <dt>{{localize 'NEONRELIC.Specialty.Label'}}</dt>
+        <dt>{{localize 'NEONRELIC.Agent.Specialty'}}</dt>
         <dd>{{#if summarySpecialty}}{{summarySpecialty}}{{else}}{{localize
               'NEONRELIC.Wizard.Summary.NotSet'
             }}{{/if}}</dd>
@@ -37,9 +37,9 @@
     <div class='summary-section'>
       <h3>{{localize 'NEONRELIC.Wizard.Summary.Stats'}}</h3>
       <dl class='summary-data'>
-        {{#each system.attributes as |attr key|}}
-          <dt>{{key}}</dt>
-          <dd>{{attr.max}}</dd>
+        {{#each summaryAttributes as |attr|}}
+          <dt>{{attr.label}}</dt>
+          <dd>{{attr.value}}</dd>
         {{/each}}
       </dl>
     </div>

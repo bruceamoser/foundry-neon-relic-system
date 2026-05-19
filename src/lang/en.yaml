@@ -997,6 +997,7 @@ NEONRELIC:
     Complete: Complete Character Creation
     CancelConfirm: Are you sure? All wizard progress will be lost.
     StepOf: 'Step {current} of {total}'
+    ViewDetails: View Details
 
     Identity:
       Title: Agent Identity
@@ -1016,6 +1017,10 @@ NEONRELIC:
       KeySkill: Key Skill
       BaseCL: Base CL
       DivisionItem: Division Item
+      Desc:
+        wayfinder: Research, intelligence gathering, and counterintelligence. Wayfinders uncover the truth behind artifacts and the threats that seek them.
+        recovery: Field retrieval and direct action. Recovery agents locate, secure, and extract supernatural artifacts from dangerous situations.
+        keep: Vault security, artifact custody, and logistics. The Keep catalogues, contains, and protects everything the Covenant has recovered.
 
     SubUnit:
       Title: Choose Your Sub-Unit

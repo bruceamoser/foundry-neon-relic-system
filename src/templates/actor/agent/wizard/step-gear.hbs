@@ -7,9 +7,17 @@
   {{#if divisionItem}}
     <div class='gear-section'>
       <h3>{{localize 'NEONRELIC.Wizard.Gear.DivisionItem'}}</h3>
-      <div class='gear-item division-item'>
+      <div class='gear-item division-item' data-item-id='{{divisionItem._id}}'>
         <img src='{{divisionItem.img}}' alt='{{divisionItem.name}}' />
         <span class='gear-name'>{{divisionItem.name}}</span>
+        <button
+          type='button'
+          class='info-btn'
+          data-action='viewItem'
+          data-tooltip='{{localize "NEONRELIC.Wizard.ViewDetails"}}'
+        >
+          <i class='fas fa-circle-info'></i>
+        </button>
       </div>
     </div>
   {{/if}}
@@ -19,10 +27,18 @@
       <h3>{{localize 'NEONRELIC.Wizard.Gear.StartingKit'}}</h3>
       <div class='gear-list'>
         {{#each gearItems as |item|}}
-          <div class='gear-item'>
+          <div class='gear-item' data-item-id='{{item._id}}'>
             <img src='{{item.img}}' alt='{{item.name}}' />
             <span class='gear-name'>{{item.name}}</span>
             <span class='gear-type'>{{item.type}}</span>
+            <button
+              type='button'
+              class='info-btn'
+              data-action='viewItem'
+              data-tooltip='{{localize "NEONRELIC.Wizard.ViewDetails"}}'
+            >
+              <i class='fas fa-circle-info'></i>
+            </button>
           </div>
         {{/each}}
       </div>

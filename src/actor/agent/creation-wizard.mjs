@@ -70,6 +70,8 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       removeAnchor: CreationWizard.#onRemoveItem,
       openDarkSecretCompendium: CreationWizard.#onOpenDarkSecretCompendium,
       removeDarkSecret: CreationWizard.#onRemoveItem,
+      viewItem: CreationWizard.#onViewItem,
+      viewCompendiumItem: CreationWizard.#onViewCompendiumItem,
     },
     form: {
       submitOnChange: true,
@@ -164,6 +166,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
           return {
             key,
             label: game.i18n.localize(label),
+            description: game.i18n.localize(`NEONRELIC.Wizard.Division.Desc.${key}`),
             baseCL: sub?.system.baseCL ?? 2,
             selected: system.division === key,
             cssClass: system.division === key ? 'selected' : '',
@@ -181,7 +184,9 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
           .filter(s => s.system.division === system.division)
           .map(s => ({
             id: s.id,
+            uuid: s.uuid,
             name: s.name,
+            description: s.system.description ?? '',
             keySkill: s.system.keySkill,
             keySkillLabel: s.system.keySkill
               ? game.i18n.localize(CONFIG.NEON_RELIC.skills[s.system.keySkill]?.label ?? '')
@@ -217,10 +222,10 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
 
       case 'attributes': {
         context.attributes = {};
-        for (const [key, cfg] of Object.entries(CONFIG.NEON_RELIC.attributes)) {
+        for (const [key, label] of Object.entries(CONFIG.NEON_RELIC.attributes)) {
           context.attributes[key] = {
             key,
-            label: game.i18n.localize(cfg.label),
+            label: game.i18n.localize(label),
             value: system.attributes[key].max,
           };
         }
@@ -270,6 +275,10 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         context.summaryDarkSecret = this.actor.items.find(i => i.type === 'darkSecret')?.name ?? '';
         context.summaryTalents = this.actor.items.filter(i => i.type === 'talent').map(t => t.name);
         context.summaryKeySkill = sub?.system.keySkill ?? '';
+        context.summaryAttributes = Object.entries(CONFIG.NEON_RELIC.attributes).map(([key, label]) => ({
+          label: game.i18n.localize(label),
+          value: system.attributes[key].max,
+        }));
         break;
       }
     }
@@ -534,5 +543,33 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   static async #onOpenDarkSecretCompendium(_event, _target) {
     const pack = game.packs.get('neon-relic.dark-secrets');
     if (pack) pack.render(true);
+  }
+
+  /**
+   * View an item sheet for an item owned by the actor.
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   */
+  static async #onViewItem(event, target) {
+    event.preventDefault();
+    event.stopPropagation();
+    const itemId = target.closest('[data-item-id]')?.dataset.itemId;
+    if (!itemId) return;
+    const item = this.actor.items.get(itemId);
+    if (item) item.sheet.render(true);
+  }
+
+  /**
+   * View an item sheet for a compendium item by UUID.
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
+   */
+  static async #onViewCompendiumItem(event, target) {
+    event.preventDefault();
+    event.stopPropagation();
+    const uuid = target.closest('[data-uuid]')?.dataset.uuid;
+    if (!uuid) return;
+    const doc = await fromUuid(uuid);
+    if (doc) doc.sheet.render(true);
   }
 }

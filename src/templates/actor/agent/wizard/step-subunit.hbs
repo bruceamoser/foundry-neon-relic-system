@@ -12,13 +12,27 @@
             <input type='radio' name='system.subUnit' value='{{su.name}}' />
           {{/if}}
           <div class='subunit-card-body'>
-            <h3 class='subunit-name'>{{su.name}}</h3>
+            <div class='subunit-header'>
+              <h3 class='subunit-name'>{{su.name}}</h3>
+              <button
+                type='button'
+                class='info-btn'
+                data-action='viewCompendiumItem'
+                data-uuid='{{su.uuid}}'
+                data-tooltip='{{localize "NEONRELIC.Wizard.ViewDetails"}}'
+              >
+                <i class='fas fa-circle-info'></i>
+              </button>
+            </div>
             <div class='subunit-meta'>
               <span>{{localize 'NEONRELIC.Wizard.SubUnit.KeySkill'}}:
                 {{su.keySkillLabel}}</span>
               <span>{{localize 'NEONRELIC.Wizard.Division.BaseCL'}}:
                 {{su.baseCL}}</span>
             </div>
+            {{#if su.description}}
+              <div class='subunit-description'>{{{su.description}}}</div>
+            {{/if}}
           </div>
         </label>
       {{/each}}
