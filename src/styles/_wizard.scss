@@ -261,6 +261,25 @@
     }
   }
 
+  .specialty-option {
+    align-items: flex-start;
+
+    .specialty-card-body {
+      flex: 1;
+
+      .specialty-name {
+        font-weight: bold;
+      }
+
+      .specialty-description {
+        font-size: 12px;
+        color: $nr-ink-light;
+        margin-top: $nr-spacing-xs;
+        line-height: 1.4;
+      }
+    }
+  }
+
   // ── Info Buttons ───────────────────────────────────────
   .info-btn {
     background: none;

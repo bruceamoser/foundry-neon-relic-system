@@ -14,10 +14,23 @@
     specialties:
       - key: research-desk-analyst
         label: Research Desk Analyst
+        description: >-
+          Focuses on research within Covenant archives and partner repositories.
+          Studies historical documents, translates ancient texts, analyzes cultural
+          and religious records, and monitors scholarly publications.
       - key: research-field-analyst
         label: Research Field Analyst
+        description: >-
+          Conducts investigative work outside Covenant facilities. Visits
+          archaeological sites, examines ruins, interviews scholars or local
+          witnesses, and verifies Desk Analyst intelligence.
       - key: research-liaison
         label: Research Liaison
+        description: >-
+          Embeds with academic institutions, museums, and partner agencies to
+          cultivate intelligence relationships through official channels.
+          Maintains scholarly cover identities and routes actionable field
+          intelligence back to the Desk.
     startingGear:
       - name: Briefcase
         type: gear
@@ -50,10 +63,22 @@
     specialties:
       - key: ci-desk-analyst
         label: Counterintelligence Desk Analyst
+        description: >-
+          Monitors global communications, public records, academic publications,
+          and intelligence reports for indications that artifacts have been
+          discovered, trafficked, or targeted.
       - key: ci-field-analyst
         label: Counterintelligence Field Analyst
+        description: >-
+          Operates outside Covenant facilities to investigate threats directly.
+          Conducts surveillance of suspicious organizations, infiltrates groups
+          seeking artifacts, and disrupts activities that could expose the Covenant.
       - key: ci-technical-analyst
         label: Counterintelligence Technical Analyst
+        description: >-
+          Specializes in signals intelligence, electronic surveillance, and
+          cryptographic analysis of intercepted communications. Operates
+          wire-taps, intercepts radio traffic, and deciphers coded correspondence.
     startingGear:
       - name: Briefcase
         type: gear
@@ -87,10 +112,21 @@
     specialties:
       - key: handler
         label: Handler
+        description: >-
+          Runs covert assets and informants. Expert in managing human
+          intelligence networks, dead drops, and clandestine communications.
       - key: breacher
         label: Breacher
+        description: >-
+          Specializes in hostile entry and extraction under fire. Trained in
+          demolitions, close-quarters combat, and rapid building clearance.
+          First through the door when negotiations fail.
       - key: ghost
         label: Ghost
+        description: >-
+          Operates deep undercover for extended periods. Maintains false
+          identities, embeds within hostile organizations, and reports
+          intelligence without breaking cover.
     startingGear:
       - name: Revolver (.38)
         type: weapon
@@ -126,10 +162,22 @@
     specialties:
       - key: enforcer
         label: Enforcer
+        description: >-
+          The Covenant's blunt instrument for hostile recovery operations.
+          Specializes in intimidation, physical domination, and overwhelming
+          force when artifacts are held by armed or dangerous opposition.
       - key: close-protection
         label: Close Protection
+        description: >-
+          Bodyguard and security specialist. Shields Recovery teams and
+          high-value Covenant personnel during dangerous field operations.
+          Trained to absorb punishment and keep others alive.
       - key: wrecker
         label: Wrecker
+        description: >-
+          Expert in destruction and demolition. Removes structural obstacles,
+          breaches fortified positions, and disables vehicles or equipment.
+          When the path forward is blocked, the Wrecker opens it.
     startingGear:
       - name: Revolver (.38)
         type: weapon
@@ -165,10 +213,22 @@
     specialties:
       - key: infiltrator
         label: Infiltrator
+        description: >-
+          Defeats physical and electronic security systems. Expert in
+          lock-picking, alarm bypass, safe-cracking, and navigating laser
+          grids, pressure plates, and motion detectors.
       - key: grifter
         label: Grifter
+        description: >-
+          Operates through social engineering and deception. Assumes false
+          identities, manipulates targets through conversation, and acquires
+          access through charm, forgery, or confidence games.
       - key: wheelman
         label: Wheelman
+        description: >-
+          Specialist driver, pilot, and escape planner. Handles pursuit,
+          evasion, and extraction logistics. Ensures the team reaches the
+          target and leaves cleanly with the artifact.
     startingGear:
       - name: Revolver (.38)
         type: weapon
@@ -205,10 +265,23 @@
     specialties:
       - key: intake-officer
         label: Intake Officer
+        description: >-
+          First point of contact for newly recovered artifacts. Assesses risk
+          level, initiates containment protocol, performs initial hazard
+          classification, and opens the formal Registry entry.
       - key: archivist
         label: Archivist
+        description: >-
+          Maintains the Covenant's master artifact registry. Expert in
+          historical context, cultural origin, and known hazard documentation.
+          Coordinates with Wayfinder records to verify provenance.
       - key: containment-architect
         label: Containment Architect
+        description: >-
+          Designs and maintains the specialized vaults, sealed chambers, and
+          environmental stabilization systems that keep artifacts secure.
+          Conducts periodic inspections and redesigns containment when
+          artifact behavior changes.
     startingGear:
       - name: Containment Kit
         type: gear
@@ -234,10 +307,22 @@
     specialties:
       - key: vault-guardian
         label: Vault Guardian
+        description: >-
+          Stationed within Covenant facilities. Responsible for physical
+          security of vaults and sensitive areas. First responders to
+          containment failures, breaches, or unauthorized access events.
       - key: escort-warden
         label: Escort Warden
+        description: >-
+          Accompanies artifact transports and personnel through restricted or
+          external environments. Provides mobile security during inter-facility
+          transfers and high-clearance field movements.
       - key: field-warden
         label: Field Warden
+        description: >-
+          Deploys externally when hostile threats escalate beyond passive
+          monitoring. Conducts disruption operations against rival factions
+          and recovers property stolen from Covenant custody.
     startingGear:
       - name: Containment Kit
         type: gear
@@ -266,10 +351,22 @@
     specialties:
       - key: counter-exposure-analyst
         label: Counter-Exposure Analyst
+        description: >-
+          Monitors internal communications and personnel behavior for signs
+          of information leaks, unauthorized disclosure, or ideological
+          compromise. Conducts silent internal audits.
       - key: infiltration-investigator
         label: Infiltration Investigator
+        description: >-
+          Investigates active external threats against Covenant facilities,
+          personnel, or networks. Tracks hostile actors and builds operational
+          cases against suspected infiltrators.
       - key: vetting-officer
         label: Vetting Officer
+        description: >-
+          Conducts background assessments and ongoing clearance monitoring
+          for Covenant recruits and active personnel. Identifies vulnerabilities
+          and security risks before they can be exploited.
     startingGear:
       - name: Containment Kit
         type: gear
@@ -295,10 +392,19 @@
     specialties:
       - key: quartermaster
         label: The Quartermaster
+        description: >-
+          Manages the Covenant's equipment stores. Expert in acquisition,
+          logistics, and knowing exactly what's available.
       - key: retro-engineer
         label: The Retro-Engineer
+        description: >-
+          Specializes in modifying and repairing existing technology. Can
+          coax impossible performance from aging hardware.
       - key: paratech-inventor
         label: The Paratech Inventor
+        description: >-
+          Designs entirely new experimental devices that blend analog
+          technology with paranatural principles.
     startingGear:
       - name: Tool Kit
         type: gear

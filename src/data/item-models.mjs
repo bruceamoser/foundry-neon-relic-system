@@ -418,6 +418,7 @@ export class SubdivisionDataModel extends foundry.abstract.TypeDataModel {
         new SchemaField({
           key: new StringField({ blank: false }),
           label: new StringField({ blank: false }),
+          description: new StringField({ blank: true }),
         }),
       ),
       startingGear: new ArrayField(
