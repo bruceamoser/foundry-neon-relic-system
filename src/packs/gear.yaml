@@ -1,6 +1,198 @@
 # Gear & Consumables Compendium Pack
 # Neon Relic — Year Zero Engine
 ---
+# ── Division Items ───────────────────────────
+- _id: div001
+  name: Verdant Codex
+  type: gear
+  system:
+    description: >-
+      <p>Ancient leather-bound field journal issued to Wayfinder agents.
+      Secures memory, assists with language and symbol work, highlights
+      likely historical correlations, and preserves documents.</p>
+      <p><strong>Mechanical Benefit:</strong> +1 bonus die on Lore or
+      Investigate rolls using Codex notes. Automatically records successful
+      Lore rolls so they cannot be forgotten.</p>
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 1
+    cl: 1
+    isBroken: false
+    skillBonus: lore
+
+- _id: div002
+  name: Verdant Satchel
+  type: gear
+  system:
+    description: >-
+      <p>Reinforced satchel lined with containment materials, issued to
+      Recovery agents. Masks minor artifact signatures, stabilizes transport,
+      warns of instability, and keeps basic field tools ready.</p>
+      <p><strong>Mechanical Benefit:</strong> Artifacts inside don't emit
+      passive Corruption (Aura). Warns when artifact reaches
+      Volatile/Catastrophic. Can stabilize an artifact for one round
+      (1/scene).</p>
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 1
+    cl: 1
+    isBroken: false
+
+- _id: div003
+  name: "Warden's Bracer"
+  type: gear
+  system:
+    description: >-
+      <p>Reinforced bracer with embedded containment circuitry, issued to
+      Keep agents. Dampens nearby emissions during handling, warns of
+      containment failure, and makes cursed objects safer to manage.</p>
+      <p><strong>Mechanical Benefit:</strong> +1 Armor Rating. Absorbs
+      1 Corruption per session passively.</p>
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 1
+    cl: 1
+    isBroken: false
+
+# ── Wayfinder Starting Gear ─────────────────
+- _id: gear011
+  name: Briefcase
+  type: gear
+  system:
+    description: >-
+      Leather briefcase with research materials — notepad, pens, and carbon
+      paper. Essential for field documentation.
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 1
+    cl: 1
+    isBroken: false
+
+- _id: gear012
+  name: Forged Credentials
+  type: gear
+  system:
+    description: >-
+      Covenant-issued forged identification — press pass, academic ID, or
+      government contractor badge. Player's choice of cover identity.
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 0
+    cl: 2
+    isBroken: false
+    skillBonus: manipulate
+
+- _id: gear013
+  name: Civilian Clothing
+  type: gear
+  system:
+    description: >-
+      Appropriate civilian attire for blending into the investigation
+      environment. Nothing remarkable — that's the point.
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 0
+    cl: 1
+    isBroken: false
+
+# ── Recovery Starting Gear ──────────────────
+- _id: gear014
+  name: Field Jacket
+  type: gear
+  system:
+    description: >-
+      Rugged field jacket with concealed holster. Provides minimal
+      protection and keeps a sidearm out of sight.
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 1
+    cl: 1
+    isBroken: false
+
+# ── Keep Starting Gear ──────────────────────
+- _id: gear015
+  name: Containment Kit
+  type: gear
+  system:
+    description: >-
+      Standard Keep-issue containment supplies — 1 kg salt, 10 m copper
+      wire, chalk sticks, and sealed glass canisters. Required for
+      emergency artifact containment procedures.
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 2
+    cl: 2
+    isBroken: false
+
+- _id: gear016
+  name: Lore Reference Binder
+  type: gear
+  system:
+    description: >-
+      Photocopied Covenant texts covering known artifact types, containment
+      protocols, and identification procedures. +1 die on Lore rolls to
+      identify artifacts.
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 1
+    cl: 2
+    isBroken: false
+    skillBonus: lore
+
+- _id: gear017
+  name: Formal Attire
+  type: gear
+  system:
+    description: >-
+      Formal attire or tactical jacket — player's choice based on role.
+      Helps the agent fit in at official Covenant functions or field
+      operations.
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 0
+    cl: 1
+    isBroken: false
+
+# ── Stack Starting Gear ─────────────────────
+- _id: gear018
+  name: Signal Jammer
+  type: gear
+  system:
+    description: >-
+      Prototype signal jammer. Disrupts radio communications and electronic
+      surveillance within short range. 1 use before repair required.
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 1
+    cl: 3
+    isBroken: false
+
+- _id: gear019
+  name: Coveralls
+  type: gear
+  system:
+    description: >-
+      Practical coveralls or utility vest with multiple pockets.
+      Standard Stack Department field wear.
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 0
+    cl: 1
+    isBroken: false
+
+# ── General Gear ─────────────────────────────
 - _id: gear001
   name: Flashlight
   type: gear

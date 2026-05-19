@@ -224,11 +224,36 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       }
 
       case 'gear': {
-        // List starting gear from items
-        context.gearItems = this.actor.items.filter(
-          i => i.type === 'gear' || i.type === 'weapon' || i.type === 'armor' || i.type === 'consumable',
-        );
-        context.divisionItem = this.actor.items.find(i => i.type === 'divisionItem') ?? null;
+        // Look up subdivision from compendium to get starting gear list
+        const gearPack = game.packs.get('neon-relic.subdivisions');
+        const allSubsGear = gearPack ? await gearPack.getDocuments() : [];
+        const currentSubGear = allSubsGear.find(s => s.name === system.subUnit);
+
+        // Resolve division item from compendium
+        const divItemName = currentSubGear?.system.divisionItemName ?? '';
+        if (divItemName) {
+          const gearCompendium = game.packs.get('neon-relic.gear');
+          const gearDocs = gearCompendium ? await gearCompendium.getDocuments() : [];
+          context.divisionItem = gearDocs.find(d => d.name === divItemName) ?? null;
+        } else {
+          context.divisionItem = null;
+        }
+
+        // Resolve starting gear items from compendiums
+        const startingGearRefs = currentSubGear?.system.startingGear ?? [];
+        const resolvedGear = [];
+        for (const ref of startingGearRefs) {
+          const packId = ref.pack || 'neon-relic.gear';
+          const pack = game.packs.get(packId);
+          if (!pack) continue;
+          const docs = await pack.getDocuments();
+          const found = docs.find(d => d.name === ref.name);
+          if (found) resolvedGear.push(found);
+        }
+        context.gearItems = resolvedGear;
+        context.divisionName = system.division
+          ? game.i18n.localize(CONFIG.NEON_RELIC.divisions[system.division] ?? '')
+          : '';
         break;
       }
 
