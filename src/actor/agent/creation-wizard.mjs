@@ -124,7 +124,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     context.actor = this.actor;
     context.system = this.actor.system;
     context.config = CONFIG.NEON_RELIC;
-    context.steps = STEPS;
+    context.steps = STEPS.map((step, i) => ({ ...step, number: i + 1 }));
     context.currentStep = this.#currentStep;
     context.stepConfig = this.stepConfig;
     context.isFirstStep = this.isFirstStep;
