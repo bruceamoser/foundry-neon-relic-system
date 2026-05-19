@@ -6,6 +6,12 @@
   color: $nr-paper;
   font-family: $nr-font-body;
 
+  .wizard-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
   // ── Progress Bar ───────────────────────────────────────
   .wizard-progress {
     display: flex;
