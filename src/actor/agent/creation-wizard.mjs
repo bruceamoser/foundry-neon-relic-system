@@ -496,21 +496,33 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
    */
   static async #onRollAnchor(_event, _target) {
     const pack = game.packs.get('neon-relic.roll-tables');
-    if (!pack) return;
+    if (!pack) {
+      ui.notifications.warn('Roll tables compendium not found.');
+      return;
+    }
     const tables = await pack.getDocuments();
     const anchorTable = tables.find(t => t.name.includes('Anchor'));
-    if (!anchorTable) return;
-    const { results } = await anchorTable.roll();
-    if (results.length) {
-      const result = results[0];
-      await this.actor.createEmbeddedDocuments('Item', [
-        {
-          name: result.text,
-          type: 'anchor',
-          system: { relationship: result.text },
-        },
-      ]);
-      this.render();
+    if (!anchorTable) {
+      ui.notifications.warn('Anchor Table not found in roll tables compendium.');
+      return;
+    }
+    try {
+      const { results } = await anchorTable.roll();
+      if (results.length) {
+        const result = results[0];
+        const text = result.name ?? result.text;
+        await this.actor.createEmbeddedDocuments('Item', [
+          {
+            name: text,
+            type: 'anchor',
+            system: { relationship: text },
+          },
+        ]);
+        this.render();
+      }
+    } catch (err) {
+      console.error('Anchor roll error:', err);
+      ui.notifications.error('Failed to roll on the Anchor Table.');
     }
   }
 

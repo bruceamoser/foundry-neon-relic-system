@@ -141,7 +141,7 @@
   name: Anchor Table (d66)
   type: rollTable
   system:
-    formula: 1d66
+    formula: (1d6 * 10) + 1d6
     entries:
       - range: [11, 11]
         result: A severely chewed, red Bic pen belonging to a missing sibling.
