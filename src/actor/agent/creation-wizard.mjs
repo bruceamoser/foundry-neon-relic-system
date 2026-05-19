@@ -199,9 +199,9 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         const allSubs = pack ? await pack.getDocuments() : [];
         const currentSub = allSubs.find(s => s.name === system.subUnit);
         context.specialtyChoices = (currentSub?.system.specialties ?? []).map(sp => ({
-          name: sp,
-          selected: system.specialty === sp,
-          cssClass: system.specialty === sp ? 'selected' : '',
+          name: sp.label ?? sp,
+          selected: system.specialty === (sp.label ?? sp),
+          cssClass: system.specialty === (sp.label ?? sp) ? 'selected' : '',
         }));
         break;
       }
