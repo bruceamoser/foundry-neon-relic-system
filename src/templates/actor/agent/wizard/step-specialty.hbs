@@ -13,7 +13,12 @@
           {{else}}
             <input type='radio' name='system.specialty' value='{{sp.name}}' />
           {{/if}}
-          <span class='specialty-name'>{{sp.name}}</span>
+          <div class='specialty-card-body'>
+            <span class='specialty-name'>{{sp.name}}</span>
+            {{#if sp.description}}
+              <p class='specialty-description'>{{sp.description}}</p>
+            {{/if}}
+          </div>
         </label>
       {{/each}}
     </div>
