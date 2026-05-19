@@ -1,7 +1,8 @@
 // Neon Relic — Creation Wizard SCSS
 // Dark analog theme for the character creation wizard
+// Use .neon-relic.creation-wizard to override the base .neon-relic.application styles
 
-.creation-wizard {
+.neon-relic.creation-wizard {
   background: $nr-ink;
   color: $nr-paper;
   font-family: $nr-font-body;
@@ -313,12 +314,45 @@
     gap: $nr-spacing-xs $nr-spacing-sm;
   }
 
+  // Skills column layout (grouped by attribute)
+  .skills-columns {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $nr-spacing-xs;
+  }
+
+  .skill-column {
+    display: flex;
+    flex-direction: column;
+    gap: $nr-spacing-xs;
+  }
+
+  .skill-column-header {
+    text-align: center;
+    padding: $nr-spacing-xs;
+    border-bottom: 2px solid $nr-ink-faded;
+    margin-bottom: $nr-spacing-xs;
+    font-family: $nr-font-main;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    .attr-name {
+      font-weight: bold;
+    }
+
+    .attr-val {
+      color: rgba($nr-paper, 0.6);
+      margin-left: 2px;
+    }
+  }
+
   .attribute-row,
   .skill-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: $nr-spacing-xs $nr-spacing-sm;
+    padding: $nr-spacing-xs 2px;
     border: 1px solid transparent;
     border-radius: 3px;
 

@@ -65,8 +65,8 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       resizable: true,
     },
     position: {
-      width: 640,
-      height: 560,
+      width: 720,
+      height: 640,
     },
     actions: {
       next: CreationWizard.#onNext,
@@ -83,6 +83,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       viewItem: CreationWizard.#onViewItem,
       viewCompendiumItem: CreationWizard.#onViewCompendiumItem,
       adjustWizardAttribute: CreationWizard.#onAdjustWizardAttribute,
+      adjustWizardSkill: CreationWizard.#onAdjustWizardSkill,
     },
     form: {
       submitOnChange: true,
@@ -259,21 +260,44 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       }
 
       case 'skills': {
-        context.skillList = [];
-        const sub = this.actor.items.find(i => i.type === 'subdivision');
+        // Look up key skill from the subdivision compendium
+        const pack = game.packs.get('neon-relic.subdivisions');
+        const allSubs = pack ? await pack.getDocuments() : [];
+        const sub = allSubs.find(s => s.name === system.subUnit);
         const keySkill = sub?.system.keySkill ?? '';
+
+        // Group skills by parent attribute into columns
+        const columnMap = {};
+        for (const [attrKey, attrLabel] of Object.entries(CONFIG.NEON_RELIC.attributes)) {
+          columnMap[attrKey] = {
+            attrKey,
+            attrLabel: game.i18n.localize(attrLabel),
+            attrValue: system.attributes[attrKey].max,
+            skills: [],
+          };
+        }
         for (const [key, cfg] of Object.entries(CONFIG.NEON_RELIC.skills)) {
-          context.skillList.push({
+          const value = system.skills[key] ?? 0;
+          const isKey = key === keySkill;
+          const max = isKey ? 4 : 3;
+          columnMap[cfg.attribute].skills.push({
             key,
             label: game.i18n.localize(cfg.label),
-            value: system.skills[key] ?? 0,
-            isKeySkill: key === keySkill,
-            max: key === keySkill ? 4 : 3,
-            cssClass: key === keySkill ? 'key-skill' : '',
+            value,
+            isKeySkill: isKey,
+            max,
+            disabledPlus: value >= max || system.budget.skillRemaining <= 0 ? 'disabled' : '',
+            disabledMinus: value <= 0 ? 'disabled' : '',
+            cssClass: isKey ? 'key-skill' : '',
           });
         }
+        context.skillColumns = Object.values(columnMap);
         context.skillBudget = system.budget;
+        context.skillBudgetClass = system.budget.skillRemaining < 0 ? 'over-budget' : '';
         context.keySkillName = keySkill ? game.i18n.localize(CONFIG.NEON_RELIC.skills[keySkill]?.label ?? '') : '';
+        context.skillsDescription = game.i18n.format('NEONRELIC.Wizard.Skills.Description', {
+          keySkill: context.keySkillName || '—',
+        });
         break;
       }
 
@@ -450,6 +474,33 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   /**
+   * Adjust a wizard skill by +1 or -1 via the +/− buttons.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   */
+  static async #onAdjustWizardSkill(_event, target) {
+    const skill = target.dataset.skill;
+    const delta = Number(target.dataset.delta);
+    if (!skill || !delta) return;
+
+    const system = this.actor.system;
+    const current = system.skills[skill] ?? 0;
+    const pack = game.packs.get('neon-relic.subdivisions');
+    const allSubs = pack ? await pack.getDocuments() : [];
+    const sub = allSubs.find(s => s.name === system.subUnit);
+    const keySkill = sub?.system.keySkill ?? '';
+    const max = skill === keySkill ? 4 : 3;
+    const newValue = Math.clamp(current + delta, 0, max);
+    if (newValue === current) return;
+
+    // Check budget on increase
+    if (delta > 0 && system.budget.skillRemaining <= 0) return;
+
+    await this.actor.update({ [`system.skills.${skill}`]: newValue });
+    this.render();
+  }
+
+  /**
    * Advance to the next wizard step.
    * @param {PointerEvent} event
    * @param {HTMLElement} target
@@ -463,6 +514,15 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       const budget = this.actor.system.budget;
       if (budget.attrRemaining !== 0) {
         ui.notifications.warn(game.i18n.localize('NEONRELIC.Wizard.Attributes.BudgetWarning'));
+        return;
+      }
+    }
+
+    // Validate skill budget before leaving skills step
+    if (stepId === 'skills') {
+      const budget = this.actor.system.budget;
+      if (budget.skillRemaining !== 0) {
+        ui.notifications.warn(game.i18n.localize('NEONRELIC.Wizard.Skills.BudgetWarning'));
         return;
       }
     }
