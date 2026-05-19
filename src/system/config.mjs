@@ -44,6 +44,25 @@ NEON_RELIC.divisions = {
 };
 
 /**
+ * Talent type categories for wizard slot enforcement.
+ */
+NEON_RELIC.talentTypes = {
+  general: 'NEONRELIC.TalentType.General',
+  division: 'NEONRELIC.TalentType.Division',
+  subunit: 'NEONRELIC.TalentType.SubUnit',
+  background: 'NEONRELIC.TalentType.Background',
+};
+
+/**
+ * Sex options for agent creation.
+ */
+NEON_RELIC.sexOptions = {
+  male: 'NEONRELIC.Sex.Male',
+  female: 'NEONRELIC.Sex.Female',
+  other: 'NEONRELIC.Sex.Other',
+};
+
+/**
  * Age groups for agent creation.
  */
 NEON_RELIC.ageGroups = {

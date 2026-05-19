@@ -54,69 +54,99 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 
     // Pre-render type-specific template content
     const typeTemplatePath = `systems/${SYSTEM_ID}/templates/item/${item.type}.hbs`;
-    context.enrichedDescription = await TextEditor.enrichHTML(system.description ?? '', {
-      async: true,
-      relativeTo: item,
-    });
+    context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+      system.description ?? '',
+      {
+        async: true,
+        relativeTo: item,
+      },
+    );
 
     // Type-specific enrichments
     if (item.type === 'artifact') {
-      context.enrichedEffect = await TextEditor.enrichHTML(system.effect ?? '', {
+      context.enrichedEffect = await foundry.applications.ux.TextEditor.implementation.enrichHTML(system.effect ?? '', {
         async: true,
         relativeTo: item,
       });
     }
     if (item.type === 'talent') {
-      context.enrichedEffect = await TextEditor.enrichHTML(system.effect ?? '', {
+      context.enrichedEffect = await foundry.applications.ux.TextEditor.implementation.enrichHTML(system.effect ?? '', {
         async: true,
         relativeTo: item,
       });
-      context.enrichedPrerequisites = await TextEditor.enrichHTML(system.prerequisites ?? '', {
-        async: true,
-        relativeTo: item,
-      });
+      context.enrichedPrerequisites = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.prerequisites ?? '',
+        {
+          async: true,
+          relativeTo: item,
+        },
+      );
     }
     if (item.type === 'criticalInjury') {
-      context.enrichedEffect = await TextEditor.enrichHTML(system.effect ?? '', {
+      context.enrichedEffect = await foundry.applications.ux.TextEditor.implementation.enrichHTML(system.effect ?? '', {
         async: true,
         relativeTo: item,
       });
-      context.enrichedInsight = await TextEditor.enrichHTML(system.insight ?? '', {
-        async: true,
-        relativeTo: item,
-      });
+      context.enrichedInsight = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.insight ?? '',
+        {
+          async: true,
+          relativeTo: item,
+        },
+      );
     }
     if (item.type === 'location') {
-      context.enrichedPositiveResult = await TextEditor.enrichHTML(system.positiveResult ?? '', {
-        async: true,
-        relativeTo: item,
-      });
-      context.enrichedNegativeResult = await TextEditor.enrichHTML(system.negativeResult ?? '', {
-        async: true,
-        relativeTo: item,
-      });
-      context.enrichedMilestoneChanges = await TextEditor.enrichHTML(system.milestoneChanges ?? '', {
-        async: true,
-        relativeTo: item,
-      });
-      context.enrichedNpcsPresent = await TextEditor.enrichHTML(system.npcsPresent ?? '', {
-        async: true,
-        relativeTo: item,
-      });
-      context.enrichedInformationAvailable = await TextEditor.enrichHTML(system.informationAvailable ?? '', {
-        async: true,
-        relativeTo: item,
-      });
-      context.enrichedOrganizationsPresent = await TextEditor.enrichHTML(system.organizationsPresent ?? '', {
-        async: true,
-        relativeTo: item,
-      });
+      context.enrichedPositiveResult = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.positiveResult ?? '',
+        {
+          async: true,
+          relativeTo: item,
+        },
+      );
+      context.enrichedNegativeResult = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.negativeResult ?? '',
+        {
+          async: true,
+          relativeTo: item,
+        },
+      );
+      context.enrichedMilestoneChanges = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.milestoneChanges ?? '',
+        {
+          async: true,
+          relativeTo: item,
+        },
+      );
+      context.enrichedNpcsPresent = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.npcsPresent ?? '',
+        {
+          async: true,
+          relativeTo: item,
+        },
+      );
+      context.enrichedInformationAvailable = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.informationAvailable ?? '',
+        {
+          async: true,
+          relativeTo: item,
+        },
+      );
+      context.enrichedOrganizationsPresent = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.organizationsPresent ?? '',
+        {
+          async: true,
+          relativeTo: item,
+        },
+      );
     }
     if (item.type === 'informationCard') {
-      context.enrichedContent = await TextEditor.enrichHTML(system.content ?? '', {
-        async: true,
-        relativeTo: item,
-      });
+      context.enrichedContent = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.content ?? '',
+        {
+          async: true,
+          relativeTo: item,
+        },
+      );
       // Precompute card type display class and select state
       const typeClassMap = {
         containmentTruth: 'truth',

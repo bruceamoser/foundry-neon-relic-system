@@ -444,8 +444,22 @@ NEONRELIC:
     DivisionItemActive: Active
     Backstory: Backstory
     Identity: Agent Identity
+    Sex: Sex
+    CreationComplete: Creation Complete
     QuickStats: Quick Stats
     PsychProfile: Psychological Profile
+
+  Sex:
+    Male: Male
+    Female: Female
+    Other: Other
+
+  # Talent Types
+  TalentType:
+    General: General
+    Division: Division
+    SubUnit: Sub-Unit
+    Background: Background
 
   Classified: CLASSIFIED
   NoItems: No items
@@ -971,6 +985,129 @@ NEONRELIC:
     Done: World setup complete!
     RerunName: Re-run World Setup
     RerunHint: Enable this to re-show the world setup dialog on next load.
+
+  # Character Creation Wizard
+  Wizard:
+    Title: Character Creation
+    Launch: Create Character
+    LaunchTooltip: Launch the guided character creation wizard
+    Next: Next
+    Back: Back
+    Cancel: Cancel
+    Complete: Complete Character Creation
+    CancelConfirm: Are you sure? All wizard progress will be lost.
+    StepOf: 'Step {current} of {total}'
+    ViewDetails: View Details
+
+    Identity:
+      Title: Agent Identity
+      Description: Enter your agent's basic information. Age group determines your attribute and skill point budgets.
+      BudgetPreview: Budget Preview
+      AttrPoints: Attribute Points
+      SkillPoints: Skill Points
+      CLMod: CL Modifier
+      NamePlaceholder: Agent name
+      CountryPlaceholder: Country of origin
+      BiographyPlaceholder: 'Who were you before the Covenant? What incident drew their attention?'
+      AgeRange: 'Age range: {min}–{max}'
+
+    Division:
+      Title: Choose Your Division
+      Description: Select the Covenant division your agent belongs to. This determines your role, key skill, and starting equipment.
+      KeySkill: Key Skill
+      BaseCL: Base CL
+      DivisionItem: Division Item
+      Desc:
+        wayfinder: Research, intelligence gathering, and counterintelligence. Wayfinders uncover the truth behind artifacts and the threats that seek them.
+        recovery: Field retrieval and direct action. Recovery agents locate, secure, and extract supernatural artifacts from dangerous situations.
+        keep: Vault security, artifact custody, and logistics. The Keep catalogues, contains, and protects everything the Covenant has recovered.
+
+    SubUnit:
+      Title: Choose Your Sub-Unit
+      Description: Select a Wing, Paradigm, or Department within your division.
+      KeySkill: Key Skill
+      NoDivision: Please go back and select a division first.
+
+    Specialty:
+      Title: Choose Your Specialty
+      Description: Select your specific role within the sub-unit.
+      NoSubUnit: Please go back and select a sub-unit first.
+
+    Gear:
+      Title: Starting Equipment
+      Description: The following items have been added to your inventory based on your division and sub-unit.
+      DivisionItem: Division Item (Automatic)
+      StartingKit: Starting Kit
+      NoGear: Starting equipment will be assigned based on your division and sub-unit selections.
+
+    Attributes:
+      Title: Distribute Attribute Points
+      Description: Assign points to your four attributes. Each must be between 2 and 5.
+      Budget: Attribute Points
+      Remaining: 'Points Remaining: {remaining} / {total}'
+      CorruptionNote: 'Max Corruption Threshold = 10 + Empathy ({threshold})'
+
+    Skills:
+      Title: Distribute Skill Points
+      Description: 'Assign points to your skills. Max 3 per skill (4 for your Key Skill: {keySkill}).'
+      Budget: Skill Points
+      Remaining: 'Points Remaining: {remaining} / {total}'
+      KeySkillNote: '★ Key Skill (max 4)'
+
+    Talents:
+      Title: Choose Starting Talents
+      Description: Drag talents from the compendium into the slots below. Each slot has specific requirements.
+      Slot1: 'Slot 1: Division or General Talent'
+      Slot2: 'Slot 2: Sub-Unit Talent ({subUnit})'
+      Slot3: 'Slot 3: Background Talent'
+      SlotEmpty: Drag a talent here
+      OpenCompendium: Browse Talents
+      InvalidSlot1: 'This slot requires a Division ({division}) or General talent.'
+      InvalidSlot2: 'This slot requires a talent from {subUnit}.'
+      InvalidSlot3: This slot requires a Background talent.
+
+    AnchorSecret:
+      Title: Anchor & Dark Secret
+      Description: Choose your anchor and dark secret. These define what keeps you grounded and what haunts you.
+      AnchorLabel: Anchor
+      DarkSecretLabel: Dark Secret
+      RollAnchor: Roll Random Anchor
+      CustomAnchor: Create Custom Anchor
+      BrowseSecrets: Browse Dark Secrets
+      SelectSecret: Select Dark Secret
+      AnchorName: Anchor Name
+      AnchorMemory: 'Anchor Memory — a single, vivid sensory moment'
+      AnchorRelationship: Anchor Relationship
+      DarkSecretPlaceholder: Select a dark secret from the compendium
+
+    Summary:
+      Title: Character Summary
+      Description: Review your choices below. Click Complete to finalize your character.
+      Identity: Identity
+      Division: Division & Role
+      Stats: Attributes & Skills
+      Talents: Talents
+      Gear: Starting Equipment
+      AnchorSecret: Anchor & Dark Secret
+      Biography: Biography
+      NotSet: (not set)
+      Success: Character creation complete!
+
+    Validation:
+      NameRequired: Agent name is required.
+      DivisionRequired: You must select a division.
+      SubUnitRequired: You must select a sub-unit.
+      SpecialtyRequired: You must select a specialty.
+      AttrNotSpent: You must spend all attribute points.
+      SkillNotSpent: You must spend all skill points.
+      TalentsRequired: All three talent slots must be filled.
+      AnchorRequired: You must define an anchor.
+      DarkSecretRequired: You must select a dark secret.
+
+    Reset:
+      Title: Reset Character Creation
+      Confirm: This will clear all character data, remove all items, and re-enable the creation wizard. Are you sure?
+      Success: Character creation has been reset.
 
   # Case File
   Case:

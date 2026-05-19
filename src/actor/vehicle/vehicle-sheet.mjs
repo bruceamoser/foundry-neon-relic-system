@@ -39,10 +39,14 @@ export class VehicleSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
     context.system = system;
     context.isEditable = this.isEditable;
-    context.enrichedDescription = await TextEditor.enrichHTML(system.description ?? '', {
-      async: true,
-      relativeTo: this.document,
-    });
+    context.actor = this.document;
+    context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+      system.description ?? '',
+      {
+        async: true,
+        relativeTo: this.document,
+      },
+    );
 
     // Build wear pips for visual tracker
     const wearPips = [];

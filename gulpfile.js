@@ -246,7 +246,10 @@ function _transformDocument(doc, itemTypes, actorTypes) {
       drawn: false,
       flags: {},
     }));
-    return [
+
+    // Foundry V14: table results are stored as separate LevelDB entries
+    // (similar to journal pages), referenced by ID in the parent document.
+    const entries = [
       {
         key: `!tables!${id}`,
         data: {
@@ -256,7 +259,7 @@ function _transformDocument(doc, itemTypes, actorTypes) {
           formula: doc.system?.formula || '1d6',
           replacement: true,
           displayRoll: true,
-          results,
+          results: results.map(r => r._id),
           flags: doc.flags || {},
           folder: doc.folder || null,
           sort: doc.sort || 0,
@@ -265,6 +268,16 @@ function _transformDocument(doc, itemTypes, actorTypes) {
         },
       },
     ];
+
+    // Add each result as a separate LevelDB entry
+    for (const result of results) {
+      entries.push({
+        key: `!tables.results!${id}.${result._id}`,
+        data: result,
+      });
+    }
+
+    return entries;
   }
 
   if (doc.type === 'journalEntry' || doc.type === 'JournalEntry') {

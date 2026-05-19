@@ -85,6 +85,13 @@
       "system": "neon-relic"
     },
     {
+      "name": "dark-secrets",
+      "label": "Dark Secrets",
+      "path": "packs/dark-secrets",
+      "type": "Item",
+      "system": "neon-relic"
+    },
+    {
       "name": "npcs",
       "label": "NPCs & Entities",
       "path": "packs/npcs",
@@ -166,6 +173,7 @@
         "artifacts",
         "talents",
         "critical-injuries",
+        "dark-secrets",
         "hq-upgrades",
         "npcs",
         "faction-operatives",

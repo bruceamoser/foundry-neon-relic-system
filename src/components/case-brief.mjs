@@ -46,8 +46,12 @@ export class CaseBriefApp extends HandlebarsApplicationMixin(foundry.application
     const isGM = game.user.isGM;
 
     // Enrich HTML fields
-    const enrichedSummary = await TextEditor.enrichHTML(d.summary ?? '', { async: true });
-    const enrichedNotes = await TextEditor.enrichHTML(d.notes ?? '', { async: true });
+    const enrichedSummary = await foundry.applications.ux.TextEditor.implementation.enrichHTML(d.summary ?? '', {
+      async: true,
+    });
+    const enrichedNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(d.notes ?? '', {
+      async: true,
+    });
 
     return {
       caseData: d,

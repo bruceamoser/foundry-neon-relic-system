@@ -1,0 +1,25 @@
+{{! Step 4: Choose Your Specialty }}
+<div class='wizard-step-specialty'>
+  <p class='step-description'>
+    {{localize 'NEONRELIC.Wizard.Specialty.Description'}}
+  </p>
+
+  {{#if specialtyChoices.length}}
+    <div class='specialty-list'>
+      {{#each specialtyChoices as |sp|}}
+        <label class='specialty-option {{sp.cssClass}}'>
+          {{#if sp.selected}}
+            <input type='radio' name='system.specialty' value='{{sp.name}}' checked />
+          {{else}}
+            <input type='radio' name='system.specialty' value='{{sp.name}}' />
+          {{/if}}
+          <span class='specialty-name'>{{sp.name}}</span>
+        </label>
+      {{/each}}
+    </div>
+  {{else}}
+    <p class='wizard-warning'>
+      {{localize 'NEONRELIC.Wizard.Specialty.NoSubUnit'}}
+    </p>
+  {{/if}}
+</div>

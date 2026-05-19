@@ -4,18 +4,27 @@
  */
 
 /** Current system data version */
-const CURRENT_VERSION = '0.1.0';
+const CURRENT_VERSION = '0.2.0';
 
 /**
  * Migration registry — each entry runs once when upgrading past its version.
  */
 const MIGRATIONS = [
-  // Example migration for future use:
-  // {
-  //   version: '0.2.0',
-  //   title: 'Add corruption stage field',
-  //   migrate: async () => { ... }
-  // },
+  {
+    version: '0.2.0',
+    title: 'Set creationComplete for pre-existing agents',
+    migrate: async () => {
+      const agents = game.actors.filter(a => a.type === 'agent');
+      let migrated = 0;
+      for (const actor of agents) {
+        if (!actor.system.creationComplete && actor.system.division) {
+          await actor.update({ 'system.creationComplete': true });
+          migrated++;
+        }
+      }
+      console.log(`neon-relic | Migrated ${migrated} pre-existing agents to creationComplete=true`);
+    },
+  },
 ];
 
 /**

@@ -60,6 +60,7 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     context.system = system;
     context.config = CONFIG.NEON_RELIC;
     context.isEditable = this.isEditable;
+    context.actor = actor;
     context.isSimplified = system.useSimplifiedView;
     context.showBack = this._showBack ?? false;
 
@@ -94,10 +95,13 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     context.brokenClass = system.isBroken ? 'broken-badge active' : 'broken-badge';
 
     // Enriched description
-    context.enrichedDescription = await TextEditor.enrichHTML(system.description ?? '', {
-      async: true,
-      relativeTo: actor,
-    });
+    context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+      system.description ?? '',
+      {
+        async: true,
+        relativeTo: actor,
+      },
+    );
 
     // Items
     context.abilities = actor.items.filter(i => i.type === 'talent');

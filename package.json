@@ -29,11 +29,13 @@
     "lint:fix": "eslint --ext .js,.mjs --fix .",
     "format": "prettier --check \"**/*.{hbs,js,mjs,json,scss,yaml,yml}\"",
     "format:fix": "prettier --write \"**/*.{hbs,js,mjs,json,scss,yaml,yml}\"",
+    "build:rules": "node tools/build-rules-reference.mjs",
     "release:local": "powershell -NoProfile -ExecutionPolicy Bypass -File local-release.ps1",
     "release:local:skip-build": "powershell -NoProfile -ExecutionPolicy Bypass -File local-release.ps1 -SkipBuild",
     "prepare": "husky"
   },
   "devDependencies": {
+    "@asciidoctor/core": "^3.0.4",
     "classic-level": "^3.0.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.27.3",

@@ -1,0 +1,45 @@
+{{! Step 3: Choose Your Sub-Unit }}
+<div class='wizard-step-subunit'>
+  <p class='step-description'>{{localize 'NEONRELIC.Wizard.SubUnit.Description'}}</p>
+
+  {{#if subUnitChoices.length}}
+    <div class='subunit-cards'>
+      {{#each subUnitChoices as |su|}}
+        <label class='subunit-card {{su.cssClass}}'>
+          {{#if su.selected}}
+            <input type='radio' name='system.subUnit' value='{{su.name}}' checked />
+          {{else}}
+            <input type='radio' name='system.subUnit' value='{{su.name}}' />
+          {{/if}}
+          <div class='subunit-card-body'>
+            <div class='subunit-header'>
+              <h3 class='subunit-name'>{{su.name}}</h3>
+              <button
+                type='button'
+                class='info-btn'
+                data-action='viewCompendiumItem'
+                data-uuid='{{su.uuid}}'
+                data-tooltip='{{localize "NEONRELIC.Wizard.ViewDetails"}}'
+              >
+                <i class='fas fa-circle-info'></i>
+              </button>
+            </div>
+            <div class='subunit-meta'>
+              <span>{{localize 'NEONRELIC.Wizard.SubUnit.KeySkill'}}:
+                {{su.keySkillLabel}}</span>
+              <span>{{localize 'NEONRELIC.Wizard.Division.BaseCL'}}:
+                {{su.baseCL}}</span>
+            </div>
+            {{#if su.description}}
+              <div class='subunit-description'>{{{su.description}}}</div>
+            {{/if}}
+          </div>
+        </label>
+      {{/each}}
+    </div>
+  {{else}}
+    <p class='wizard-warning'>
+      {{localize 'NEONRELIC.Wizard.SubUnit.NoDivision'}}
+    </p>
+  {{/if}}
+</div>

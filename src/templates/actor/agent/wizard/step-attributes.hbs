@@ -1,0 +1,27 @@
+{{! Step 6: Distribute Attribute Points }}
+<div class='wizard-step-attributes'>
+  <p class='step-description'>
+    {{localize 'NEONRELIC.Wizard.Attributes.Description'}}
+  </p>
+
+  <div class='budget-display'>
+    <span class='budget-label'>{{localize 'NEONRELIC.Wizard.Attributes.Budget'}}</span>
+    <span class='budget-value'>{{attrBudget.attrSpent}} / {{attrBudget.attrTotal}}</span>
+  </div>
+
+  <div class='attributes-grid'>
+    {{#each attributes as |attr|}}
+      <div class='attribute-row'>
+        <label for='attr-{{attr.key}}'>{{attr.label}}</label>
+        <input
+          type='number'
+          id='attr-{{attr.key}}'
+          name='system.attributes.{{attr.key}}.max'
+          value='{{attr.value}}'
+          min='2'
+          max='5'
+        />
+      </div>
+    {{/each}}
+  </div>
+</div>

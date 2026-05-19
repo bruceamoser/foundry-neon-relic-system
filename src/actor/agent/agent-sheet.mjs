@@ -4,6 +4,7 @@
  */
 
 import { NRRollDialog } from '../../components/roll/roll-dialog.mjs';
+import { CreationWizard } from './creation-wizard.mjs';
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -25,6 +26,8 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       useTalent: AgentSheet.#onUseTalent,
       adjustAttribute: AgentSheet.#onAdjustAttribute,
       adjustSkill: AgentSheet.#onAdjustSkill,
+      launchWizard: AgentSheet.#onLaunchWizard,
+      resetCreation: AgentSheet.#onResetCreation,
     },
     form: {
       submitOnChange: true,
@@ -106,6 +109,8 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     context.system = system;
     context.config = CONFIG.NEON_RELIC;
     context.isEditable = this.isEditable;
+    context.isGM = game.user.isGM;
+    context.actor = actor;
 
     // Organize items by type
     context.weapons = actor.items.filter(i => i.type === 'weapon');
@@ -133,10 +138,13 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     else context.encumbranceTier = 'overloaded';
 
     // Enriched HTML
-    context.enrichedDescription = await TextEditor.enrichHTML(system.description ?? '', {
-      async: true,
-      relativeTo: actor,
-    });
+    context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+      system.description ?? '',
+      {
+        async: true,
+        relativeTo: actor,
+      },
+    );
 
     // Damage type labels per attribute
     const damageLabels = {};
@@ -214,9 +222,31 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   /* ------------------------------------------ */
 
   /** @override */
+  _getHeaderControls() {
+    const controls = super._getHeaderControls();
+    controls.unshift(
+      {
+        icon: 'fa-solid fa-wand-magic-sparkles',
+        label: game.i18n.localize('NEONRELIC.Wizard.Launch'),
+        action: 'launchWizard',
+        visible: !this.document.system.creationComplete,
+      },
+      {
+        icon: 'fa-solid fa-rotate-left',
+        label: game.i18n.localize('NEONRELIC.Wizard.Reset.Title'),
+        action: 'resetCreation',
+        visible: game.user.isGM,
+      },
+    );
+    return controls;
+  }
+
+  /* ------------------------------------------ */
+
+  /** @override */
   async _preparePartContext(partId, context, options) {
     const partContext = await super._preparePartContext(partId, context, options);
-    partContext.tab = context.tabs?.primary?.[partId] ?? {};
+    partContext.tab = context.tabs?.[partId] ?? {};
     return partContext;
   }
 
@@ -291,6 +321,63 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   /* ------------------------------------------ */
   /*  Action Handlers                            */
   /* ------------------------------------------ */
+
+  /**
+   * Launch the character creation wizard.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} _target
+   */
+  static #onLaunchWizard(_event, _target) {
+    new CreationWizard(this.document).render(true);
+  }
+
+  /**
+   * Reset character creation (GM only) — removes all items and resets fields.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} _target
+   */
+  static async #onResetCreation(_event, _target) {
+    if (!game.user.isGM) return;
+    const confirmed = await foundry.applications.api.DialogV2.confirm({
+      window: { title: game.i18n.localize('NEONRELIC.Wizard.Reset.Title') },
+      content: `<p>${game.i18n.localize('NEONRELIC.Wizard.Reset.Confirm')}</p>`,
+    });
+    if (!confirmed) return;
+
+    // Remove all embedded items
+    const itemIds = this.document.items.map(i => i.id);
+    if (itemIds.length) {
+      await this.document.deleteEmbeddedDocuments('Item', itemIds);
+    }
+
+    // Reset system fields to defaults
+    const skillReset = {};
+    for (const key of Object.keys(CONFIG.NEON_RELIC.skills)) {
+      skillReset[`system.skills.${key}`] = 0;
+    }
+    await this.document.update({
+      name: 'New Agent',
+      'system.division': '',
+      'system.subUnit': '',
+      'system.specialty': '',
+      'system.ageGroup': 'experienced',
+      'system.age': 0,
+      'system.sex': '',
+      'system.countryOfOrigin': '',
+      'system.attributes.str.max': 3,
+      'system.attributes.str.value': 3,
+      'system.attributes.agi.max': 3,
+      'system.attributes.agi.value': 3,
+      'system.attributes.wit.max': 3,
+      'system.attributes.wit.value': 3,
+      'system.attributes.emp.max': 3,
+      'system.attributes.emp.value': 3,
+      'system.creationComplete': false,
+      ...skillReset,
+    });
+
+    ui.notifications.info(game.i18n.localize('NEONRELIC.Wizard.Reset.Success'));
+  }
 
   /**
    * Roll an attribute check.

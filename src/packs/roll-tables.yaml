@@ -134,3 +134,84 @@
         result: 'Alliance — Temporary cooperation offered'
       - range: [6, 6]
         result: 'Relic — Rival claims target relic'
+
+# ── Anchor Table (d66) ──────────────────────
+
+- _id: rtbl008
+  name: Anchor Table (d66)
+  type: rollTable
+  system:
+    formula: (1d6 * 10) + 1d6
+    entries:
+      - range: [11, 11]
+        result: A severely chewed, red Bic pen belonging to a missing sibling.
+      - range: [12, 12]
+        result: A Polaroid photograph of a figure that no one else remembers.
+      - range: [13, 13]
+        result: 'A mixtape cassette labeled "Do Not Play" in your mother''s handwriting.'
+      - range: [14, 14]
+        result: A heavily worn silver Saint Christopher medal on a broken chain.
+      - range: [15, 15]
+        result: A dog-eared paperback copy of a pulp sci-fi novel with cryptic margin notes.
+      - range: [16, 16]
+        result: A tarnished Zippo lighter that sparks with an unnatural blue flame.
+      - range: [21, 21]
+        result: A collection of arcade tokens from a venue that mysteriously burned down.
+      - range: [22, 22]
+        result: A ticket stub from a 1984 rock concert you attended with a dead friend.
+      - range: [23, 23]
+        result: A dented police badge belonging to a disgraced former partner.
+      - range: [24, 24]
+        result: A crumpled handwritten letter promising a reunion that never happened.
+      - range: [25, 25]
+        result: A plastic action figure missing its left arm.
+      - range: [26, 26]
+        result: A heavy set of brass keys to a property you have never been able to locate.
+      - range: [31, 31]
+        result: A leather-bound diary with the last fifty pages violently torn out.
+      - range: [32, 32]
+        result: A heavy, gold-plated class ring from a prestigious ivy-league university.
+      - range: [33, 33]
+        result: A 35mm film canister containing undeveloped negatives you are afraid to process.
+      - range: [34, 34]
+        result: A switchblade knife with an intricately carved bone handle.
+      - range: [35, 35]
+        result: A woven friendship bracelet that has survived a decade of wear and tear.
+      - range: [36, 36]
+        result: A cracked pager that occasionally receives numerical codes from unknown numbers.
+      - range: [41, 41]
+        result: A blood-stained matchbook from a notorious neon-lit nightclub.
+      - range: [42, 42]
+        result: A high school varsity jacket smelling faintly of cheap cologne and ozone.
+      - range: [43, 43]
+        result: "A digital Casio watch with an alarm set for a time that doesn't exist."
+      - range: [44, 44]
+        result: A half-empty bottle of expensive 1970s scotch saved for a special occasion.
+      - range: [45, 45]
+        result: A pocket-sized, battery-operated arcade game that occasionally glitches.
+      - range: [46, 46]
+        result: An unmarked VHS tape containing 15 seconds of deeply unsettling footage.
+      - range: [51, 51]
+        result: A pair of aviator sunglasses with one cracked lens.
+      - range: [52, 52]
+        result: A Rubik's Cube that you nervously solve and scramble to calm your nerves.
+      - range: [53, 53]
+        result: A Walkman with a broken rewind button and a single classical music tape.
+      - range: [54, 54]
+        result: A military dog tag from the Vietnam War belonging to your father.
+      - range: [55, 55]
+        result: A crumpled receipt for a pawned wedding ring.
+      - range: [56, 56]
+        result: 'A faded newspaper clipping detailing a tragic "accident."'
+      - range: [61, 61]
+        result: A cracked makeup compact with a mirror that reflects a younger you.
+      - range: [62, 62]
+        result: A brass compass that occasionally points towards the nearest anomalous entity.
+      - range: [63, 63]
+        result: 'A faded "Dungeons & Dragons" character sheet from a childhood friend.'
+      - range: [64, 64]
+        result: A heavy iron coin depicting a two-faced Roman emperor.
+      - range: [65, 65]
+        result: A battered tin flask containing ash instead of liquor.
+      - range: [66, 66]
+        result: A pristine, sealed action figure in its original 1980s blister pack.

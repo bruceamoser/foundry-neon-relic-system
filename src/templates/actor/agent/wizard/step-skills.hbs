@@ -1,0 +1,43 @@
+{{! Step 7: Distribute Skill Points }}
+<div class='wizard-step-skills'>
+  <p class='step-description'>
+    {{localize 'NEONRELIC.Wizard.Skills.Description'}}
+  </p>
+
+  <div class='budget-display'>
+    <span class='budget-label'>{{localize 'NEONRELIC.Wizard.Skills.Budget'}}</span>
+    <span class='budget-value'>
+      {{skillBudget.skillSpent}}
+      /
+      {{skillBudget.skillTotal}}
+    </span>
+  </div>
+
+  {{#if keySkillName}}
+    <p class='key-skill-note'>
+      {{localize 'NEONRELIC.Wizard.Skills.KeySkillNote'}}:
+      <strong>{{keySkillName}}</strong>
+    </p>
+  {{/if}}
+
+  <div class='skills-grid'>
+    {{#each skillList as |skill|}}
+      <div class='skill-row {{skill.cssClass}}'>
+        <label for='skill-{{skill.key}}'>
+          {{skill.label}}
+          {{#if skill.isKeySkill}}
+            <span class='key-skill-star' title='Key Skill'>★</span>
+          {{/if}}
+        </label>
+        <input
+          type='number'
+          id='skill-{{skill.key}}'
+          name='system.skills.{{skill.key}}'
+          value='{{skill.value}}'
+          min='0'
+          max='{{skill.max}}'
+        />
+      </div>
+    {{/each}}
+  </div>
+</div>
