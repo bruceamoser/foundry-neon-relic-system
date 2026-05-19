@@ -4,6 +4,8 @@
  * @module actor/agent/creation-wizard
  */
 
+import { openTalentPicker } from './talent-picker.mjs';
+
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
 const SYSTEM_ID = 'neon-relic';
@@ -73,7 +75,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       back: CreationWizard.#onBack,
       cancel: CreationWizard.#onCancel,
       complete: CreationWizard.#onComplete,
-      openTalentCompendium: CreationWizard.#onOpenTalentCompendium,
+      browseTalents: CreationWizard.#onBrowseTalents,
       removeTalent: CreationWizard.#onRemoveTalent,
       rollAnchor: CreationWizard.#onRollAnchor,
       customAnchor: CreationWizard.#onCustomAnchor,
@@ -339,6 +341,11 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
 
       case 'talents': {
         context.talentSlots = this.actor.items.filter(i => i.type === 'talent');
+        // Resolve the sub-unit's talentKey for filtering
+        const subPack = game.packs.get('neon-relic.subdivisions');
+        const allSubsTalent = subPack ? await subPack.getDocuments() : [];
+        const matchedSub = allSubsTalent.find(s => s.name === system.subUnit);
+        context.talentKey = matchedSub?.system.talentKey ?? '';
         break;
       }
 
@@ -614,11 +621,42 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   /**
-   * Open the talents compendium browser.
+   * Open the talent picker filtered by the target slot type.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
    */
-  static async #onOpenTalentCompendium(_event, _target) {
-    const pack = game.packs.get('neon-relic.talents');
-    if (pack) pack.render(true);
+  static async #onBrowseTalents(_event, target) {
+    const slotType = target.dataset.slotType;
+    if (!slotType) return;
+
+    const system = this.actor.system;
+    const division = system.division;
+    const subUnitName = system.subUnit;
+
+    // Look up the talentKey for the agent's sub-unit
+    const subPack = game.packs.get('neon-relic.subdivisions');
+    const allSubs = subPack ? await subPack.getDocuments() : [];
+    const matchedSub = allSubs.find(s => s.name === subUnitName);
+    const talentKey = matchedSub?.system.talentKey ?? '';
+
+    const item = await openTalentPicker({ slotType, division, talentKey, subUnitName });
+    if (!item) return;
+
+    // Remove existing talent in this slot before adding the new one
+    const existing = this.actor.items.filter(i => i.type === 'talent');
+    for (const t of existing) {
+      const tt = t.system.talentType;
+      if (slotType === 'division' && (tt === 'division' || tt === 'general')) {
+        await t.delete();
+      } else if (slotType === 'subunit' && tt === 'subunit') {
+        await t.delete();
+      } else if (slotType === 'background' && tt === 'background') {
+        await t.delete();
+      }
+    }
+
+    await this.actor.createEmbeddedDocuments('Item', [item.toObject()]);
+    this.render();
   }
 
   /**
@@ -799,6 +837,15 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       } else if (slotType === 'subunit') {
         if (talentType !== 'subunit') {
           ui.notifications.warn(game.i18n.format('NEONRELIC.Wizard.Talents.InvalidSlot2', { subUnit }));
+          return;
+        }
+        // Verify the talent matches the agent's sub-unit
+        const subPack = game.packs.get('neon-relic.subdivisions');
+        const allSubsDrop = subPack ? await subPack.getDocuments() : [];
+        const matchedSubDrop = allSubsDrop.find(s => s.name === subUnit);
+        const agentTalentKey = matchedSubDrop?.system.talentKey ?? '';
+        if (agentTalentKey && item.system.subUnit && item.system.subUnit !== agentTalentKey) {
+          ui.notifications.warn(game.i18n.format('NEONRELIC.Wizard.Talents.WrongSubUnit', { subUnit }));
           return;
         }
       } else if (slotType === 'background') {
