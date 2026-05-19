@@ -1,165 +1,1985 @@
 # Talents Compendium Pack
 # Neon Relic — Year Zero Engine
+# Source: docs/chapters/09-divisions.adoc, docs/chapters/13-advancement.adoc
 ---
-# ── General Talents ─────────────────────────
+# ══════════════════════════════════════════════
+# ── General Talents ──────────────────────────
+# ══════════════════════════════════════════════
 - _id: tal-g01
-  name: Tough
+  name: Street Medic
   type: talent
   system:
     talentType: general
     division: ''
     subUnit: ''
-    description: You can take more punishment than most. +2 to Corruption threshold.
-    thresholdMod: 2
+    corruptionCost: 0
+    description: >-
+      Restore 2 physical Attribute points instead of 1 when successfully
+      using Heal (WIT).
+    effect: Heal restores 2 Attribute points instead of 1.
 
 - _id: tal-g02
-  name: Quick Reflexes
+  name: Cathartic Release
   type: talent
   system:
     talentType: general
     division: ''
     subUnit: ''
-    description: Draw 2 initiative cards and choose the best one.
-    effect: Draw 2, keep best.
+    corruptionCost: 0
+    hasHealingTag: true
+    isOncePerSession: true
+    description: >-
+      Once per session, dedicate a moment to breaking down, screaming, or
+      venting — this must occur in a scene where you are not actively in
+      conflict. Heal 1 Corruption.
+    effect: Heal 1 Corruption in a non-conflict scene.
 
 - _id: tal-g03
+  name: Hair-Trigger
+  type: talent
+  system:
+    talentType: general
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Draw a weapon as a free action instead of a fast action. Critical
+      edge in ambushes.
+    effect: Draw weapon as free action.
+
+- _id: tal-g04
+  name: Paranormal Intuition
+  type: talent
+  system:
+    talentType: general
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      When entering a new room or location, roll Investigate (WIT) Difficulty
+      1. On success, the DA must tell you if a supernatural entity has been
+      here in the last 24 hours. This roll cannot be pushed.
+    effect: Detect recent supernatural presence on entering a location.
+
+- _id: tal-g05
+  name: Heavy Packer
+  type: talent
+  system:
+    talentType: general
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Your carry capacity increases to Strength x 3 Enc. (instead of the
+      standard Strength x 2). You are not Overloaded until your Enc. exceeds
+      Strength x 4 (instead of Strength x 3).
+    effect: Carry capacity x 3, overload threshold x 4.
+
+- _id: tal-g06
+  name: Skeptic's Shield
+  type: talent
+  system:
+    talentType: general
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    isOncePerSession: true
+    description: >-
+      Once per session, when exposed to a minor supernatural effect (1 or
+      fewer Corruption, no physical damage, no lasting duration), you may
+      outright ignore it. Does not apply to Burst or Catastrophic artifact
+      effects.
+    effect: Ignore one minor supernatural effect per session.
+
+- _id: tal-g07
+  name: Night Owl
+  type: talent
+  system:
+    talentType: general
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Ignore all penalties from sleep deprivation. When operating in darkness,
+      you treat Darkness as Dim (-1 die, not -2 die).
+    effect: No sleep deprivation penalties; darkness counts as dim.
+
+- _id: tal-g08
+  name: Chain Smoker
+  type: talent
+  system:
+    talentType: general
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    hasHealingTag: true
+    isOncePerSession: true
+    description: >-
+      Consume a period-appropriate scarce resource (cigarettes, specific
+      1980s junk food, etc.) during a non-conflict moment. Heal 1 Corruption.
+      The resource must actually be spent and removed from your inventory.
+    effect: Consume resource to heal 1 Corruption.
+
+- _id: tal-g09
+  name: Analog Junkie
+  type: talent
+  system:
+    talentType: general
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Gain +2 bonus dice when using period-accurate 1980s technology (ham
+      radios, acoustic couplers, microfiche, reel-to-reel). The equipment
+      must be correctly identified as 1980s-era gear.
+    effect: +2 dice with 1980s technology.
+
+- _id: tal-g10
+  name: Grit Your Teeth
+  type: talent
+  system:
+    talentType: general
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    isOncePerSession: true
+    description: >-
+      Once per session, ignore a -1 Attribute penalty for a single roll.
+      Declare before rolling.
+    effect: Ignore one -1 Attribute penalty for a roll.
+
+- _id: tal-g11
+  name: Desensitized
+  type: talent
+  system:
+    talentType: general
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Gain +1 bonus die on Endure (STR) or Empathy (EMP) rolls when
+      witnessing or investigating horrific or gruesome scenes (DA-designated).
+      Does not apply to standard combat or single-casualty crime scenes.
+    effect: +1 die on Endure/Empathy for gruesome scenes.
+
+- _id: tal-g12
+  name: Lucky Coin
+  type: talent
+  system:
+    talentType: general
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    isOncePerSession: true
+    description: >-
+      Once per session, ignore a 1 rolled on a single Gear die, preventing
+      item degradation. Declare after seeing the roll.
+    effect: Prevent one Gear die degradation per session.
+
+- _id: tal-g13
   name: Iron Will
   type: talent
   system:
     talentType: general
     division: ''
     subUnit: ''
-    description: Once per session, ignore the effects of a Fear Check failure.
-    oncePerSession: true
+    corruptionCost: 0
+    hasHealingTag: true
+    description: >-
+      When you personally deliver the killing blow to a Named Threat or
+      banish a supernatural entity (using the Banishment ritual in full),
+      heal 1 Corruption. A killing blow requires your attack to reduce
+      the target to 0 Strength.
+    effect: Heal 1 Corruption on killing blow to Named Threat or banishment.
 
-- _id: tal-g04
-  name: Field Medic
+- _id: tal-g14
+  name: Brawler
   type: talent
   system:
     talentType: general
     division: ''
     subUnit: ''
-    description: +1 die to Medicine rolls in combat.
-    conditionalModifier: '+1 Medicine in combat'
+    corruptionCost: 0
+    description: Unarmed strikes inflict base damage of 2 instead of 1.
+    effect: Unarmed damage 2 instead of 1.
 
-- _id: tal-g05
-  name: Scrounger
+- _id: tal-g15
+  name: Flee the Scene
   type: talent
   system:
     talentType: general
     division: ''
     subUnit: ''
-    description: +1 die to all scavenging rolls.
-    conditionalModifier: '+1 Investigate (scavenging)'
+    corruptionCost: 0
+    description: >-
+      Gain +2 bonus dice to Agility (ATT) when rolling explicitly to escape
+      a conflict or pursue fleeing targets.
+    effect: +2 dice to Agility for escape/pursuit.
 
-# ── Division Talents ────────────────────────
-- _id: tal-d01
-  name: Codex Insight
+- _id: tal-g16
+  name: Requisition Authority
+  type: talent
+  system:
+    talentType: general
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Increase your personal Clearance Level by 1 (maximum CL 5). May be
+      purchased multiple times. No Standing prerequisite.
+    effect: +1 personal CL (max 5). Repeatable.
+
+# ══════════════════════════════════════════════
+# ── Wayfinder Division Talents ───────────────
+# ══════════════════════════════════════════════
+- _id: tal-dw01
+  name: The Antiquarian's Eye
   type: talent
   system:
     talentType: division
     division: wayfinder
     subUnit: ''
-    description: Once per session, consult the Verdant Codex for +2 dice to a Lore roll.
-    oncePerSession: true
+    corruptionCost: 1
+    description: >-
+      On first inspection, identify either an artifact's likely activation
+      trigger or its likely base effect without a Lore roll.
+    effect: Identify artifact trigger or base effect on first inspection.
 
-- _id: tal-d02
-  name: Field Recovery
+- _id: tal-dw02
+  name: Ghost in the Machine
   type: talent
   system:
     talentType: division
-    division: recovery
+    division: wayfinder
     subUnit: ''
-    description: When recovering an artifact, ignore the first point of Corruption from handling.
+    corruptionCost: 1
+    description: >-
+      Use Tech to directly interface with electronic devices jammed or
+      possessed by anomalous entities.
+    effect: Interface with anomalously possessed electronics via Tech.
 
-- _id: tal-d03
-  name: Warden's Vigil
+- _id: tal-dw03
+  name: The Hunch
   type: talent
   system:
     talentType: division
-    division: keep
+    division: wayfinder
     subUnit: ''
-    description: +2 dice to containment ritual rolls when in the Vault.
-    conditionalModifier: '+2 Lore (containment in Vault)'
+    corruptionCost: 1
+    description: >-
+      Ask the DA one yes/no question about a crime scene or NPC's motive.
+      The DA must answer truthfully.
+    effect: One truthful yes/no answer about a scene or NPC motive.
 
-# ── Sub-Unit Talents ────────────────────────
-- _id: tal-s01
-  name: Deep Cover
+- _id: tal-dw04
+  name: Academic Grounding
+  type: talent
+  system:
+    talentType: division
+    division: wayfinder
+    subUnit: ''
+    corruptionCost: 0
+    hasHealingTag: true
+    description: >-
+      Spend an hour researching an entity and framing it in academic terms.
+      Heal 1 Corruption for yourself or one ally.
+    effect: Heal 1 Corruption after an hour of research.
+
+- _id: tal-dw05
+  name: Eldritch Empathy
+  type: talent
+  system:
+    talentType: division
+    division: wayfinder
+    subUnit: ''
+    corruptionCost: 1
+    description: >-
+      Sense the immediate emotional state, hunger, or primary intent of
+      an invisible or disguised supernatural entity.
+    effect: Sense supernatural entity's emotional state or intent.
+
+# ══════════════════════════════════════════════
+# ── Wayfinder Sub-Unit Talents ───────────────
+# ══════════════════════════════════════════════
+
+# Research Wing
+- _id: tal-sw01
+  name: Pattern Recognition
+  type: talent
+  system:
+    talentType: subunit
+    division: wayfinder
+    subUnit: research
+    corruptionCost: 1
+    description: >-
+      When examining a document, site, or artifact for the first time,
+      identify one plausible connection to a previously catalogued case.
+      The DA must reveal a useful lead.
+    effect: Identify a connection to a previous case on first examination.
+
+- _id: tal-sw02
+  name: Deep Archive Access
+  type: talent
+  system:
+    talentType: subunit
+    division: wayfinder
+    subUnit: research
+    corruptionCost: 1
+    description: >-
+      Spend an action consulting restricted Covenant records. Gain +2 bonus
+      dice on your next Lore or Investigate roll this scene.
+    effect: +2 dice to next Lore/Investigate roll this scene.
+
+- _id: tal-sw03
+  name: Methodical Review
+  type: talent
+  system:
+    talentType: subunit
+    division: wayfinder
+    subUnit: research
+    corruptionCost: 0
+    hasHealingTag: true
+    description: >-
+      Spend a Shift organizing and cross-referencing your field notes.
+      Heal 1 Corruption and grant one ally +1 bonus die on their next
+      Investigate roll.
+    effect: Heal 1 Corruption and grant ally +1 Investigate.
+
+# Counterintelligence Wing
+- _id: tal-sw04
+  name: Burned Asset
   type: talent
   system:
     talentType: subunit
     division: wayfinder
     subUnit: counterintelligence
-    description: +2 dice to Stealth when operating under cover identity.
-    conditionalModifier: '+2 Stealth (cover identity)'
+    corruptionCost: 1
+    description: >-
+      When caught in a lie or exposed during infiltration, immediately
+      generate a plausible cover story. The target must make an Empathy
+      (Psychoanalyze) roll at Difficulty 2 to see through it.
+    effect: Generate cover story; target needs Psychoanalyze Diff 2.
 
-- _id: tal-s02
-  name: Heavy Hitter
+- _id: tal-sw05
+  name: Signal Intercept
+  type: talent
+  system:
+    talentType: subunit
+    division: wayfinder
+    subUnit: counterintelligence
+    corruptionCost: 1
+    description: >-
+      Tap into a nearby communication channel (radio, phone line, intercom).
+      For the remainder of the scene, you overhear all traffic on that
+      channel.
+    effect: Eavesdrop on a communication channel for the scene.
+
+- _id: tal-sw06
+  name: Compartmentalized Mind
+  type: talent
+  system:
+    talentType: subunit
+    division: wayfinder
+    subUnit: counterintelligence
+    corruptionCost: 0
+    hasHealingTag: true
+    isOncePerSession: true
+    description: >-
+      Once per session, after completing a successful counterintelligence
+      action (surveillance, interrogation, or exposure prevention), heal
+      1 Corruption.
+    effect: Heal 1 Corruption after successful CI action.
+
+# ══════════════════════════════════════════════
+# ── Recovery Division Talents ────────────────
+# ══════════════════════════════════════════════
+- _id: tal-dr01
+  name: Conditioned Mind
+  type: talent
+  system:
+    talentType: division
+    division: recovery
+    subUnit: ''
+    corruptionCost: 0
+    isOncePerSession: true
+    description: >-
+      Declare before you push the roll. Once per session, you may push a
+      roll and entirely ignore the +1 Corruption that pushing costs. The
+      push happens normally; only the Corruption is negated.
+    effect: Negate Corruption cost of one push per session.
+
+- _id: tal-dr02
+  name: Unstoppable Force
+  type: talent
+  system:
+    talentType: division
+    division: recovery
+    subUnit: ''
+    corruptionCost: 1
+    description: Your next successful melee or unarmed attack inflicts +2 damage.
+    effect: +2 damage on next melee/unarmed attack.
+
+- _id: tal-dr03
+  name: Shadow Walker
+  type: talent
+  system:
+    talentType: division
+    division: recovery
+    subUnit: ''
+    corruptionCost: 1
+    description: >-
+      For the duration of a scene, you are entirely imperceptible to mundane
+      guards and cameras. Attacking breaks the effect immediately. Speaking
+      to or interacting with an NPC breaks the effect for that NPC only.
+      Supernatural perception is not fooled.
+    effect: Invisible to mundane detection for one scene.
+
+- _id: tal-dr04
+  name: Adrenaline Junkie
+  type: talent
+  system:
+    talentType: division
+    division: recovery
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      When your Strength has taken at least 1 point of damage (current
+      Strength is below your starting score), gain +2 bonus dice to all
+      Agility rolls. Disappears once Strength is fully healed.
+    effect: +2 dice to Agility while Strength is damaged.
+
+- _id: tal-dr05
+  name: Gallows Humor
+  type: talent
+  system:
+    talentType: division
+    division: recovery
+    subUnit: ''
+    corruptionCost: 0
+    hasHealingTag: true
+    isOncePerSession: true
+    description: >-
+      Once per session, immediately after a combat encounter ends, crack a
+      dark joke. You and all allies who can hear you heal 1d4 Corruption.
+    effect: Heal 1d4 Corruption for team after combat.
+
+- _id: tal-dr06
+  name: Combat Reflexes
+  type: talent
+  system:
+    talentType: division
+    division: recovery
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      When initiative cards are drawn, draw two cards and keep one. Discard
+      the other face-down. Alternatively, after all cards are drawn, you
+      may swap your initiative card with a willing ally's card.
+    effect: Draw 2 initiative cards, keep 1; or swap with ally.
+
+# ══════════════════════════════════════════════
+# ── Recovery Sub-Unit Talents ────────────────
+# ══════════════════════════════════════════════
+
+# Ex-Agency Operative
+- _id: tal-sr01
+  name: Dead Drop Protocol
+  type: talent
+  system:
+    talentType: subunit
+    division: recovery
+    subUnit: ex-agency
+    corruptionCost: 1
+    description: >-
+      Establish an instant covert information exchange with any NPC contact.
+      Gain one actionable piece of intelligence from the DA without a roll.
+    effect: Gain one piece of intelligence from NPC contact without a roll.
+
+- _id: tal-sr02
+  name: Exfiltration Specialist
+  type: talent
+  system:
+    talentType: subunit
+    division: recovery
+    subUnit: ex-agency
+    corruptionCost: 1
+    description: >-
+      When retreating or extracting under fire, you and all allies within
+      Short range gain +1 bonus die to their next Agility roll this round.
+    effect: +1 Agility for nearby allies when retreating.
+
+- _id: tal-sr03
+  name: Spycraft Discipline
+  type: talent
+  system:
+    talentType: subunit
+    division: recovery
+    subUnit: ex-agency
+    corruptionCost: 0
+    hasHealingTag: true
+    isOncePerSession: true
+    description: >-
+      Once per session, after successfully completing a covert objective
+      without being detected, heal 1 Corruption.
+    effect: Heal 1 Corruption after undetected covert objective.
+
+# Heavy-Hitter
+- _id: tal-sr04
+  name: Wrecking Ball
   type: talent
   system:
     talentType: subunit
     division: recovery
     subUnit: heavy-hitter
-    description: +1 damage to all melee attacks.
-    conditionalModifier: '+1 melee damage'
+    corruptionCost: 1
+    description: >-
+      When attacking an inanimate object or structure (door, wall, barricade,
+      vehicle), gain +3 bonus dice to the Force roll and inflict +2 damage
+      on a success.
+    effect: +3 dice and +2 damage vs. objects/structures.
 
-- _id: tal-s03
-  name: Acquisition Expert
+- _id: tal-sr05
+  name: Stand Your Ground
+  type: talent
+  system:
+    talentType: subunit
+    division: recovery
+    subUnit: heavy-hitter
+    corruptionCost: 1
+    description: >-
+      Plant yourself and refuse to move. Until your next turn, you cannot
+      be pushed, knocked down, or forcibly moved, and you gain +2 Armor
+      Rating.
+    effect: Immovable + 2 Armor until next turn.
+
+- _id: tal-sr06
+  name: Blunt Trauma Recovery
+  type: talent
+  system:
+    talentType: subunit
+    division: recovery
+    subUnit: heavy-hitter
+    corruptionCost: 0
+    hasHealingTag: true
+    isOncePerSession: true
+    description: >-
+      Once per session, after winning a physical confrontation through
+      brute force, heal 1 Corruption.
+    effect: Heal 1 Corruption after winning a physical confrontation.
+
+# Acquisition Specialist
+- _id: tal-sr07
+  name: Ghost Entry
   type: talent
   system:
     talentType: subunit
     division: recovery
     subUnit: acquisition
-    description: +1 die to Drive and Stealth during artifact retrieval.
-    conditionalModifier: '+1 Drive/Stealth (retrieval)'
+    corruptionCost: 1
+    description: >-
+      Bypass a single ordinary locked door, security system, or physical
+      barrier without a roll. Against hardened or anomalous protection,
+      gain +3 bonus dice instead. Leave no trace of entry.
+    effect: Bypass one lock/barrier without a roll, or +3 dice vs. hardened.
 
-# ── Background Talents ──────────────────────
+- _id: tal-sr08
+  name: The Long Con
+  type: talent
+  system:
+    talentType: subunit
+    division: recovery
+    subUnit: acquisition
+    corruptionCost: 1
+    description: >-
+      After at least one scene spent building rapport with an NPC, gain +3
+      bonus dice on a Manipulate roll to extract one specific piece of
+      information or gain one specific favor.
+    effect: +3 dice on Manipulate after building rapport.
+
+- _id: tal-sr09
+  name: Clean Getaway
+  type: talent
+  system:
+    talentType: subunit
+    division: recovery
+    subUnit: acquisition
+    corruptionCost: 0
+    hasHealingTag: true
+    isOncePerSession: true
+    description: >-
+      Once per session, after successfully completing a theft, infiltration,
+      or escape without triggering an alarm, heal 1 Corruption.
+    effect: Heal 1 Corruption after clean infiltration/escape.
+
+# ══════════════════════════════════════════════
+# ── Keep Division Talents ────────────────────
+# ══════════════════════════════════════════════
+- _id: tal-dk01
+  name: Containment Protocol
+  type: talent
+  system:
+    talentType: division
+    division: keep
+    subUnit: ''
+    corruptionCost: 1
+    description: >-
+      Spend a Fast Action improvising a ward using mundane materials (salt,
+      copper wire, chalk markings). Make a Lore (WIT) roll at Difficulty 1
+      to set it. On success, any supernatural entity must make a Force (STR)
+      roll at Difficulty 2 to cross the ward. On failure, the ward lasts
+      only one round.
+    effect: Improvise a ward that blocks supernatural entities.
+
+- _id: tal-dk02
+  name: Shield of the Covenant
+  type: talent
+  system:
+    talentType: division
+    division: keep
+    subUnit: ''
+    corruptionCost: 1
+    description: >-
+      When an ally within Engaged range is attacked, you may step in front
+      of the blow as a Reactive Fast Action. You take the damage instead of
+      your ally. Halve the damage you take (round down, minimum 1). Your
+      armor applies normally.
+    effect: Intercept attack on ally; take half damage.
+
+- _id: tal-dk03
+  name: The Inquisitor's Gaze
+  type: talent
+  system:
+    talentType: division
+    division: keep
+    subUnit: ''
+    corruptionCost: 1
+    description: >-
+      While conversing with someone, instantly know their current Corruption
+      score and whether they are possessed (under active supernatural
+      domination). Does not detect high-Corruption individuals acting of
+      their own will. The target does not know you used this talent.
+    effect: Know target's Corruption score and possession status.
+
+- _id: tal-dk04
+  name: Medical Training
+  type: talent
+  system:
+    talentType: division
+    division: keep
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Spend a Slow Action and make a Heal (WIT) roll at Difficulty 2 before
+      an ally rolls their Death Check. On success, the ally rolls d6+1
+      instead of d6 (death only on a natural 1). On failure, no change.
+    effect: Improve ally's Death Check to d6+1 on successful Heal.
+
+- _id: tal-dk05
+  name: Sanctuary Master
+  type: talent
+  system:
+    talentType: division
+    division: keep
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      When inside Covenant HQ, automatically succeed on any Lore (WIT) roll
+      regarding the history of a registered artifact in the Covenant's
+      inventory. Unknown or newly recovered artifacts require a normal roll.
+    effect: Auto-succeed Lore for registered artifacts in HQ.
+
+- _id: tal-dk06
+  name: The Confessor
+  type: talent
+  system:
+    talentType: division
+    division: keep
+    subUnit: ''
+    corruptionCost: 0
+    hasHealingTag: true
+    description: >-
+      Spend a quiet moment outside combat listening to one ally share their
+      Dark Secret or confess a fear. Both you and the ally heal 1d4
+      Corruption. Limit: once per target per scene.
+    effect: Both you and ally heal 1d4 Corruption from confession.
+
+# ══════════════════════════════════════════════
+# ── Keep Sub-Unit Talents ────────────────────
+# ══════════════════════════════════════════════
+
+# Catalogers
+- _id: tal-sk01
+  name: Hazard Classification
+  type: talent
+  system:
+    talentType: subunit
+    division: keep
+    subUnit: catalogers
+    corruptionCost: 1
+    description: >-
+      Upon first contact with an unknown artifact, instantly determine its
+      danger rating (Inert / Active / Volatile / Catastrophic) and one
+      primary containment requirement. No roll needed.
+    effect: Instantly classify artifact danger rating and containment need.
+
+- _id: tal-sk02
+  name: Registry Cross-Reference
+  type: talent
+  system:
+    talentType: subunit
+    division: keep
+    subUnit: catalogers
+    corruptionCost: 1
+    description: >-
+      Consult the master artifact registry to identify a connection between
+      the current artifact and a previously catalogued item. The DA must
+      reveal one actionable link.
+    effect: Reveal one connection between current and catalogued artifact.
+
+- _id: tal-sk03
+  name: Archival Calm
+  type: talent
+  system:
+    talentType: subunit
+    division: keep
+    subUnit: catalogers
+    corruptionCost: 0
+    hasHealingTag: true
+    description: >-
+      Spend a Shift updating the artifact registry with new findings. Heal
+      1 Corruption and grant one ally who contributed field data +1 bonus
+      die on their next Lore roll.
+    effect: Heal 1 Corruption and grant ally +1 Lore.
+
+# Wardens
+- _id: tal-sk04
+  name: Lockdown
+  type: talent
+  system:
+    talentType: subunit
+    division: keep
+    subUnit: wardens
+    corruptionCost: 1
+    description: >-
+      Seal a room, corridor, or building entrance. No entity may pass
+      through it for one full round without making a Strength (Force) roll
+      at Difficulty 2.
+    effect: Seal an entrance; Force Diff 2 to pass for one round.
+
+- _id: tal-sk05
+  name: Threat Assessment
+  type: talent
+  system:
+    talentType: subunit
+    division: keep
+    subUnit: wardens
+    corruptionCost: 1
+    description: >-
+      When entering a new area, instantly identify the single greatest
+      physical threat present (hostile actor, structural weakness, hidden
+      trap). The DA must describe it.
+    effect: Identify greatest physical threat in a new area.
+
+- _id: tal-sk06
+  name: Sentinel's Vigil
+  type: talent
+  system:
+    talentType: subunit
+    division: keep
+    subUnit: wardens
+    corruptionCost: 0
+    hasHealingTag: true
+    isOncePerSession: true
+    description: >-
+      Once per session, after completing a guard shift, patrol, or escort
+      mission without a security breach, heal 1 Corruption.
+    effect: Heal 1 Corruption after successful guard duty.
+
+# Internal Counterintelligence
+- _id: tal-sk07
+  name: Silent Audit
+  type: talent
+  system:
+    talentType: subunit
+    division: keep
+    subUnit: internal-ci
+    corruptionCost: 1
+    description: >-
+      Gain access to one person's recent communications, personnel file,
+      or activity log without their knowledge. The DA must reveal one
+      compromising or actionable detail.
+    effect: Secretly access personnel records; learn one detail.
+
+- _id: tal-sk08
+  name: Loyalty Test
+  type: talent
+  system:
+    talentType: subunit
+    division: keep
+    subUnit: internal-ci
+    corruptionCost: 1
+    description: >-
+      During a conversation, make a concealed Empathy roll at +2 bonus dice
+      to determine if the target is actively deceiving, withholding critical
+      information, or operating under external influence.
+    effect: +2 Empathy to detect deception or external influence.
+
+- _id: tal-sk09
+  name: Debriefing Protocol
+  type: talent
+  system:
+    talentType: subunit
+    division: keep
+    subUnit: internal-ci
+    corruptionCost: 0
+    hasHealingTag: true
+    isOncePerSession: true
+    description: >-
+      Once per session, after conducting a successful internal investigation
+      or clearing a suspect, heal 1 Corruption.
+    effect: Heal 1 Corruption after successful investigation.
+
+# Stack (Logistics)
+- _id: tal-sk10
+  name: Requisition Expert
+  type: talent
+  system:
+    talentType: subunit
+    division: keep
+    subUnit: stack
+    corruptionCost: 1
+    description: >-
+      During the Equipping Phase, automatically acquire any one non-artifact
+      item, bypassing the CL roll entirely.
+    effect: Auto-acquire one item during Equipping Phase.
+
+- _id: tal-sk11
+  name: Jury-Rig
+  type: talent
+  system:
+    talentType: subunit
+    division: keep
+    subUnit: stack
+    corruptionCost: 1
+    description: >-
+      Immediately restore a broken or degraded piece of gear to maximum
+      bonus during combat or a high-tension scene.
+    effect: Instantly repair one piece of gear in combat.
+
+- _id: tal-sk12
+  name: Prototyper
+  type: talent
+  system:
+    talentType: subunit
+    division: keep
+    subUnit: stack
+    corruptionCost: 1
+    description: >-
+      Grant a piece of mundane gear an Artifact Die (d8) for a single skill
+      roll. The item is permanently destroyed immediately after.
+    effect: Give gear an Artifact Die for one roll; item destroyed after.
+
+- _id: tal-sk13
+  name: Duct Tape & WD-40
+  type: talent
+  system:
+    talentType: subunit
+    division: keep
+    subUnit: stack
+    corruptionCost: 0
+    hasHealingTag: true
+    description: >-
+      Spend a Shift at base tinkering. Automatically repair all degraded
+      gear for the entire party without a roll, and heal 1 Corruption.
+    effect: Repair all party gear and heal 1 Corruption.
+
+- _id: tal-sk14
+  name: Experimental Shielding
+  type: talent
+  system:
+    talentType: subunit
+    division: keep
+    subUnit: stack
+    corruptionCost: 1
+    isOncePerSession: true
+    description: >-
+      Once per session, completely ignore the degradation penalty of rolling
+      a 1 on a Gear Die.
+    effect: Ignore one Gear Die degradation per session.
+
+- _id: tal-sk15
+  name: Redundant Safeties
+  type: talent
+  system:
+    talentType: subunit
+    division: keep
+    subUnit: stack
+    corruptionCost: 0
+    corruptionThresholdMod: 2
+    description: >-
+      Passive. Your Maximum Corruption Threshold increases by 2 (to 12 +
+      Empathy). Years of handling unstable prototypes have hardened your
+      psyche.
+    effect: +2 to Maximum Corruption Threshold.
+
+# ══════════════════════════════════════════════
+# ── Background Talents ───────────────────────
+# ══════════════════════════════════════════════
 - _id: tal-b01
-  name: Streetwise
+  name: Accountant
   type: talent
   system:
     talentType: background
     division: ''
     subUnit: ''
-    description: +1 die to Investigate and Persuade in urban environments.
-    conditionalModifier: '+1 Investigate/Persuade (urban)'
+    corruptionCost: 0
+    description: >-
+      You spent years tracking numbers, discrepancies, and hidden financial
+      patterns. Few irregularities escape your trained eye.
+    effect: +1 bonus die to Investigate.
+    conditionalModifier:
+      skill: investigate
+      bonus: 1
+      condition: ''
 
 - _id: tal-b02
-  name: Academic
+  name: Actor
   type: talent
   system:
     talentType: background
     division: ''
     subUnit: ''
-    description: +1 die to Lore and Investigate when researching in libraries or archives.
-    conditionalModifier: '+1 Lore/Investigate (research)'
+    corruptionCost: 0
+    description: >-
+      You are comfortable becoming someone else entirely, adopting personas
+      and convincing others of your performance.
+    effect: +1 bonus die to Manipulate.
+    conditionalModifier:
+      skill: manipulate
+      bonus: 1
+      condition: ''
 
 - _id: tal-b03
-  name: Survivor
+  name: Amateur Astronomer
   type: talent
   system:
     talentType: background
     division: ''
     subUnit: ''
-    description: Once per session, re-roll a failed Endure roll.
-    oncePerSession: true
+    corruptionCost: 0
+    description: >-
+      Long nights studying the skies have sharpened your patience and your
+      ability to notice subtle anomalies.
+    effect: +1 bonus die to Investigate.
+    conditionalModifier:
+      skill: investigate
+      bonus: 1
+      condition: ''
 
 - _id: tal-b04
-  name: Connected
+  name: Amateur Radio Operator
   type: talent
   system:
     talentType: background
     division: ''
     subUnit: ''
-    description: Once per session, call in a favor from an NPC contact.
-    oncePerSession: true
+    corruptionCost: 0
+    description: >-
+      You built and maintained your own radio equipment, speaking across
+      the airwaves with strangers around the world.
+    effect: +1 bonus die to Tech.
+    conditionalModifier:
+      skill: tech
+      bonus: 1
+      condition: ''
 
 - _id: tal-b05
-  name: Combat Veteran
+  name: Archaeologist
   type: talent
   system:
     talentType: background
     division: ''
     subUnit: ''
-    description: '+1 die to Ranged Combat when in cover.'
-    conditionalModifier: '+1 Ranged Combat (in cover)'
+    corruptionCost: 0
+    description: >-
+      You studied the remnants of ancient civilizations and learned to
+      interpret artifacts buried by time.
+    effect: +1 bonus die to Lore.
+    conditionalModifier:
+      skill: lore
+      bonus: 1
+      condition: ''
+
+- _id: tal-b06
+  name: Artist
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Your eye for composition, pattern, and subtle detail allows you to
+      notice things others overlook.
+    effect: +1 bonus die to Investigate.
+    conditionalModifier:
+      skill: investigate
+      bonus: 1
+      condition: ''
+
+- _id: tal-b07
+  name: Athlete
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: Rigorous training and competition have hardened your body and stamina.
+    effect: +1 bonus die to Endure.
+    conditionalModifier:
+      skill: endure
+      bonus: 1
+      condition: ''
+
+- _id: tal-b08
+  name: Bartender
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You've listened to countless confessions and learned to read people
+      when they think no one is watching.
+    effect: +1 bonus die to Psychoanalyze.
+    conditionalModifier:
+      skill: psychoanalyze
+      bonus: 1
+      condition: ''
+
+- _id: tal-b09
+  name: Birdwatcher
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You possess extraordinary patience and observational skill developed
+      from quietly studying wildlife.
+    effect: +1 bonus die to Investigate.
+    conditionalModifier:
+      skill: investigate
+      bonus: 1
+      condition: ''
+
+- _id: tal-b10
+  name: Board Game Enthusiast
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Strategic thinking and anticipating opponents' moves comes naturally
+      to you.
+    effect: +1 bonus die to Command.
+    conditionalModifier:
+      skill: command
+      bonus: 1
+      condition: ''
+
+- _id: tal-b11
+  name: Bodyguard
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Protecting others from physical harm is your profession, and you know
+      how to handle yourself in close quarters.
+    effect: +1 bonus die to Brawl.
+    conditionalModifier:
+      skill: brawl
+      bonus: 1
+      condition: ''
+
+- _id: tal-b12
+  name: Bookseller
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Years surrounded by literature and obscure texts have broadened your
+      knowledge.
+    effect: +1 bonus die to Lore.
+    conditionalModifier:
+      skill: lore
+      bonus: 1
+      condition: ''
+
+- _id: tal-b13
+  name: Chess Grandmaster
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You think several moves ahead and naturally direct others toward
+      strategic goals.
+    effect: +1 bonus die to Command.
+    conditionalModifier:
+      skill: command
+      bonus: 1
+      condition: ''
+
+- _id: tal-b14
+  name: Collector
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You have spent years hunting, cataloging, and preserving rare and
+      unusual items.
+    effect: +1 bonus die to Lore.
+    conditionalModifier:
+      skill: lore
+      bonus: 1
+      condition: ''
+
+- _id: tal-b15
+  name: Construction Worker
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Heavy labor has made you strong and capable of breaking through
+      physical barriers.
+    effect: +1 bonus die to Force.
+    conditionalModifier:
+      skill: force
+      bonus: 1
+      condition: ''
+
+- _id: tal-b16
+  name: Cook
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Long hours in demanding kitchen environments have built your stamina
+      and resilience.
+    effect: +1 bonus die to Endure.
+    conditionalModifier:
+      skill: endure
+      bonus: 1
+      condition: ''
+
+- _id: tal-b17
+  name: Courier
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Moving unnoticed and navigating complex urban spaces is second nature
+      to you.
+    effect: +1 bonus die to Sneak.
+    conditionalModifier:
+      skill: sneak
+      bonus: 1
+      condition: ''
+
+- _id: tal-b18
+  name: Detective
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Solving mysteries and reconstructing events from fragments of evidence
+      is your specialty.
+    effect: +1 bonus die to Investigate.
+    conditionalModifier:
+      skill: investigate
+      bonus: 1
+      condition: ''
+
+- _id: tal-b19
+  name: Doctor
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Treating patients has given you a keen understanding of human behavior
+      and distress.
+    effect: +1 bonus die to Psychoanalyze.
+    conditionalModifier:
+      skill: psychoanalyze
+      bonus: 1
+      condition: ''
+
+- _id: tal-b20
+  name: Electrician
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: You know how to wire, repair, and safely manipulate electrical systems.
+    effect: +1 bonus die to Tech.
+    conditionalModifier:
+      skill: tech
+      bonus: 1
+      condition: ''
+
+- _id: tal-b21
+  name: Engineer
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Your technical education allows you to understand machines, structures,
+      and mechanical systems.
+    effect: +1 bonus die to Tech.
+    conditionalModifier:
+      skill: tech
+      bonus: 1
+      condition: ''
+
+- _id: tal-b22
+  name: Factory Worker
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: Years of repetitive, demanding labor have toughened your body.
+    effect: +1 bonus die to Endure.
+    conditionalModifier:
+      skill: endure
+      bonus: 1
+      condition: ''
+
+- _id: tal-b23
+  name: Farmer
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You are accustomed to harsh weather, long days, and physically
+      demanding work.
+    effect: +1 bonus die to Endure.
+    conditionalModifier:
+      skill: endure
+      bonus: 1
+      condition: ''
+
+- _id: tal-b24
+  name: Firefighter
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You are trained to break through barriers and force entry during
+      emergencies.
+    effect: +1 bonus die to Force.
+    conditionalModifier:
+      skill: force
+      bonus: 1
+      condition: ''
+
+- _id: tal-b25
+  name: Fisher
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: Working long hours on the water has given you patience and resilience.
+    effect: +1 bonus die to Endure.
+    conditionalModifier:
+      skill: endure
+      bonus: 1
+      condition: ''
+
+- _id: tal-b26
+  name: Food Service Professional
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You have mastered the art of dealing with difficult people while
+      maintaining composure.
+    effect: +1 bonus die to Manipulate.
+    conditionalModifier:
+      skill: manipulate
+      bonus: 1
+      condition: ''
+
+- _id: tal-b27
+  name: Gambler
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You know how to move cards, chips, and small objects without drawing
+      attention.
+    effect: +1 bonus die to Sleight of Hand.
+    conditionalModifier:
+      skill: sleightOfHand
+      bonus: 1
+      condition: ''
+
+- _id: tal-b28
+  name: Gardener
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: Your knowledge of plants, natural cycles, and organic growth runs deep.
+    effect: +1 bonus die to Lore.
+    conditionalModifier:
+      skill: lore
+      bonus: 1
+      condition: ''
+
+- _id: tal-b29
+  name: Hiker
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You are accustomed to long treks through rough terrain and difficult
+      conditions.
+    effect: +1 bonus die to Endure.
+    conditionalModifier:
+      skill: endure
+      bonus: 1
+      condition: ''
+
+- _id: tal-b30
+  name: Historian
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You have studied the past and understand how ancient events shape
+      the present.
+    effect: +1 bonus die to Lore.
+    conditionalModifier:
+      skill: lore
+      bonus: 1
+      condition: ''
+
+- _id: tal-b31
+  name: Journalist
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: Asking questions and digging for the truth is part of your nature.
+    effect: +1 bonus die to Investigate.
+    conditionalModifier:
+      skill: investigate
+      bonus: 1
+      condition: ''
+
+- _id: tal-b32
+  name: Librarian
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You have spent years cataloging and studying vast collections of
+      knowledge.
+    effect: +1 bonus die to Lore.
+    conditionalModifier:
+      skill: lore
+      bonus: 1
+      condition: ''
+
+- _id: tal-b33
+  name: Locksmith
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Locks, tumblers, and mechanical security devices are familiar tools
+      of your trade.
+    effect: +1 bonus die to Sleight of Hand.
+    conditionalModifier:
+      skill: sleightOfHand
+      bonus: 1
+      condition: ''
+
+- _id: tal-b34
+  name: Lockpicking Hobbyist
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      What began as a pastime has made you remarkably skilled with delicate
+      mechanisms.
+    effect: +1 bonus die to Sleight of Hand.
+    conditionalModifier:
+      skill: sleightOfHand
+      bonus: 1
+      condition: ''
+
+- _id: tal-b35
+  name: Mechanic
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: Engines, machines, and broken equipment rarely intimidate you.
+    effect: +1 bonus die to Tech.
+    conditionalModifier:
+      skill: tech
+      bonus: 1
+      condition: ''
+
+- _id: tal-b36
+  name: Metal Detectorist
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You've spent countless hours searching for hidden objects beneath the
+      earth.
+    effect: +1 bonus die to Investigate.
+    conditionalModifier:
+      skill: investigate
+      bonus: 1
+      condition: ''
+
+- _id: tal-b37
+  name: Military Veteran
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: You received formal training in weapons and battlefield discipline.
+    effect: +1 bonus die to Firearms.
+    conditionalModifier:
+      skill: firearms
+      bonus: 1
+      condition: ''
+
+- _id: tal-b38
+  name: Model Builder
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Constructing detailed models has taught you patience and mechanical
+      understanding.
+    effect: +1 bonus die to Tech.
+    conditionalModifier:
+      skill: tech
+      bonus: 1
+      condition: ''
+
+- _id: tal-b39
+  name: Musician
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You know how to influence the emotions of a room through performance
+      and presence.
+    effect: +1 bonus die to Manipulate.
+    conditionalModifier:
+      skill: manipulate
+      bonus: 1
+      condition: ''
+
+- _id: tal-b40
+  name: Nurse
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You are accustomed to comforting the injured and calming frightened
+      people.
+    effect: +1 bonus die to Psychoanalyze.
+    conditionalModifier:
+      skill: psychoanalyze
+      bonus: 1
+      condition: ''
+
+- _id: tal-b41
+  name: Office Clerk
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Handling paperwork and records has trained you to recognize patterns
+      and inconsistencies.
+    effect: +1 bonus die to Investigate.
+    conditionalModifier:
+      skill: investigate
+      bonus: 1
+      condition: ''
+
+- _id: tal-b42
+  name: Park Ranger
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: You are skilled at moving quietly through wilderness environments.
+    effect: +1 bonus die to Sneak.
+    conditionalModifier:
+      skill: sneak
+      bonus: 1
+      condition: ''
+
+- _id: tal-b43
+  name: Pharmacist
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You understand medicines, chemicals, and their effects on the human
+      body.
+    effect: +1 bonus die to Lore.
+    conditionalModifier:
+      skill: lore
+      bonus: 1
+      condition: ''
+
+- _id: tal-b44
+  name: Photographer
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: You instinctively notice visual details others miss.
+    effect: +1 bonus die to Investigate.
+    conditionalModifier:
+      skill: investigate
+      bonus: 1
+      condition: ''
+
+- _id: tal-b45
+  name: Pilot
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Operating complex vehicles and navigation equipment is part of your
+      training.
+    effect: +1 bonus die to Tech.
+    conditionalModifier:
+      skill: tech
+      bonus: 1
+      condition: ''
+
+- _id: tal-b46
+  name: Police Officer
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: You are trained in the proper use of service weapons.
+    effect: +1 bonus die to Firearms.
+    conditionalModifier:
+      skill: firearms
+      bonus: 1
+      condition: ''
+
+- _id: tal-b47
+  name: Priest
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: Your words carry moral authority and influence over others.
+    effect: +1 bonus die to Manipulate.
+    conditionalModifier:
+      skill: manipulate
+      bonus: 1
+      condition: ''
+
+- _id: tal-b48
+  name: Private Investigator
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: Tracking people and uncovering hidden truths is your livelihood.
+    effect: +1 bonus die to Investigate.
+    conditionalModifier:
+      skill: investigate
+      bonus: 1
+      condition: ''
+
+- _id: tal-b49
+  name: Professor
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: Your academic background grants you extensive theoretical knowledge.
+    effect: +1 bonus die to Lore.
+    conditionalModifier:
+      skill: lore
+      bonus: 1
+      condition: ''
+
+- _id: tal-b50
+  name: Sailor
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: Life at sea has taught you to withstand difficult conditions.
+    effect: +1 bonus die to Endure.
+    conditionalModifier:
+      skill: endure
+      bonus: 1
+      condition: ''
+
+- _id: tal-b51
+  name: Salesperson
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Convincing people to trust and believe you is part of your profession.
+    effect: +1 bonus die to Manipulate.
+    conditionalModifier:
+      skill: manipulate
+      bonus: 1
+      condition: ''
+
+- _id: tal-b52
+  name: Scientist
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: You rely on observation, experimentation, and analysis.
+    effect: +1 bonus die to Investigate.
+    conditionalModifier:
+      skill: investigate
+      bonus: 1
+      condition: ''
+
+- _id: tal-b53
+  name: Security Guard
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: You are trained to maintain order and direct people during incidents.
+    effect: +1 bonus die to Command.
+    conditionalModifier:
+      skill: command
+      bonus: 1
+      condition: ''
+
+- _id: tal-b54
+  name: Shopkeeper
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Negotiating with customers and suppliers has sharpened your social
+      instincts.
+    effect: +1 bonus die to Manipulate.
+    conditionalModifier:
+      skill: manipulate
+      bonus: 1
+      condition: ''
+
+- _id: tal-b55
+  name: Sports Fan
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Years of studying team strategy and leadership dynamics influence
+      how you guide others.
+    effect: +1 bonus die to Command.
+    conditionalModifier:
+      skill: command
+      bonus: 1
+      condition: ''
+
+- _id: tal-b56
+  name: Student
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: Your academic studies have given you a foundation of knowledge.
+    effect: +1 bonus die to Lore.
+    conditionalModifier:
+      skill: lore
+      bonus: 1
+      condition: ''
+
+- _id: tal-b57
+  name: Survivalist
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: You train to endure extreme environments and catastrophic scenarios.
+    effect: +1 bonus die to Endure.
+    conditionalModifier:
+      skill: endure
+      bonus: 1
+      condition: ''
+
+- _id: tal-b58
+  name: Taxi Driver
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You know how to navigate cities and move through them without drawing
+      attention.
+    effect: +1 bonus die to Sneak.
+    conditionalModifier:
+      skill: sneak
+      bonus: 1
+      condition: ''
+
+- _id: tal-b59
+  name: Teacher
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: You are skilled at directing groups and keeping people focused.
+    effect: +1 bonus die to Command.
+    conditionalModifier:
+      skill: command
+      bonus: 1
+      condition: ''
+
+- _id: tal-b60
+  name: Technician
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: You repair and maintain specialized equipment.
+    effect: +1 bonus die to Tech.
+    conditionalModifier:
+      skill: tech
+      bonus: 1
+      condition: ''
+
+- _id: tal-b61
+  name: Translator
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Understanding language nuances allows you to influence conversations
+      and negotiations.
+    effect: +1 bonus die to Manipulate.
+    conditionalModifier:
+      skill: manipulate
+      bonus: 1
+      condition: ''
+
+- _id: tal-b62
+  name: Urban Explorer
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You specialize in quietly entering and navigating abandoned structures.
+    effect: +1 bonus die to Sneak.
+    conditionalModifier:
+      skill: sneak
+      bonus: 1
+      condition: ''
+
+- _id: tal-b63
+  name: Watch Enthusiast
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      You possess remarkable dexterity working with tiny mechanical
+      components.
+    effect: +1 bonus die to Sleight of Hand.
+    conditionalModifier:
+      skill: sleightOfHand
+      bonus: 1
+      condition: ''
+
+- _id: tal-b64
+  name: Woodworker
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: Years of manual craftsmanship have strengthened your hands and arms.
+    effect: +1 bonus die to Force.
+    conditionalModifier:
+      skill: force
+      bonus: 1
+      condition: ''
+
+- _id: tal-b65
+  name: Writer
+  type: talent
+  system:
+    talentType: background
+    division: ''
+    subUnit: ''
+    corruptionCost: 0
+    description: >-
+      Research and storytelling have sharpened your ability to uncover
+      hidden truths.
+    effect: +1 bonus die to Investigate.
+    conditionalModifier:
+      skill: investigate
+      bonus: 1
+      condition: ''
