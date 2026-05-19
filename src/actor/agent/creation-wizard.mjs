@@ -79,6 +79,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       customAnchor: CreationWizard.#onCustomAnchor,
       removeAnchor: CreationWizard.#onRemoveItem,
       openDarkSecretCompendium: CreationWizard.#onOpenDarkSecretCompendium,
+      customDarkSecret: CreationWizard.#onCustomDarkSecret,
       removeDarkSecret: CreationWizard.#onRemoveItem,
       viewItem: CreationWizard.#onViewItem,
       viewCompendiumItem: CreationWizard.#onViewCompendiumItem,
@@ -89,6 +90,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       submitOnChange: true,
       handler: CreationWizard.#onFormSubmit,
     },
+    dragDrop: [{ dropSelector: '.wizard-step-content' }],
   };
 
   /** @override */
@@ -98,6 +100,14 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       scrollable: ['.wizard-step-content'],
     },
   };
+
+  /**
+   * Allow drag-drop for the wizard (e.g. dropping talents and dark secrets).
+   * @override
+   */
+  _canDragDrop(_selector) {
+    return true;
+  }
 
   /* ------------------------------------------ */
   /*  Getters                                   */
@@ -700,6 +710,119 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   static async #onOpenDarkSecretCompendium(_event, _target) {
     const pack = game.packs.get('neon-relic.dark-secrets');
     if (pack) pack.render(true);
+  }
+
+  /**
+   * Create a custom dark secret with a dialog prompt.
+   */
+  static async #onCustomDarkSecret(_event, _target) {
+    // Prevent duplicates
+    if (this.actor.items.find(i => i.type === 'darkSecret')) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Wizard.AnchorSecret.DarkSecretExists'));
+      return;
+    }
+    const name = await foundry.applications.api.DialogV2.prompt({
+      window: { title: game.i18n.localize('NEONRELIC.Wizard.AnchorSecret.DarkSecretLabel') },
+      content: `<input type="text" name="name" placeholder="${game.i18n.localize('NEONRELIC.Wizard.AnchorSecret.DarkSecretName')}" autofocus />`,
+      ok: {
+        callback: (event, button) => button.form.elements.name.value,
+      },
+    });
+    if (name) {
+      await this.actor.createEmbeddedDocuments('Item', [
+        {
+          name,
+          type: 'darkSecret',
+          system: { description: '', xpTrigger: 'Did your Dark Secret complicate the mission?' },
+        },
+      ]);
+      this.render();
+    }
+  }
+
+  /**
+   * Handle drag-and-drop onto the wizard.
+   * Accepts darkSecret and talent items from compendiums.
+   * @param {DragEvent} event
+   * @override
+   */
+  async _onDrop(event) {
+    event.preventDefault();
+    let data;
+    try {
+      data = JSON.parse(event.dataTransfer.getData('text/plain'));
+    } catch {
+      return;
+    }
+    if (data.type !== 'Item') return;
+
+    const item = await fromUuid(data.uuid);
+    if (!item) return;
+
+    if (item.type === 'darkSecret') {
+      // Prevent duplicates
+      if (this.actor.items.find(i => i.type === 'darkSecret')) {
+        ui.notifications.warn(game.i18n.localize('NEONRELIC.Wizard.AnchorSecret.DarkSecretExists'));
+        return;
+      }
+      await this.actor.createEmbeddedDocuments('Item', [item.toObject()]);
+      this.render();
+      return;
+    }
+
+    if (item.type === 'talent') {
+      // Determine target slot from drop zone
+      const dropZone = event.target.closest('[data-slot-type]');
+      const slotType = dropZone?.dataset.slotType;
+      if (!slotType) {
+        ui.notifications.warn('Drop the talent onto a talent slot.');
+        return;
+      }
+
+      const talentType = item.system.talentType;
+      const system = this.actor.system;
+      const division = system.division;
+      const subUnit = system.subUnit;
+
+      // Validate talent type matches slot
+      if (slotType === 'division') {
+        if (talentType !== 'division' && talentType !== 'general') {
+          const divLabel = game.i18n.localize(CONFIG.NEON_RELIC.divisions[division] ?? '');
+          ui.notifications.warn(game.i18n.format('NEONRELIC.Wizard.Talents.InvalidSlot1', { division: divLabel }));
+          return;
+        }
+        if (talentType === 'division' && item.system.division && item.system.division !== division) {
+          ui.notifications.warn('This talent belongs to a different division.');
+          return;
+        }
+      } else if (slotType === 'subunit') {
+        if (talentType !== 'subunit') {
+          ui.notifications.warn(game.i18n.format('NEONRELIC.Wizard.Talents.InvalidSlot2', { subUnit }));
+          return;
+        }
+      } else if (slotType === 'background') {
+        if (talentType !== 'background') {
+          ui.notifications.warn(game.i18n.localize('NEONRELIC.Wizard.Talents.InvalidSlot3'));
+          return;
+        }
+      }
+
+      // Remove existing talent in this slot
+      const existing = this.actor.items.filter(i => i.type === 'talent');
+      for (const t of existing) {
+        const tt = t.system.talentType;
+        if (slotType === 'division' && (tt === 'division' || tt === 'general')) {
+          await t.delete();
+        } else if (slotType === 'subunit' && tt === 'subunit') {
+          await t.delete();
+        } else if (slotType === 'background' && tt === 'background') {
+          await t.delete();
+        }
+      }
+
+      await this.actor.createEmbeddedDocuments('Item', [item.toObject()]);
+      this.render();
+    }
   }
 
   /**
