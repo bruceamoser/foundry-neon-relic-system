@@ -28,7 +28,7 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
       // Core identity
-      division: new StringField({ initial: 'recovery', blank: true }),
+      division: new StringField({ initial: '', blank: true }),
       subUnit: new StringField({ blank: true }),
       specialty: new StringField({ blank: true }),
       clearanceLevel: new NumberField({ required: true, integer: true, min: 1, max: 5, initial: 1 }),
