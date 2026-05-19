@@ -37,13 +37,22 @@
       gap: 4px;
       padding: 4px;
       border-radius: 3px;
-      font-size: 12px;
+      font-size: 11px;
       color: $nr-ink-light;
       border: 1px solid transparent;
       cursor: default;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       .step-icon {
         font-size: 11px;
+        flex-shrink: 0;
+      }
+
+      .step-label-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       &.completed {
