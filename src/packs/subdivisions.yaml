@@ -18,7 +18,22 @@
         label: Research Field Analyst
       - key: research-liaison
         label: Research Liaison
-    startingGear: []
+    startingGear:
+      - name: Briefcase
+        type: gear
+        pack: neon-relic.gear
+      - name: Camera (35mm)
+        type: gear
+        pack: neon-relic.gear
+      - name: Forged Credentials
+        type: gear
+        pack: neon-relic.gear
+      - name: Civilian Clothing
+        type: gear
+        pack: neon-relic.gear
+      - name: Knife
+        type: weapon
+        pack: neon-relic.weapons-armor
     description: >-
       <p>The Research Wing studies historical documents, translates ancient texts,
       analyzes cultural records, and conducts investigative fieldwork at
@@ -39,7 +54,22 @@
         label: Counterintelligence Field Analyst
       - key: ci-technical-analyst
         label: Counterintelligence Technical Analyst
-    startingGear: []
+    startingGear:
+      - name: Briefcase
+        type: gear
+        pack: neon-relic.gear
+      - name: Camera (35mm)
+        type: gear
+        pack: neon-relic.gear
+      - name: Forged Credentials
+        type: gear
+        pack: neon-relic.gear
+      - name: Civilian Clothing
+        type: gear
+        pack: neon-relic.gear
+      - name: Knife
+        type: weapon
+        pack: neon-relic.weapons-armor
     description: >-
       <p>The Counterintelligence Wing monitors global communications, investigates
       threats, conducts surveillance, and disrupts activities that could expose
@@ -61,7 +91,25 @@
         label: Breacher
       - key: ghost
         label: Ghost
-    startingGear: []
+    startingGear:
+      - name: Revolver (.38)
+        type: weapon
+        pack: neon-relic.weapons-armor
+      - name: Flashlight
+        type: gear
+        pack: neon-relic.gear
+      - name: Rope (50 ft)
+        type: gear
+        pack: neon-relic.gear
+      - name: Chalk
+        type: consumable
+        pack: neon-relic.gear
+      - name: Crowbar
+        type: weapon
+        pack: neon-relic.weapons-armor
+      - name: Field Jacket
+        type: gear
+        pack: neon-relic.gear
     description: >-
       <p>Ex-Agency Operatives bring tradecraft from intelligence services.
       They run covert assets, breach hostile positions, and operate deep
@@ -82,7 +130,25 @@
         label: Close Protection
       - key: wrecker
         label: Wrecker
-    startingGear: []
+    startingGear:
+      - name: Revolver (.38)
+        type: weapon
+        pack: neon-relic.weapons-armor
+      - name: Flashlight
+        type: gear
+        pack: neon-relic.gear
+      - name: Rope (50 ft)
+        type: gear
+        pack: neon-relic.gear
+      - name: Chalk
+        type: consumable
+        pack: neon-relic.gear
+      - name: Crowbar
+        type: weapon
+        pack: neon-relic.weapons-armor
+      - name: Field Jacket
+        type: gear
+        pack: neon-relic.gear
     description: >-
       <p>Heavy-Hitters are the Covenant's blunt instruments — enforcers,
       bodyguards, and demolition specialists who overwhelm threats through
@@ -103,7 +169,25 @@
         label: Grifter
       - key: wheelman
         label: Wheelman
-    startingGear: []
+    startingGear:
+      - name: Revolver (.38)
+        type: weapon
+        pack: neon-relic.weapons-armor
+      - name: Flashlight
+        type: gear
+        pack: neon-relic.gear
+      - name: Rope (50 ft)
+        type: gear
+        pack: neon-relic.gear
+      - name: Chalk
+        type: consumable
+        pack: neon-relic.gear
+      - name: Crowbar
+        type: weapon
+        pack: neon-relic.weapons-armor
+      - name: Field Jacket
+        type: gear
+        pack: neon-relic.gear
     description: >-
       <p>Acquisition Specialists defeat security, assume false identities,
       and handle extraction logistics — whatever it takes to get the artifact
@@ -125,7 +209,16 @@
         label: Archivist
       - key: containment-architect
         label: Containment Architect
-    startingGear: []
+    startingGear:
+      - name: Containment Kit
+        type: gear
+        pack: neon-relic.gear
+      - name: Lore Reference Binder
+        type: gear
+        pack: neon-relic.gear
+      - name: Formal Attire
+        type: gear
+        pack: neon-relic.gear
     description: >-
       <p>The Department of Catalogers handles artifact intake, maintains
       the master registry, and designs specialized containment vaults.</p>
@@ -145,7 +238,19 @@
         label: Escort Warden
       - key: field-warden
         label: Field Warden
-    startingGear: []
+    startingGear:
+      - name: Containment Kit
+        type: gear
+        pack: neon-relic.gear
+      - name: Lore Reference Binder
+        type: gear
+        pack: neon-relic.gear
+      - name: Formal Attire
+        type: gear
+        pack: neon-relic.gear
+      - name: Revolver (.38)
+        type: weapon
+        pack: neon-relic.weapons-armor
     description: >-
       <p>Wardens provide physical security for vaults, escort artifact
       transports, and deploy externally when threats escalate.</p>
@@ -165,7 +270,16 @@
         label: Infiltration Investigator
       - key: vetting-officer
         label: Vetting Officer
-    startingGear: []
+    startingGear:
+      - name: Containment Kit
+        type: gear
+        pack: neon-relic.gear
+      - name: Lore Reference Binder
+        type: gear
+        pack: neon-relic.gear
+      - name: Formal Attire
+        type: gear
+        pack: neon-relic.gear
     description: >-
       <p>Internal CI monitors personnel behavior, investigates external
       threats, and conducts background assessments and clearance monitoring.</p>
@@ -185,7 +299,19 @@
         label: The Retro-Engineer
       - key: paratech-inventor
         label: The Paratech Inventor
-    startingGear: []
+    startingGear:
+      - name: Tool Kit
+        type: gear
+        pack: neon-relic.gear
+      - name: Signal Jammer
+        type: gear
+        pack: neon-relic.gear
+      - name: Walkie-Talkie
+        type: gear
+        pack: neon-relic.gear
+      - name: Coveralls
+        type: gear
+        pack: neon-relic.gear
     description: >-
       <p>The Stack (Logistics Department) manages equipment stores, repairs
       and modifies technology, and designs experimental paranatural devices.</p>
