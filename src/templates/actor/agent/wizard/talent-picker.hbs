@@ -1,0 +1,37 @@
+{{! Talent Picker Dialog — filtered by slot type }}
+<div class='talent-picker'>
+  <p class='picker-hint'>{{hint}}</p>
+
+  {{#if (gt talents.length 10)}}
+    <div class='picker-search'>
+      <input
+        type='text'
+        class='talent-search-input'
+        placeholder='{{localize "NEONRELIC.Wizard.Talents.SearchPlaceholder"}}'
+      />
+    </div>
+  {{/if}}
+
+  <ul class='talent-list'>
+    {{#each talents as |talent|}}
+      <li class='talent-entry' data-uuid='{{talent.uuid}}'>
+        <div class='talent-header'>
+          <img src='{{talent.img}}' alt='{{talent.name}}' />
+          <span class='talent-name'>{{talent.name}}</span>
+          {{#if talent.corruptionCost}}
+            <span class='talent-corruption' data-tooltip='Corruption Cost'>
+              <i class='fas fa-biohazard'></i>
+              {{talent.corruptionCost}}
+            </span>
+          {{/if}}
+          <span class='talent-type-badge'>{{talent.typeLabel}}</span>
+        </div>
+        <p class='talent-effect'>{{talent.effect}}</p>
+      </li>
+    {{/each}}
+  </ul>
+
+  {{#unless talents.length}}
+    <p class='no-talents'>{{localize 'NEONRELIC.Wizard.Talents.NoTalentsAvailable'}}</p>
+  {{/unless}}
+</div>

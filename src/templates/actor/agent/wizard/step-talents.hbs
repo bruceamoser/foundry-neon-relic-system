@@ -6,7 +6,13 @@
 
   <div class='talent-slots'>
     <div class='talent-slot' data-slot='1'>
-      <h3>{{localize 'NEONRELIC.Wizard.Talents.Slot1'}}</h3>
+      <div class='slot-header'>
+        <h3>{{localize 'NEONRELIC.Wizard.Talents.Slot1'}}</h3>
+        <button type='button' class='browse-slot-btn' data-action='browseTalents' data-slot-type='division'>
+          <i class='fas fa-search'></i>
+          {{localize 'NEONRELIC.Wizard.Talents.Browse'}}
+        </button>
+      </div>
       <div class='talent-drop-zone' data-slot-type='division'>
         {{#each talentSlots as |talent|}}
           {{#if (eq talent.system.talentType 'division')}}
@@ -51,7 +57,13 @@
     </div>
 
     <div class='talent-slot' data-slot='2'>
-      <h3>{{localize 'NEONRELIC.Wizard.Talents.Slot2'}}</h3>
+      <div class='slot-header'>
+        <h3>{{localize 'NEONRELIC.Wizard.Talents.Slot2'}}</h3>
+        <button type='button' class='browse-slot-btn' data-action='browseTalents' data-slot-type='subunit'>
+          <i class='fas fa-search'></i>
+          {{localize 'NEONRELIC.Wizard.Talents.Browse'}}
+        </button>
+      </div>
       <div class='talent-drop-zone' data-slot-type='subunit'>
         {{#each talentSlots as |talent|}}
           {{#if (eq talent.system.talentType 'subunit')}}
@@ -79,7 +91,13 @@
     </div>
 
     <div class='talent-slot' data-slot='3'>
-      <h3>{{localize 'NEONRELIC.Wizard.Talents.Slot3'}}</h3>
+      <div class='slot-header'>
+        <h3>{{localize 'NEONRELIC.Wizard.Talents.Slot3'}}</h3>
+        <button type='button' class='browse-slot-btn' data-action='browseTalents' data-slot-type='background'>
+          <i class='fas fa-search'></i>
+          {{localize 'NEONRELIC.Wizard.Talents.Browse'}}
+        </button>
+      </div>
       <div class='talent-drop-zone' data-slot-type='background'>
         {{#each talentSlots as |talent|}}
           {{#if (eq talent.system.talentType 'background')}}
@@ -107,8 +125,8 @@
     </div>
   </div>
 
-  <button type='button' class='open-compendium' data-action='openTalentCompendium'>
-    <i class='fas fa-book-open'></i>
-    {{localize 'NEONRELIC.Wizard.Talents.OpenCompendium'}}
-  </button>
+  <p class='drop-hint'>
+    <i class='fas fa-hand-pointer'></i>
+    {{localize 'NEONRELIC.Wizard.Talents.DropHint'}}
+  </p>
 </div>

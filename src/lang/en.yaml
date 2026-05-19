@@ -1059,15 +1059,23 @@ NEONRELIC:
 
     Talents:
       Title: Choose Starting Talents
-      Description: Drag talents from the compendium into the slots below. Each slot has specific requirements.
+      Description: Choose one talent for each slot below. Use the browse buttons or drag talents from the compendium.
       Slot1: 'Slot 1: Division or General Talent'
       Slot2: 'Slot 2: Sub-Unit Talent ({subUnit})'
       Slot3: 'Slot 3: Background Talent'
-      SlotEmpty: Drag a talent here
-      OpenCompendium: Browse Talents
+      SlotEmpty: No talent selected
+      Browse: Browse
+      DropHint: You can also drag talents from the compendium into the slots above.
       InvalidSlot1: 'This slot requires a Division ({division}) or General talent.'
       InvalidSlot2: 'This slot requires a talent from {subUnit}.'
       InvalidSlot3: This slot requires a Background talent.
+      WrongSubUnit: 'This talent belongs to a different sub-unit. This slot requires a talent from {subUnit}.'
+      PickerTitle: Select a Talent
+      PickerHintSlot1: 'Choose a Division ({division}) or General talent.'
+      PickerHintSlot2: 'Choose a Sub-Unit talent for {subUnit}.'
+      PickerHintSlot3: Choose a Background talent.
+      SearchPlaceholder: Search talents...
+      NoTalentsAvailable: No talents available for this slot.
 
     AnchorSecret:
       Title: Anchor & Dark Secret

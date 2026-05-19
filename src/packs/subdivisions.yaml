@@ -8,6 +8,7 @@
   type: subdivision
   system:
     division: wayfinder
+    talentKey: research
     keySkill: lore
     baseCL: 3
     divisionItemName: Verdant Codex
@@ -57,6 +58,7 @@
   type: subdivision
   system:
     division: wayfinder
+    talentKey: counterintelligence
     keySkill: lore
     baseCL: 3
     divisionItemName: Verdant Codex
@@ -106,6 +108,7 @@
   type: subdivision
   system:
     division: recovery
+    talentKey: ex-agency
     keySkill: firearms
     baseCL: 2
     divisionItemName: Verdant Satchel
@@ -156,6 +159,7 @@
   type: subdivision
   system:
     division: recovery
+    talentKey: heavy-hitter
     keySkill: firearms
     baseCL: 2
     divisionItemName: Verdant Satchel
@@ -207,6 +211,7 @@
   type: subdivision
   system:
     division: recovery
+    talentKey: acquisition
     keySkill: firearms
     baseCL: 2
     divisionItemName: Verdant Satchel
@@ -259,6 +264,7 @@
   type: subdivision
   system:
     division: keep
+    talentKey: catalogers
     keySkill: command
     baseCL: 3
     divisionItemName: "Warden's Bracer"
@@ -301,6 +307,7 @@
   type: subdivision
   system:
     division: keep
+    talentKey: wardens
     keySkill: command
     baseCL: 3
     divisionItemName: "Warden's Bracer"
@@ -345,6 +352,7 @@
   type: subdivision
   system:
     division: keep
+    talentKey: internal-ci
     keySkill: command
     baseCL: 3
     divisionItemName: "Warden's Bracer"
@@ -386,6 +394,7 @@
   type: subdivision
   system:
     division: keep
+    talentKey: stack
     keySkill: command
     baseCL: 3
     divisionItemName: "Warden's Bracer"

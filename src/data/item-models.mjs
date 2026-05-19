@@ -412,6 +412,7 @@ export class SubdivisionDataModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
       division: new StringField({ initial: 'recovery', blank: false }),
+      talentKey: new StringField({ blank: true }),
       keySkill: new StringField({ initial: 'firearms', blank: false }),
       baseCL: new NumberField({ required: true, integer: true, min: 1, max: 5, initial: 2 }),
       specialties: new ArrayField(
