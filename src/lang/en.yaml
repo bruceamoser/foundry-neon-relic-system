@@ -1077,8 +1077,12 @@ NEONRELIC:
       RollAnchor: Roll Random Anchor
       CustomAnchor: Create Custom Anchor
       BrowseSecrets: Browse Dark Secrets
+      CustomDarkSecret: Create Custom Secret
       SelectSecret: Select Dark Secret
       AnchorName: Anchor Name
+      DarkSecretName: Dark Secret Name
+      DarkSecretExists: You already have a dark secret. Remove it first to select a new one.
+      DropHint: Or drag a dark secret from the compendium
       AnchorMemory: 'Anchor Memory — a single, vivid sensory moment'
       AnchorRelationship: Anchor Relationship
       DarkSecretPlaceholder: Select a dark secret from the compendium
