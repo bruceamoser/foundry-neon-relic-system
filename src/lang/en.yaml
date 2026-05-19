@@ -1055,6 +1055,7 @@ NEONRELIC:
       Budget: Skill Points
       Remaining: 'Points Remaining: {remaining} / {total}'
       KeySkillNote: '★ Key Skill (max 4)'
+      BudgetWarning: You must spend exactly all your skill points before continuing.
 
     Talents:
       Title: Choose Starting Talents
