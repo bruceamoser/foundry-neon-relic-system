@@ -1046,6 +1046,8 @@ NEONRELIC:
       Budget: Attribute Points
       Remaining: 'Points Remaining: {remaining} / {total}'
       CorruptionNote: 'Max Corruption Threshold = 10 + Empathy ({threshold})'
+      KeyNote: can reach 5 (key attribute for your division).
+      BudgetWarning: You must spend exactly all your attribute points before continuing.
 
     Skills:
       Title: Distribute Skill Points

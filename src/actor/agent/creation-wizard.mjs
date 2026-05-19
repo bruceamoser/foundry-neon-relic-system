@@ -9,6 +9,16 @@ const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 const SYSTEM_ID = 'neon-relic';
 
 /**
+ * Division key attribute mapping.
+ * Wayfinder→Wits, Recovery→Agility, Keep→Empathy.
+ */
+const DIVISION_KEY_ATTRIBUTES = {
+  wayfinder: 'wit',
+  recovery: 'agi',
+  keep: 'emp',
+};
+
+/**
  * Wizard step definitions. Each step will get its own template and logic
  * in subsequent issues (#236–#243, #249).
  * @type {Array<{id: string, label: string, icon: string}>}
@@ -72,6 +82,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       removeDarkSecret: CreationWizard.#onRemoveItem,
       viewItem: CreationWizard.#onViewItem,
       viewCompendiumItem: CreationWizard.#onViewCompendiumItem,
+      adjustWizardAttribute: CreationWizard.#onAdjustWizardAttribute,
     },
     form: {
       submitOnChange: true,
@@ -221,15 +232,29 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       }
 
       case 'attributes': {
+        const keyAttr = DIVISION_KEY_ATTRIBUTES[system.division] ?? '';
         context.attributes = {};
         for (const [key, label] of Object.entries(CONFIG.NEON_RELIC.attributes)) {
+          const value = system.attributes[key].max;
+          const isKeyAttr = key === keyAttr;
+          const max = isKeyAttr ? 5 : 4;
           context.attributes[key] = {
             key,
             label: game.i18n.localize(label),
-            value: system.attributes[key].max,
+            value,
+            isKeyAttr,
+            max,
+            canIncrease: value < max && system.budget.attrRemaining > 0,
+            canDecrease: value > 2,
+            disabledPlus: value >= max || system.budget.attrRemaining <= 0 ? 'disabled' : '',
+            disabledMinus: value <= 2 ? 'disabled' : '',
+            cssClass: isKeyAttr ? 'key-attribute' : '',
           };
         }
         context.attrBudget = system.budget;
+        context.attrBudgetOver = system.budget.attrRemaining < 0;
+        context.budgetClass = system.budget.attrRemaining < 0 ? 'over-budget' : '';
+        context.keyAttrName = keyAttr ? game.i18n.localize(CONFIG.NEON_RELIC.attributes[keyAttr] ?? '') : '';
         break;
       }
 
@@ -401,12 +426,47 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   /**
+   * Adjust a wizard attribute by +1 or -1 via the +/− buttons.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   */
+  static async #onAdjustWizardAttribute(_event, target) {
+    const attr = target.dataset.attr;
+    const delta = Number(target.dataset.delta);
+    if (!attr || !delta) return;
+
+    const system = this.actor.system;
+    const current = system.attributes[attr]?.max ?? 2;
+    const keyAttr = DIVISION_KEY_ATTRIBUTES[system.division] ?? '';
+    const max = attr === keyAttr ? 5 : 4;
+    const newValue = Math.clamp(current + delta, 2, max);
+    if (newValue === current) return;
+
+    // Check budget on increase
+    if (delta > 0 && system.budget.attrRemaining <= 0) return;
+
+    await this.actor.update({ [`system.attributes.${attr}.max`]: newValue });
+    this.render();
+  }
+
+  /**
    * Advance to the next wizard step.
    * @param {PointerEvent} event
    * @param {HTMLElement} target
    */
   static async #onNext(_event, _target) {
     if (this.isLastStep) return;
+
+    // Validate attribute budget before leaving attributes step
+    const stepId = STEPS[this.#currentStep].id;
+    if (stepId === 'attributes') {
+      const budget = this.actor.system.budget;
+      if (budget.attrRemaining !== 0) {
+        ui.notifications.warn(game.i18n.localize('NEONRELIC.Wizard.Attributes.BudgetWarning'));
+        return;
+      }
+    }
+
     await this.#resetDownstream();
     this.#currentStep++;
     this.render();
