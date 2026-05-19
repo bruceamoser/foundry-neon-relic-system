@@ -600,12 +600,100 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 
   /**
-   * Complete character creation — mark agent as complete.
+   * Complete character creation — validate, embed gear, and finalize.
    * @param {PointerEvent} event
    * @param {HTMLElement} target
    */
   static async #onComplete(_event, _target) {
-    await this.actor.update({ 'system.creationComplete': true });
+    const actor = this.actor;
+    const system = actor.system;
+    const loc = key => game.i18n.localize(`NEONRELIC.Wizard.Validation.${key}`);
+
+    // ── Validation ──────────────────────────────────────────────
+    if (!actor.name?.trim()) {
+      ui.notifications.warn(loc('NameRequired'));
+      return;
+    }
+    if (!system.division) {
+      ui.notifications.warn(loc('DivisionRequired'));
+      return;
+    }
+    if (!system.subUnit) {
+      ui.notifications.warn(loc('SubUnitRequired'));
+      return;
+    }
+    if (!system.specialty) {
+      ui.notifications.warn(loc('SpecialtyRequired'));
+      return;
+    }
+    if (system.budget.attrRemaining !== 0) {
+      ui.notifications.warn(loc('AttrNotSpent'));
+      return;
+    }
+    if (system.budget.skillRemaining !== 0) {
+      ui.notifications.warn(loc('SkillNotSpent'));
+      return;
+    }
+    const talents = actor.items.filter(i => i.type === 'talent');
+    if (talents.length < 3) {
+      ui.notifications.warn(loc('TalentsRequired'));
+      return;
+    }
+    if (!actor.items.some(i => i.type === 'anchor')) {
+      ui.notifications.warn(loc('AnchorRequired'));
+      return;
+    }
+    if (!actor.items.some(i => i.type === 'darkSecret')) {
+      ui.notifications.warn(loc('DarkSecretRequired'));
+      return;
+    }
+
+    // ── Resolve subdivision for gear references ─────────────────
+    const subPack = game.packs.get('neon-relic.subdivisions');
+    const allSubs = subPack ? await subPack.getDocuments() : [];
+    const currentSub = allSubs.find(s => s.name === system.subUnit);
+    if (!currentSub) {
+      ui.notifications.error('Could not resolve subdivision data.');
+      return;
+    }
+
+    // ── Embed subdivision item (drives CL calculation) ─────────
+    const itemsToCreate = [currentSub.toObject()];
+
+    // ── Embed starting gear ─────────────────────────────────────
+    const startingGearRefs = currentSub.system.startingGear ?? [];
+
+    for (const ref of startingGearRefs) {
+      const packId = ref.pack || 'neon-relic.gear';
+      const pack = game.packs.get(packId);
+      if (!pack) continue;
+      const docs = await pack.getDocuments();
+      const found = docs.find(d => d.name === ref.name);
+      if (found) itemsToCreate.push(found.toObject());
+    }
+
+    // ── Embed division item ─────────────────────────────────────
+    const divItemName = currentSub.system.divisionItemName ?? '';
+    if (divItemName) {
+      const gearPack = game.packs.get('neon-relic.gear');
+      if (gearPack) {
+        const gearDocs = await gearPack.getDocuments();
+        const divItem = gearDocs.find(d => d.name === divItemName);
+        if (divItem) itemsToCreate.push(divItem.toObject());
+      }
+    }
+
+    // Create all embedded items at once
+    if (itemsToCreate.length) {
+      await actor.createEmbeddedDocuments('Item', itemsToCreate);
+    }
+
+    // ── Finalize ────────────────────────────────────────────────
+    await actor.update({
+      'system.creationComplete': true,
+      'system.divisionItem.active': true,
+    });
+
     ui.notifications.info(game.i18n.localize('NEONRELIC.Wizard.Summary.Success'));
     this.close();
   }
