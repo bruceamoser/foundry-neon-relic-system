@@ -222,6 +222,28 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   /* ------------------------------------------ */
 
   /** @override */
+  _getHeaderControls() {
+    const controls = super._getHeaderControls();
+    controls.unshift(
+      {
+        icon: 'fa-solid fa-wand-magic-sparkles',
+        label: game.i18n.localize('NEONRELIC.Wizard.Launch'),
+        action: 'launchWizard',
+        visible: !this.document.system.creationComplete,
+      },
+      {
+        icon: 'fa-solid fa-rotate-left',
+        label: game.i18n.localize('NEONRELIC.Wizard.Reset.Title'),
+        action: 'resetCreation',
+        visible: game.user.isGM,
+      },
+    );
+    return controls;
+  }
+
+  /* ------------------------------------------ */
+
+  /** @override */
   async _preparePartContext(partId, context, options) {
     const partContext = await super._preparePartContext(partId, context, options);
     partContext.tab = context.tabs?.[partId] ?? {};
