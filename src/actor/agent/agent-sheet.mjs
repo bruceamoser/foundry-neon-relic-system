@@ -24,6 +24,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       rollSkill: AgentSheet.#onRollSkill,
       toggleCondition: AgentSheet.#onToggleCondition,
       useTalent: AgentSheet.#onUseTalent,
+      viewItem: AgentSheet.#onViewItem,
       adjustAttribute: AgentSheet.#onAdjustAttribute,
       adjustSkill: AgentSheet.#onAdjustSkill,
       launchWizard: AgentSheet.#onLaunchWizard,
@@ -387,10 +388,14 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   static async #onRollAttribute(_event, target) {
     const attrKey = target.dataset.attribute;
     const attrValue = this.document.system.attributes[attrKey]?.value ?? 0;
+    const gearItems = AgentSheet.#getGearForRoll(this.document, null, attrKey);
+    const talentItems = AgentSheet.#getTalentsForRoll(this.document, null, attrKey);
     await NRRollDialog.prompt({
       attribute: attrKey,
       attributeValue: attrValue,
       actorId: this.document.id,
+      gearItems,
+      talentItems,
     });
   }
 
@@ -405,13 +410,65 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const attrKey = skillConfig?.attribute ?? '';
     const attrValue = this.document.system.attributes[attrKey]?.value ?? 0;
     const skillValue = this.document.system.skills[skillKey] ?? 0;
+    const gearItems = AgentSheet.#getGearForRoll(this.document, skillKey, attrKey);
+    const talentItems = AgentSheet.#getTalentsForRoll(this.document, skillKey, attrKey);
     await NRRollDialog.prompt({
       attribute: attrKey,
       attributeValue: attrValue,
       skill: skillKey,
       skillValue,
       actorId: this.document.id,
+      gearItems,
+      talentItems,
     });
+  }
+
+  /**
+   * Collect gear items that could provide a bonus for a roll.
+   * @param {Actor} actor
+   * @param {string|null} skillKey
+   * @param {string} attrKey
+   * @returns {Array<{id: string, name: string, bonus: number}>}
+   */
+  static #getGearForRoll(actor, skillKey, attrKey) {
+    const items = [];
+    for (const item of actor.items) {
+      if (item.type !== 'gear' && item.type !== 'weapon') continue;
+      const bonus = item.system.gearBonus?.value ?? 0;
+      if (bonus <= 0) continue;
+      // Filter by skill if the gear specifies one
+      if (item.type === 'gear' && item.system.skillBonus) {
+        if (skillKey && item.system.skillBonus !== skillKey) continue;
+        if (!skillKey) {
+          // Attribute-only roll: include gear if its skill belongs to this attribute
+          const gearSkillConfig = CONFIG.NEON_RELIC.skills[item.system.skillBonus];
+          if (gearSkillConfig?.attribute !== attrKey) continue;
+        }
+      }
+      items.push({ id: item.id, name: item.name, bonus });
+    }
+    return items;
+  }
+
+  /**
+   * Collect talents relevant to a roll for display.
+   * @param {Actor} actor
+   * @param {string|null} skillKey
+   * @param {string} attrKey
+   * @returns {Array<{id: string, name: string, bonus: number, description: string}>}
+   */
+  static #getTalentsForRoll(actor, skillKey, attrKey) {
+    const items = [];
+    for (const item of actor.items) {
+      if (item.type !== 'talent') continue;
+      const mod = item.system.conditionalModifier;
+      if (!mod?.skill && !mod?.bonus) continue;
+      // Include if the talent's conditional modifier matches the skill or attribute
+      if (skillKey && mod.skill === skillKey) {
+        items.push({ id: item.id, name: item.name, bonus: mod.bonus, description: mod.condition ?? '' });
+      }
+    }
+    return items;
   }
 
   /**
@@ -434,6 +491,17 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const itemId = target.closest('[data-item-id]')?.dataset.itemId;
     const item = this.document.items.get(itemId);
     if (item) await item.useTalent();
+  }
+
+  /**
+   * Open an item's sheet when clicking its name.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   */
+  static #onViewItem(_event, target) {
+    const itemId = target.closest('[data-item-id]')?.dataset.itemId;
+    const item = this.document.items.get(itemId);
+    if (item) item.sheet.render(true);
   }
 
   /**

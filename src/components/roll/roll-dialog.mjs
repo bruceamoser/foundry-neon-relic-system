@@ -64,6 +64,8 @@ export class NRRollDialog extends HandlebarsApplicationMixin(ApplicationV2) {
         rollType: 'standard',
         notes: '',
         actorId: null,
+        gearItems: [],
+        talentItems: [],
       },
       rollData,
     );

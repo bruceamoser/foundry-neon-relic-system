@@ -688,8 +688,15 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       await actor.createEmbeddedDocuments('Item', itemsToCreate);
     }
 
+    // ── Sync attribute value = max (wizard only sets max) ──────
+    const attrSync = {};
+    for (const key of Object.keys(system.attributes)) {
+      attrSync[`system.attributes.${key}.value`] = system.attributes[key].max;
+    }
+
     // ── Finalize ────────────────────────────────────────────────
     await actor.update({
+      ...attrSync,
       'system.creationComplete': true,
       'system.divisionItem.active': true,
     });

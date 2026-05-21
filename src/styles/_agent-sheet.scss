@@ -843,4 +843,65 @@
     text-align: center;
     padding: $nr-spacing-md;
   }
+
+  // ── Clickable item names ────────────────────────────
+  .item-name {
+    cursor: pointer;
+    color: $nr-ink;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      color: $nr-green-stamp;
+    }
+  }
+
+  // ── Rollable elements ───────────────────────────────
+  .rollable {
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 0 0 1px $nr-green-stamp;
+    }
+  }
+
+  // ── Summary skills ─────────────────────────────────
+  .summary-skills {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $nr-spacing-xs;
+    margin-top: $nr-spacing-xs;
+  }
+
+  .summary-skill-group {
+    .summary-skill-attr {
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: $nr-ink-faded;
+      border-bottom: 1px solid $nr-rule;
+      padding-bottom: 2px;
+      margin-bottom: 2px;
+    }
+  }
+
+  .summary-skill-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1px 3px;
+    font-family: $nr-font-fill;
+    font-size: 7.5pt;
+    border-radius: 2px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    .summary-skill-value {
+      font-weight: bold;
+      min-width: 12px;
+      text-align: center;
+    }
+  }
 }

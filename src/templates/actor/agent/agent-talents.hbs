@@ -4,7 +4,7 @@
     {{#each talents}}
       <div class='talent-block' data-item-id='{{this.id}}'>
         <div class='talent-type'>{{this.system.talentType}}</div>
-        <div class='talent-name'>{{this.name}}</div>
+        <a class='talent-name item-name' data-action='viewItem'>{{this.name}}</a>
         <div class='talent-meta'>
           {{#if this.system.isOncePerSession}}
             <span class='talent-uses'>{{localize 'NEONRELIC.Talent.OncePerSession'}}</span>
