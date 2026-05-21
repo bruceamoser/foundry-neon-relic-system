@@ -457,7 +457,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
    * @param {string} attrKey
    * @returns {Array<{id: string, name: string, bonus: number, description: string}>}
    */
-  static #getTalentsForRoll(actor, skillKey, attrKey) {
+  static #getTalentsForRoll(actor, skillKey, _attrKey) {
     const items = [];
     for (const item of actor.items) {
       if (item.type !== 'talent') continue;
