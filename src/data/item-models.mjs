@@ -99,6 +99,7 @@ export class WeaponDataModel extends foundry.abstract.TypeDataModel {
         value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
         max: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
       }),
+      skill: new StringField({ initial: 'brawl', blank: false }),
       targetAttribute: new StringField({ initial: 'str', blank: false }),
       meleeType: new StringField({ nullable: true, initial: null }),
       traits: new SchemaField({

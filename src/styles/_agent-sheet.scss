@@ -516,6 +516,25 @@
     }
   }
 
+  .heal-button-row {
+    margin-top: 0.5rem;
+    text-align: center;
+
+    .heal-btn {
+      background: $nr-green-stamp;
+      color: $nr-paper;
+      border: none;
+      padding: 0.4rem 1rem;
+      font-family: $nr-font-main;
+      font-size: 9pt;
+      cursor: pointer;
+
+      &:hover {
+        filter: brightness(1.2);
+      }
+    }
+  }
+
   // ── Combat Tab ──────────────────────────────────────
   .combat-header {
     display: flex;
@@ -831,6 +850,15 @@
       font-size: 9pt;
       line-height: 1.5;
     }
+  }
+
+  .debrief-questions {
+    font-family: $nr-font-fill;
+    font-size: 8pt;
+    line-height: 1.6;
+    color: $nr-ink-faded;
+    padding-left: 1.5rem;
+    margin: 0;
   }
 
   // ── Empty list state ────────────────────────────────

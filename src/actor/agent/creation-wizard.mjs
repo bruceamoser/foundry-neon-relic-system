@@ -506,7 +506,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     const current = system.attributes[attr]?.max ?? 2;
     const keyAttr = DIVISION_KEY_ATTRIBUTES[system.division] ?? '';
     const max = attr === keyAttr ? 5 : 4;
-    const newValue = Math.clamp(current + delta, 2, max);
+    const newValue = Math.clamp(current + delta, 1, max);
     if (newValue === current) return;
 
     // Check budget on increase

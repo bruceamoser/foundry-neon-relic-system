@@ -29,6 +29,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       adjustSkill: AgentSheet.#onAdjustSkill,
       launchWizard: AgentSheet.#onLaunchWizard,
       resetCreation: AgentSheet.#onResetCreation,
+      healCorruption: AgentSheet.#onHealCorruption,
     },
     form: {
       submitOnChange: true,
@@ -126,11 +127,11 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
     // Corruption stage
     const cv = system.corruption.value;
-    if (cv <= 0) context.corruptionStage = 'clean';
-    else if (cv <= 3) context.corruptionStage = 'touched';
-    else if (cv <= 6) context.corruptionStage = 'marked';
-    else if (cv <= 9) context.corruptionStage = 'consumed';
-    else context.corruptionStage = 'lost';
+    if (cv <= 0) context.corruptionStage = 'Clean';
+    else if (cv <= 3) context.corruptionStage = 'Touched';
+    else if (cv <= 6) context.corruptionStage = 'Marked';
+    else if (cv <= 9) context.corruptionStage = 'Consumed';
+    else context.corruptionStage = 'Lost';
 
     // Encumbrance tier
     const enc = system.encumbrance;
@@ -436,7 +437,16 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       if (item.type !== 'gear' && item.type !== 'weapon') continue;
       const bonus = item.system.gearBonus?.value ?? 0;
       if (bonus <= 0) continue;
-      // Filter by skill if the gear specifies one
+
+      if (item.type === 'weapon') {
+        // Include weapons whose skill matches the roll skill
+        if (skillKey && item.system.skill === skillKey) {
+          items.push({ id: item.id, name: item.name, bonus });
+        }
+        continue;
+      }
+
+      // Filter gear by skill if the gear specifies one
       if (item.type === 'gear' && item.system.skillBonus) {
         if (skillKey && item.system.skillBonus !== skillKey) continue;
         if (!skillKey) {
@@ -494,6 +504,36 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   /**
+   * Heal corruption via a dialog prompt.
+   */
+  static async #onHealCorruption() {
+    const actor = this.document;
+    const sys = actor.system.corruption;
+    const maxSession = 5;
+    const available = Math.max(0, maxSession - sys.sessionHealing);
+    if (available <= 0) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Corruption.SessionCapReached'));
+      return;
+    }
+    const maxHealable = Math.min(available, sys.value);
+    if (maxHealable <= 0) {
+      ui.notifications.info(game.i18n.localize('NEONRELIC.Corruption.NoneToHeal'));
+      return;
+    }
+    const amount = await foundry.applications.api.DialogV2.prompt({
+      window: { title: game.i18n.localize('NEONRELIC.Corruption.HealTitle') },
+      content: `<div class="form-group"><label>${game.i18n.localize('NEONRELIC.Corruption.HealAmount')}</label><input type="number" name="amount" value="1" min="1" max="${maxHealable}" autofocus /></div><p class="hint">${game.i18n.format('NEONRELIC.Corruption.HealHint', { available })}</p>`,
+      ok: {
+        callback: (event, button) => Math.clamp(Number(button.form.elements.amount.value) || 0, 0, maxHealable),
+      },
+    });
+    if (amount > 0) {
+      await actor.healCorruption(amount);
+      ui.notifications.info(game.i18n.format('NEONRELIC.Corruption.Healed', { amount }));
+    }
+  }
+
+  /**
    * Open an item's sheet when clicking its name.
    * @param {PointerEvent} _event
    * @param {HTMLElement} target
@@ -518,8 +558,8 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const current = sys.attributes[key].max;
     const newVal = current + delta;
 
-    // Enforce min 2, max 5
-    if (newVal < 2 || newVal > 5) return;
+    // Enforce min 1, max 5
+    if (newVal < 1 || newVal > 5) return;
 
     // Check budget when increasing
     if (delta > 0 && sys.budget.attrRemaining <= 0) {
