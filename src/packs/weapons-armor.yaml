@@ -10,7 +10,11 @@
     damage: 1
     range: engaged
     skill: brawl
-    weight: 0
+    targetAttribute: str
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 0
 
 - _id: wpn002
   name: Knife
@@ -20,7 +24,11 @@
     damage: 2
     range: engaged
     skill: brawl
-    weight: 1
+    targetAttribute: str
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 1
 
 - _id: wpn003
   name: Baseball Bat
@@ -30,7 +38,11 @@
     damage: 2
     range: engaged
     skill: brawl
-    weight: 2
+    targetAttribute: str
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 2
 
 - _id: wpn004
   name: Crowbar
@@ -40,7 +52,11 @@
     damage: 2
     range: engaged
     skill: brawl
-    weight: 2
+    targetAttribute: str
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 2
 
 - _id: wpn005
   name: Revolver (.38)
@@ -49,9 +65,17 @@
     description: Six-shot revolver. Reliable sidearm.
     damage: 2
     range: short
-    skill: rangedCombat
-    weight: 1
-    ammoDie: 8
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 2
+      max: 2
+    encumbrance: 1
+    ammoDie:
+      current: d8
+      starting: d8
+    traits:
+      reliable: true
 
 - _id: wpn006
   name: Pistol (9mm)
@@ -60,9 +84,15 @@
     description: Semi-automatic pistol. Standard law enforcement sidearm.
     damage: 2
     range: short
-    skill: rangedCombat
-    weight: 1
-    ammoDie: 10
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 2
+      max: 2
+    encumbrance: 1
+    ammoDie:
+      current: d10
+      starting: d10
 
 - _id: wpn007
   name: Shotgun (12-gauge)
@@ -71,9 +101,15 @@
     description: Pump-action shotgun. Devastating at close range.
     damage: 3
     range: short
-    skill: rangedCombat
-    weight: 3
-    ammoDie: 6
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 3
+      max: 3
+    encumbrance: 3
+    ammoDie:
+      current: d6
+      starting: d6
 
 - _id: wpn008
   name: Hunting Rifle
@@ -82,9 +118,15 @@
     description: Bolt-action hunting rifle with scope.
     damage: 3
     range: long
-    skill: rangedCombat
-    weight: 3
-    ammoDie: 6
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 3
+      max: 3
+    encumbrance: 3
+    ammoDie:
+      current: d6
+      starting: d6
 
 - _id: wpn009
   name: Submachine Gun
@@ -93,9 +135,17 @@
     description: Compact automatic weapon. Full-auto capable.
     damage: 2
     range: medium
-    skill: rangedCombat
-    weight: 2
-    ammoDie: 10
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 2
+      max: 2
+    encumbrance: 2
+    ammoDie:
+      current: d10
+      starting: d10
+    traits:
+      fullAuto: true
 
 - _id: wpn010
   name: Improvised Weapon
@@ -105,7 +155,11 @@
     damage: 1
     range: engaged
     skill: brawl
-    weight: 1
+    targetAttribute: str
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 1
 
 # ── Armor ────────────────────────────────────
 - _id: arm001
@@ -113,37 +167,52 @@
   type: armor
   system:
     description: Thick leather jacket. Light protection, no movement penalty.
-    armorRating: 2
-    weight: 1
+    ar:
+      value: 2
+      max: 2
+    encumbrance: 1
+    agilityPenalty: 0
 
 - _id: arm002
   name: Flak Vest
   type: armor
   system:
     description: Military surplus ballistic vest.
-    armorRating: 4
-    weight: 2
+    ar:
+      value: 4
+      max: 4
+    encumbrance: 2
+    agilityPenalty: 1
 
 - _id: arm003
   name: Riot Shield
   type: armor
   system:
     description: Polycarbonate riot shield. Can be used with Cover action.
-    armorRating: 3
-    weight: 2
+    ar:
+      value: 3
+      max: 3
+    encumbrance: 2
+    agilityPenalty: 0
 
 - _id: arm004
   name: Kevlar Vest
   type: armor
   system:
     description: Modern concealed body armor.
-    armorRating: 6
-    weight: 2
+    ar:
+      value: 6
+      max: 6
+    encumbrance: 2
+    agilityPenalty: 2
 
 - _id: arm005
   name: Hard Hat
   type: armor
   system:
     description: Construction hard hat. Protects against falling debris.
-    armorRating: 1
-    weight: 1
+    ar:
+      value: 1
+      max: 1
+    encumbrance: 1
+    agilityPenalty: 0

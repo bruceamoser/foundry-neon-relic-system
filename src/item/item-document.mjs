@@ -150,6 +150,19 @@ export class NeonRelicItem extends Item {
       await this.actor.gainCorruption(cost, this.name);
     }
 
+    // Send talent use to chat
+    const parts = [`<strong>${this.name}</strong>`];
+    if (this.system.description) parts.push(this.system.description);
+    if (cost > 0) parts.push(`<em>${game.i18n.format('NEONRELIC.Talent.CorruptionCostChat', { cost })}</em>`);
+    const usesMax = this.system.usesPerSession?.max ?? 0;
+    const usesLeft = this.system.usesPerSession?.value ?? 0;
+    if (usesMax > 0)
+      parts.push(`<em>${game.i18n.format('NEONRELIC.Talent.UsesRemaining', { value: usesLeft, max: usesMax })}</em>`);
+    await ChatMessage.create({
+      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+      content: `<div class="nr-talent-chat">${parts.join('<br>')}</div>`,
+    });
+
     return { used: true, corruptionCost: cost };
   }
 

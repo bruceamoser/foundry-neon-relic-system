@@ -91,9 +91,25 @@
   <div class='section-title'>{{localize 'NEONRELIC.Agent.QuickStats'}}</div>
   <div class='attr-grid'>
     {{#each attrColumns}}
-      <div class='stat-box'>
+      <div class='stat-box rollable' data-action='rollAttribute' data-attribute='{{this.key}}'>
         <span class='stat-label'>{{localize this.label}}</span>
         <span class='stat-value'>{{this.value}}</span>
+      </div>
+    {{/each}}
+  </div>
+
+  {{! Skills }}
+  <div class='section-title'>{{localize 'NEONRELIC.Agent.Skills'}}</div>
+  <div class='summary-skills'>
+    {{#each attrColumns}}
+      <div class='summary-skill-group'>
+        <div class='summary-skill-attr'>{{localize this.label}}</div>
+        {{#each this.skills}}
+          <div class='summary-skill-row rollable' data-action='rollSkill' data-skill='{{this.key}}'>
+            <span class='summary-skill-name'>{{localize this.label}}</span>
+            <span class='summary-skill-value'>{{this.value}}</span>
+          </div>
+        {{/each}}
       </div>
     {{/each}}
   </div>

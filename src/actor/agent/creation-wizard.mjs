@@ -506,7 +506,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     const current = system.attributes[attr]?.max ?? 2;
     const keyAttr = DIVISION_KEY_ATTRIBUTES[system.division] ?? '';
     const max = attr === keyAttr ? 5 : 4;
-    const newValue = Math.clamp(current + delta, 2, max);
+    const newValue = Math.clamp(current + delta, 1, max);
     if (newValue === current) return;
 
     // Check budget on increase
@@ -688,8 +688,15 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       await actor.createEmbeddedDocuments('Item', itemsToCreate);
     }
 
+    // ── Sync attribute value = max (wizard only sets max) ──────
+    const attrSync = {};
+    for (const key of Object.keys(system.attributes)) {
+      attrSync[`system.attributes.${key}.value`] = system.attributes[key].max;
+    }
+
     // ── Finalize ────────────────────────────────────────────────
     await actor.update({
+      ...attrSync,
       'system.creationComplete': true,
       'system.divisionItem.active': true,
     });

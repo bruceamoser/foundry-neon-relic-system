@@ -33,7 +33,7 @@
         {{#each gear}}
           <tr class='item-row' data-item-id='{{this.id}}'>
             <td><img class='item-img' src='{{this.img}}' /></td>
-            <td>{{this.name}}</td>
+            <td><a class='item-name' data-action='viewItem'>{{this.name}}</a></td>
             <td class='center'>+{{this.system.gearBonus.value}}</td>
             <td class='center'>{{this.system.encumbrance}}</td>
           </tr>
@@ -57,7 +57,7 @@
         {{#each consumables}}
           <tr class='item-row' data-item-id='{{this.id}}'>
             <td><img class='item-img' src='{{this.img}}' /></td>
-            <td>{{this.name}}</td>
+            <td><a class='item-name' data-action='viewItem'>{{this.name}}</a></td>
             <td class='center'>{{this.system.currentDie}}</td>
           </tr>
         {{/each}}
@@ -81,7 +81,7 @@
         {{#each artifacts}}
           <tr class='item-row' data-item-id='{{this.id}}'>
             <td><img class='item-img' src='{{this.img}}' /></td>
-            <td>{{this.name}}</td>
+            <td><a class='item-name' data-action='viewItem'>{{this.name}}</a></td>
             <td class='center'><span class='tier-badge'>T{{this.system.tier}}</span></td>
             <td class='center'>{{this.system.artifactDie.current}}</td>
           </tr>

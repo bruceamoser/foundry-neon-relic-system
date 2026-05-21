@@ -129,6 +129,7 @@ NEONRELIC:
     Notes: Notes
     NotesPlaceholder: Roll notes...
     None: None
+    Talents: Talents
     PushCorruption: Pushing a roll
     Successes: Successes
     Success: Success
@@ -337,6 +338,9 @@ NEONRELIC:
     Condition: Condition
     InsufficientXP: Not enough XP to learn a new talent (6 XP required).
     XPSpent: 'Spent {cost} XP to learn a new talent.'
+    AlreadyUsed: This talent has already been used this session.
+    CorruptionCostChat: 'Corruption +{cost}'
+    UsesRemaining: '{value}/{max} uses remaining'
 
   # Critical Injury
   CriticalInjury:
@@ -476,7 +480,7 @@ NEONRELIC:
     HealedThisSession: Healed This Session
     HealingTagUsed: Healing Tag Uses
     Gained: Corruption Gained
-    Healed: Corruption Healed
+    Healed: 'Healed {amount} corruption.'
     Total: Total
     Stage: Stage
     Breached: Threshold Breached
@@ -485,6 +489,12 @@ NEONRELIC:
     ThresholdDrop: Threshold Reduced
     FearCheckRequired: "Corruption exceeds new threshold \u2014 immediate Fear Check required!"
     StageChanged: Stage Changed
+    HealButton: Heal Corruption
+    HealTitle: Heal Corruption
+    HealAmount: Amount to heal
+    HealHint: 'Up to {available} points available this session.'
+    SessionCapReached: Session healing cap of 5 already reached.
+    NoneToHeal: No corruption to heal.
 
   # Corruption Sources
   CorruptionSource:
@@ -876,6 +886,12 @@ NEONRELIC:
 
   # Debrief
   Debrief:
+    Title: Session Debrief — XP Questions
+    Q1: Did you participate in the session? (Automatic +1 XP)
+    Q2: Did you risk your life for a fellow Covenant member or an innocent civilian?
+    Q3: Did your Dark Secret complicate the mission, or did you heavily interact with your Anchor?
+    Q4: Did the team successfully secure or contain an Occult Artifact?
+    Q5: Did you learn something new and significant about the supernatural threat or rival factions?
     Survived: Did you survive the case?
     SecuredRelic: Did you secure the relic?
     UncoveredClue: Did you uncover a key clue?

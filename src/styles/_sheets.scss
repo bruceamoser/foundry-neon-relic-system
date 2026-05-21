@@ -272,4 +272,32 @@
     scrollbar-width: thin;
     scrollbar-color: $nr-rule $nr-paper;
   }
+
+  // ── Roll dialog ─────────────────────────────────────
+  .nr-roll-dialog {
+    .roll-talents {
+      .talent-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .roll-talent-entry {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2px 4px;
+        background: $nr-field-bg;
+        border: 1px solid $nr-rule;
+        border-radius: 2px;
+        font-family: $nr-font-fill;
+        font-size: 8pt;
+      }
+
+      .roll-talent-bonus {
+        font-weight: bold;
+        color: $nr-green-stamp;
+      }
+    }
+  }
 }

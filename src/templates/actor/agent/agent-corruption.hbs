@@ -52,4 +52,12 @@
       <span class='field-value'>{{system.corruption.healingTagUsed}} / 3</span>
     </div>
   </div>
+  {{#if isEditable}}
+    <div class='heal-button-row'>
+      <button type='button' data-action='healCorruption' class='heal-btn'>
+        <i class='fa-solid fa-heart'></i>
+        {{localize 'NEONRELIC.Corruption.HealButton'}}
+      </button>
+    </div>
+  {{/if}}
 </section>

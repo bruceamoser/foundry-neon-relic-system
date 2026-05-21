@@ -23,10 +23,19 @@
     <input type='number' name='skillValue' value='{{skillValue}}' min='0' max='5' />
   </div>
 
-  {{! Gear Bonus }}
+  {{! Gear Bonus — dropdown if items available, otherwise manual }}
   <div class='form-group'>
     <label>{{localize 'NEONRELIC.Roll.GearBonus'}}</label>
-    <input type='number' name='gearBonus' value='{{gearBonus}}' min='0' />
+    {{#if gearItems.length}}
+      <select name='gearBonus' class='gear-select'>
+        <option value='0'>— {{localize 'NEONRELIC.Roll.None'}} —</option>
+        {{#each gearItems}}
+          <option value='{{this.bonus}}'>{{this.name}} (+{{this.bonus}})</option>
+        {{/each}}
+      </select>
+    {{else}}
+      <input type='number' name='gearBonus' value='{{gearBonus}}' min='0' />
+    {{/if}}
   </div>
 
   {{! Modifier }}
@@ -46,6 +55,21 @@
     <label>{{localize 'NEONRELIC.Roll.TotalPool'}}</label>
     <span class='pool-value'>{{totalPool}}</span>
   </div>
+
+  {{! Talents }}
+  {{#if talentItems.length}}
+    <div class='form-group roll-talents'>
+      <label>{{localize 'NEONRELIC.Roll.Talents'}}</label>
+      <div class='talent-list'>
+        {{#each talentItems}}
+          <div class='roll-talent-entry' title='{{this.description}}'>
+            <span class='roll-talent-name'>{{this.name}}</span>
+            {{#if this.bonus}}<span class='roll-talent-bonus'>+{{this.bonus}}</span>{{/if}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  {{/if}}
 
   {{! Notes }}
   <div class='form-group'>
