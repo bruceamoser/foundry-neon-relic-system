@@ -44,6 +44,12 @@
     {{/if}}
   </div>
 
+  {{#if stuntPoints}}
+    <div class='nr-roll-card__stunt-points'>
+      <span>{{localize 'NEONRELIC.Stunt.Available'}}: <strong>{{stuntPoints}}</strong></span>
+    </div>
+  {{/if}}
+
   {{#if isPush}}
     <div class='nr-roll-card__push-note'>
       <em>{{localize 'NEONRELIC.Roll.PushNote'}}</em>

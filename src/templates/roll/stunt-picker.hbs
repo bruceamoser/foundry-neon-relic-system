@@ -7,21 +7,6 @@
     <span class='sp-remaining'>{{remainingSP}}</span>
   </div>
 
-  {{#if hasSkillStunts}}
-    <fieldset class='skill-stunts'>
-      <legend>{{skillLabel}}</legend>
-      {{#each skillStunts}}
-        <div class='stunt-entry' data-selected='{{this.selected}}' data-affordable='{{this.affordable}}'>
-          <button type='button' data-action='toggleStunt' data-stunt-id='{{this.id}}'>
-            <span class='stunt-cost'>{{this.cost}} SP</span>
-            <span class='stunt-name'>{{this.localName}}</span>
-          </button>
-          <p class='stunt-effect'>{{this.localEffect}}</p>
-        </div>
-      {{/each}}
-    </fieldset>
-  {{/if}}
-
   <fieldset class='generic-stunts'>
     <legend>{{localize 'NEONRELIC.Stunt.Generic'}}</legend>
     {{#each genericStunts}}
