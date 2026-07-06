@@ -204,6 +204,32 @@ export class NeonRelicActor extends Actor {
   }
 
   /* ------------------------------------------ */
+
+  /**
+   * Reset all per-case-file tracking fields at the start of a new Case File.
+   * Per-session uses (session healing, anchors, safe scenes, per-session talents)
+   * are NOT reset — those reset between sessions via resetSession().
+   * @returns {Promise<NeonRelicActor>}
+   */
+  async resetCaseFile() {
+    if (this.type !== 'agent') return this;
+
+    // Clear case-file talent usage tracking on actor
+    await this.update({ 'system.caseFileTalentsUsed': [] });
+
+    // Reset all per-case-file talent uses back to max
+    const talentUpdates = [];
+    for (const item of this.items) {
+      if (item.type === 'talent' && item.system.frequency === 'per-case-file' && item.system.usesPerCaseFile) {
+        talentUpdates.push({ _id: item.id, 'system.usesPerCaseFile.value': item.system.usesPerCaseFile.max });
+      }
+    }
+    if (talentUpdates.length > 0) await this.updateEmbeddedDocuments('Item', talentUpdates);
+
+    return this;
+  }
+
+  /* ------------------------------------------ */
   /*  Token Defaults                            */
   /* ------------------------------------------ */
 

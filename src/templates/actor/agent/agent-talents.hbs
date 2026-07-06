@@ -6,10 +6,18 @@
         <div class='talent-type'>{{this.system.talentType}}</div>
         <a class='talent-name item-name' data-action='viewItem'>{{this.name}}</a>
         <div class='talent-meta'>
-          {{#if this.system.isOncePerSession}}
-            <span class='talent-uses'>{{localize 'NEONRELIC.Talent.OncePerSession'}}</span>
-          {{else}}
+          <span class='talent-frequency {{this.system.frequency}}'>
+            {{#if (eq this.system.frequency 'at-will')}}{{localize 'NEONRELIC.Talent.FrequencyAtWill'}}
+            {{else if (eq this.system.frequency 'per-session')}}{{localize 'NEONRELIC.Talent.FrequencyPerSession'}}
+            {{else if (eq this.system.frequency 'per-case-file')}}{{localize 'NEONRELIC.Talent.FrequencyPerCaseFile'}}
+            {{else}}{{this.system.frequency}}
+            {{/if}}
+          </span>
+          {{#if (eq this.system.frequency 'per-session')}}
             <span class='talent-uses'>{{this.system.usesPerSession.value}} / {{this.system.usesPerSession.max}}</span>
+          {{/if}}
+          {{#if (eq this.system.frequency 'per-case-file')}}
+            <span class='talent-uses'>{{this.system.usesPerCaseFile.value}} / {{this.system.usesPerCaseFile.max}}</span>
           {{/if}}
           {{#if this.system.hasHealingTag}}
             <span class='healing-tag' title='{{localize "NEONRELIC.Talent.HealingTag"}}'>&#9829;</span>

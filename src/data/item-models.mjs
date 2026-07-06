@@ -240,12 +240,21 @@ export class TalentDataModel extends foundry.abstract.TypeDataModel {
       talentType: new StringField({ initial: 'general', blank: false }),
       division: new StringField({ initial: '', blank: true }),
       subUnit: new StringField({ initial: '', blank: true }),
-      corruptionCost: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+      frequency: new StringField({
+        initial: 'at-will',
+        blank: false,
+        choices: ['at-will', 'per-session', 'per-case-file'],
+      }),
+      corruptionCost: new NumberField({ required: true, integer: true, min: 0, max: 2, initial: 0 }),
       corruptionThresholdMod: new NumberField({ required: true, integer: true, initial: 0 }),
       prerequisites: new HTMLField({ blank: true }),
       hasHealingTag: new BooleanField({ initial: false }),
       isOncePerSession: new BooleanField({ initial: false }),
       usesPerSession: new SchemaField({
+        value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+        max: new NumberField({ required: true, integer: true, min: 0, initial: 1 }),
+      }),
+      usesPerCaseFile: new SchemaField({
         value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
         max: new NumberField({ required: true, integer: true, min: 0, initial: 1 }),
       }),

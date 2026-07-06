@@ -40,6 +40,30 @@ export async function performSessionReset() {
 }
 
 /**
+ * Perform a case file reset — resets per-case-file talent uses
+ * and clears case-file tracking on all agents. Per-session uses
+ * are NOT affected (those reset via performSessionReset).
+ * @returns {Promise<void>}
+ */
+export async function performCaseFileReset() {
+  if (!game.user.isGM) {
+    ui.notifications.warn(game.i18n.localize('NEONRELIC.Session.GMOnly'));
+    return;
+  }
+
+  for (const actor of game.actors) {
+    if (actor.type === 'agent') {
+      await actor.resetCaseFile?.();
+    }
+  }
+
+  ui.notifications.info(game.i18n.localize('NEONRELIC.Session.CaseFileResetComplete'));
+
+  const { emitSocket, SOCKET_EVENTS } = await import('./sockets.mjs');
+  emitSocket(SOCKET_EVENTS.CASE_FILE_RESET);
+}
+
+/**
  * Clear the session reset flag (called at session start).
  * @returns {Promise<void>}
  */

@@ -110,6 +110,9 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
         bracerAbsorbed: new BooleanField({ initial: false }),
       }),
 
+      // Case-file talent tracking — resets between case files
+      caseFileTalentsUsed: new SetField(new StringField()),
+
       // Fear tracking — entity types already passed Fear Check against
       knownEntities: new SetField(new StringField()),
 
