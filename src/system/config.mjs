@@ -54,6 +54,15 @@ NEON_RELIC.talentTypes = {
 };
 
 /**
+ * Talent usage frequency — determines reset cadence and usage limits.
+ */
+NEON_RELIC.talentFrequencies = {
+  'at-will': 'NEONRELIC.Talent.FrequencyAtWill',
+  'per-session': 'NEONRELIC.Talent.FrequencyPerSession',
+  'per-case-file': 'NEONRELIC.Talent.FrequencyPerCaseFile',
+};
+
+/**
  * Sex options for agent creation.
  */
 NEON_RELIC.sexOptions = {

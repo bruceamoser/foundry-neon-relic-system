@@ -15,12 +15,28 @@
   </div>
 
   <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Talent.Frequency'}}</label>
+    <select name='system.frequency' {{disabled (not isEditable)}}>
+      <option value='at-will' {{selected system.frequency 'at-will'}}>{{localize
+          'NEONRELIC.Talent.FrequencyAtWill'
+        }}</option>
+      <option value='per-session' {{selected system.frequency 'per-session'}}>{{localize
+          'NEONRELIC.Talent.FrequencyPerSession'
+        }}</option>
+      <option value='per-case-file' {{selected system.frequency 'per-case-file'}}>{{localize
+          'NEONRELIC.Talent.FrequencyPerCaseFile'
+        }}</option>
+    </select>
+  </div>
+
+  <div class='form-group'>
     <label>{{localize 'NEONRELIC.Talent.CorruptionCost'}}</label>
     <input
       type='number'
       name='system.corruptionCost'
       value='{{system.corruptionCost}}'
       min='0'
+      max='2'
       {{disabled (not isEditable)}}
     />
   </div>
@@ -64,6 +80,25 @@
       type='number'
       name='system.usesPerSession.max'
       value='{{system.usesPerSession.max}}'
+      min='0'
+      {{disabled (not isEditable)}}
+    />
+  </div>
+
+  <div class='form-group'>
+    <label>{{localize 'NEONRELIC.Talent.UsesPerCaseFile'}}</label>
+    <input
+      type='number'
+      name='system.usesPerCaseFile.value'
+      value='{{system.usesPerCaseFile.value}}'
+      min='0'
+      {{disabled (not isEditable)}}
+    />
+    <span>/</span>
+    <input
+      type='number'
+      name='system.usesPerCaseFile.max'
+      value='{{system.usesPerCaseFile.max}}'
       min='0'
       {{disabled (not isEditable)}}
     />

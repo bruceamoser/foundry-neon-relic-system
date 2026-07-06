@@ -325,11 +325,16 @@ NEONRELIC:
     Division: Division
     SubUnit: Sub-Unit
     Background: Background
+    Frequency: Frequency
+    FrequencyAtWill: At-Will
+    FrequencyPerSession: Per Session
+    FrequencyPerCaseFile: Per Case File
     CorruptionCost: Corruption Cost
     ThresholdMod: Threshold Modifier
     HealingTag: Healing Tag
     OncePerSession: Once Per Session
     Uses: Uses
+    UsesPerCaseFile: Case File Uses
     Use: Use
     Effect: Effect
     Prerequisites: Prerequisites
@@ -339,8 +344,10 @@ NEONRELIC:
     InsufficientXP: Not enough XP to learn a new talent (6 XP required).
     XPSpent: 'Spent {cost} XP to learn a new talent.'
     AlreadyUsed: This talent has already been used this session.
+    AlreadyUsedCaseFile: This talent has already been used this case file.
     CorruptionCostChat: 'Corruption +{cost}'
-    UsesRemaining: '{value}/{max} uses remaining'
+    UsesRemaining: '{value}/{max} session uses remaining'
+    UsesRemainingCaseFile: '{value}/{max} case file uses remaining'
 
   # Critical Injury
   CriticalInjury:
@@ -1167,6 +1174,7 @@ NEONRELIC:
   # Session
   Session:
     ResetComplete: Session reset complete
+    CaseFileResetComplete: Case file reset complete
     GMOnly: Only the GM can reset the session
     AlreadyReset: Session already reset
 

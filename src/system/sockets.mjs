@@ -15,6 +15,7 @@ export const SOCKET_EVENTS = {
   INITIATIVE_DRAWN: 'initiativeDrawn',
   GEAR_DEGRADED: 'gearDegraded',
   SESSION_RESET: 'sessionReset',
+  CASE_FILE_RESET: 'caseFileReset',
   OPS_BOARD_UPDATE: 'opsBoardUpdate',
 };
 
@@ -35,6 +36,9 @@ export function registerSocketListeners() {
         break;
       case SOCKET_EVENTS.SESSION_RESET:
         _onSessionReset(data);
+        break;
+      case SOCKET_EVENTS.CASE_FILE_RESET:
+        _onCaseFileReset(data);
         break;
       case SOCKET_EVENTS.OPS_BOARD_UPDATE:
         _onOpsBoardUpdate(data);
@@ -93,6 +97,14 @@ function _onThreatAdvanced(_data) {
  */
 function _onSessionReset(_data) {
   ui.notifications.info(game.i18n.localize('NEONRELIC.Session.ResetComplete'));
+}
+
+/**
+ * Handle case file reset broadcast.
+ * @param {object} _data
+ */
+function _onCaseFileReset(_data) {
+  ui.notifications.info(game.i18n.localize('NEONRELIC.Session.CaseFileResetComplete'));
 }
 
 /**
