@@ -1,0 +1,133 @@
+// Neon Relic — Stunt Picker Dialog
+// Post-roll window for selecting stunts with Stunt Points
+
+.neon-relic.stunt-picker {
+  .stunt-picker-content {
+    padding: 4px;
+  }
+
+  .sp-budget {
+    font-family: $nr-font-main;
+    font-size: 11pt;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: $nr-ink;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid $nr-rule;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    .sp-total,
+    .sp-remaining {
+      font-weight: bold;
+      color: goldenrod;
+    }
+
+    .sp-separator {
+      color: $nr-ink-faded;
+    }
+  }
+
+  .generic-stunts {
+    border: 1px solid $nr-rule;
+    padding: 8px;
+    margin-bottom: 10px;
+
+    legend {
+      font-family: $nr-font-main;
+      font-size: 10pt;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: $nr-ink;
+      padding: 0 6px;
+    }
+  }
+
+  .stunt-entry {
+    margin-bottom: 4px;
+    padding: 4px 6px;
+    border-left: 3px solid transparent;
+    transition: border-color 0.15s;
+
+    &[data-selected='true'] {
+      border-left-color: goldenrod;
+      background: rgba(218, 165, 32, 0.06);
+    }
+
+    &[data-affordable='false'] {
+      opacity: 0.45;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 2px 0;
+      font-family: $nr-font-fill;
+      color: $nr-ink;
+      text-align: left;
+
+      &:hover {
+        color: darken($nr-ink, 10%);
+      }
+    }
+
+    .stunt-cost {
+      font-family: $nr-font-main;
+      font-size: 9pt;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: $nr-ink-faded;
+      min-width: 36px;
+      flex-shrink: 0;
+    }
+
+    .stunt-name {
+      font-weight: bold;
+      font-size: 11pt;
+    }
+
+    .stunt-effect {
+      font-size: 9pt;
+      color: $nr-ink-faded;
+      margin: 2px 0 0 44px;
+      line-height: 1.35;
+    }
+  }
+
+  .stunt-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding-top: 6px;
+    border-top: 1px solid $nr-rule;
+
+    button {
+      font-family: $nr-font-main;
+      font-size: 10pt;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border: 1px solid $nr-rule;
+      background: $nr-paper;
+      color: $nr-ink;
+      cursor: pointer;
+
+      &:hover:not(:disabled) {
+        background: $nr-ink;
+        color: $nr-paper;
+      }
+
+      &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

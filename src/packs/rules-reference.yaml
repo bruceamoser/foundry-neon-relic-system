@@ -292,10 +292,10 @@
             <li><strong>Unranked (0):</strong> Roll Attribute Dice only — no untrained penalty</li>
           </ul>
 
-          <h2>Skill Stunts</h2>
+          <h2>Stunts</h2>
           <p>Extra 6s beyond the minimum needed to succeed become <strong>Stunt Points</strong>. Must be spent immediately.</p>
 
-          <h3>Generic Stunts (Any Skill)</h3>
+          <h3>Stunts</h3>
           <table>
             <thead><tr><th>Cost</th><th>Stunt</th><th>Effect</th></tr></thead>
             <tbody>
@@ -305,51 +305,6 @@
               <tr><td>1</td><td><strong>Aid</strong></td><td>Ally gains +1 die on next related roll this scene.</td></tr>
               <tr><td>2</td><td><strong>Extended Effect</strong></td><td>Outcome lasts an additional scene or 1+ hours.</td></tr>
               <tr><td>2</td><td><strong>Additional Target</strong></td><td>Results apply to one additional target in zone.</td></tr>
-            </tbody>
-          </table>
-
-          <h3>Skill-Specific Stunts</h3>
-          <table>
-            <thead><tr><th>Skill</th><th>Cost</th><th>Stunt</th><th>Effect</th></tr></thead>
-            <tbody>
-              <tr><td>Force</td><td>1</td><td><strong>Controlled Break</strong></td><td>Force open without damaging contents or triggering mechanisms.</td></tr>
-              <tr><td>Force</td><td>1</td><td><strong>Intimidating Display</strong></td><td>One NPC makes Fear Check (FR 1) or complies with next simple demand.</td></tr>
-              <tr><td>Force</td><td>2</td><td><strong>Clear the Room</strong></td><td>Clear all loose objects from zone simultaneously.</td></tr>
-              <tr><td>Brawl</td><td>1</td><td><strong>Stay Down</strong></td><td>Target cannot stand until start of your next turn.</td></tr>
-              <tr><td>Brawl</td><td>1</td><td><strong>Weapon Strike</strong></td><td>Target suffers −1 die on attack rolls until end of round.</td></tr>
-              <tr><td>Brawl</td><td>2</td><td><strong>Neck Crank</strong></td><td>Target immediately Grappled without a separate roll.</td></tr>
-              <tr><td>Endure</td><td>1</td><td><strong>Grind Through</strong></td><td>Succeed despite having failed an earlier linked roll this scene.</td></tr>
-              <tr><td>Endure</td><td>1</td><td><strong>Inspire</strong></td><td>One ally in scene recovers 1 Agility.</td></tr>
-              <tr><td>Endure</td><td>2</td><td><strong>Unfazed</strong></td><td>Take no Agility damage from the triggering threat.</td></tr>
-              <tr><td>Sneak</td><td>1</td><td><strong>Shadow Step</strong></td><td>Extra move action without breaking stealth.</td></tr>
-              <tr><td>Sneak</td><td>1</td><td><strong>Identify Exit</strong></td><td>+2 dice on Sneak to leave this location later.</td></tr>
-              <tr><td>Sneak</td><td>2</td><td><strong>Ghost Pass</strong></td><td>Zero physical trace of your passage through this location.</td></tr>
-              <tr><td>Sleight of Hand</td><td>1</td><td><strong>Undetected</strong></td><td>Target doesn't notice even after the scene ends.</td></tr>
-              <tr><td>Sleight of Hand</td><td>1</td><td><strong>Speed Lock</strong></td><td>Lock opened in seconds — no time consumed.</td></tr>
-              <tr><td>Sleight of Hand</td><td>2</td><td><strong>Perfect Plant</strong></td><td>Planted item treated as target's own possession.</td></tr>
-              <tr><td>Firearms</td><td>1</td><td><strong>Aimed Shot</strong></td><td>Hit exact intended location.</td></tr>
-              <tr><td>Firearms</td><td>1</td><td><strong>Suppression</strong></td><td>Target pinned behind cover until start of your next turn.</td></tr>
-              <tr><td>Firearms</td><td>2</td><td><strong>Warning Shot</strong></td><td>Target makes Fear Check (FR 2) or drops for 1 round.</td></tr>
-              <tr><td>Investigate</td><td>1</td><td><strong>Pattern Lock</strong></td><td>DA reveals context about evidence's history or origin.</td></tr>
-              <tr><td>Investigate</td><td>1</td><td><strong>Clock It</strong></td><td>Determine precisely when an event occurred.</td></tr>
-              <tr><td>Investigate</td><td>2</td><td><strong>Hidden Compartment</strong></td><td>DA reveals one hidden element in the scene.</td></tr>
-              <tr><td>Tech</td><td>1</td><td><strong>Trace</strong></td><td>Identify who else recently accessed the system.</td></tr>
-              <tr><td>Tech</td><td>1</td><td><strong>Improvised Repair</strong></td><td>Repaired item gets a temporary improvement.</td></tr>
-              <tr><td>Tech</td><td>2</td><td><strong>Ghost Session</strong></td><td>Digital access leaves no log entry.</td></tr>
-              <tr><td>Lore</td><td>1</td><td><strong>Deep Context</strong></td><td>DA provides historical or ritual context detail.</td></tr>
-              <tr><td>Lore</td><td>1</td><td><strong>Weakness Identified</strong></td><td>+1 die on next relevant roll.</td></tr>
-              <tr><td>Lore</td><td>2</td><td><strong>Primary Source</strong></td><td>DA confirms a specific findable source exists.</td></tr>
-              <tr><td>Heal</td><td>1</td><td><strong>Efficient Triage</strong></td><td>Heal roll restores +1 additional point.</td></tr>
-              <tr><td>Heal</td><td>2</td><td><strong>Surgical Save</strong></td><td>Downgrade severity of a Critical Injury by one tier.</td></tr>
-              <tr><td>Manipulate</td><td>1</td><td><strong>Bought Silence</strong></td><td>Target won't mention this conversation for 24 hours.</td></tr>
-              <tr><td>Manipulate</td><td>1</td><td><strong>Read the Room</strong></td><td>Learn what the target values or fears most.</td></tr>
-              <tr><td>Manipulate</td><td>2</td><td><strong>Turned Asset</strong></td><td>Target actively helps beyond the original request.</td></tr>
-              <tr><td>Command</td><td>1</td><td><strong>Rally</strong></td><td>Broken ally may act once next turn.</td></tr>
-              <tr><td>Command</td><td>1</td><td><strong>Coordinated Action</strong></td><td>Designate two allies — they act on the same initiative card this round.</td></tr>
-              <tr><td>Command</td><td>2</td><td><strong>Hold the Line</strong></td><td>All hearing allies gain +1 die on next roll.</td></tr>
-              <tr><td>Psychoanalyze</td><td>1</td><td><strong>Pressure Point</strong></td><td>DA reveals additional detail about NPC state.</td></tr>
-              <tr><td>Psychoanalyze</td><td>1</td><td><strong>Decompress</strong></td><td>Target heals 1 Corruption.</td></tr>
-              <tr><td>Psychoanalyze</td><td>2</td><td><strong>Full Read</strong></td><td>+2 dice, Difficulty 1 on social rolls vs target for rest of scene.</td></tr>
             </tbody>
           </table>
 

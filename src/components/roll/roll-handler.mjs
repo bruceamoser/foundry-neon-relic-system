@@ -112,6 +112,7 @@ export async function executeRoll(pool, options = {}) {
  * @param {number} [context.difficulty] - Required successes.
  * @param {string} [context.notes] - Player notes.
  * @param {string} [context.actorId] - Actor ID.
+ * @param {number} [context.stuntPoints] - Extra successes above difficulty.
  * @returns {Promise<ChatMessage>}
  */
 export async function sendRollToChat(result, context = {}) {
@@ -124,6 +125,7 @@ export async function sendRollToChat(result, context = {}) {
   const skillLabel = context.skill ? game.i18n.localize(skillConfig[context.skill]?.label ?? context.skill) : '';
 
   const difficulty = context.difficulty || 0;
+  const stuntPoints = context.stuntPoints ?? Math.max(0, result.successes - difficulty);
 
   const templateData = {
     actorId: context.actorId || '',
@@ -134,6 +136,7 @@ export async function sendRollToChat(result, context = {}) {
     gearDice: result.gearResults.map(v => ({ value: v, success: v === 6 })),
     successes: result.successes,
     difficulty,
+    stuntPoints,
     isSuccess: difficulty > 0 ? result.successes >= difficulty : null,
     isPush: result.isPush,
     notes: context.notes || '',

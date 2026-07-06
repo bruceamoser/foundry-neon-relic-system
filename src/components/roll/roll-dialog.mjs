@@ -5,6 +5,7 @@
  */
 
 import { buildPool, executeRoll, sendRollToChat } from './roll-handler.mjs';
+import { NRStuntPicker } from './stunt-picker.mjs';
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ApplicationV2 } = foundry.applications.api;
@@ -139,14 +140,24 @@ export class NRRollDialog extends HandlebarsApplicationMixin(ApplicationV2) {
 
     const result = await executeRoll(pool);
 
+    const difficulty = Number(data.difficulty) || 0;
+    const stuntPoints = Math.max(0, result.successes - difficulty);
+
     // Send to chat
     await sendRollToChat(result, {
       attribute: data.attribute || '',
       skill: data.skill || '',
-      difficulty: Number(data.difficulty) || 0,
+      difficulty,
       notes: data.notes || '',
       actorId: this.rollData.actorId,
+      stuntPoints,
     });
+
+    // Open stunt picker if the roll generated stunt points
+    if (stuntPoints > 0) {
+      const actor = this.rollData.actorId ? game.actors.get(this.rollData.actorId) : null;
+      NRStuntPicker.open({ stuntPoints, actor });
+    }
 
     if (this._resolve) {
       this._resolve(result);

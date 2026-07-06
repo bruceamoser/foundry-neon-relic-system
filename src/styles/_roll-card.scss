@@ -46,6 +46,19 @@
     }
   }
 
+  &__stunt-points {
+    font-size: 9pt;
+    color: $nr-ink;
+    margin-top: 4px;
+    background: rgba(218, 165, 32, 0.08);
+    padding: 2px 6px;
+    border-left: 3px solid goldenrod;
+
+    strong {
+      color: goldenrod;
+    }
+  }
+
   &__push-note,
   &__notes {
     font-size: 8pt;
