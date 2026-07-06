@@ -48,8 +48,8 @@ export const DEATH_STATES = {
  */
 export async function rollStabilization(actor, healer) {
   const emp = healer.system?.attributes?.emp?.value ?? 0;
-  const medicine = healer.system?.skills?.medicine?.value ?? 0;
-  const pool = Math.max(1, emp + medicine);
+  const healSkill = healer.system?.skills?.heal?.value ?? 0;
+  const pool = Math.max(1, emp + healSkill);
 
   const roll = new Roll(`${pool}d6`);
   await roll.evaluate();
@@ -232,7 +232,7 @@ export const RIVAL_ACTIONS = [
  */
 export const PERSONNEL_TYPES = {
   analyst: { key: 'analyst', label: 'NEONRELIC.Personnel.Analyst', skill: 'investigate', cost: 2 },
-  medic: { key: 'medic', label: 'NEONRELIC.Personnel.Medic', skill: 'medicine', cost: 2 },
+  medic: { key: 'medic', label: 'NEONRELIC.Personnel.Medic', skill: 'heal', cost: 2 },
   mechanic: { key: 'mechanic', label: 'NEONRELIC.Personnel.Mechanic', skill: 'tinker', cost: 2 },
   guard: { key: 'guard', label: 'NEONRELIC.Personnel.Guard', skill: 'brawl', cost: 3 },
   occultist: { key: 'occultist', label: 'NEONRELIC.Personnel.Occultist', skill: 'lore', cost: 4 },

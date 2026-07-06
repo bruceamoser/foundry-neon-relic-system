@@ -40,7 +40,7 @@
     d66: 14
     category: physical
     lethal: false
-    effect: Bleeding. Lose 1 STR per round until bandaged (Medicine Diff 1).
+    effect: Bleeding. Lose 1 STR per round until bandaged (Heal Diff 1).
     healTime: 1 day
 
 - _id: crit-p15
@@ -110,7 +110,7 @@
     d66: 25
     category: physical
     lethal: true
-    effect: Arm useless. Cannot use two-handed items. Medicine Diff 2 or permanent.
+    effect: Arm useless. Cannot use two-handed items. Heal Diff 2 or permanent.
     healTime: 1 month
 
 - _id: crit-p26
@@ -120,7 +120,7 @@
     d66: 26
     category: physical
     lethal: true
-    effect: Cannot move without support. Medicine Diff 2 or permanent limp.
+    effect: Cannot move without support. Heal Diff 2 or permanent limp.
     healTime: 1 month
 
 - _id: crit-p31
@@ -130,7 +130,7 @@
     d66: 31
     category: physical
     lethal: true
-    effect: Dying unless treated. Medicine Diff 2 within 1 round.
+    effect: Dying unless treated. Heal Diff 2 within 1 round.
     healTime: 2 weeks
 
 - _id: crit-p32
@@ -140,7 +140,7 @@
     d66: 32
     category: physical
     lethal: true
-    effect: Lose 1 STR per shift. Medicine Diff 3 to stop.
+    effect: Lose 1 STR per shift. Heal Diff 3 to stop.
     healTime: 1 month
 
 - _id: crit-p33
@@ -180,7 +180,7 @@
     d66: 36
     category: physical
     lethal: true
-    effect: Dying. Medicine Diff 3 or death within d6 rounds.
+    effect: Dying. Heal Diff 3 or death within d6 rounds.
     healTime: 1 month
 
 # ── Mental Critical Injuries (d66) ──────────

@@ -335,7 +335,7 @@
   name: Bandages
   type: consumable
   system:
-    description: Sterile bandages. Heal 1 STR damage without a Medicine roll.
+    description: Sterile bandages. Heal 1 STR damage without a Heal roll.
     uses: 3
     maxUses: 3
     cost: 1
