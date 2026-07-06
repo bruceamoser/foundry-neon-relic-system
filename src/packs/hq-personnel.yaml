@@ -16,12 +16,12 @@
       wit: 3
       emp: 4
     skills:
-      medicine: 4
+      heal: 4
       psychoanalyze: 2
       investigate: 1
     armorRating: 0
     fearRating: 0
-    hqBonus: '+1 to Medicine rolls at HQ. Can treat 1 lethal crit per session.'
+    hqBonus: '+1 to Heal rolls at HQ. Can treat 1 lethal crit per session.'
 
 - _id: pers002
   name: Quartermaster

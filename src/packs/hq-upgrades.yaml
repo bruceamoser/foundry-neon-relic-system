@@ -21,7 +21,7 @@
     maxTier: 3
     description: Medical treatment facility for injured agents.
     tierEffects:
-      1: Treat minor injuries. +1 Medicine rolls at HQ.
+      1: Treat minor injuries. +1 Heal rolls at HQ.
       2: Surgery suite. Can treat lethal critical injuries.
       3: ICU. Agents heal +1 attribute point per rest at HQ.
 

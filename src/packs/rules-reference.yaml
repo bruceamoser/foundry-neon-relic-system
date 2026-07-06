@@ -275,13 +275,13 @@
               <tr><td rowspan="3"><strong>Agility</strong></td><td>Sneak</td><td>Infiltrating facilities, bypassing security, tailing suspects</td></tr>
               <tr><td>Sleight of Hand</td><td>Picking locks, pocketing artifacts, disarming traps, planting evidence</td></tr>
               <tr><td>Firearms</td><td>Period-accurate weaponry (.38 revolvers, shotguns, rifles)</td></tr>
-              <tr><td rowspan="4"><strong>Wits</strong></td><td>Investigate</td><td>Searching crime scenes, analyzing forensic data, spotting details</td></tr>
+              <tr><td rowspan="3"><strong>Wits</strong></td><td>Investigate</td><td>Searching crime scenes, analyzing forensic data, spotting details</td></tr>
               <tr><td>Tech</td><td>Operating mainframes, hacking BBS, repairing equipment, driving vehicles</td></tr>
               <tr><td>Lore</td><td>Decoding occult texts, identifying creatures and artifacts, ritual knowledge</td></tr>
-              <tr><td>Heal</td><td>Field medicine, triage, emergency stabilization, treating Critical Injuries</td></tr>
-              <tr><td rowspan="3"><strong>Empathy</strong></td><td>Manipulate</td><td>Bribing, deceiving, leveraging secrets, persuading</td></tr>
+              <tr><td rowspan="4"><strong>Empathy</strong></td><td>Manipulate</td><td>Bribing, deceiving, leveraging secrets, persuading</td></tr>
               <tr><td>Command</td><td>Directing civilians, asserting authority, coordinating team actions</td></tr>
               <tr><td>Psychoanalyze</td><td>Reading psychology, detecting deception, stabilizing trauma victims</td></tr>
+              <tr><td>Heal</td><td>Treating psychological damage, stabilizing mental trauma through empathy and connection</td></tr>
             </tbody>
           </table>
 
@@ -624,11 +624,11 @@
             <li><strong>1–2:</strong> Character dies.</li>
             <li><strong>3–6:</strong> Survives — injury still applies.</li>
           </ul>
-          <p><strong>Medical Training talent:</strong> Ally Heal (WIT) Diff 2 → patient rolls d6+1 (death only on natural 1).</p>
+          <p><strong>Medical Training talent:</strong> Ally Heal (EMP) Diff 2 → patient rolls d6+1 (death only on natural 1).</p>
 
           <h3>Stabilizing a Broken Character</h3>
           <ul>
-            <li><strong>Skill:</strong> Heal (WIT), Slow Action</li>
+            <li><strong>Skill:</strong> Heal (EMP), Slow Action</li>
             <li><strong>Requirements:</strong> First Aid Kit (+1 Gear). Without: −2 dice.</li>
             <li><strong>Difficulty:</strong> 2 (normal), 3 (severe wounds), 4 (mid-round emergency)</li>
             <li><strong>Success:</strong> Dying state resolved. Broken but no longer dying.</li>

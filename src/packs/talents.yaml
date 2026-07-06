@@ -15,7 +15,7 @@
     corruptionCost: 0
     description: >-
       Restore 2 physical Attribute points instead of 1 when successfully
-      using Heal (WIT).
+      using Heal (EMP).
     effect: Heal restores 2 Attribute points instead of 1.
 
 - _id: tal-g02
@@ -669,7 +669,7 @@
     subUnit: ''
     corruptionCost: 0
     description: >-
-      Spend a Slow Action and make a Heal (WIT) roll at Difficulty 2 before
+      Spend a Slow Action and make a Heal (EMP) roll at Difficulty 2 before
       an ally rolls their Death Check. On success, the ally rolls d6+1
       instead of d6 (death only on a natural 1). On failure, no change.
     effect: Improve ally's Death Check to d6+1 on successful Heal.
