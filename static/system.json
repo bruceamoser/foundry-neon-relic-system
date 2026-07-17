@@ -2,7 +2,7 @@
   "id": "neon-relic",
   "title": "Neon Relic",
   "description": "An occult investigation TTRPG set in an alternate 1980s, built on the Year Zero Engine.",
-  "version": "0.1.0",
+  "version": "0.3.1",
   "compatibility": {
     "minimum": 14,
     "verified": 14

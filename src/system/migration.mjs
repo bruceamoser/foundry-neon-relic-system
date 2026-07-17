@@ -4,7 +4,7 @@
  */
 
 /** Current system data version */
-const CURRENT_VERSION = '0.3.0';
+const CURRENT_VERSION = '0.3.1';
 
 /**
  * Migration registry — each entry runs once when upgrading past its version.
