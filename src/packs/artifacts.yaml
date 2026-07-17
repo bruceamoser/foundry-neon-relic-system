@@ -52,7 +52,7 @@
     corruptionCost: 2
     emissionType: pulse
     emissionDamage: 1
-    emissionDamageType: exhaustion
+    emissionDamageType: hobbling
     triggerCondition: Ringing the bell with intent.
     appetite: Sound. Absorbs ambient noise when dormant.
     quiescence: Cannot be fully quiesced. Must be shielded.
@@ -109,7 +109,7 @@
     corruptionCost: 1
     emissionType: aura
     emissionDamage: 0
-    emissionDamageType: exhaustion
+    emissionDamageType: hobbling
     triggerCondition: Pressing the coin against bare skin.
     appetite: Breath. Those nearby feel slightly short of breath.
     quiescence: Keep submerged in fresh water. Change water weekly.

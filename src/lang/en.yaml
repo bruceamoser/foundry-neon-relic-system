@@ -75,7 +75,7 @@ NEONRELIC:
   # Damage Types
   DamageType:
     Physical: Physical
-    Exhaustion: Exhaustion
+    Hobbling: Hobbling
     Horror: Horror
     Trauma: Trauma
 

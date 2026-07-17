@@ -81,14 +81,14 @@ export class NeonRelicActor extends Actor {
 
   /**
    * Apply damage to the correct attribute based on damage type.
-   * Physical→STR, Exhaustion→AGI, Horror→WIT, Trauma→EMP.
+   * Physical→STR, Hobbling→AGI, Horror→WIT, Trauma→EMP.
    * @param {number} amount - Damage amount.
-   * @param {string} type - Damage type key (physical, exhaustion, horror, trauma).
+   * @param {string} type - Damage type key (physical, hobbling, horror, trauma).
    * @returns {Promise<NeonRelicActor>}
    */
   async applyDamage(amount, type = 'physical') {
     if (this.type !== 'agent') return this;
-    const mapping = { physical: 'str', exhaustion: 'agi', horror: 'wit', trauma: 'emp' };
+    const mapping = { physical: 'str', hobbling: 'agi', horror: 'wit', trauma: 'emp' };
     const attr = mapping[type] ?? 'str';
     const current = this.system.attributes[attr].value;
     const newVal = Math.max(0, current - amount);

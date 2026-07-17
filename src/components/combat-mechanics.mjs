@@ -132,7 +132,7 @@ export function getZoneModifiers(features) {
  */
 export const DAMAGE_TYPES = {
   physical: { key: 'physical', label: 'NEONRELIC.DamageType.Physical', attribute: 'str' },
-  exhaustion: { key: 'exhaustion', label: 'NEONRELIC.DamageType.Exhaustion', attribute: 'agi' },
+  hobbling: { key: 'hobbling', label: 'NEONRELIC.DamageType.Hobbling', attribute: 'agi' },
   horror: { key: 'horror', label: 'NEONRELIC.DamageType.Horror', attribute: 'wit' },
   trauma: { key: 'trauma', label: 'NEONRELIC.DamageType.Trauma', attribute: 'emp' },
 };

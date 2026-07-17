@@ -86,7 +86,7 @@
               <tr><td><strong>Empathy</strong></td><td>2–5</td><td>Charisma, social intuition, and resistance to psychological horror.</td></tr>
             </tbody>
           </table>
-          <blockquote><strong>Attributes as Health Pools:</strong> Your four attributes serve a dual purpose — they define your dice pools <em>and</em> they are your health. Physical damage reduces Strength, exhaustion reduces Agility, mental horror reduces Wits, emotional trauma reduces Empathy. When any attribute reaches 0, your agent is <strong>Broken</strong>.</blockquote>
+          <blockquote><strong>Attributes as Health Pools:</strong> Your four attributes serve a dual purpose — they define your dice pools <em>and</em> they are your health. Physical damage reduces Strength, hobbling reduces Agility, mental horror reduces Wits, emotional trauma reduces Empathy. When any attribute reaches 0, your agent is <strong>Broken</strong>.</blockquote>
 
           <h3>Step 4: Distribute Skill Points</h3>
           <p>No single skill may exceed <strong>3</strong> at character creation, except your Division's Key Skill which may reach <strong>4</strong>.</p>
@@ -592,7 +592,7 @@
           <table>
             <thead><tr><th>Type</th><th>Target Attribute</th><th>Sources</th></tr></thead>
             <tbody>
-              <tr><td><strong>Physical</strong></td><td>Strength (violence) / Agility (exhaustion)</td><td>Weapons, hazards, combat</td></tr>
+              <tr><td><strong>Physical</strong></td><td>Strength (violence) / Agility (hobbling)</td><td>Weapons, hazards, combat</td></tr>
               <tr><td><strong>Mental</strong></td><td>Wits (terror) / Empathy (grief)</td><td>Failed Fear checks, psychic attacks, social betrayal</td></tr>
               <tr><td><strong>Corruption</strong></td><td>Corruption track directly</td><td>Pushing, artifacts, occult exposure</td></tr>
             </tbody>
