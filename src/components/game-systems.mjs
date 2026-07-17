@@ -295,3 +295,19 @@ export function calculateDebrief(questionAnswers, dpAnswers) {
 
   return { totalXP, totalDP };
 }
+
+/**
+ * Apply debrief XP to an actor, incrementing both current and total.
+ * @param {Actor} actor
+ * @param {number} xpGained
+ * @returns {Promise<void>}
+ */
+export async function applyDebriefXP(actor, xpGained) {
+  if (!actor || xpGained <= 0) return;
+  const exp = actor.system.experience ?? {};
+  await actor.update({
+    'system.experience.current': (exp.current ?? 0) + xpGained,
+    'system.experience.total': (exp.total ?? 0) + xpGained,
+  });
+  ui.notifications.info(game.i18n.format('NEONRELIC.Debrief.XPAwarded', { xp: xpGained, name: actor.name }));
+}

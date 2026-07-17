@@ -4,12 +4,31 @@
  */
 
 /** Current system data version */
-const CURRENT_VERSION = '0.2.0';
+const CURRENT_VERSION = '0.3.0';
 
 /**
  * Migration registry — each entry runs once when upgrading past its version.
  */
 const MIGRATIONS = [
+  {
+    version: '0.3.0',
+    title: 'Add Total/Spent XP fields to agent experience',
+    migrate: async () => {
+      const agents = game.actors.filter(a => a.type === 'agent');
+      let migrated = 0;
+      for (const actor of agents) {
+        const xp = actor.system.experience;
+        if (xp.total === undefined || xp.spent === undefined) {
+          await actor.update({
+            'system.experience.total': xp.current ?? 0,
+            'system.experience.spent': 0,
+          });
+          migrated++;
+        }
+      }
+      console.log(`neon-relic | Migrated ${migrated} agents XP to three-track model (total/spent)`);
+    },
+  },
   {
     version: '0.2.0',
     title: 'Set creationComplete for pre-existing agents',
