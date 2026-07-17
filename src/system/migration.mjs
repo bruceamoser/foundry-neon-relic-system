@@ -4,14 +4,14 @@
  */
 
 /** Current system data version */
-const CURRENT_VERSION = '0.3.0';
+const CURRENT_VERSION = '0.4.0';
 
 /**
  * Migration registry — each entry runs once when upgrading past its version.
  */
 const MIGRATIONS = [
   {
-    version: '0.3.0',
+    version: '0.4.0',
     title: 'Add Total/Spent XP fields to agent experience',
     migrate: async () => {
       const agents = game.actors.filter(a => a.type === 'agent');
@@ -27,6 +27,19 @@ const MIGRATIONS = [
         }
       }
       console.log(`neon-relic | Migrated ${migrated} agents XP to three-track model (total/spent)`);
+    },
+  },
+  {
+    version: '0.3.0',
+    title: 'Backfill CL field on consumable items',
+    migrate: async () => {
+      const consumables = game.items.filter(i => i.type === 'consumable' && i.system.cl === undefined);
+      let migrated = 0;
+      for (const item of consumables) {
+        await item.update({ 'system.cl': 1 });
+        migrated++;
+      }
+      console.log(`neon-relic | Migrated ${migrated} consumable items with CL=1 default`);
     },
   },
   {

@@ -5,6 +5,7 @@
 
 import { NRRollDialog } from '../../components/roll/roll-dialog.mjs';
 import { CreationWizard } from './creation-wizard.mjs';
+import { applyDebriefXP } from '../../components/game-systems.mjs';
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -30,6 +31,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       launchWizard: AgentSheet.#onLaunchWizard,
       resetCreation: AgentSheet.#onResetCreation,
       healCorruption: AgentSheet.#onHealCorruption,
+      awardXP: AgentSheet.#onAwardXP,
     },
     form: {
       submitOnChange: true,
@@ -619,5 +621,25 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     }
 
     await this.document.update({ [`system.skills.${key}`]: newVal });
+  }
+
+  /**
+   * Award debrief XP to the agent via a dialog prompt.
+   * Calls applyDebriefXP which increments both current and total.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} _target
+   */
+  static async #onAwardXP(_event, _target) {
+    const actor = this.document;
+    const amount = await foundry.applications.api.DialogV2.prompt({
+      window: { title: game.i18n.localize('NEONRELIC.Debrief.Title') },
+      content: `<div class="form-group"><label>${game.i18n.localize('NEONRELIC.Agent.XP')}</label><input type="number" name="amount" value="1" min="1" max="10" autofocus /></div><p class="hint">${game.i18n.localize('NEONRELIC.Debrief.XPAwardedHint')}</p>`,
+      ok: {
+        callback: (event, button) => Math.clamp(Number(button.form.elements.amount.value) || 0, 0, 10),
+      },
+    });
+    if (amount > 0) {
+      await applyDebriefXP(actor, amount);
+    }
   }
 }

@@ -178,6 +178,11 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
       skillRemaining: group.skill - skillSpent,
     };
 
+    // Validate XP invariant: Current = Total − Spent
+    if (this.experience.current !== this.experience.total - this.experience.spent) {
+      console.warn(`neon-relic | XP invariant broken for "${this.parent?.name}": current=${this.experience.current}, total=${this.experience.total}, spent=${this.experience.spent}. Expected current=${this.experience.total - this.experience.spent}.`);
+    }
+
     // Auto-compute Clearance Level
     const ageMods = { young: -1, experienced: 0, senior: 1 };
     const ageMod = ageMods[this.ageGroup] ?? 0;

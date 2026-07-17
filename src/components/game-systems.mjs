@@ -303,7 +303,7 @@ export function calculateDebrief(questionAnswers, dpAnswers) {
  * @returns {Promise<void>}
  */
 export async function applyDebriefXP(actor, xpGained) {
-  if (!actor || xpGained <= 0) return;
+  if (!actor || typeof xpGained !== 'number' || isNaN(xpGained) || xpGained <= 0) return;
   const exp = actor.system.experience ?? {};
   await actor.update({
     'system.experience.current': (exp.current ?? 0) + xpGained,
