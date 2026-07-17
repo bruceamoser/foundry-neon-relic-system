@@ -60,7 +60,7 @@ export class NRRollDialog extends HandlebarsApplicationMixin(ApplicationV2) {
         skillValue: 0,
         gearBonus: 0,
         modifier: 0,
-        difficulty: 0,
+        difficulty: 1,
         canPush: true,
         rollType: 'standard',
         notes: '',
