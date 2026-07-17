@@ -4,12 +4,25 @@
  */
 
 /** Current system data version */
-const CURRENT_VERSION = '0.2.0';
+const CURRENT_VERSION = '0.3.1';
 
 /**
  * Migration registry — each entry runs once when upgrading past its version.
  */
 const MIGRATIONS = [
+  {
+    version: '0.3.0',
+    title: 'Backfill CL field on consumable items',
+    migrate: async () => {
+      const consumables = game.items.filter(i => i.type === 'consumable' && i.system.cl === undefined);
+      let migrated = 0;
+      for (const item of consumables) {
+        await item.update({ 'system.cl': 1 });
+        migrated++;
+      }
+      console.log(`neon-relic | Migrated ${migrated} consumable items with CL=1 default`);
+    },
+  },
   {
     version: '0.2.0',
     title: 'Set creationComplete for pre-existing agents',
