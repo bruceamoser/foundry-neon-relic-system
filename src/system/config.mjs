@@ -23,7 +23,7 @@ NEON_RELIC.skills = {
   endure: { label: 'NEONRELIC.Skill.Endure', attribute: 'str' },
   brawl: { label: 'NEONRELIC.Skill.Brawl', attribute: 'str' },
   firearms: { label: 'NEONRELIC.Skill.Firearms', attribute: 'agi' },
-  sleightOfHand: { label: 'NEONRELIC.Skill.SleightOfHand', attribute: 'agi' },
+  deftHands: { label: 'NEONRELIC.Skill.DeftHands', attribute: 'agi' },
   sneak: { label: 'NEONRELIC.Skill.Sneak', attribute: 'agi' },
   tech: { label: 'NEONRELIC.Skill.Tech', attribute: 'wit' },
   investigate: { label: 'NEONRELIC.Skill.Investigate', attribute: 'wit' },

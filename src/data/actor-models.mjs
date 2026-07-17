@@ -52,7 +52,7 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
         endure: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
         brawl: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
         firearms: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
-        sleightOfHand: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+        deftHands: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
         sneak: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
         tech: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
         investigate: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),

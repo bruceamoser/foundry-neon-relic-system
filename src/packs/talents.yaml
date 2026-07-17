@@ -1370,9 +1370,9 @@
     description: >-
       You know how to move cards, chips, and small objects without drawing
       attention.
-    effect: +1 bonus die to Sleight of Hand.
+    effect: +1 bonus die to Deft Hands.
     conditionalModifier:
-      skill: sleightOfHand
+      skill: deftHands
       bonus: 1
       condition: ''
 
@@ -1468,9 +1468,9 @@
     description: >-
       Locks, tumblers, and mechanical security devices are familiar tools
       of your trade.
-    effect: +1 bonus die to Sleight of Hand.
+    effect: +1 bonus die to Deft Hands.
     conditionalModifier:
-      skill: sleightOfHand
+      skill: deftHands
       bonus: 1
       condition: ''
 
@@ -1485,9 +1485,9 @@
     description: >-
       What began as a pastime has made you remarkably skilled with delicate
       mechanisms.
-    effect: +1 bonus die to Sleight of Hand.
+    effect: +1 bonus die to Deft Hands.
     conditionalModifier:
-      skill: sleightOfHand
+      skill: deftHands
       bonus: 1
       condition: ''
 
@@ -1946,9 +1946,9 @@
     description: >-
       You possess remarkable dexterity working with tiny mechanical
       components.
-    effect: +1 bonus die to Sleight of Hand.
+    effect: +1 bonus die to Deft Hands.
     conditionalModifier:
-      skill: sleightOfHand
+      skill: deftHands
       bonus: 1
       condition: ''
 

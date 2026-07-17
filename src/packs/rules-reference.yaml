@@ -210,7 +210,7 @@
               <tr><td>Command (EMP)</td><td>Manipulate (EMP)</td><td>Authority vs. persuasion</td></tr>
               <tr><td>Force (STR)</td><td>Endure (STR)</td><td>Overpowering / restraining</td></tr>
               <tr><td>Brawl (STR)</td><td>Brawl (STR)</td><td>Grapple, disarm, shove</td></tr>
-              <tr><td>Sleight of Hand (AGI)</td><td>Investigate (WIT)</td><td>Planting/pocketing items</td></tr>
+              <tr><td>Deft Hands (AGI)</td><td>Investigate (WIT)</td><td>Planting/pocketing items</td></tr>
             </tbody>
           </table>
 
@@ -273,7 +273,7 @@
               <tr><td>Brawl</td><td>Hand-to-hand combat, wrestling cursed objects, grappling</td></tr>
               <tr><td>Endure</td><td>Resisting harsh environments, sustained injury, pushing through pain</td></tr>
               <tr><td rowspan="3"><strong>Agility</strong></td><td>Sneak</td><td>Infiltrating facilities, bypassing security, tailing suspects</td></tr>
-              <tr><td>Sleight of Hand</td><td>Picking locks, pocketing artifacts, disarming traps, planting evidence</td></tr>
+              <tr><td>Deft Hands</td><td>Picking locks, pocketing artifacts, disarming traps, planting evidence</td></tr>
               <tr><td>Firearms</td><td>Period-accurate weaponry (.38 revolvers, shotguns, rifles)</td></tr>
               <tr><td rowspan="3"><strong>Wits</strong></td><td>Investigate</td><td>Searching crime scenes, analyzing forensic data, spotting details</td></tr>
               <tr><td>Tech</td><td>Operating mainframes, hacking BBS, repairing equipment, driving vehicles</td></tr>
@@ -390,7 +390,7 @@
             <tbody>
               <tr><td><strong>Grapple</strong></td><td>Brawl vs Force/Brawl</td><td>Target cannot move, use 2H weapons, or take Slow Actions. Break free costs Slow Action + opposed roll.</td></tr>
               <tr><td><strong>Shove</strong></td><td>Force vs Endure</td><td>Target pushed back 1 zone and knocked prone. May be lethal at edges.</td></tr>
-              <tr><td><strong>Disarm</strong></td><td>Sleight of Hand vs Force/Brawl</td><td>Target drops held weapon at Engaged range.</td></tr>
+              <tr><td><strong>Disarm</strong></td><td>Deft Hands vs Force/Brawl</td><td>Target drops held weapon at Engaged range.</td></tr>
               <tr><td><strong>Feint</strong></td><td>Brawl vs Wits</td><td>No damage. Target can't Dodge/Parry your next attack; +2 dice on next melee roll.</td></tr>
             </tbody>
           </table>
@@ -693,7 +693,7 @@
             <tbody>
               <tr><td>1–3</td><td>Nosebleeds / Migraines</td><td>Intense pressure. Character maintains control.</td></tr>
               <tr><td>4–6</td><td>Auditory Hallucinations</td><td>Whispers. WIT roll (Diff 1) once/session to distinguish real from imagined.</td></tr>
-              <tr><td>7–9</td><td>Eldritch Tremors</td><td>−1 die on Sleight of Hand &amp; Firearms. Visible twitches.</td></tr>
+              <tr><td>7–9</td><td>Eldritch Tremors</td><td>−1 die on Deft Hands &amp; Firearms. Visible twitches.</td></tr>
               <tr><td>10–12</td><td>Reality Distortion</td><td>Environment warps. Electronic gear degrades. Allies in zone +1 Corruption/scene.</td></tr>
               <tr><td>13–14</td><td>Fugue States</td><td>DA rolls d6/scene: 1–2 = DA controls character 1 round.</td></tr>
               <tr><td>15–17</td><td>Collapse of Self</td><td>−1 die all social rolls. Only reachable with threshold-expanding effects.</td></tr>
