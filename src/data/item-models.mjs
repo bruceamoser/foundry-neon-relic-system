@@ -210,6 +210,7 @@ export class GearDataModel extends foundry.abstract.TypeDataModel {
 export class ConsumableDataModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
+      cl: new NumberField({ required: true, integer: true, min: 1, max: 5, initial: 1 }),
       currentDie: new StringField({ initial: 'd8', blank: false }),
       startingDie: new StringField({ initial: 'd8', blank: false }),
       consumableType: new StringField({ initial: 'supply', blank: false }),

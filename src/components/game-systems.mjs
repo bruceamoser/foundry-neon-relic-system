@@ -17,15 +17,45 @@ export const DIVISION_BONUSES = {
 
 /**
  * Calculate requisition budget for an agent based on Clearance Level.
+ * CL Pool = personal CL (modified by Standing rewards and HQ upgrades).
  * @param {Actor} actor
- * @returns {{budget: number, divisionBonus: string[]}}
+ * @returns {{clPool: number, divisionBonus: string[], canRollAboveCL: boolean, aboveCLTarget: number}}
  */
 export function getRequisitionBudget(actor) {
   const cl = actor.system?.clearanceLevel ?? 1;
-  const budget = cl * 3;
+  // Base CL Pool = personal Clearance Level
+  let clPool = cl;
+  // Stack agents succeed above-CL rolls on 5-6 instead of 6
+  const isStack = actor.system?.subUnitKey === 'stack';
+  const aboveCLTarget = isStack ? 5 : 6;
   const division = actor.system?.division ?? '';
   const divisionBonus = DIVISION_BONUSES[division]?.bonusItems ?? [];
-  return { budget, divisionBonus };
+  return { clPool, divisionBonus, canRollAboveCL: true, aboveCLTarget };
+}
+
+/**
+ * Roll for an above-CL requisition item.
+ * @param {Actor} actor
+ * @returns {Promise<{success: boolean, roll: number}>}
+ */
+export async function rollAboveCLRequisition(actor) {
+  const { aboveCLTarget } = getRequisitionBudget(actor);
+  const roll = new Roll('1d6');
+  await roll.evaluate();
+  const result = roll.total;
+  const success = result >= aboveCLTarget;
+
+  const speaker = ChatMessage.getSpeaker({ actor });
+  await ChatMessage.create({
+    speaker,
+    content: `<div class="requisition-roll">
+      <strong>${game.i18n.localize('NEONRELIC.Equipping.AboveCLRoll')}</strong>: ${actor.name}
+      <br>1d6 = ${result} (target: ${aboveCLTarget}+)
+      <br>${success ? game.i18n.localize('NEONRELIC.Equipping.Approved') : game.i18n.localize('NEONRELIC.Equipping.Denied')}
+    </div>`,
+  });
+
+  return { success, roll: result };
 }
 
 // ─── Death States (#96) ────────────────────────────────────────
