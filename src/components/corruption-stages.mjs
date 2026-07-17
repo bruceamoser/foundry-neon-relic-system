@@ -28,7 +28,7 @@ export const CORRUPTION_STAGES = [
     max: 9,
     label: 'NEONRELIC.CorruptionStage.Tremors',
     effects: [
-      { key: 'system.skills.sleightOfHand.modifier', mode: 2, value: -1 },
+      { key: 'system.skills.deftHands.modifier', mode: 2, value: -1 },
       { key: 'system.skills.firearms.modifier', mode: 2, value: -1 },
     ],
   },
