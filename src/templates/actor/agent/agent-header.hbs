@@ -22,7 +22,12 @@
     <div class='agent-header__meta'>
       <span class='agent-header__division'>{{localize (concat 'NEONRELIC.Division.' system.division)}}</span>
       <span class='agent-header__cl'>CL-{{system.clearanceLevel}}</span>
-      <span class='agent-header__xp'>{{localize 'NEONRELIC.Agent.XP'}}: {{system.experience.current}} ({{localize 'NEONRELIC.Agent.XPTotal'}}: {{system.experience.total}}, {{localize 'NEONRELIC.Agent.XPSpent'}}: {{system.experience.spent}})</span>
+      <span class='agent-header__xp'>{{localize 'NEONRELIC.Agent.XP'}}:
+        {{system.experience.current}}
+        ({{localize 'NEONRELIC.Agent.XPTotal'}}:
+        {{system.experience.total}},
+        {{localize 'NEONRELIC.Agent.XPSpent'}}:
+        {{system.experience.spent}})</span>
     </div>
   </div>
 </header>

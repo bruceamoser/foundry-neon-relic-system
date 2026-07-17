@@ -781,6 +781,24 @@ NEONRELIC:
     Projects: Personal Projects
     Briefing: Case Briefing
 
+  # Equipping Phase
+  Equipping:
+    Title: Equipping Phase
+    CLPool: CL Pool
+    CLPointsRemaining: CL Points Remaining
+    AboveCLRoll: Above-CL Requisition Roll
+    Approved: Approved — item issued.
+    Denied: Denied — item not available this Case File.
+    AlreadyUsedAboveCL: You have already made your above-CL requisition roll for this Case File.
+    ShareEquipment: Share Equipment
+    ReturnToStack: Return Equipment to Stack
+    CheckedOutBy: Checked Out By
+    HeldBy: Held By
+    OwnedItem: Owned (Permanent)
+    RequisitionedItem: Requisitioned (Return at Case End)
+    LossReport: Loss Report
+    UnreturnedWarning: Unreturned items may affect Standing review.
+
   # Threat
   Threat:
     Compromised: Compromised

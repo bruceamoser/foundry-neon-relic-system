@@ -180,7 +180,9 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
 
     // Validate XP invariant: Current = Total − Spent
     if (this.experience.current !== this.experience.total - this.experience.spent) {
-      console.warn(`neon-relic | XP invariant broken for "${this.parent?.name}": current=${this.experience.current}, total=${this.experience.total}, spent=${this.experience.spent}. Expected current=${this.experience.total - this.experience.spent}.`);
+      console.warn(
+        `neon-relic | XP invariant broken for "${this.parent?.name}": current=${this.experience.current}, total=${this.experience.total}, spent=${this.experience.spent}. Expected current=${this.experience.total - this.experience.spent}.`,
+      );
     }
 
     // Auto-compute Clearance Level

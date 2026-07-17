@@ -17,15 +17,84 @@ export const DIVISION_BONUSES = {
 
 /**
  * Calculate requisition budget for an agent based on Clearance Level.
+ *
+ * CL Pool = personal Clearance Level. Standing-granted CL floors and HQ
+ * upgrade bonuses (Black-Market Armory +2) are not yet integrated — the
+ * HQ actor's `cellWideCL` and `upgrades` array provide the data needed.
+ * TODO(#814): Integrate Standing floor and HQ upgrade bonuses into clPool.
+ *
  * @param {Actor} actor
- * @returns {{budget: number, divisionBonus: string[]}}
+ * @returns {{clPool: number, divisionBonus: string[], canRollAboveCL: boolean, aboveCLTarget: number}}
  */
 export function getRequisitionBudget(actor) {
   const cl = actor.system?.clearanceLevel ?? 1;
-  const budget = cl * 3;
+  // Base CL Pool = personal Clearance Level (Standing/HQ modifiers not yet applied)
+  const clPool = cl;
+  // Stack agents succeed above-CL rolls on 5-6 instead of 6
+  const isStack = actor.system?.subUnitKey === 'stack';
+  const aboveCLTarget = isStack ? 5 : 6;
   const division = actor.system?.division ?? '';
   const divisionBonus = DIVISION_BONUSES[division]?.bonusItems ?? [];
-  return { budget, divisionBonus };
+  return { clPool, divisionBonus, canRollAboveCL: true, aboveCLTarget };
+}
+
+/**
+ * Roll for an above-CL requisition item.
+ *
+ * Each agent may attempt only **one** above-CL roll per Equipping Phase.
+ * This function enforces that limit via an actor flag. The flag is reset
+ * when a new Case File begins (see `resetEquippingPhaseFlags`).
+ *
+ * This function handles the dice roll and chat output only. It does NOT:
+ * - Validate the item's CL against the agent's CL Pool
+ * - Add the item to the agent's inventory on success
+ * - Track CL Pool spending
+ * Those responsibilities belong to the calling Equipping Phase UI.
+ *
+ * @param {Actor} actor
+ * @returns {Promise<{success: boolean, roll: number, alreadyUsed: boolean}>}
+ */
+export async function rollAboveCLRequisition(actor) {
+  const flagKey = 'hasUsedAboveCLRoll';
+  const alreadyUsed = actor.getFlag('neon-relic', flagKey) === true;
+  if (alreadyUsed) {
+    ui.notifications.warn(game.i18n.localize('NEONRELIC.Equipping.AlreadyUsedAboveCL'));
+    return { success: false, roll: 0, alreadyUsed: true };
+  }
+
+  const { aboveCLTarget } = getRequisitionBudget(actor);
+  const roll = new Roll('1d6');
+  await roll.evaluate();
+  const result = roll.total;
+  const success = result >= aboveCLTarget;
+
+  // Mark the roll as used for this Equipping Phase
+  await actor.setFlag('neon-relic', flagKey, true);
+
+  const speaker = ChatMessage.getSpeaker({ actor });
+  await ChatMessage.create({
+    speaker,
+    content: `<div class="requisition-roll">
+      <strong>${game.i18n.localize('NEONRELIC.Equipping.AboveCLRoll')}</strong>: ${actor.name}
+      <br>1d6 = ${result} (target: ${aboveCLTarget}+)
+      <br>${success ? game.i18n.localize('NEONRELIC.Equipping.Approved') : game.i18n.localize('NEONRELIC.Equipping.Denied')}
+    </div>`,
+  });
+
+  return { success, roll: result, alreadyUsed: false };
+}
+
+/**
+ * Reset all per-agent Equipping Phase flags at the start of a new Case File.
+ * Clears the above-CL roll usage flag so agents can roll again.
+ * Call this when the DA initiates a new Case File.
+ *
+ * @param {Actor[]} agents - Array of agent actors to reset.
+ */
+export async function resetEquippingPhaseFlags(agents) {
+  for (const actor of agents) {
+    await actor.unsetFlag('neon-relic', 'hasUsedAboveCLRoll');
+  }
 }
 
 // ─── Death States (#96) ────────────────────────────────────────
