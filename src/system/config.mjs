@@ -85,7 +85,7 @@ NEON_RELIC.ageGroups = {
  */
 NEON_RELIC.damageTypes = {
   physical: { label: 'NEONRELIC.DamageType.Physical', attribute: 'str' },
-  exhaustion: { label: 'NEONRELIC.DamageType.Exhaustion', attribute: 'agi' },
+  hobbling: { label: 'NEONRELIC.DamageType.Hobbling', attribute: 'agi' },
   horror: { label: 'NEONRELIC.DamageType.Horror', attribute: 'wit' },
   trauma: { label: 'NEONRELIC.DamageType.Trauma', attribute: 'emp' },
 };
