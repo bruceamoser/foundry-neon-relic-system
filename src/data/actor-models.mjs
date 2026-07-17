@@ -116,9 +116,11 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
       // Fear tracking — entity types already passed Fear Check against
       knownEntities: new SetField(new StringField()),
 
-      // Experience
+      // Experience — three-track model: Total (lifetime), Spent (cumulative), Current (Total − Spent)
       experience: new SchemaField({
         current: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+        total: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+        spent: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
       }),
 
       // Description
@@ -175,6 +177,13 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
       skillSpent,
       skillRemaining: group.skill - skillSpent,
     };
+
+    // Validate XP invariant: Current = Total − Spent
+    if (this.experience.current !== this.experience.total - this.experience.spent) {
+      console.warn(
+        `neon-relic | XP invariant broken for "${this.parent?.name}": current=${this.experience.current}, total=${this.experience.total}, spent=${this.experience.spent}. Expected current=${this.experience.total - this.experience.spent}.`,
+      );
+    }
 
     // Auto-compute Clearance Level
     const ageMods = { young: -1, experienced: 0, senior: 1 };

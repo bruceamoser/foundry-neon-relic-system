@@ -370,6 +370,8 @@ NEONRELIC:
     CL: Clearance Level
     Origin: Country of Origin
     XP: XP
+    XPTotal: Total
+    XPSpent: Spent
     Skills: Skills
     Encumbrance: Encumbrance
     Equipment: Equipment & Requisitions
@@ -851,6 +853,8 @@ NEONRELIC:
       OrgNeutralized: Organization neutralized (+1 DP)
       LowThreat: Threat stayed low (+1 DP)
       BonusObjective: Bonus objective completed (+1 DP)
+    XPAwarded: '{name} gained {xp} XP.'
+    XPAwardedHint: Enter the amount of XP earned this session (max 10).
 
   # Social Conflict
   Social:
