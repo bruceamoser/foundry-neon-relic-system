@@ -949,16 +949,9 @@
           </table>
 
           <h2>Repair Rules</h2>
-          <table>
-            <thead><tr><th>Condition</th><th>Diff</th><th>Time</th></tr></thead>
-            <tbody>
-              <tr><td>Degraded (below max)</td><td>1</td><td>15 min (1 scene)</td></tr>
-              <tr><td>Broken (non-electronic)</td><td>2</td><td>1 Shift (~4h)</td></tr>
-              <tr><td>Broken (electronic)</td><td>3</td><td>1 Shift + Power Tools</td></tr>
-              <tr><td>Artifact-adjacent damage</td><td>4</td><td>Occult Lab or Wayfinder</td></tr>
-            </tbody>
-          </table>
-          <p>Each success restores Gear Bonus by 1. Repairs consume a <strong>Junk Die</strong> (d6 Resource Die for parts).</p>
+          <p>All non-vehicle repairs use a single <strong>Parts Die (d8)</strong> as the parts tracker. After each repair, roll the Parts Die: on <strong>1–2</strong>, step it down (d8 → d6 → d4 → depleted); on <strong>3+</strong>, no change. Replenish the Parts Die at a cell location or during Equipping Phase.</p>
+          <p>Each success on a <strong>Tech (WIT)</strong> roll restores Gear Bonus by 1. Difficulty: 1 for degraded items, 2 for broken items.</p>
+          <p><em>DA option:</em> For groups wanting more granular resource tracking, a full parts economy (Junk Die, Hardware Components, Specialized Parts, Covenant Cache Parts) is available — but the Parts Die is the default rule.</p>
 
     # ══════════════════════════════════════════════════
     # CHAPTER 11: ARTIFACTS
