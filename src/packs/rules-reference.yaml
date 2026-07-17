@@ -612,28 +612,41 @@
           <table>
             <thead><tr><th>State</th><th>Meaning</th></tr></thead>
             <tbody>
-              <tr><td><strong>Broken</strong></td><td>Any attribute = 0. Critical Injury rolled. Can still be saved.</td></tr>
-              <tr><td><strong>Dying</strong></td><td>Broken with a † Critical Injury. Window closing.</td></tr>
+              <tr><td><strong>Broken / Unconscious</strong></td><td>Any attribute = 0. Critical Injury rolled. Can still be saved.</td></tr>
+              <tr><td><strong>Dying</strong></td><td>Broken with a † Critical Injury — Death Check pending, or survived but injury is active (Bleeding, Gutted). Window closing.</td></tr>
               <tr><td><strong>Dead</strong></td><td>Death Check failed, instant-death result, or window expired.</td></tr>
             </tbody>
           </table>
+
+          <h3>Simultaneous Injury Resolution</h3>
+          <ol>
+            <li><strong>Physical damage resolves first.</strong> Apply all damage, check Broken, roll Critical Injury.</li>
+            <li><strong>Death Check resolves second.</strong> If Critical Injury requires it, resolve immediately.</li>
+            <li><strong>Corruption threshold resolves third.</strong> After physical effects complete, check accumulated Corruption against threshold.</li>
+          </ol>
 
           <h3>Death Check</h3>
           <p>Roll 1d6 when Critical Injury marked with †:</p>
           <ul>
             <li><strong>1–2:</strong> Character dies.</li>
-            <li><strong>3–6:</strong> Survives — injury still applies.</li>
+            <li><strong>3–6:</strong> Survives — injury still applies and must be treated.</li>
           </ul>
-          <p><strong>Medical Training talent:</strong> Ally Heal (EMP) Diff 2 → patient rolls d6+1 (death only on natural 1).</p>
+          <p><strong>Medical Training talent:</strong> Ally spends Slow Action, Heal (EMP) Diff 2 → patient rolls d6+1 (death only on natural 1 — result 2).</p>
 
-          <h3>Stabilizing a Broken Character</h3>
+          <h3>Stabilization Window</h3>
+          <ul>
+            <li><strong>Within same scene:</strong> Ally may attempt to stabilize (see First Aid below).</li>
+            <li><strong>End of scene without treatment:</strong> Character must roll Death Check unmodified. No ally assistance.</li>
+            <li><strong>DOA (Critical Injury 66):</strong> Immediate Death Check — no window. Heal roll (Diff 4) required within same round, not same scene.</li>
+          </ul>
+
+          <h3>First Aid: Stabilizing a Dying Character</h3>
           <ul>
             <li><strong>Skill:</strong> Heal (EMP), Slow Action</li>
-            <li><strong>Requirements:</strong> First Aid Kit (+1 Gear). Without: −2 dice.</li>
-            <li><strong>Difficulty:</strong> 2 (normal), 3 (severe wounds), 4 (mid-round emergency)</li>
-            <li><strong>Success:</strong> Dying state resolved. Broken but no longer dying.</li>
-            <li><strong>Failure:</strong> May retry. Each failed attempt costs 1 STR to treating agent.</li>
-            <li><strong>Unstabilized Broken PC:</strong> Dies at end of scene (not end of round).</li>
+            <li><strong>Gear:</strong> First Aid Kit (+1). Without: −2 dice.</li>
+            <li><strong>Difficulty:</strong> 2</li>
+            <li><strong>Success:</strong> Dying state resolved. Broken but no longer dying. Stabilized characters regain consciousness after 1d6 minutes but remain Broken.</li>
+            <li><strong>Failure:</strong> May retry. Character remains Dying — Death Check window continues.</li>
           </ul>
 
           <h2>Critical Injuries</h2>
