@@ -197,7 +197,7 @@
   name: Flashlight
   type: gear
   system:
-    description: Standard handheld flashlight. Eliminates Dark zone penalty in immediate area.
+    description: Standard handheld flashlight. Eliminates Darkness penalty in immediate area.
     gearBonus:
       value: 0
       max: 0

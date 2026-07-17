@@ -182,14 +182,14 @@ export const RANGE_BANDS = {
  * @param {string} params.range - Range band key.
  * @param {boolean} [params.elevated=false] - Attacker is elevated.
  * @param {boolean} [params.inChase=false] - During a chase.
- * @param {boolean} [params.darkZone=false] - Target in dark zone.
+ * @param {boolean} [params.inDarkness=false] - Target in Darkness.
  * @returns {number} Total modifier to dice pool.
  */
-export function getRangedModifier({ range, elevated = false, inChase = false, darkZone = false }) {
+export function getRangedModifier({ range, elevated = false, inChase = false, inDarkness = false }) {
   let mod = RANGE_BANDS[range]?.modifier ?? 0;
   if (elevated) mod += 1;
   if (inChase) mod -= 1;
-  if (darkZone) mod -= 2;
+  if (inDarkness) mod -= 2;
   return mod;
 }
 
