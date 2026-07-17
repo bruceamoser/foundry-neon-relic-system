@@ -787,6 +787,7 @@ NEONRELIC:
     AboveCLRoll: Above-CL Requisition Roll
     Approved: Approved — item issued.
     Denied: Denied — item not available this Case File.
+    AlreadyUsedAboveCL: You have already made your above-CL requisition roll for this Case File.
     ShareEquipment: Share Equipment
     ReturnToStack: Return Equipment to Stack
     CheckedOutBy: Checked Out By
