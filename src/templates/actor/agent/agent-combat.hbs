@@ -53,6 +53,7 @@
     <table class='gear-table'>
       <thead>
         <tr>
+          <th></th>
           <th>{{localize 'NEONRELIC.Item.Name'}}</th>
           <th class='center'>{{localize 'NEONRELIC.Weapon.Damage'}}</th>
           <th class='center'>{{localize 'NEONRELIC.Weapon.Range'}}</th>
@@ -63,6 +64,7 @@
       <tbody>
         {{#each weapons}}
           <tr class='item-row' data-item-id='{{this.id}}'>
+            <td><img class='item-img' src='{{this.img}}' /></td>
             <td><a class='item-name' data-action='viewItem'>{{this.name}}</a></td>
             <td class='center'>{{this.system.damage}}</td>
             <td class='center'>{{this.system.range}}</td>
@@ -92,6 +94,7 @@
   <div class='section-title'>{{localize 'NEONRELIC.Combat.Armor'}}</div>
   {{#each armor}}
     <div class='armor-entry' data-item-id='{{this.id}}'>
+      <img class='item-img' src='{{this.img}}' />
       <a class='armor-name item-name' data-action='viewItem'>{{this.name}}</a>
       <span class='armor-ar'>AR {{this.system.ar.value}}/{{this.system.ar.max}}</span>
       {{#if @root.isEditable}}
@@ -134,10 +137,22 @@
 
   {{#if isEditable}}
     <div class='add-buttons-row'>
-      <button type='button' class='add-btn' data-action='openCompendium' data-pack='neon-relic.weapons-armor'>+
-        {{localize 'NEONRELIC.Item.AddWeapon'}}</button>
-      <button type='button' class='add-btn' data-action='openCompendium' data-pack='neon-relic.weapons-armor'>+
-        {{localize 'NEONRELIC.Item.AddArmor'}}</button>
+      <button
+        type='button'
+        class='add-btn'
+        data-action='addItem'
+        data-item-type='weapon'
+        data-pack='neon-relic.weapons-armor'
+      >+
+        {{localize 'NEONRELIC.Agent.AddWeapon'}}</button>
+      <button
+        type='button'
+        class='add-btn'
+        data-action='addItem'
+        data-item-type='armor'
+        data-pack='neon-relic.weapons-armor'
+      >+
+        {{localize 'NEONRELIC.Agent.AddArmor'}}</button>
     </div>
   {{/if}}
 </section>

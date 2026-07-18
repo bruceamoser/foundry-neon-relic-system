@@ -123,6 +123,12 @@ NEONRELIC:
     Bonus: Bonus
     Enc: Enc
     Die: Die
+    Remove: Remove
+    AddGear: Add Gear
+    AddConsumable: Add Consumable
+    AddArtifact: Add Artifact
+    AddWeapon: Add Weapon
+    AddArmor: Add Armor
 
   # Roll Dialog
   Roll:
@@ -400,6 +406,9 @@ NEONRELIC:
     ShortRest: Short Rest
     ShortRestHint: Recover 1 point per damaged attribute.
     ShortRestApplied: Short rest applied. +1 recovered per damaged attribute.
+    AddWeapon: Add Weapon
+    AddArmor: Add Armor
+    NewItem: 'New {type}'
 
   Sex:
     Male: Male
