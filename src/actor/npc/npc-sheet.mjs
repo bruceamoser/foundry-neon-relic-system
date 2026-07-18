@@ -32,19 +32,8 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
   /** @override */
   static PARTS = {
-    header: {
-      template: `systems/${SYSTEM_ID}/templates/actor/npc/npc-header.hbs`,
-    },
-    stats: {
-      template: `systems/${SYSTEM_ID}/templates/actor/npc/npc-stats.hbs`,
-      scrollable: [''],
-    },
-    entity: {
-      template: `systems/${SYSTEM_ID}/templates/actor/npc/npc-entity.hbs`,
-      scrollable: [''],
-    },
-    card: {
-      template: `systems/${SYSTEM_ID}/templates/actor/npc/npc-card.hbs`,
+    content: {
+      template: `systems/${SYSTEM_ID}/templates/actor/npc/npc-sheet.hbs`,
       scrollable: [''],
     },
   };
