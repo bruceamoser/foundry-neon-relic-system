@@ -164,11 +164,16 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     // Skills grouped by attribute for 4-column layout
     const skillsByAttr = { str: [], agi: [], wit: [], emp: [] };
     for (const [key, skillConfig] of Object.entries(CONFIG.NEON_RELIC.skills)) {
-      skillsByAttr[skillConfig.attribute].push({
+      const entry = {
         key,
         label: skillConfig.label,
         value: system.skills[key] ?? 0,
-      });
+      };
+      skillsByAttr[skillConfig.attribute].push(entry);
+      // Also add to secondary attribute column if defined (e.g., Heal under both EMP and WIT)
+      if (skillConfig.secondaryAttribute) {
+        skillsByAttr[skillConfig.secondaryAttribute].push({ ...entry, isSecondary: true });
+      }
     }
 
     // Build attribute columns for the attr-skill grid
@@ -418,7 +423,11 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   static async #onRollSkill(_event, target) {
     const skillKey = target.dataset.skill;
     const skillConfig = CONFIG.NEON_RELIC.skills[skillKey];
-    const attrKey = skillConfig?.attribute ?? '';
+    // Use secondary attribute if this is a secondary-column entry
+    const isSecondary = target.dataset.secondary === 'true';
+    const attrKey = isSecondary
+      ? (skillConfig?.secondaryAttribute ?? skillConfig?.attribute ?? '')
+      : (skillConfig?.attribute ?? '');
     const attrValue = this.document.system.attributes[attrKey]?.value ?? 0;
     const skillValue = this.document.system.skills[skillKey] ?? 0;
     const gearItems = AgentSheet.#getGearForRoll(this.document, skillKey, attrKey);
