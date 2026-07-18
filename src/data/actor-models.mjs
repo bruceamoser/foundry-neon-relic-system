@@ -230,6 +230,7 @@ export class NPCDataModel extends foundry.abstract.TypeDataModel {
       armorRating: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
       fearRating: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
       escalatedFearRating: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+      burstRating: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
       initiative: new SchemaField({
         cardValue: new NumberField({ integer: true, min: 1, max: 10, initial: 1 }),
       }),
