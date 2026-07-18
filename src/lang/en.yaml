@@ -414,6 +414,9 @@ NEONRELIC:
     ShortRestApplied: Short rest applied. +1 recovered per damaged attribute.
     AddWeapon: Add Weapon
     AddArmor: Add Armor
+    AddTalent: Add Talent
+    TalentCost: '{cost} XP per talent ({xp} XP available)'
+    TalentFree: First 3 talents are free
     CLTooLow: Requires higher clearance level.
     AddGearHint: 'Showing items at or below CL {cl}.'
     NewItem: 'New {type}'

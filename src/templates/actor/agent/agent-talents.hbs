@@ -38,4 +38,18 @@
   {{#unless talents.length}}
     <p class='empty-list'>{{localize 'NEONRELIC.NoItems'}}</p>
   {{/unless}}
+  {{#if isEditable}}
+    <div class='add-buttons-row'>
+      {{#if canAddTalent}}
+        <button type='button' class='add-btn' data-action='addTalent'>+
+          {{localize 'NEONRELIC.Agent.AddTalent'}}</button>
+      {{else}}
+        <button type='button' class='add-btn' disabled title='{{talentCostHint}}'>+
+          {{localize 'NEONRELIC.Agent.AddTalent'}}</button>
+      {{/if}}
+      {{#if talentCount}}
+        <span class='add-hint'>{{talentCostHint}}</span>
+      {{/if}}
+    </div>
+  {{/if}}
 </section>
