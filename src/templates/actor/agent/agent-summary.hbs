@@ -1,5 +1,28 @@
 <section class='tab summary {{tab.cssClass}}' data-group='primary' data-tab='summary'>
 
+  {{#if isEditable}}
+    <div class='heal-button-row'>
+      <button
+        type='button'
+        data-action='takeDamage'
+        class='heal-btn damage-btn'
+        title='{{localize "NEONRELIC.Damage.TakeDamageHint"}}'
+      >
+        <i class='fa-solid fa-heart-crack'></i>
+        {{localize 'NEONRELIC.Damage.TakeDamage'}}
+      </button>
+      <button
+        type='button'
+        data-action='shortRest'
+        class='heal-btn'
+        title='{{localize "NEONRELIC.Agent.ShortRestHint"}}'
+      >
+        <i class='fa-solid fa-bed'></i>
+        {{localize 'NEONRELIC.Agent.ShortRest'}}
+      </button>
+    </div>
+  {{/if}}
+
   {{! Identity Block }}
   <div class='section-title'>{{localize 'NEONRELIC.Agent.Identity'}}</div>
   <div class='id-block-row' style='grid-template-columns: 2.6fr 1fr 1fr;'>
