@@ -2,7 +2,7 @@
   "id": "neon-relic",
   "title": "Neon Relic",
   "description": "An occult investigation TTRPG set in an alternate 1980s, built on the Year Zero Engine.",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "manifest": "https://github.com/bruceamoser/foundry-neon-relic-system/releases/latest/download/system.json",
   "download": "https://github.com/bruceamoser/foundry-neon-relic-system/releases/latest/download/neon-relic.zip",
   "compatibility": {

@@ -1,6 +1,6 @@
 {
   "name": "neon-relic",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "type": "module",
   "description": "Foundry VTT game system for Neon Relic — an occult investigation TTRPG set in an alternate 1980s, built on the Year Zero Engine.",
   "repository": {
