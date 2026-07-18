@@ -35,6 +35,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       takeDamage: AgentSheet.#onTakeDamage,
       removeItem: AgentSheet.#onRemoveItem,
       openCompendium: AgentSheet.#onOpenCompendium,
+      addItem: AgentSheet.#onAddItem,
       awardXP: AgentSheet.#onAwardXP,
     },
     form: {
@@ -616,6 +617,24 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     if (!packId) return;
     const pack = game.packs.get(packId);
     if (pack) pack.render(true);
+  }
+
+  /**
+   * Add a new item of the specified type to this actor.
+   * Creates the item, then opens its sheet for editing.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   */
+  static async #onAddItem(_event, target) {
+    const itemType = target.dataset.itemType;
+    if (!itemType) return;
+
+    const typeLabel = game.i18n.localize(`TYPES.Item.${itemType}`);
+    const itemName = game.i18n.format('NEONRELIC.Agent.NewItem', { type: typeLabel });
+    const itemData = { name: itemName, type: itemType };
+
+    const [created] = await this.document.createEmbeddedDocuments('Item', [itemData]);
+    if (created) created.sheet.render(true);
   }
 
   /**
