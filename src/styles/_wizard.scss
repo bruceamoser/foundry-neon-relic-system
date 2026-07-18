@@ -813,6 +813,8 @@
 
 // ── Talent Picker Dialog ─────────────────────────────────
 .talent-picker-dialog {
+  color: $nr-paper;
+
   .talent-picker {
     display: flex;
     flex-direction: column;
@@ -821,7 +823,7 @@
 
   .picker-hint {
     font-size: 12px;
-    color: $nr-ink-faded;
+    color: $nr-ink-light;
     font-style: italic;
     margin: 0;
   }
@@ -889,6 +891,7 @@
         font-weight: bold;
         font-size: 13px;
         flex: 1;
+        color: $nr-paper;
       }
 
       .talent-corruption {
@@ -923,7 +926,7 @@
 
   .no-talents {
     font-style: italic;
-    color: $nr-ink-faded;
+    color: $nr-ink-light;
     text-align: center;
     padding: $nr-spacing-md;
   }

@@ -265,6 +265,54 @@
     }
   }
 
+  // ── Summary Anchor ──────────────────────────────────
+  .summary-anchor {
+    display: flex;
+    align-items: center;
+    gap: $nr-spacing-sm;
+    padding: $nr-spacing-xs $nr-spacing-sm;
+    margin-bottom: $nr-spacing-sm;
+    border: 1px solid $nr-green-stamp;
+    background: rgba(45, 90, 39, 0.05);
+
+    .summary-anchor-name {
+      flex: 1;
+      font-family: $nr-font-fill;
+      font-size: 9pt;
+      font-weight: bold;
+    }
+
+    .summary-anchor-uses {
+      font-family: $nr-font-fill;
+      font-size: 10pt;
+      font-weight: bold;
+      color: $nr-ink;
+    }
+
+    .lost-badge {
+      display: inline-block;
+      @include classified-stamp;
+      font-size: 7pt;
+      padding: 1px 6px;
+    }
+
+    .anchor-use-btn {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 8px;
+      border: 1px solid $nr-green-stamp;
+      background: $nr-green-stamp;
+      color: $nr-paper;
+      cursor: pointer;
+
+      &:hover {
+        filter: brightness(1.2);
+      }
+    }
+  }
+
   // ── Attr + Skill Grid ──────────────────────────────
   .attr-skill-grid {
     display: grid;
@@ -1027,11 +1075,12 @@
     padding: 4px 10px;
     border: 1.5px solid $nr-ink;
     background: $nr-field-bg;
+    color: $nr-ink;
     cursor: pointer;
 
     &:hover {
       background: $nr-ink;
-      color: #fff;
+      color: $nr-paper;
     }
 
     i {
@@ -1044,19 +1093,13 @@
 
       &:hover {
         background: $nr-green-stamp;
-        color: #fff;
+        color: $nr-paper;
       }
     }
 
     &--skill,
     &--talent {
-      opacity: 0.7;
-      cursor: default;
-
-      &:hover {
-        background: $nr-field-bg;
-        color: $nr-ink;
-      }
+      border-style: dashed;
     }
   }
 
@@ -1085,5 +1128,36 @@
     letter-spacing: 1px;
     color: $nr-green-stamp;
     margin-left: 4px;
+  }
+
+  // ── Combat add buttons row ──
+  .add-buttons-row {
+    display: flex;
+    gap: $nr-spacing-sm;
+    margin-top: $nr-spacing-sm;
+    padding-top: $nr-spacing-sm;
+    border-top: 1px solid $nr-rule-light;
+
+    .add-btn {
+      flex: 1;
+      padding: 6px;
+      font-family: $nr-font-main;
+      font-size: 9pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $nr-ink;
+      background: $nr-field-bg;
+      border: 1.5px dashed $nr-ink-faded;
+      border-radius: 3px;
+      cursor: pointer;
+      transition:
+        border-color 0.15s,
+        background 0.15s;
+
+      &:hover {
+        border-color: $nr-ink;
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
   }
 }

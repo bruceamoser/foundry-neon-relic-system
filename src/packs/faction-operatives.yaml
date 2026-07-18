@@ -93,7 +93,7 @@
       investigate: 4
       tinker: 3
       psychoanalyze: 2
-      heal: 3
+      healPhysical: 3
     armorRating: 0
     fearRating: 0
     corruptionStage: 2

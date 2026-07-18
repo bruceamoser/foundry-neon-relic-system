@@ -1,0 +1,84 @@
+name: Release CI
+
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., v0.6.0)'
+        required: true
+        type: string
+
+env:
+  TYPE: system
+
+jobs:
+  release:
+    name: Build & Attach Release Artifacts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📡 Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || github.event.inputs.version }}
+
+      - name: ⚙️ Setup NodeJS 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: 🔧 Install Dependencies
+        run: npm ci
+
+      - name: 🧱 Build Project
+        run: npm run build
+
+      - name: 📄 Get System ID
+        id: id
+        run: |
+          ID=$(node -p "require('./dist/system.json').id")
+          echo "id=$ID" >> $GITHUB_OUTPUT
+
+      - name: 📄 Get Version
+        id: version
+        run: |
+          VERSION=$(node -p "require('./dist/system.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+
+      - name: 📝 Set Manifest to Latest
+        id: manifest_link
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: dist/${{ env.TYPE }}.json
+        env:
+          manifest: https://github.com/${{ github.repository }}/releases/latest/download/${{ env.TYPE }}.json
+
+      - name: 📦 Create ZIP Archive
+        run: |
+          cd dist/
+          zip -r ../${{ steps.id.outputs.id }}.zip *
+
+      - name: 🚀 Upload Release Artifacts
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          allowUpdates: true
+          name: ${{ github.event.release.name || steps.version.outputs.tag }}
+          draft: false
+          prerelease: ${{ github.event.release.prerelease || false }}
+          tag: ${{ github.event.release.tag_name || steps.version.outputs.tag }}
+          body: ${{ github.event.release.body }}
+          artifacts: './${{ steps.id.outputs.id }}.zip, ./dist/${{ env.TYPE }}.json'
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📋 Summary
+        run: |
+          echo "### ✅ Release Complete" >> $GITHUB_STEP_SUMMARY
+          echo "**Version:** ${{ steps.version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "**System:** ${{ steps.id.outputs.id }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Manifest:** https://github.com/${{ github.repository }}/releases/latest/download/system.json" >> $GITHUB_STEP_SUMMARY
+          echo "**Download:** https://github.com/${{ github.repository }}/releases/latest/download/${{ steps.id.outputs.id }}.zip" >> $GITHUB_STEP_SUMMARY

@@ -331,19 +331,6 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             disabledMinus: value <= 0 ? 'disabled' : '',
             cssClass: isKey ? 'key-skill' : '',
           });
-          // Dual-attribute skills: also add to secondary attribute column
-          if (cfg.secondaryAttribute) {
-            columnMap[cfg.secondaryAttribute].skills.push({
-              key,
-              label: game.i18n.localize(cfg.label),
-              value,
-              isKeySkill: isKey,
-              max,
-              disabledPlus: value >= max || system.budget.skillRemaining <= 0 ? 'disabled' : '',
-              disabledMinus: value <= 0 ? 'disabled' : '',
-              cssClass: isKey ? 'key-skill' : 'dual-attr',
-            });
-          }
         }
         context.skillColumns = Object.values(columnMap);
         context.skillBudget = system.budget;
@@ -722,9 +709,16 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       attrSync[`system.attributes.${key}.value`] = system.attributes[key].max;
     }
 
+    // ── Compute Clearance Level ─────────────────────────────────
+    const ageMods = { young: -1, experienced: 0, senior: 1 };
+    const ageMod = ageMods[system.ageGroup] ?? 0;
+    const baseCL = currentSub.system.baseCL ?? 2;
+    const computedCL = Math.clamp(baseCL + ageMod, 1, 5);
+
     // ── Finalize ────────────────────────────────────────────────
     await actor.update({
       ...attrSync,
+      'system.clearanceLevel': computedCL,
       'system.creationComplete': true,
       'system.divisionItem.active': true,
     });
@@ -840,7 +834,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
           {
             name: text,
             type: 'anchor',
-            system: { relationship: text },
+            system: { relationship: '' },
           },
         ]);
         this.render();

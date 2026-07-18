@@ -39,6 +39,8 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       addTalent: AgentSheet.#onAddTalent,
       addItem: AgentSheet.#onAddItem,
       awardXP: AgentSheet.#onAwardXP,
+      switchTab: AgentSheet.#onSwitchTab,
+      useAnchor: AgentSheet.#onUseAnchor,
     },
     form: {
       submitOnChange: true,
@@ -51,7 +53,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       template: `systems/${SYSTEM_ID}/templates/actor/agent/agent-header.hbs`,
     },
     tabs: {
-      template: 'templates/generic/tab-navigation.hbs',
+      template: `systems/${SYSTEM_ID}/templates/generic/tab-navigation.hbs`,
     },
     summary: {
       template: `systems/${SYSTEM_ID}/templates/actor/agent/agent-summary.hbs`,
@@ -195,10 +197,6 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
         value: system.skills[key] ?? 0,
       };
       skillsByAttr[skillConfig.attribute].push(entry);
-      // Also add to secondary attribute column if defined (e.g., Heal under both EMP and WIT)
-      if (skillConfig.secondaryAttribute) {
-        skillsByAttr[skillConfig.secondaryAttribute].push({ ...entry, isSecondary: true });
-      }
     }
 
     // Build attribute columns for the attr-skill grid
@@ -494,11 +492,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   static async #onRollSkill(_event, target) {
     const skillKey = target.dataset.skill;
     const skillConfig = CONFIG.NEON_RELIC.skills[skillKey];
-    // Use secondary attribute if this is a secondary-column entry
-    const isSecondary = target.dataset.secondary === 'true';
-    const attrKey = isSecondary
-      ? (skillConfig?.secondaryAttribute ?? skillConfig?.attribute ?? '')
-      : (skillConfig?.attribute ?? '');
+    const attrKey = skillConfig?.attribute ?? '';
     const attrValue = this.document.system.attributes[attrKey]?.value ?? 0;
     const skillValue = this.document.system.skills[skillKey] ?? 0;
     const gearItems = AgentSheet.#getGearForRoll(this.document, skillKey, attrKey);
@@ -891,6 +885,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
       const dlg = new foundry.applications.api.DialogV2({
         window: { title },
+        classes: [SYSTEM_ID, 'item-picker-dialog'],
         content,
         buttons: [
           {
@@ -899,35 +894,95 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
             callback: () => done(null),
           },
         ],
+        close: () => done(null),
       });
 
-      dlg.addEventListener('close', () => done(null));
       dlg.render(true).then(() => {
-        dlg.element.find('.gear-popup-add').on('click', function (ev) {
-          ev.preventDefault();
-          done(this.dataset.uuid);
-          dlg.close();
+        dlg.element.querySelectorAll('.gear-popup-add').forEach(el => {
+          el.addEventListener('click', function (ev) {
+            ev.preventDefault();
+            done(this.dataset.uuid);
+            dlg.close();
+          });
         });
       });
     });
   }
 
   /**
-   * Add a new item of the specified type to this actor.
-   * Creates the item, then opens its sheet for editing.
+   * Open a compendium picker popup for weapons or armor.
+   * Filters by item type and agent clearance level.
    * @param {PointerEvent} _event
    * @param {HTMLElement} target
    */
   static async #onAddItem(_event, target) {
     const itemType = target.dataset.itemType;
-    if (!itemType) return;
+    const packId = target.dataset.pack;
+    if (!itemType || !packId) return;
 
-    const typeLabel = game.i18n.localize(`TYPES.Item.${itemType}`);
-    const itemName = game.i18n.format('NEONRELIC.Agent.NewItem', { type: typeLabel });
-    const itemData = { name: itemName, type: itemType };
+    const cl = this.document.system.clearanceLevel ?? 1;
+    const pack = game.packs.get(packId);
+    if (!pack) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Compendium.NotFound'));
+      return;
+    }
 
-    const [created] = await this.document.createEmbeddedDocuments('Item', [itemData]);
-    if (created) created.sheet.render(true);
+    await pack.getIndex();
+    const docs = await pack.getDocuments();
+    const items = [];
+
+    for (const doc of docs) {
+      if (doc.type !== itemType) continue;
+      const itemCL = doc.system?.cl ?? doc.system?.clearanceLevel ?? 99;
+      items.push({
+        uuid: doc.uuid,
+        name: doc.name,
+        type: doc.type,
+        cl: itemCL,
+        img: doc.img,
+        allowed: itemCL <= cl,
+      });
+    }
+
+    // Sort: allowed first, then by name
+    items.sort((a, b) => b.allowed - a.allowed || a.name.localeCompare(b.name));
+
+    if (!items.length) {
+      ui.notifications.info(game.i18n.format('NEONRELIC.Agent.NoItemsOfType', { type: itemType }));
+      return;
+    }
+
+    const rows = items
+      .map(
+        i => `
+        <li class="gear-popup-item ${i.allowed ? '' : 'locked'}" data-uuid="${i.uuid}"
+            title="${i.allowed ? '' : game.i18n.localize('NEONRELIC.Agent.CLTooLow')}">
+          <img src="${i.img}" class="gear-popup-img" alt="${i.name}" />
+          <span class="gear-popup-name">${i.name}</span>
+          <span class="gear-popup-cl">CL ${i.cl}</span>
+          ${
+            i.allowed
+              ? `<button type="button" class="gear-popup-add" data-uuid="${i.uuid}">+</button>`
+              : `<span class="gear-popup-locked"><i class="fa-solid fa-lock"></i></span>`
+          }
+        </li>`,
+      )
+      .join('');
+
+    const content = `
+      <div class="gear-popup">
+        <p class="gear-popup-hint">${game.i18n.format('NEONRELIC.Agent.AddGearHint', { cl })}</p>
+        <ul class="gear-popup-list">${rows}</ul>
+      </div>`;
+
+    const titleKey = itemType === 'weapon' ? 'NEONRELIC.Agent.AddWeapon' : 'NEONRELIC.Agent.AddArmor';
+    const title = game.i18n.localize(titleKey);
+    const uuid = await AgentSheet.#itemPicker(title, content);
+
+    if (uuid) {
+      const doc = await fromUuid(uuid);
+      if (doc) await this.document.createEmbeddedDocuments('Item', [doc.toObject()]);
+    }
   }
 
   /**
@@ -1025,13 +1080,79 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const actor = this.document;
     const amount = await foundry.applications.api.DialogV2.prompt({
       window: { title: game.i18n.localize('NEONRELIC.Debrief.Title') },
-      content: `<div class="form-group"><label>${game.i18n.localize('NEONRELIC.Agent.XP')}</label><input type="number" name="amount" value="1" min="1" max="10" autofocus /></div><p class="hint">${game.i18n.localize('NEONRELIC.Debrief.XPAwardedHint')}</p>`,
+      content: `<div class="form-group"><label>${game.i18n.localize('NEONRELIC.Agent.XP')}</label><input type="number" name="amount" value="1" min="1" autofocus /></div><p class="hint">${game.i18n.localize('NEONRELIC.Debrief.XPAwardedHint')}</p>`,
       ok: {
-        callback: (event, button) => Math.clamp(Number(button.form.elements.amount.value) || 0, 0, 10),
+        callback: (event, button) => Math.max(0, Number(button.form.elements.amount.value) || 0),
       },
     });
     if (amount > 0) {
       await applyDebriefXP(actor, amount);
     }
+  }
+
+  /**
+   * Switch to a specific tab by group and tab ID.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   */
+  static #onSwitchTab(_event, target) {
+    const group = target.dataset.tabGroup || 'primary';
+    const tab = target.dataset.tab;
+    if (tab) this.switchTab(group, tab);
+  }
+
+  /**
+   * Use an anchor — roll 1d4 and heal that much corruption.
+   * Consumes one anchor use. Once per session.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   */
+  static async #onUseAnchor(_event, target) {
+    const itemId = target.dataset.itemId;
+    const anchor = this.document.items.get(itemId);
+    if (!anchor || anchor.type !== 'anchor') return;
+
+    if (anchor.system.isLost) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Anchor.Lost'));
+      return;
+    }
+
+    if (this.document.system.sessionTracking?.anchorUsed) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Anchor.AlreadyUsed'));
+      return;
+    }
+
+    const uses = anchor.system.uses.value;
+    if (uses <= 0) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Anchor.NoUses'));
+      return;
+    }
+
+    // Roll 1d4
+    const roll = await new Roll('1d4').evaluate();
+    const healed = roll.total;
+
+    // Apply healing and consumption
+    await anchor.update({ 'system.uses.value': uses - 1 });
+    await this.document.update({ 'system.sessionTracking.anchorUsed': true });
+
+    if (this.document.healCorruption) {
+      await this.document.healCorruption(healed, game.i18n.localize('NEONRELIC.Anchor.Use'));
+    }
+
+    // Chat message
+    const speaker = ChatMessage.getSpeaker({ actor: this.document });
+    await ChatMessage.create({
+      speaker,
+      content: game.i18n.format('NEONRELIC.Anchor.Used', {
+        name: this.document.name,
+        anchorName: anchor.name,
+        healed,
+        remaining: anchor.system.uses.value - 1,
+      }),
+    });
+
+    // Re-render to reflect changes
+    this.render();
   }
 }

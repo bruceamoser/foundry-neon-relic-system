@@ -143,6 +143,7 @@ export async function sendRollToChat(result, context = {}) {
     canPush: !result.isPush && result.canPush !== false,
     isPush: result.isPush,
     notes: context.notes || '',
+    attributeKey: context.attribute || '',
     previousRolls: JSON.stringify(result.rolls),
     poolData: JSON.stringify(result.pool),
   };
@@ -174,12 +175,13 @@ export async function sendRollToChat(result, context = {}) {
 
 /**
  * Push a previous roll — re-rolls non-6 base/skill dice, locks gear dice.
- * Applies +1 Corruption to the actor.
+ * Applies +1 Corruption and 1 attribute damage to the actor.
  * @param {NRRollResult} previousResult - Result from executeRoll.
  * @param {Actor} actor - The actor pushing the roll.
+ * @param {string} [attributeKey] - Attribute key used for the roll (str/agi/wit/emp).
  * @returns {Promise<NRRollResult>}
  */
-export async function pushRoll(previousResult, actor) {
+export async function pushRoll(previousResult, actor, attributeKey) {
   const result = await executeRoll(previousResult.pool, {
     isPush: true,
     previousRolls: previousResult.rolls,
@@ -188,6 +190,13 @@ export async function pushRoll(previousResult, actor) {
   // +1 Corruption for pushing
   if (actor?.gainCorruption) {
     await actor.gainCorruption(1, game.i18n.localize('NEONRELIC.Roll.PushCorruption'));
+  }
+
+  // −1 to the attribute being pushed
+  if (actor?.applyDamage && attributeKey) {
+    const attrToDamage = { str: 'physical', agi: 'hobbling', wit: 'horror', emp: 'trauma' };
+    const damageType = attrToDamage[attributeKey] ?? 'physical';
+    await actor.applyDamage(1, damageType);
   }
 
   return result;
