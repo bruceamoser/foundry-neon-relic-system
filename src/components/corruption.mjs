@@ -175,3 +175,55 @@ function _corruptionStageLabel(value) {
   if (value <= 9) return game.i18n.localize('NEONRELIC.CorruptionStage.Consumed');
   return game.i18n.localize('NEONRELIC.CorruptionStage.Lost');
 }
+
+/* ------------------------------------------ */
+/*  Corruption Burst                          */
+/* ------------------------------------------ */
+
+/**
+ * Execute a Corruption Burst check. Used when directly confronting supernatural phenomena.
+ * Wits-only roll (no skill). On failure: +Corruption equal to Burst Rating.
+ * Any 1s rolled: +1 Corruption each.
+ * @param {Actor} actor
+ * @param {number} burstRating - Burst Rating (determines Difficulty)
+ * @returns {Promise<{passed: boolean, successes: number, corruptionGained: number, panicResult: string|null}>}
+ */
+export async function corruptionBurst(actor, burstRating = 1) {
+  const wits = actor.system.attributes?.wit?.value ?? actor.system.attributes?.wit ?? 0;
+  const poolSize = Math.max(1, wits);
+  const roll = await new Roll(`${poolSize}d6`).evaluate();
+  const results = roll.dice[0].results.map(d => d.result);
+  const successes = results.filter(r => r === 6).length;
+  const ones = results.filter(r => r === 1).length;
+  const passed = successes >= burstRating;
+
+  let corruptionGained = ones; // +1 per 1 rolled
+  let panicResult = null;
+
+  if (!passed) {
+    corruptionGained += burstRating; // +Burst Rating on failure
+    panicResult = _rollPanic(burstRating);
+  }
+
+  if (corruptionGained > 0 && actor.gainCorruption) {
+    await actor.gainCorruption(corruptionGained, game.i18n.localize('NEONRELIC.Corruption.BurstSource'));
+  }
+
+  return { passed, successes, corruptionGained, panicResult, results };
+}
+
+const PANIC_TABLE = [
+  { range: [1, 1], result: 'Tremble', text: 'NEONRELIC.Burst.PanicTremble' },
+  { range: [2, 2], result: 'Shriek', text: 'NEONRELIC.Burst.PanicShriek' },
+  { range: [3, 3], result: 'Flee', text: 'NEONRELIC.Burst.PanicFlee' },
+  { range: [4, 4], result: 'Freeze', text: 'NEONRELIC.Burst.PanicFreeze' },
+  { range: [5, 5], result: 'Catatonic', text: 'NEONRELIC.Burst.PanicCatatonic' },
+  { range: [6, 6], result: 'Fugue', text: 'NEONRELIC.Burst.PanicFugue' },
+];
+
+function _rollPanic(burstRating) {
+  const d = Math.floor(Math.random() * 6); // 0-5 → 1-6
+  const roll = d + 1;
+  const entry = PANIC_TABLE.find(p => roll >= p.range[0] && roll <= p.range[1]);
+  return entry?.result ?? 'Tremble';
+}
