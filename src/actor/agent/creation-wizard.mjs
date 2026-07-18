@@ -258,6 +258,33 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         context.divisionName = system.division
           ? game.i18n.localize(CONFIG.NEON_RELIC.divisions[system.division] ?? '')
           : '';
+
+        // CL-pool for requisition
+        const cl = system.clearanceLevel || 1;
+        context.clPool = cl;
+        context.clPoolRemaining = cl;
+
+        // Load requisitionable gear from compendiums (items with CL <= agent's CL)
+        context.requisitionGear = [];
+        const reqPacks = ['neon-relic.gear', 'neon-relic.weapons-armor'];
+        for (const packId of reqPacks) {
+          const reqPack = game.packs.get(packId);
+          if (!reqPack) continue;
+          await reqPack.getIndex();
+          const reqDocs = await reqPack.getDocuments();
+          for (const doc of reqDocs) {
+            const itemCL = doc.system?.cl ?? doc.system?.clearanceLevel ?? 99;
+            if (itemCL <= cl && itemCL > 0) {
+              context.requisitionGear.push({
+                uuid: doc.uuid,
+                name: doc.name,
+                type: doc.type,
+                cl: itemCL,
+                img: doc.img,
+              });
+            }
+          }
+        }
         break;
       }
 
