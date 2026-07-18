@@ -100,7 +100,13 @@
           <div class='skill-area-header'>{{localize 'NEONRELIC.Agent.Skills'}}</div>
           {{#each this.skills}}
             <div class='skill-row'>
-              <button type='button' class='skill-roll-btn' data-action='rollSkill' data-skill='{{this.key}}'>
+              <button
+                type='button'
+                class='skill-roll-btn'
+                data-action='rollSkill'
+                data-skill='{{this.key}}'
+                data-secondary='{{this.isSecondary}}'
+              >
                 <i class='fa-solid fa-dice-d6'></i>
               </button>
               <span class='skill-name'>{{localize this.label}}</span>
