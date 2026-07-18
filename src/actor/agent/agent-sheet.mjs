@@ -36,6 +36,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       removeItem: AgentSheet.#onRemoveItem,
       addGear: AgentSheet.#onAddGear,
       addArtifact: AgentSheet.#onAddArtifact,
+      addTalent: AgentSheet.#onAddTalent,
       addItem: AgentSheet.#onAddItem,
       awardXP: AgentSheet.#onAwardXP,
     },
@@ -130,6 +131,23 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     context.artifacts = actor.items.filter(i => i.type === 'artifact');
     context.divisionItems = actor.items.filter(i => i.type === 'divisionItem');
     context.talents = actor.items.filter(i => i.type === 'talent');
+
+    // Talent XP gating
+    const talentCount = context.talents.length;
+    const freeTalents = 3;
+    const talentXPCost = talentCount >= freeTalents ? 6 : 0;
+    context.talentCount = talentCount;
+    context.talentXPCost = talentXPCost;
+    context.canAddTalent = talentCount < freeTalents || system.experience.current >= talentXPCost;
+    if (talentXPCost > 0) {
+      context.talentCostHint = game.i18n.format('NEONRELIC.Agent.TalentCost', {
+        cost: talentXPCost,
+        xp: system.experience.current,
+      });
+    } else {
+      context.talentCostHint = game.i18n.localize('NEONRELIC.Agent.TalentFree');
+    }
+
     context.criticalInjuries = actor.items.filter(i => i.type === 'criticalInjury');
     context.anchor = actor.items.find(i => i.type === 'anchor') ?? null;
     context.darkSecret = actor.items.find(i => i.type === 'darkSecret') ?? null;
@@ -731,6 +749,77 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     if (uuid) {
       const doc = await fromUuid(uuid);
       if (doc) await this.document.createEmbeddedDocuments('Item', [doc.toObject()]);
+    }
+  }
+
+  /**
+   * Open a custom popup listing talents from the talents compendium.
+   * XP gating is enforced before the popup opens.
+   */
+  static async #onAddTalent(_event, _target) {
+    const talentCount = this.document.items.filter(i => i.type === 'talent').length;
+    const freeTalents = 3;
+    const xpCost = talentCount >= freeTalents ? 6 : 0;
+
+    // XP gate check (belt-and-suspenders; button should already be disabled)
+    if (xpCost > 0 && this.document.system.experience.current < xpCost) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Talent.InsufficientXP'));
+      return;
+    }
+
+    const pack = game.packs.get('neon-relic.talents');
+    if (!pack) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Compendium.NotFound'));
+      return;
+    }
+
+    await pack.getIndex();
+    const docs = await pack.getDocuments();
+    const items = docs.map(doc => ({
+      uuid: doc.uuid,
+      name: doc.name,
+      img: doc.img,
+    }));
+    items.sort((a, b) => a.name.localeCompare(b.name));
+
+    const rows = items
+      .map(
+        i => `
+        <li class="gear-popup-item" data-uuid="${i.uuid}">
+          <img src="${i.img}" class="gear-popup-img" alt="${i.name}" />
+          <span class="gear-popup-name">${i.name}</span>
+          <button type="button" class="gear-popup-add" data-uuid="${i.uuid}">+</button>
+        </li>`,
+      )
+      .join('');
+
+    const costNote =
+      xpCost > 0
+        ? game.i18n.format('NEONRELIC.Agent.TalentCost', { cost: xpCost, xp: this.document.system.experience.current })
+        : game.i18n.localize('NEONRELIC.Agent.TalentFree');
+
+    const content = `
+      <div class="gear-popup">
+        <p class="gear-popup-hint">${costNote}</p>
+        <ul class="gear-popup-list">${rows}</ul>
+      </div>`;
+
+    const uuid = await AgentSheet.#itemPicker(game.i18n.localize('NEONRELIC.Agent.AddTalent'), content);
+
+    if (uuid) {
+      const doc = await fromUuid(uuid);
+      if (!doc) return;
+
+      // Deduct XP if beyond free talents
+      if (xpCost > 0) {
+        await this.document.update({
+          'system.experience.current': this.document.system.experience.current - xpCost,
+          'system.experience.spent': (this.document.system.experience.spent ?? 0) + xpCost,
+        });
+        ui.notifications.info(game.i18n.format('NEONRELIC.Talent.XPSpent', { cost: xpCost }));
+      }
+
+      await this.document.createEmbeddedDocuments('Item', [doc.toObject()]);
     }
   }
 
