@@ -17,6 +17,23 @@
       {{system.encumbrance.overloaded}}</span>
   </div>
 
+  {{! Division Item }}
+  {{#if divisionItems.length}}
+    <div class='section-title green'>{{localize 'NEONRELIC.Agent.DivisionItem'}}</div>
+    {{#each divisionItems}}
+      <div class='item-row division-item-row' data-item-id='{{this.id}}'>
+        <img class='item-img' src='{{this.img}}' />
+        <span class='item-name'><a data-action='viewItem'>{{this.name}}</a></span>
+        {{#if @root.isEditable}}
+          <label class='division-active-toggle'>
+            <input type='checkbox' name='system.divisionItem.active' {{checked @root.system.divisionItem.active}} />
+            {{localize 'NEONRELIC.Agent.DivisionItemActive'}}
+          </label>
+        {{/if}}
+      </div>
+    {{/each}}
+  {{/if}}
+
   {{! Gear table }}
   {{#if gear.length}}
     <div class='section-title green'>{{localize 'NEONRELIC.ItemType.gear'}}</div>
