@@ -1116,15 +1116,21 @@
       text:
         content: |
           <h2>Experience Points (XP)</h2>
-          <p>Awarded at the end of each <strong>session</strong> (not Case File) through a Debriefing. Maximum <strong>5 XP per session</strong>.</p>
+          <p>XP is tracked as <strong>three values</strong> on your character sheet:</p>
+          <ul>
+            <li><strong>Total XP</strong> — all XP ever earned. Only increases.</li>
+            <li><strong>XP Spent</strong> — cumulative cost of skill increases and talent purchases.</li>
+            <li><strong>Current XP</strong> — available to spend. Calculated as Total − Spent.</li>
+          </ul>
+          <p>Awarded at the end of each <strong>session</strong> through a Debriefing. Maximum <strong>5 XP per session</strong>.</p>
 
           <h3>Debriefing Questions</h3>
           <table>
             <thead><tr><th>#</th><th>Question</th></tr></thead>
             <tbody>
-              <tr><td>1</td><td>Did you participate in the session? <em>(Automatic +1 XP)</em></td></tr>
+              <tr><td>1</td><td>Did you participate in the session? <em>(Automatic +1 XP — this is always yes.)</em></td></tr>
               <tr><td>2</td><td>Did you risk your life for a fellow Covenant member or an innocent civilian?</td></tr>
-              <tr><td>3</td><td>Did your Dark Secret complicate the mission, or did you heavily interact with your Anchor?</td></tr>
+              <tr><td>3</td><td>Did you interact heavily with your Anchor, or did a personal connection complicate the mission?</td></tr>
               <tr><td>4</td><td>Did the team successfully secure or contain an Occult Artifact?</td></tr>
               <tr><td>5</td><td>Did you learn something new and significant about the supernatural threat or rival factions?</td></tr>
             </tbody>
@@ -1135,7 +1141,8 @@
             <thead><tr><th>Upgrade</th><th>Cost</th><th>Limit</th></tr></thead>
             <tbody>
               <tr><td>Increase a Skill by 1</td><td>5 XP</td><td>Maximum rating of 5</td></tr>
-              <tr><td>Purchase a new Talent</td><td>6 XP</td><td>General, Division, or Sub-unit Talent</td></tr>
+              <tr><td>Purchase a new Talent (at-will or per-session)</td><td>6 XP</td><td>General, Division, or Wing/Paradigm/Department Talent</td></tr>
+              <tr><td>Purchase a new Talent (per-case-file)</td><td>10 XP</td><td>High-impact talents restricted to once per Case File</td></tr>
             </tbody>
           </table>
 
