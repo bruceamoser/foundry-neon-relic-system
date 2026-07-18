@@ -34,7 +34,8 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       shortRest: AgentSheet.#onShortRest,
       takeDamage: AgentSheet.#onTakeDamage,
       removeItem: AgentSheet.#onRemoveItem,
-      openCompendium: AgentSheet.#onOpenCompendium,
+      addGear: AgentSheet.#onAddGear,
+      addArtifact: AgentSheet.#onAddArtifact,
       addItem: AgentSheet.#onAddItem,
       awardXP: AgentSheet.#onAwardXP,
     },
@@ -610,13 +611,165 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   /**
-   * Open a compendium pack by ID.
+   * Open a custom popup listing gear and consumables from compendiums,
+   * filtered to items at or below the agent's Clearance Level.
    */
-  static async #onOpenCompendium(_event, target) {
-    const packId = target.dataset.pack;
-    if (!packId) return;
-    const pack = game.packs.get(packId);
-    if (pack) pack.render(true);
+  static async #onAddGear(_event, _target) {
+    const cl = this.document.system.clearanceLevel ?? 1;
+    const packs = ['neon-relic.gear', 'neon-relic.consumables'];
+    const items = [];
+
+    for (const packId of packs) {
+      const pack = game.packs.get(packId);
+      if (!pack) continue;
+      await pack.getIndex();
+      const docs = await pack.getDocuments();
+      for (const doc of docs) {
+        const itemCL = doc.system?.cl ?? doc.system?.clearanceLevel ?? 99;
+        items.push({
+          uuid: doc.uuid,
+          name: doc.name,
+          type: doc.type,
+          cl: itemCL,
+          img: doc.img,
+          allowed: itemCL <= cl,
+        });
+      }
+    }
+
+    // Sort: allowed first, then by name
+    items.sort((a, b) => b.allowed - a.allowed || a.name.localeCompare(b.name));
+
+    const rows = items
+      .map(
+        i => `
+        <li class="gear-popup-item ${i.allowed ? '' : 'locked'}" data-uuid="${i.uuid}"
+            title="${i.allowed ? '' : game.i18n.localize('NEONRELIC.Agent.CLTooLow')}">
+          <img src="${i.img}" class="gear-popup-img" alt="${i.name}" />
+          <span class="gear-popup-name">${i.name}</span>
+          <span class="gear-popup-type">${game.i18n.localize(`TYPES.Item.${i.type}`)}</span>
+          <span class="gear-popup-cl">CL ${i.cl}</span>
+          ${
+            i.allowed
+              ? `<button type="button" class="gear-popup-add" data-uuid="${i.uuid}">+</button>`
+              : `<span class="gear-popup-locked"><i class="fa-solid fa-lock"></i></span>`
+          }
+        </li>`,
+      )
+      .join('');
+
+    const content = `
+      <div class="gear-popup">
+        <p class="gear-popup-hint">${game.i18n.format('NEONRELIC.Agent.AddGearHint', { cl })}</p>
+        <ul class="gear-popup-list">${rows}</ul>
+      </div>`;
+
+    const uuid = await AgentSheet.#itemPicker(game.i18n.localize('NEONRELIC.Item.AddGear'), content);
+
+    if (uuid) {
+      const doc = await fromUuid(uuid);
+      if (doc) await this.document.createEmbeddedDocuments('Item', [doc.toObject()]);
+    }
+  }
+
+  /**
+   * Open a custom popup listing artifacts from compendiums,
+   * filtered to items at or below the agent's Clearance Level.
+   */
+  static async #onAddArtifact(_event, _target) {
+    const cl = this.document.system.clearanceLevel ?? 1;
+    const pack = game.packs.get('neon-relic.artifacts');
+    if (!pack) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Compendium.NotFound'));
+      return;
+    }
+
+    await pack.getIndex();
+    const docs = await pack.getDocuments();
+    const items = [];
+
+    for (const doc of docs) {
+      const itemCL = doc.system?.cl ?? doc.system?.clearanceLevel ?? 99;
+      items.push({
+        uuid: doc.uuid,
+        name: doc.name,
+        type: doc.type,
+        cl: itemCL,
+        img: doc.img,
+        allowed: itemCL <= cl,
+      });
+    }
+
+    // Sort: allowed first, then by name
+    items.sort((a, b) => b.allowed - a.allowed || a.name.localeCompare(b.name));
+
+    const rows = items
+      .map(
+        i => `
+        <li class="gear-popup-item ${i.allowed ? '' : 'locked'}" data-uuid="${i.uuid}"
+            title="${i.allowed ? '' : game.i18n.localize('NEONRELIC.Agent.CLTooLow')}">
+          <img src="${i.img}" class="gear-popup-img" alt="${i.name}" />
+          <span class="gear-popup-name">${i.name}</span>
+          <span class="gear-popup-cl">CL ${i.cl}</span>
+          ${
+            i.allowed
+              ? `<button type="button" class="gear-popup-add" data-uuid="${i.uuid}">+</button>`
+              : `<span class="gear-popup-locked"><i class="fa-solid fa-lock"></i></span>`
+          }
+        </li>`,
+      )
+      .join('');
+
+    const content = `
+      <div class="gear-popup">
+        <p class="gear-popup-hint">${game.i18n.format('NEONRELIC.Agent.AddGearHint', { cl })}</p>
+        <ul class="gear-popup-list">${rows}</ul>
+      </div>`;
+
+    const uuid = await AgentSheet.#itemPicker(game.i18n.localize('NEONRELIC.Item.AddArtifact'), content);
+
+    if (uuid) {
+      const doc = await fromUuid(uuid);
+      if (doc) await this.document.createEmbeddedDocuments('Item', [doc.toObject()]);
+    }
+  }
+
+  /**
+   * Show a picker dialog with item rows. Returns the selected UUID or null.
+   * @param {string} title  Dialog window title
+   * @param {string} content  Pre-rendered HTML content
+   * @returns {Promise<string|null>}
+   */
+  static #itemPicker(title, content) {
+    return new Promise(resolve => {
+      let resolved = false;
+      const done = val => {
+        if (resolved) return;
+        resolved = true;
+        resolve(val);
+      };
+
+      const dlg = new foundry.applications.api.DialogV2({
+        window: { title },
+        content,
+        buttons: [
+          {
+            action: 'cancel',
+            label: game.i18n.localize('Cancel'),
+            callback: () => done(null),
+          },
+        ],
+      });
+
+      dlg.addEventListener('close', () => done(null));
+      dlg.render(true).then(() => {
+        dlg.element.find('.gear-popup-add').on('click', function (ev) {
+          ev.preventDefault();
+          done(this.dataset.uuid);
+          dlg.close();
+        });
+      });
+    });
   }
 
   /**

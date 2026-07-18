@@ -36,6 +36,10 @@ NEONRELIC:
   Encumbrance: Encumbrance
   CL: Covenant Level
 
+  # Compendium
+  Compendium:
+    NotFound: Compendium not found.
+
   # Sheet labels
   Sheet:
     Item: Neon Relic Item Sheet
@@ -124,6 +128,8 @@ NEONRELIC:
     Enc: Enc
     Die: Die
     Remove: Remove
+    DeleteConfirm: Delete Item
+    DeleteConfirmText: 'Delete "{name}"? This cannot be undone.'
     AddGear: Add Gear
     AddConsumable: Add Consumable
     AddArtifact: Add Artifact
@@ -408,6 +414,8 @@ NEONRELIC:
     ShortRestApplied: Short rest applied. +1 recovered per damaged attribute.
     AddWeapon: Add Weapon
     AddArmor: Add Armor
+    CLTooLow: Requires higher clearance level.
+    AddGearHint: 'Showing items at or below CL {cl}.'
     NewItem: 'New {type}'
 
   Sex:
