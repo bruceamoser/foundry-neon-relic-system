@@ -7,11 +7,6 @@
 
 const CHAT_TEMPLATE = 'systems/neon-relic/templates/roll/roll-chatcard.hbs';
 
-// Preload the chat card template
-Hooks.once('init', () => {
-  loadTemplates([CHAT_TEMPLATE]);
-});
-
 /**
  * Build a dice pool from an actor's stats.
  * @param {object} params
