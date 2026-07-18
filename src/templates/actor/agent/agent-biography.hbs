@@ -3,7 +3,7 @@
   <div class='section-title red'>{{localize 'NEONRELIC.Agent.PsychProfile'}}</div>
   <div class='two-col'>
     {{#if anchor}}
-      <div class='anchor-box' data-item-id='{{anchor.id}}'>
+      <div class='anchor-box' data-item-id='{{anchor.id}}' data-action='viewItem'>
         <div class='id-label'>{{localize 'NEONRELIC.ItemType.anchor'}} &mdash; {{anchor.name}}</div>
         <div class='anchor-uses'>{{anchor.system.uses.value}} / {{anchor.system.uses.max}}</div>
         {{#if anchor.system.isLost}}
@@ -18,7 +18,7 @@
     {{/if}}
 
     {{#if darkSecret}}
-      <div class='secret-box' data-item-id='{{darkSecret.id}}'>
+      <div class='secret-box' data-item-id='{{darkSecret.id}}' data-action='viewItem'>
         <div class='id-label'>{{localize 'NEONRELIC.ItemType.darkSecret'}} &mdash; {{darkSecret.name}}</div>
         <div class='secret-trigger'>{{darkSecret.system.xpTrigger}}</div>
       </div>
@@ -33,9 +33,17 @@
   {{! Backstory }}
   <div class='section-title'>{{localize 'NEONRELIC.Agent.Backstory'}}</div>
   <div class='biography-editor'>
-    <div class='editor-content'>{{{enrichedDescription}}}</div>
     {{#if isEditable}}
-      <textarea name='system.description' style='display:none;'>{{system.description}}</textarea>
+      {{{editor
+        enrichedDescription
+        target='system.description'
+        button=true
+        editable=true
+        engine='prosemirror'
+        collaborate=false
+      }}}
+    {{else}}
+      <div class='editor-content'>{{{enrichedDescription}}}</div>
     {{/if}}
   </div>
 
