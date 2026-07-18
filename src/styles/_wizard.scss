@@ -381,6 +381,24 @@
       background: rgba($nr-green-stamp, 0.05);
     }
 
+    &.favorite-attribute {
+      border-color: rgba($nr-green-stamp, 0.45);
+      background: rgba($nr-green-stamp, 0.08);
+    }
+
+    .favorite-star {
+      color: $nr-green-stamp;
+      margin-right: 4px;
+      font-size: 11px;
+    }
+
+    .attr-max-note {
+      font-size: 10px;
+      color: $nr-ink-light;
+      margin-left: 4px;
+      font-weight: normal;
+    }
+
     label {
       font-size: 12px;
       flex: 1;
@@ -439,6 +457,10 @@
       text-align: center;
       font-size: 14px;
       font-weight: bold;
+    }
+
+    .favorite-value {
+      color: $nr-green-stamp;
     }
   }
 
@@ -541,6 +563,11 @@
     background: lighten($nr-ink, 8%);
     border: 1px solid $nr-ink-faded;
     border-radius: 3px;
+    color: $nr-paper;
+
+    span {
+      color: $nr-paper;
+    }
 
     img {
       width: 24px;

@@ -259,45 +259,35 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
           ? game.i18n.localize(CONFIG.NEON_RELIC.divisions[system.division] ?? '')
           : '';
 
-        // CL-pool for requisition
-        const cl = system.clearanceLevel || 1;
-        context.clPool = cl;
-        context.clPoolRemaining = cl;
-
-        // Load requisitionable gear from compendiums (items with CL <= agent's CL)
-        context.requisitionGear = [];
-        const reqPacks = ['neon-relic.gear', 'neon-relic.weapons-armor'];
-        for (const packId of reqPacks) {
-          const reqPack = game.packs.get(packId);
-          if (!reqPack) continue;
-          await reqPack.getIndex();
-          const reqDocs = await reqPack.getDocuments();
-          for (const doc of reqDocs) {
-            const itemCL = doc.system?.cl ?? doc.system?.clearanceLevel ?? 99;
-            if (itemCL <= cl && itemCL > 0) {
-              context.requisitionGear.push({
-                uuid: doc.uuid,
-                name: doc.name,
-                type: doc.type,
-                cl: itemCL,
-                img: doc.img,
-              });
-            }
-          }
-        }
+        // CL-pool (display only — requisition is for in-play, not character creation)
+        context.clPool = system.clearanceLevel || 1;
         break;
       }
 
       case 'attributes': {
+        // Determine favorite attribute from division
+        const divisionFavorites = { wayfinder: 'wit', recovery: 'agi', keep: 'emp' };
+        const favoriteAttr = divisionFavorites[system.division] ?? null;
+        const divisionLabel = system.division
+          ? game.i18n.localize(CONFIG.NEON_RELIC.divisions[system.division] ?? '')
+          : '';
+
         context.attributes = {};
         for (const [key, label] of Object.entries(CONFIG.NEON_RELIC.attributes)) {
           const value = system.attributes[key].max;
-          const max = 5;
+          const isFavorite = key === favoriteAttr;
+          const max = isFavorite ? 5 : 4;
           context.attributes[key] = {
             key,
             label: game.i18n.localize(label),
             value,
             max,
+            isFavorite,
+            cssClass: isFavorite ? 'favorite-attribute' : '',
+            valueClass: isFavorite ? 'favorite-value' : '',
+            favoriteLabel: isFavorite
+              ? game.i18n.format('NEONRELIC.Wizard.Attributes.FavoriteLabel', { division: divisionLabel })
+              : '',
             canIncrease: value < max && system.budget.attrRemaining > 0,
             canDecrease: value > 2,
             disabledPlus: value >= max || system.budget.attrRemaining <= 0 ? 'disabled' : '',
@@ -341,6 +331,19 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
             disabledMinus: value <= 0 ? 'disabled' : '',
             cssClass: isKey ? 'key-skill' : '',
           });
+          // Dual-attribute skills: also add to secondary attribute column
+          if (cfg.secondaryAttribute) {
+            columnMap[cfg.secondaryAttribute].skills.push({
+              key,
+              label: game.i18n.localize(cfg.label),
+              value,
+              isKeySkill: isKey,
+              max,
+              disabledPlus: value >= max || system.budget.skillRemaining <= 0 ? 'disabled' : '',
+              disabledMinus: value <= 0 ? 'disabled' : '',
+              cssClass: isKey ? 'key-skill' : 'dual-attr',
+            });
+          }
         }
         context.skillColumns = Object.values(columnMap);
         context.skillBudget = system.budget;
@@ -512,6 +515,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     await this.actor.update(updateData);
+    this.render();
   }
 
   /**
@@ -526,7 +530,10 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
 
     const system = this.actor.system;
     const current = system.attributes[attr]?.max ?? 2;
-    const max = 5;
+    // Favorite attribute (based on division) can reach 5; all others capped at 4
+    const divisionFavorites = { wayfinder: 'wit', recovery: 'agi', keep: 'emp' };
+    const favoriteAttr = divisionFavorites[system.division] ?? null;
+    const max = attr === favoriteAttr ? 5 : 4;
     const newValue = Math.clamp(current + delta, 1, max);
     if (newValue === current) return;
 
@@ -805,6 +812,11 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
    * Roll a random anchor from the anchor roll table.
    */
   static async #onRollAnchor(_event, _target) {
+    // Prevent duplicates
+    if (this.actor.items.find(i => i.type === 'anchor')) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Wizard.AnchorSecret.AnchorExists'));
+      return;
+    }
     const pack = game.packs.get('neon-relic.roll-tables');
     if (!pack) {
       ui.notifications.warn('Roll tables compendium not found.');

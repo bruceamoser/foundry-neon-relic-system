@@ -52,20 +52,4 @@
     <p class='wizard-info'>{{localize 'NEONRELIC.Wizard.Gear.NoGear'}}</p>
   {{/if}}
 
-  {{! Requisitionable items }}
-  {{#if requisitionGear.length}}
-    <div class='gear-section'>
-      <h3>{{localize 'NEONRELIC.Wizard.Gear.Requisition'}} (CL {{clPool}})</h3>
-      <div class='requisition-list'>
-        {{#each requisitionGear}}
-          <div class='req-item' data-uuid='{{this.uuid}}' data-cl='{{this.cl}}'>
-            <img src='{{this.img}}' alt='{{this.name}}' />
-            <span class='req-name'>{{this.name}}</span>
-            <span class='req-cl'>CL {{this.cl}}</span>
-            <span class='req-type'>{{this.type}}</span>
-          </div>
-        {{/each}}
-      </div>
-    </div>
-  {{/if}}
 </div>
