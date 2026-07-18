@@ -299,8 +299,7 @@ export class CriticalInjuryDataModel extends foundry.abstract.TypeDataModel {
 /* ------------------------------------------ */
 
 /**
- * TypeDataModel for Anchor items — a character's abstract source of solace
- * (a practice, habit, or connection that grounds the agent against Corruption).
+ * TypeDataModel for Anchor items — a character's personal grounding connection.
  * @extends foundry.abstract.TypeDataModel
  */
 export class AnchorDataModel extends foundry.abstract.TypeDataModel {
