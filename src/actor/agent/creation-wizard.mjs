@@ -72,6 +72,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       removeAnchor: CreationWizard.#onRemoveItem,
       openDarkSecretCompendium: CreationWizard.#onOpenDarkSecretCompendium,
       customDarkSecret: CreationWizard.#onCustomDarkSecret,
+      rollDarkSecret: CreationWizard.#onRollDarkSecret,
       removeDarkSecret: CreationWizard.#onRemoveItem,
       viewItem: CreationWizard.#onViewItem,
       viewCompendiumItem: CreationWizard.#onViewCompendiumItem,
@@ -840,6 +841,32 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
   static async #onOpenDarkSecretCompendium(_event, _target) {
     const pack = game.packs.get('neon-relic.dark-secrets');
     if (pack) pack.render(true);
+  }
+
+  /**
+   * Roll a random dark secret from the compendium.
+   */
+  static async #onRollDarkSecret(_event, _target) {
+    // Prevent duplicates
+    if (this.actor.items.find(i => i.type === 'darkSecret')) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Wizard.AnchorSecret.DarkSecretExists'));
+      return;
+    }
+    const pack = game.packs.get('neon-relic.dark-secrets');
+    if (!pack) {
+      ui.notifications.warn('Dark Secrets compendium not found.');
+      return;
+    }
+    await pack.getIndex();
+    const docs = await pack.getDocuments();
+    if (!docs.length) {
+      ui.notifications.warn('No dark secrets found in compendium.');
+      return;
+    }
+    const roll = Math.floor(Math.random() * docs.length);
+    const entry = docs[roll];
+    await this.actor.createEmbeddedDocuments('Item', [entry.toObject()]);
+    this.render();
   }
 
   /**
