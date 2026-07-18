@@ -20,6 +20,14 @@ TYPES:
     location: Location
     informationCard: Information Card
     subdivision: Subdivision
+    Remove: Remove
+    DeleteConfirm: Delete Item
+    DeleteConfirmText: 'Delete "{name}"? This cannot be undone.'
+    AddGear: Add Gear
+    AddConsumable: Add Consumable
+    AddArtifact: Add Artifact
+    AddWeapon: Add Weapon
+    AddArmor: Add Armor
 
 NEONRELIC:
   System: Neon Relic

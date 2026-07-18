@@ -44,6 +44,7 @@
           <th>{{localize 'NEONRELIC.Item.Name'}}</th>
           <th class='center'>{{localize 'NEONRELIC.Item.Bonus'}}</th>
           <th class='center'>{{localize 'NEONRELIC.Item.Enc'}}</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -53,6 +54,19 @@
             <td><a class='item-name' data-action='viewItem'>{{this.name}}</a></td>
             <td class='center'>+{{this.system.gearBonus.value}}</td>
             <td class='center'>{{this.system.encumbrance}}</td>
+            <td class='center'>
+              {{#if @root.isEditable}}
+                <button
+                  type='button'
+                  class='remove-btn'
+                  data-action='removeItem'
+                  data-item-id='{{this.id}}'
+                  title='{{localize "NEONRELIC.Item.Remove"}}'
+                >
+                  <i class='fa-solid fa-trash'></i>
+                </button>
+              {{/if}}
+            </td>
           </tr>
         {{/each}}
       </tbody>
@@ -68,6 +82,7 @@
           <th></th>
           <th>{{localize 'NEONRELIC.Item.Name'}}</th>
           <th class='center'>{{localize 'NEONRELIC.Item.Die'}}</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -76,6 +91,19 @@
             <td><img class='item-img' src='{{this.img}}' /></td>
             <td><a class='item-name' data-action='viewItem'>{{this.name}}</a></td>
             <td class='center'>{{this.system.currentDie}}</td>
+            <td class='center'>
+              {{#if @root.isEditable}}
+                <button
+                  type='button'
+                  class='remove-btn'
+                  data-action='removeItem'
+                  data-item-id='{{this.id}}'
+                  title='{{localize "NEONRELIC.Item.Remove"}}'
+                >
+                  <i class='fa-solid fa-trash'></i>
+                </button>
+              {{/if}}
+            </td>
           </tr>
         {{/each}}
       </tbody>
@@ -101,9 +129,33 @@
             <td><a class='item-name' data-action='viewItem'>{{this.name}}</a></td>
             <td class='center'><span class='tier-badge'>T{{this.system.tier}}</span></td>
             <td class='center'>{{this.system.artifactDie.current}}</td>
+            <td class='center'>
+              {{#if @root.isEditable}}
+                <button
+                  type='button'
+                  class='remove-btn'
+                  data-action='removeItem'
+                  data-item-id='{{this.id}}'
+                  title='{{localize "NEONRELIC.Item.Remove"}}'
+                >
+                  <i class='fa-solid fa-trash'></i>
+                </button>
+              {{/if}}
+            </td>
           </tr>
         {{/each}}
       </tbody>
     </table>
+  {{/if}}
+
+  {{#if isEditable}}
+    <div class='add-buttons-row'>
+      <button type='button' class='add-btn' data-action='openCompendium' data-pack='neon-relic.gear'>+
+        {{localize 'NEONRELIC.Item.AddGear'}}</button>
+      <button type='button' class='add-btn' data-action='openCompendium' data-pack='neon-relic.consumables'>+
+        {{localize 'NEONRELIC.Item.AddConsumable'}}</button>
+      <button type='button' class='add-btn' data-action='openCompendium' data-pack='neon-relic.artifacts'>+
+        {{localize 'NEONRELIC.Item.AddArtifact'}}</button>
+    </div>
   {{/if}}
 </section>
