@@ -1064,6 +1064,7 @@ NEONRELIC:
       AnchorLabel: Anchor
       DarkSecretLabel: Dark Secret
       RollAnchor: Roll Random Anchor
+      RollDarkSecret: Roll Random Dark Secret
       CustomAnchor: Create Custom Anchor
       BrowseSecrets: Browse Dark Secrets
       CustomDarkSecret: Create Custom Secret
