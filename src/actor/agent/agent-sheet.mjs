@@ -31,6 +31,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       launchWizard: AgentSheet.#onLaunchWizard,
       resetCreation: AgentSheet.#onResetCreation,
       healCorruption: AgentSheet.#onHealCorruption,
+      shortRest: AgentSheet.#onShortRest,
       awardXP: AgentSheet.#onAwardXP,
     },
     form: {
@@ -537,6 +538,15 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       await actor.healCorruption(amount);
       ui.notifications.info(game.i18n.format('NEONRELIC.Corruption.Healed', { amount }));
     }
+  }
+
+  /**
+   * Short rest — recover +1 per damaged attribute.
+   */
+  static async #onShortRest() {
+    const actor = this.document;
+    await actor.shortRest();
+    ui.notifications.info(game.i18n.localize('NEONRELIC.Agent.ShortRestApplied'));
   }
 
   /**
