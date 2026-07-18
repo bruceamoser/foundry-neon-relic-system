@@ -81,6 +81,10 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       template: `systems/${SYSTEM_ID}/templates/actor/agent/agent-biography.hbs`,
       scrollable: [''],
     },
+    progression: {
+      template: `systems/${SYSTEM_ID}/templates/actor/agent/agent-progression.hbs`,
+      scrollable: [''],
+    },
   };
 
   /** @override */
@@ -104,6 +108,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
           label: 'NEONRELIC.Tab.Corruption',
         },
         { id: 'biography', group: 'primary', icon: 'fa-solid fa-book', label: 'NEONRELIC.Tab.Biography' },
+        { id: 'progression', group: 'primary', icon: 'fa-solid fa-arrow-trend-up', label: 'NEONRELIC.Tab.Progression' },
       ],
       initial: 'summary',
     },
@@ -211,11 +216,57 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
         label: attrLabel,
         value: attr.value,
         max: attr.max,
+        isDamaged: attr.value < attr.max,
         damageLabel: damageLabels[attrKey] ?? '',
         damagePips: dmgPips,
         skills: skillsByAttr[attrKey],
       });
     }
+
+    // Build point warnings for Summary tab display
+    const budget = system.budget;
+    const buildWarnings = { hasWarnings: false };
+    if (budget.attrRemaining !== 0) {
+      buildWarnings.hasWarnings = true;
+      buildWarnings.attrDiff = Math.abs(budget.attrRemaining);
+      if (budget.attrRemaining < 0) {
+        buildWarnings.attrClass = 'build-warning--over';
+        buildWarnings.attrIcon = 'fa-triangle-exclamation';
+        buildWarnings.attrDiffText = game.i18n.format('NEONRELIC.Budget.Over', { n: buildWarnings.attrDiff });
+      } else {
+        buildWarnings.attrClass = 'build-warning--under';
+        buildWarnings.attrIcon = 'fa-circle-info';
+        buildWarnings.attrDiffText = game.i18n.format('NEONRELIC.Budget.Under', { n: buildWarnings.attrDiff });
+      }
+    }
+    if (budget.skillRemaining !== 0) {
+      buildWarnings.hasWarnings = true;
+      buildWarnings.skillDiff = Math.abs(budget.skillRemaining);
+      if (budget.skillRemaining < 0) {
+        buildWarnings.skillClass = 'build-warning--over';
+        buildWarnings.skillIcon = 'fa-triangle-exclamation';
+        buildWarnings.skillDiffText = game.i18n.format('NEONRELIC.Budget.Over', { n: buildWarnings.skillDiff });
+      } else {
+        buildWarnings.skillClass = 'build-warning--under';
+        buildWarnings.skillIcon = 'fa-circle-info';
+        buildWarnings.skillDiffText = game.i18n.format('NEONRELIC.Budget.Under', { n: buildWarnings.skillDiff });
+      }
+    }
+    context.buildWarnings = buildWarnings;
+
+    // Progression tab: session debrief questions for XP tracking
+    context.progressionQuestions = [
+      { key: 'Q1', label: game.i18n.localize('NEONRELIC.Debrief.Q1'), auto: true },
+      { key: 'Q2', label: game.i18n.localize('NEONRELIC.Debrief.Q2'), auto: false },
+      { key: 'Q3', label: game.i18n.localize('NEONRELIC.Debrief.Q3'), auto: false },
+      { key: 'Q4', label: game.i18n.localize('NEONRELIC.Debrief.Q4'), auto: false },
+      { key: 'Q5', label: game.i18n.localize('NEONRELIC.Debrief.Q5'), auto: false },
+    ];
+    context.xpReport = {
+      total: system.experience.total,
+      spent: system.experience.spent,
+      current: system.experience.current,
+    };
 
     // Corruption pip array for numbered track
     const threshold = system.corruption.threshold;

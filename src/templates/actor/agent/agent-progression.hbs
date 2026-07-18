@@ -1,0 +1,87 @@
+<section class='tab progression {{tab.cssClass}}' data-group='primary' data-tab='progression'>
+  {{! XP Report }}
+  <div class='section-title green'>{{localize 'NEONRELIC.Progression.XPReport'}}</div>
+  <div class='xp-report'>
+    <div class='xp-report__item'>
+      <span class='xp-report__label'>{{localize 'NEONRELIC.Agent.XPTotal'}}</span>
+      <span class='xp-report__value'>{{xpReport.total}}</span>
+    </div>
+    <div class='xp-report__item'>
+      <span class='xp-report__label'>{{localize 'NEONRELIC.Agent.XPSpent'}}</span>
+      <span class='xp-report__value'>{{xpReport.spent}}</span>
+    </div>
+    <div class='xp-report__item xp-report__item--current'>
+      <span class='xp-report__label'>{{localize 'NEONRELIC.Progression.XPCurrent'}}</span>
+      <span class='xp-report__value'>{{xpReport.current}}</span>
+    </div>
+  </div>
+
+  {{! Add XP }}
+  {{#if isEditable}}
+    <div class='xp-actions'>
+      <button
+        type='button'
+        data-action='awardXP'
+        class='xp-btn xp-btn--add'
+        title='{{localize "NEONRELIC.Progression.AddXPHint"}}'
+      >
+        <i class='fa-solid fa-plus'></i>
+        {{localize 'NEONRELIC.Progression.AddXP'}}
+      </button>
+    </div>
+  {{/if}}
+
+  {{! Session Debrief Questions }}
+  <div class='section-title'>{{localize 'NEONRELIC.Debrief.Title'}}</div>
+  <ol class='debrief-questions'>
+    {{#each progressionQuestions}}
+      <li>
+        {{this.label}}
+        {{#if this.auto}}
+          <span class='debrief-auto'>{{localize 'NEONRELIC.Progression.AutoXP'}}</span>
+        {{/if}}
+      </li>
+    {{/each}}
+  </ol>
+
+  {{! Spend XP — Quick Actions }}
+  {{#if isEditable}}
+    <div class='section-title'>{{localize 'NEONRELIC.Progression.SpendXP'}}</div>
+    <div class='xp-spend-hints'>
+      <p>{{localize 'NEONRELIC.Progression.SpendSkillHint'}}</p>
+      <p>{{localize 'NEONRELIC.Progression.SpendTalentHint'}}</p>
+    </div>
+    <div class='xp-spend-actions'>
+      <button
+        type='button'
+        class='xp-btn xp-btn--skill'
+        disabled
+        title='{{localize "NEONRELIC.Progression.UseAttributeTab"}}'
+      >
+        <i class='fa-solid fa-chart-bar'></i>
+        {{localize 'NEONRELIC.Tab.Attributes'}}
+      </button>
+      <button
+        type='button'
+        class='xp-btn xp-btn--talent'
+        disabled
+        title='{{localize "NEONRELIC.Progression.UseTalentTab"}}'
+      >
+        <i class='fa-solid fa-bolt'></i>
+        {{localize 'NEONRELIC.Tab.Talents'}}
+      </button>
+    </div>
+  {{/if}}
+
+  {{! Corruption Threshold }}
+  <div class='section-title'>{{localize 'NEONRELIC.Corruption.MaxThreshold'}}</div>
+  <div class='corruption-summary'>
+    <span class='corruption-summary__label'>{{localize 'NEONRELIC.Corruption.Label'}}</span>
+    <span class='corruption-summary__value' data-stage='{{corruptionStage}}'>
+      {{system.corruption.value}}
+      /
+      {{system.corruption.threshold}}
+    </span>
+    <span class='corruption-summary__stage'>{{localize (concat 'NEONRELIC.CorruptionStage.' corruptionStage)}}</span>
+  </div>
+</section>
