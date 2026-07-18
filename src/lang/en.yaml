@@ -70,7 +70,8 @@ NEONRELIC:
     Psychoanalyze: Psychoanalyze
     Manipulate: Manipulate
     Command: Command
-    Heal: Heal
+    HealMental: Heal
+    HealPhysical: Heal
 
   # Divisions
   Division:
@@ -150,6 +151,7 @@ NEONRELIC:
     NotesPlaceholder: Roll notes...
     None: None
     Talents: Talents
+    Push: Push
     PushCorruption: Pushing a roll
     Successes: Successes
     Success: Success
@@ -316,6 +318,12 @@ NEONRELIC:
     Memory: Memory
     Uses: Uses
     Lost: Lost
+    Use: Use Anchor
+    UseHint: 'Spend one Anchor use. Roll 1d4 and heal that much Corruption.'
+    Used: '{name} uses their anchor: {anchorName}. Healed {healed} corruption. ({remaining} uses remaining)'
+    NoUses: No anchor uses remaining this session.
+    Depleted: Anchor depleted
+    AlreadyUsed: Anchor already used this session.
 
   # Dark Secret
   DarkSecret:
@@ -423,6 +431,7 @@ NEONRELIC:
     CLTooLow: Requires higher clearance level.
     AddGearHint: 'Showing items at or below CL {cl}.'
     NewItem: 'New {type}'
+    NoItemsOfType: 'No {type} items available.'
 
   Sex:
     Male: Male

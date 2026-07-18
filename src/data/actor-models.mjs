@@ -60,7 +60,8 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
         psychoanalyze: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
         manipulate: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
         command: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
-        heal: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+        healMental: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+        healPhysical: new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
       }),
 
       // Corruption
@@ -191,17 +192,9 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
       );
     }
 
-    // Auto-compute Clearance Level
-    const ageMods = { young: -1, experienced: 0, senior: 1 };
-    const ageMod = ageMods[this.ageGroup] ?? 0;
-    let baseCL = 2; // default
-    if (this.parent?.items) {
-      const subdivision = this.parent.items.find(i => i.type === 'subdivision');
-      if (subdivision) baseCL = subdivision.system.baseCL ?? 2;
-    }
-    // Count required authorizations (items with reqAuth flag — future extension)
-    // For now, CL = baseCL + ageMod, clamped 1–5
-    this.clearanceLevel = Math.clamp(baseCL + ageMod, 1, 5);
+    // Clearance Level is set by the character creation wizard and manually
+    // adjustable on the summary tab. To support future automation, the default
+    // is 1 and GMs are expected to adjust it as the campaign progresses.
   }
 }
 

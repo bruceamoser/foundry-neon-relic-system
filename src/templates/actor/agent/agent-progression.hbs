@@ -55,16 +55,18 @@
       <button
         type='button'
         class='xp-btn xp-btn--skill'
-        disabled
+        data-action='switchTab'
+        data-tab='attributes'
         title='{{localize "NEONRELIC.Progression.UseAttributeTab"}}'
       >
         <i class='fa-solid fa-chart-bar'></i>
-        {{localize 'NEONRELIC.Tab.Attributes'}}
+        {{localize 'NEONRELIC.Agent.Skills'}}
       </button>
       <button
         type='button'
         class='xp-btn xp-btn--talent'
-        disabled
+        data-action='switchTab'
+        data-tab='talents'
         title='{{localize "NEONRELIC.Progression.UseTalentTab"}}'
       >
         <i class='fa-solid fa-bolt'></i>

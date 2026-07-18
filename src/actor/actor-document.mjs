@@ -120,15 +120,15 @@ export class NeonRelicActor extends Actor {
 
   /**
    * Attempt to stabilize a dying actor.
-   * Heal (EMP) Difficulty 2, −2 dice without First Aid Kit.
+   * Heal (WIT) Difficulty 2, −2 dice without First Aid Kit.
    * @param {NeonRelicActor} healer - The actor attempting stabilization.
    * @param {boolean} [hasKit=false] - Whether the healer has a First Aid Kit.
    * @returns {Promise<{success: boolean, dice: number}>}
    */
   async stabilize(healer, hasKit = false) {
-    const empathy = healer.system.attributes?.emp?.value ?? 0;
-    const healSkill = healer.system.skills?.heal ?? 0;
-    let dice = empathy + healSkill;
+    const wits = healer.system.attributes?.wit?.value ?? 0;
+    const healPhysical = healer.system.skills?.healPhysical ?? 0;
+    let dice = wits + healPhysical;
     if (!hasKit) dice = Math.max(0, dice - 2);
     // Actual roll handled by roll handler — this returns the pool info
     return { success: false, dice };

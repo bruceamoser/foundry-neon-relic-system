@@ -8,6 +8,7 @@ import { NEON_RELIC } from './system/config.mjs';
 import { registerHandlebarsHelpers, preloadHandlebarsTemplates } from './system/handlebars.mjs';
 import { NeonRelicActor } from './actor/actor-document.mjs';
 import { NeonRelicItem } from './item/item-document.mjs';
+import { pushRoll } from './components/roll/roll-handler.mjs';
 import {
   AgentDataModel,
   NPCDataModel,
@@ -142,6 +143,81 @@ Hooks.once('init', () => {
   // Register keybindings and text enrichers
   registerKeybindings();
   registerTextEnrichers();
+});
+
+Hooks.on('renderChatMessageHTML', (message, html, _data) => {
+  // Handle push roll button clicks in chat cards
+  html.querySelectorAll('[data-action="pushRoll"]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const actorId = btn.dataset.actorId;
+      const attributeKey = btn.dataset.attribute;
+      const previousRolls = JSON.parse(btn.dataset.previousRolls || '[]');
+      const pool = JSON.parse(btn.dataset.pool || '{}');
+      const actor = game.actors.get(actorId);
+
+      if (!actor) {
+        ui.notifications.warn('Actor not found for push roll.');
+        return;
+      }
+
+      // Reconstruct previous result
+      const previousResult = {
+        successes: previousRolls.filter(r => r === 6).length,
+        rolls: previousRolls,
+        pool,
+        canPush: false,
+        isPush: false,
+      };
+
+      // Execute the push
+      const newResult = await pushRoll(previousResult, actor, attributeKey);
+
+      // Re-render chat card with new result
+      const attrConfig = CONFIG.NEON_RELIC?.attributes ?? {};
+
+      // Try to find the original skill from the card header
+      const headerEl = html.querySelector('.nr-roll-card__header h3');
+      const headerText = headerEl?.textContent ?? '';
+
+      const templateData = {
+        actorId,
+        attributeLabel: game.i18n.localize(attrConfig[attributeKey] ?? attributeKey),
+        skillLabel: '', // derived from header if needed
+        baseDice: newResult.baseResults.map(v => ({ value: v, success: v === 6 })),
+        skillDice: newResult.skillResults.map(v => ({ value: v, success: v === 6 })),
+        gearDice: newResult.gearResults.map(v => ({ value: v, success: v === 6 })),
+        successes: newResult.successes,
+        difficulty: 0,
+        stuntPoints: 0,
+        isSuccess: null,
+        isFailure: false,
+        canPush: false,
+        isPush: true,
+        notes: '',
+        attributeKey,
+        previousRolls: JSON.stringify(newResult.rolls),
+        poolData: JSON.stringify(newResult.pool),
+      };
+
+      // Preserve the original skill label from the card
+      // Parse "SkillName (ATTR)" format from the header
+      const match = headerText.match(/^(.+?)\s*\((.+?)\)$/);
+      if (match) {
+        templateData.skillLabel = match[1];
+      }
+
+      const CHAT_TEMPLATE = 'systems/neon-relic/templates/roll/roll-chatcard.hbs';
+      let newContent;
+      try {
+        newContent = await renderTemplate(CHAT_TEMPLATE, templateData);
+      } catch (err) {
+        console.error('neon-relic | Failed to render push roll chat card:', err);
+        return;
+      }
+
+      await message.update({ content: newContent });
+    });
+  });
 });
 
 Hooks.once('ready', () => {

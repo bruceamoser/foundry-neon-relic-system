@@ -31,7 +31,8 @@ NEON_RELIC.skills = {
   psychoanalyze: { label: 'NEONRELIC.Skill.Psychoanalyze', attribute: 'emp' },
   manipulate: { label: 'NEONRELIC.Skill.Manipulate', attribute: 'emp' },
   command: { label: 'NEONRELIC.Skill.Command', attribute: 'emp' },
-  heal: { label: 'NEONRELIC.Skill.Heal', attribute: 'emp', secondaryAttribute: 'wit' },
+  healMental: { label: 'NEONRELIC.Skill.HealMental', attribute: 'emp' },
+  healPhysical: { label: 'NEONRELIC.Skill.HealPhysical', attribute: 'wit' },
 };
 
 /**

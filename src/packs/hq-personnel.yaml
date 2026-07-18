@@ -16,7 +16,7 @@
       wit: 3
       emp: 4
     skills:
-      heal: 4
+      healPhysical: 4
       psychoanalyze: 2
       investigate: 1
     armorRating: 0
