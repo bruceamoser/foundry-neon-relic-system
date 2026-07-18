@@ -176,6 +176,12 @@ NEONRELIC:
     Reliable: Reliable
     HighCapacity: High Capacity
     FullAuto: Full Auto
+
+  # Damage
+  Damage:
+    TakeDamage: Take Damage
+    TakeDamageHint: Apply damage to the agent.
+    Applied: '{amount} {type} damage applied.'
     Stunned: Stunned
     AmmoDie: Ammo Die
 

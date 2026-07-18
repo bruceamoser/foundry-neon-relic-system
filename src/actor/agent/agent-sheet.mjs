@@ -32,6 +32,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       resetCreation: AgentSheet.#onResetCreation,
       healCorruption: AgentSheet.#onHealCorruption,
       shortRest: AgentSheet.#onShortRest,
+      takeDamage: AgentSheet.#onTakeDamage,
       awardXP: AgentSheet.#onAwardXP,
     },
     form: {
@@ -547,6 +548,38 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const actor = this.document;
     await actor.shortRest();
     ui.notifications.info(game.i18n.localize('NEONRELIC.Agent.ShortRestApplied'));
+  }
+
+  /**
+   * Take damage — prompt for type and amount.
+   */
+  static async #onTakeDamage() {
+    const actor = this.document;
+    const types = { physical: 'STR', hobbling: 'AGI', horror: 'WIT', trauma: 'EMP' };
+    const options = Object.entries(types)
+      .map(
+        ([k, v]) =>
+          `<option value="${k}">${v} — ${game.i18n.localize(CONFIG.NEON_RELIC.damageTypes[k]?.label ?? k)}</option>`,
+      )
+      .join('');
+    const content = `<div class="form-group"><label>Type</label><select name="type">${options}</select></div>
+      <div class="form-group"><label>Amount</label><input type="number" name="amount" value="1" min="1" max="10" autofocus /></div>`;
+    const result = await foundry.applications.api.DialogV2.prompt({
+      window: { title: game.i18n.localize('NEONRELIC.Damage.TakeDamage') },
+      content,
+      ok: {
+        callback: (event, button) => ({
+          type: button.form.elements.type.value,
+          amount: Number(button.form.elements.amount.value) || 0,
+        }),
+      },
+    });
+    if (result?.amount > 0) {
+      await actor.applyDamage(result.amount, result.type);
+      ui.notifications.info(
+        game.i18n.format('NEONRELIC.Damage.Applied', { amount: result.amount, type: types[result.type] }),
+      );
+    }
   }
 
   /**

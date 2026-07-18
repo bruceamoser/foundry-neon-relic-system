@@ -5,6 +5,15 @@
     <div class='heal-button-row'>
       <button
         type='button'
+        data-action='takeDamage'
+        class='heal-btn damage-btn'
+        title='{{localize "NEONRELIC.Damage.TakeDamageHint"}}'
+      >
+        <i class='fa-solid fa-heart-crack'></i>
+        {{localize 'NEONRELIC.Damage.TakeDamage'}}
+      </button>
+      <button
+        type='button'
         data-action='shortRest'
         class='heal-btn'
         title='{{localize "NEONRELIC.Agent.ShortRestHint"}}'
