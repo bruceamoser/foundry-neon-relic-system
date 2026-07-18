@@ -4,14 +4,6 @@
     {{localize 'NEONRELIC.Wizard.Attributes.Description'}}
   </p>
 
-  {{#if keyAttrName}}
-    <p class='key-skill-note'>
-      <i class='fa-solid fa-star'></i>
-      <strong>{{keyAttrName}}</strong>
-      {{localize 'NEONRELIC.Wizard.Attributes.KeyNote'}}
-    </p>
-  {{/if}}
-
   <div class='budget-display'>
     <span class='budget-label'>{{localize 'NEONRELIC.Wizard.Attributes.Budget'}}</span>
     <span class='budget-value {{budgetClass}}'>{{attrBudget.attrSpent}}
@@ -21,11 +13,8 @@
 
   <div class='attributes-grid'>
     {{#each attributes as |attr|}}
-      <div class='attribute-row {{attr.cssClass}}'>
+      <div class='attribute-row'>
         <label for='attr-{{attr.key}}'>
-          {{#if attr.isKeyAttr}}
-            <i class='fa-solid fa-star key-attr-star'></i>
-          {{/if}}
           {{attr.label}}
         </label>
         <div class='adjust-controls'>
