@@ -13,9 +13,13 @@
 
   <div class='attributes-grid'>
     {{#each attributes as |attr|}}
-      <div class='attribute-row'>
+      <div class='attribute-row {{attr.cssClass}}'>
         <label for='attr-{{attr.key}}'>
+          {{#if attr.isFavorite}}
+            <i class='fa-solid fa-star favorite-star' data-tooltip='{{attr.favoriteLabel}}'></i>
+          {{/if}}
           {{attr.label}}
+          <span class='attr-max-note'>(Max {{attr.max}})</span>
         </label>
         <div class='adjust-controls'>
           <button
@@ -25,7 +29,7 @@
             data-delta='-1'
             {{attr.disabledMinus}}
           ><i class='fa-solid fa-minus'></i></button>
-          <span class='attr-value'>{{attr.value}}</span>
+          <span class='attr-value {{attr.valueClass}}'>{{attr.value}}</span>
           <button
             type='button'
             data-action='adjustWizardAttribute'

@@ -1067,6 +1067,9 @@ NEONRELIC:
       Remaining: 'Points Remaining: {remaining} / {total}'
       CorruptionNote: 'Max Corruption Threshold = 10 + Empathy ({threshold})'
       KeyNote: can reach 5 (key attribute for your division).
+      FavoriteLabel: '★ Favorite ({division})'
+      FavoriteTooltip: This is your division's favorite attribute — the only one that can reach 5.
+      MaxNote: 'Max 4 (5 for Favorite)'
       BudgetWarning: You must spend exactly all your attribute points before continuing.
 
     Skills:
@@ -1111,6 +1114,7 @@ NEONRELIC:
       AnchorName: Anchor Name
       DarkSecretName: Dark Secret Name
       DarkSecretExists: You already have a dark secret. Remove it first to select a new one.
+      AnchorExists: You already have an anchor. Remove it first to roll a new one.
       DropHint: Or drag a dark secret from the compendium
       AnchorMemory: 'Anchor Memory — a single, vivid sensory moment'
       AnchorRelationship: Anchor Relationship
