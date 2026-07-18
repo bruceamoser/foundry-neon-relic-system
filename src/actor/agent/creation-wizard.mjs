@@ -474,6 +474,15 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
    */
   static async #onFormSubmit(_event, form, formData) {
     const updateData = foundry.utils.expandObject(formData.object);
+
+    // Auto-derive age group from age value (per Chapter 2: 22–28 Young, 29–38 Experienced, 39–52 Senior)
+    if (updateData.system?.age !== undefined) {
+      const age = Number(updateData.system.age);
+      if (age <= 28) updateData.system.ageGroup = 'young';
+      else if (age <= 38) updateData.system.ageGroup = 'experienced';
+      else updateData.system.ageGroup = 'senior';
+    }
+
     await this.actor.update(updateData);
   }
 
