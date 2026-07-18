@@ -1,200 +1,219 @@
 {
-  "id": "neon-relic",
-  "title": "Neon Relic",
-  "description": "An occult investigation TTRPG set in an alternate 1980s, built on the Year Zero Engine.",
-  "version": "0.5.0",
-  "manifest": "https://github.com/bruceamoser/foundry-neon-relic-system/releases/download/v0.5.0/system.json",
-  "download": "https://github.com/bruceamoser/foundry-neon-relic-system/releases/download/v0.5.0/neon-relic-v0.5.0.zip",
-  "compatibility": {
-    "minimum": 14,
-    "verified": 14
-  },
-  "esmodules": ["neon-relic.mjs"],
-  "styles": ["neon-relic.css"],
-  "languages": [{ "lang": "en", "name": "English", "path": "lang/en.json" }],
-  "documentTypes": {
-    "Actor": {
-      "agent": {},
-      "npc": {},
-      "mob": {},
-      "vehicle": {},
-      "headquarters": {}
+    "id": "neon-relic",
+    "title": "Neon Relic",
+    "description": "An occult investigation TTRPG set in an alternate 1980s, built on the Year Zero Engine.",
+    "version": "0.5.0",
+    "manifest": "https://github.com/bruceamoser/foundry-neon-relic-system/releases/latest/download/system.json",
+    "download": "https://github.com/bruceamoser/foundry-neon-relic-system/releases/latest/download/neon-relic.zip",
+    "compatibility": {
+        "minimum": 14,
+        "verified": 14
     },
-    "Item": {
-      "weapon": {},
-      "armor": {},
-      "gear": {},
-      "consumable": {},
-      "artifact": {},
-      "talent": {},
-      "criticalInjury": {},
-      "anchor": {},
-      "darkSecret": {},
-      "upgrade": {},
-      "location": {},
-      "informationCard": {},
-      "subdivision": {}
-    }
-  },
-  "packs": [
-    {
-      "name": "gear",
-      "label": "Gear & Consumables",
-      "path": "packs/gear",
-      "type": "Item",
-      "system": "neon-relic"
+    "esmodules": [
+        "neon-relic.mjs"
+    ],
+    "styles": [
+        "neon-relic.css"
+    ],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json"
+        }
+    ],
+    "documentTypes": {
+        "Actor": {
+            "agent": {},
+            "npc": {},
+            "mob": {},
+            "vehicle": {},
+            "headquarters": {}
+        },
+        "Item": {
+            "weapon": {},
+            "armor": {},
+            "gear": {},
+            "consumable": {},
+            "artifact": {},
+            "talent": {},
+            "criticalInjury": {},
+            "anchor": {},
+            "darkSecret": {},
+            "upgrade": {},
+            "location": {},
+            "informationCard": {},
+            "subdivision": {}
+        }
     },
-    {
-      "name": "weapons-armor",
-      "label": "Weapons & Armor",
-      "path": "packs/weapons-armor",
-      "type": "Item",
-      "system": "neon-relic"
-    },
-    {
-      "name": "artifacts",
-      "label": "Artifacts",
-      "path": "packs/artifacts",
-      "type": "Item",
-      "system": "neon-relic"
-    },
-    {
-      "name": "talents",
-      "label": "Talents",
-      "path": "packs/talents",
-      "type": "Item",
-      "system": "neon-relic"
-    },
-    {
-      "name": "subdivisions",
-      "label": "Subdivisions",
-      "path": "packs/subdivisions",
-      "type": "Item",
-      "system": "neon-relic"
-    },
-    {
-      "name": "critical-injuries",
-      "label": "Critical Injuries",
-      "path": "packs/critical-injuries",
-      "type": "Item",
-      "system": "neon-relic"
-    },
-    {
-      "name": "hq-upgrades",
-      "label": "HQ Upgrades",
-      "path": "packs/hq-upgrades",
-      "type": "Item",
-      "system": "neon-relic"
-    },
-    {
-      "name": "dark-secrets",
-      "label": "Dark Secrets",
-      "path": "packs/dark-secrets",
-      "type": "Item",
-      "system": "neon-relic"
-    },
-    {
-      "name": "npcs",
-      "label": "NPCs & Entities",
-      "path": "packs/npcs",
-      "type": "Actor",
-      "system": "neon-relic"
-    },
-    {
-      "name": "faction-operatives",
-      "label": "Faction Operatives",
-      "path": "packs/faction-operatives",
-      "type": "Actor",
-      "system": "neon-relic"
-    },
-    {
-      "name": "hq-personnel",
-      "label": "HQ Personnel",
-      "path": "packs/hq-personnel",
-      "type": "Actor",
-      "system": "neon-relic"
-    },
-    {
-      "name": "vehicles",
-      "label": "Vehicles",
-      "path": "packs/vehicles",
-      "type": "Actor",
-      "system": "neon-relic"
-    },
-    {
-      "name": "roll-tables",
-      "label": "Roll Tables",
-      "path": "packs/roll-tables",
-      "type": "RollTable",
-      "system": "neon-relic"
-    },
-    {
-      "name": "macros",
-      "label": "Macros",
-      "path": "packs/macros",
-      "type": "Macro",
-      "system": "neon-relic"
-    },
-    {
-      "name": "sample-case",
-      "label": "Sample Case: The Spear That Went Dark",
-      "path": "packs/sample-case",
-      "type": "JournalEntry",
-      "system": "neon-relic"
-    },
-    {
-      "name": "sample-case-npcs",
-      "label": "Sample Case: NPCs",
-      "path": "packs/sample-case-npcs",
-      "type": "Actor",
-      "system": "neon-relic"
-    },
-    {
-      "name": "sample-case-items",
-      "label": "Sample Case: Information Cards",
-      "path": "packs/sample-case-items",
-      "type": "Item",
-      "system": "neon-relic"
-    },
-    {
-      "name": "rules-reference",
-      "label": "Rules Reference",
-      "path": "packs/rules-reference",
-      "type": "JournalEntry",
-      "system": "neon-relic"
-    }
-  ],
-  "packFolders": [
-    {
-      "name": "Neon Relic — Core",
-      "sorting": "a",
-      "packs": [
-        "rules-reference",
-        "gear",
-        "weapons-armor",
-        "artifacts",
-        "talents",
-        "critical-injuries",
-        "dark-secrets",
-        "hq-upgrades",
-        "npcs",
-        "faction-operatives",
-        "hq-personnel",
-        "vehicles",
-        "roll-tables",
-        "macros"
-      ]
-    },
-    {
-      "name": "The Spear That Went Dark",
-      "sorting": "a",
-      "packs": ["sample-case", "sample-case-npcs", "sample-case-items"]
-    }
-  ],
-  "primaryTokenAttribute": "attributes.str",
-  "secondaryTokenAttribute": "corruption",
-  "socket": true,
-  "authors": [{ "name": "Bruce", "flags": {} }],
-  "url": "https://github.com/bruceamoser/foundry-neon-relic-system",
-  "flags": {}
+    "packs": [
+        {
+            "name": "gear",
+            "label": "Gear & Consumables",
+            "path": "packs/gear",
+            "type": "Item",
+            "system": "neon-relic"
+        },
+        {
+            "name": "weapons-armor",
+            "label": "Weapons & Armor",
+            "path": "packs/weapons-armor",
+            "type": "Item",
+            "system": "neon-relic"
+        },
+        {
+            "name": "artifacts",
+            "label": "Artifacts",
+            "path": "packs/artifacts",
+            "type": "Item",
+            "system": "neon-relic"
+        },
+        {
+            "name": "talents",
+            "label": "Talents",
+            "path": "packs/talents",
+            "type": "Item",
+            "system": "neon-relic"
+        },
+        {
+            "name": "subdivisions",
+            "label": "Subdivisions",
+            "path": "packs/subdivisions",
+            "type": "Item",
+            "system": "neon-relic"
+        },
+        {
+            "name": "critical-injuries",
+            "label": "Critical Injuries",
+            "path": "packs/critical-injuries",
+            "type": "Item",
+            "system": "neon-relic"
+        },
+        {
+            "name": "hq-upgrades",
+            "label": "HQ Upgrades",
+            "path": "packs/hq-upgrades",
+            "type": "Item",
+            "system": "neon-relic"
+        },
+        {
+            "name": "dark-secrets",
+            "label": "Dark Secrets",
+            "path": "packs/dark-secrets",
+            "type": "Item",
+            "system": "neon-relic"
+        },
+        {
+            "name": "npcs",
+            "label": "NPCs & Entities",
+            "path": "packs/npcs",
+            "type": "Actor",
+            "system": "neon-relic"
+        },
+        {
+            "name": "faction-operatives",
+            "label": "Faction Operatives",
+            "path": "packs/faction-operatives",
+            "type": "Actor",
+            "system": "neon-relic"
+        },
+        {
+            "name": "hq-personnel",
+            "label": "HQ Personnel",
+            "path": "packs/hq-personnel",
+            "type": "Actor",
+            "system": "neon-relic"
+        },
+        {
+            "name": "vehicles",
+            "label": "Vehicles",
+            "path": "packs/vehicles",
+            "type": "Actor",
+            "system": "neon-relic"
+        },
+        {
+            "name": "roll-tables",
+            "label": "Roll Tables",
+            "path": "packs/roll-tables",
+            "type": "RollTable",
+            "system": "neon-relic"
+        },
+        {
+            "name": "macros",
+            "label": "Macros",
+            "path": "packs/macros",
+            "type": "Macro",
+            "system": "neon-relic"
+        },
+        {
+            "name": "sample-case",
+            "label": "Sample Case: The Spear That Went Dark",
+            "path": "packs/sample-case",
+            "type": "JournalEntry",
+            "system": "neon-relic"
+        },
+        {
+            "name": "sample-case-npcs",
+            "label": "Sample Case: NPCs",
+            "path": "packs/sample-case-npcs",
+            "type": "Actor",
+            "system": "neon-relic"
+        },
+        {
+            "name": "sample-case-items",
+            "label": "Sample Case: Information Cards",
+            "path": "packs/sample-case-items",
+            "type": "Item",
+            "system": "neon-relic"
+        },
+        {
+            "name": "rules-reference",
+            "label": "Rules Reference",
+            "path": "packs/rules-reference",
+            "type": "JournalEntry",
+            "system": "neon-relic"
+        }
+    ],
+    "packFolders": [
+        {
+            "name": "Neon Relic \u2014 Core",
+            "sorting": "a",
+            "packs": [
+                "rules-reference",
+                "gear",
+                "weapons-armor",
+                "artifacts",
+                "talents",
+                "critical-injuries",
+                "dark-secrets",
+                "hq-upgrades",
+                "npcs",
+                "faction-operatives",
+                "hq-personnel",
+                "vehicles",
+                "roll-tables",
+                "macros"
+            ]
+        },
+        {
+            "name": "The Spear That Went Dark",
+            "sorting": "a",
+            "packs": [
+                "sample-case",
+                "sample-case-npcs",
+                "sample-case-items"
+            ]
+        }
+    ],
+    "primaryTokenAttribute": "attributes.str",
+    "secondaryTokenAttribute": "corruption",
+    "socket": true,
+    "authors": [
+        {
+            "name": "Bruce",
+            "flags": {}
+        }
+    ],
+    "url": "https://github.com/bruceamoser/foundry-neon-relic-system",
+    "flags": {}
 }
