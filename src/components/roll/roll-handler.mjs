@@ -7,6 +7,11 @@
 
 const CHAT_TEMPLATE = 'systems/neon-relic/templates/roll/roll-chatcard.hbs';
 
+// Preload the chat card template
+Hooks.once('init', () => {
+  loadTemplates([CHAT_TEMPLATE]);
+});
+
 /**
  * Build a dice pool from an actor's stats.
  * @param {object} params
@@ -147,7 +152,19 @@ export async function sendRollToChat(result, context = {}) {
     poolData: JSON.stringify(result.pool),
   };
 
-  const content = await renderTemplate(CHAT_TEMPLATE, templateData);
+  let content;
+  try {
+    content = await renderTemplate(CHAT_TEMPLATE, templateData);
+  } catch (err) {
+    console.error('neon-relic | Failed to render roll chat card:', err);
+    // Fallback: plain text message
+    const resultText = `${templateData.successes} successes`;
+    const diffText =
+      templateData.difficulty > 0
+        ? ` (Difficulty ${templateData.difficulty} — ${templateData.isSuccess ? 'PASS' : 'FAIL'})`
+        : '';
+    content = `<div class='nr-roll-card'><p><strong>${templateData.attributeLabel}${templateData.skillLabel ? ` (${templateData.skillLabel})` : ''}</strong>: ${resultText}${diffText}</p></div>`;
+  }
 
   const speaker = context.actorId
     ? ChatMessage.getSpeaker({ actor: game.actors.get(context.actorId) })
