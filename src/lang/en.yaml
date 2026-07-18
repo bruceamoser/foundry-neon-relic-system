@@ -1153,6 +1153,7 @@ NEONRELIC:
     OpenSheetHint: Open the sheet for the selected or assigned character.
     ShortRest: Short Rest
     ShortRestHint: Perform a short rest for the selected character.
+    ShortRestApplied: Short rest applied. +1 recovered per damaged attribute.
 
   # Drag and Drop
   Drop:
