@@ -122,6 +122,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     context.gear = actor.items.filter(i => i.type === 'gear');
     context.consumables = actor.items.filter(i => i.type === 'consumable');
     context.artifacts = actor.items.filter(i => i.type === 'artifact');
+    context.divisionItems = actor.items.filter(i => i.type === 'divisionItem');
     context.talents = actor.items.filter(i => i.type === 'talent');
     context.criticalInjuries = actor.items.filter(i => i.type === 'criticalInjury');
     context.anchor = actor.items.find(i => i.type === 'anchor') ?? null;
