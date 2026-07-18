@@ -397,6 +397,9 @@ NEONRELIC:
     CreationComplete: Creation Complete
     QuickStats: Quick Stats
     PsychProfile: Psychological Profile
+    ShortRest: Short Rest
+    ShortRestHint: Recover 1 point per damaged attribute.
+    ShortRestApplied: Short rest applied. +1 recovered per damaged attribute.
 
   Sex:
     Male: Male

@@ -1,29 +1,6 @@
 <section class='tab attributes {{tab.cssClass}}' data-group='primary' data-tab='attributes'>
   <div class='section-title'>{{localize 'NEONRELIC.Tab.Attributes'}} &amp; {{localize 'NEONRELIC.Agent.Skills'}}</div>
 
-  {{#if isEditable}}
-    <div class='heal-button-row'>
-      <button
-        type='button'
-        data-action='takeDamage'
-        class='heal-btn damage-btn'
-        title='{{localize "NEONRELIC.Damage.TakeDamageHint"}}'
-      >
-        <i class='fa-solid fa-heart-crack'></i>
-        {{localize 'NEONRELIC.Damage.TakeDamage'}}
-      </button>
-      <button
-        type='button'
-        data-action='shortRest'
-        class='heal-btn'
-        title='{{localize "NEONRELIC.Agent.ShortRestHint"}}'
-      >
-        <i class='fa-solid fa-bed'></i>
-        {{localize 'NEONRELIC.Agent.ShortRest'}}
-      </button>
-    </div>
-  {{/if}}
-
   {{! Point Budgets }}
   <div class='budget-bar'>
     <span class='budget-item'>
