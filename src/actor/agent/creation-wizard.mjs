@@ -782,17 +782,20 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
       ui.notifications.warn('Roll tables compendium not found.');
       return;
     }
+    // Ensure pack index is loaded
+    await pack.getIndex();
     const tables = await pack.getDocuments();
-    const anchorTable = tables.find(t => t.name.includes('Anchor'));
+    const anchorTable = tables.find(t => t.name?.includes('Anchor'));
     if (!anchorTable) {
       ui.notifications.warn('Anchor Table not found in roll tables compendium.');
       return;
     }
     try {
-      const { results } = await anchorTable.roll();
+      const roll = await anchorTable.roll();
+      const results = roll?.results ?? [];
       if (results.length) {
         const result = results[0];
-        const text = result.name ?? result.text;
+        const text = result.data?.text ?? result.text ?? result.name ?? 'Unknown Anchor';
         await this.actor.createEmbeddedDocuments('Item', [
           {
             name: text,
