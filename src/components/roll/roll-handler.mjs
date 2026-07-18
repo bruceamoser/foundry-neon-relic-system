@@ -127,6 +127,7 @@ export async function sendRollToChat(result, context = {}) {
   const difficulty = context.difficulty || 0;
   const stuntPoints = context.stuntPoints ?? Math.max(0, result.successes - difficulty);
 
+  const isFailure = difficulty > 0 && result.successes < difficulty;
   const templateData = {
     actorId: context.actorId || '',
     attributeLabel,
@@ -138,8 +139,12 @@ export async function sendRollToChat(result, context = {}) {
     difficulty,
     stuntPoints,
     isSuccess: difficulty > 0 ? result.successes >= difficulty : null,
+    isFailure,
+    canPush: !result.isPush && result.canPush !== false,
     isPush: result.isPush,
     notes: context.notes || '',
+    previousRolls: JSON.stringify(result.rolls),
+    poolData: JSON.stringify(result.pool),
   };
 
   const content = await renderTemplate(CHAT_TEMPLATE, templateData);

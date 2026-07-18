@@ -50,6 +50,22 @@
     </div>
   {{/if}}
 
+  {{#if canPush}}
+    <div class='nr-roll-card__push'>
+      <button
+        type='button'
+        class='push-btn'
+        data-action='pushRoll'
+        data-actor-id='{{actorId}}'
+        data-previous-rolls='{{previousRolls}}'
+        data-pool='{{poolData}}'
+      >
+        <i class='fa-solid fa-dice'></i>
+        {{localize 'NEONRELIC.Roll.Push'}}
+      </button>
+      <span class='push-cost'>+1 {{localize 'NEONRELIC.Corruption.Label'}}</span>
+    </div>
+  {{/if}}
   {{#if isPush}}
     <div class='nr-roll-card__push-note'>
       <em>{{localize 'NEONRELIC.Roll.PushNote'}}</em>
