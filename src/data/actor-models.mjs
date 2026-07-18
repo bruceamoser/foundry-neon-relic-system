@@ -132,6 +132,12 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
 
   /** @override */
   prepareDerivedData() {
+    // Auto-derive age group from age
+    const age = this.age;
+    if (age <= 25) this.ageGroup = 'young';
+    else if (age <= 40) this.ageGroup = 'experienced';
+    else if (age > 0) this.ageGroup = 'senior';
+
     // Corruption threshold = 10 + EMP max + modifiers from talents/injuries
     let thresholdMod = 0;
     if (this.parent?.items) {

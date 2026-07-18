@@ -164,6 +164,50 @@
       font-size: 16pt;
       font-weight: bold;
     }
+
+    .stat-value--damaged {
+      color: $nr-red-stamp;
+
+      .stat-value__max {
+        font-size: 10pt;
+        font-weight: normal;
+        color: $nr-ink-faded;
+      }
+    }
+  }
+
+  // ── Build Point Warnings ────────────────────────────
+  .build-warnings {
+    margin: 6px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .build-warning {
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    padding: 3px 8px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    i {
+      font-size: 9pt;
+    }
+
+    &--over {
+      background: rgba(200, 40, 40, 0.1);
+      border: 1px solid rgba(200, 40, 40, 0.3);
+      color: $nr-red-stamp;
+    }
+
+    &--under {
+      background: rgba(180, 140, 20, 0.1);
+      border: 1px solid rgba(180, 140, 20, 0.3);
+      color: #b48c14;
+    }
   }
 
   // ── Corruption Summary ──────────────────────────────
@@ -932,5 +976,114 @@
       min-width: 12px;
       text-align: center;
     }
+  }
+
+  // ── Progression Tab ─────────────────────────────────
+  .xp-report {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $nr-spacing-xs;
+    margin: $nr-spacing-sm 0;
+
+    &__item {
+      text-align: center;
+      padding: $nr-spacing-xs;
+      border: 1px solid $nr-rule;
+      background: $nr-field-bg;
+
+      &--current {
+        border-color: $nr-green-stamp;
+        background: rgba(42, 102, 48, 0.05);
+      }
+    }
+
+    &__label {
+      display: block;
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+    }
+
+    &__value {
+      font-family: $nr-font-fill;
+      font-size: 16pt;
+      font-weight: bold;
+    }
+  }
+
+  .xp-actions {
+    margin: $nr-spacing-sm 0;
+    display: flex;
+    gap: $nr-spacing-xs;
+  }
+
+  .xp-btn {
+    font-family: $nr-font-main;
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    border: 1.5px solid $nr-ink;
+    background: $nr-field-bg;
+    cursor: pointer;
+
+    &:hover {
+      background: $nr-ink;
+      color: #fff;
+    }
+
+    i {
+      margin-right: 4px;
+    }
+
+    &--add {
+      border-color: $nr-green-stamp;
+      color: $nr-green-stamp;
+
+      &:hover {
+        background: $nr-green-stamp;
+        color: #fff;
+      }
+    }
+
+    &--skill,
+    &--talent {
+      opacity: 0.7;
+      cursor: default;
+
+      &:hover {
+        background: $nr-field-bg;
+        color: $nr-ink;
+      }
+    }
+  }
+
+  .xp-spend-hints {
+    font-family: $nr-font-fill;
+    font-size: 7pt;
+    color: $nr-ink-faded;
+    line-height: 1.5;
+    margin-bottom: $nr-spacing-xs;
+
+    p {
+      margin: 2px 0;
+    }
+  }
+
+  .xp-spend-actions {
+    display: flex;
+    gap: $nr-spacing-xs;
+    margin-bottom: $nr-spacing-sm;
+  }
+
+  .debrief-auto {
+    font-family: $nr-font-main;
+    font-size: 6pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $nr-green-stamp;
+    margin-left: 4px;
   }
 }

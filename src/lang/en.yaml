@@ -375,6 +375,7 @@ NEONRELIC:
     Talents: Talents
     Corruption: Corruption
     Biography: Biography
+    Progression: Progression
 
   # Point Budgets
   Budget:
@@ -383,6 +384,8 @@ NEONRELIC:
     NoneRemaining: No budget points remaining.
     InsufficientXP: Not enough XP for this advancement.
     SkillMaxReached: Skill has reached its creation maximum.
+    Over: '+{n} over'
+    Under: '{n} unspent'
 
   # Agent
   Agent:
@@ -892,6 +895,19 @@ NEONRELIC:
       BonusObjective: Bonus objective completed (+1 DP)
     XPAwarded: '{name} gained {xp} XP.'
     XPAwardedHint: Enter the amount of XP earned this session (max 10).
+
+  # Progression
+  Progression:
+    XPReport: XP Report
+    XPCurrent: Current
+    AddXP: Add XP
+    AddXPHint: Award XP from session debrief.
+    AutoXP: (auto)
+    SpendXP: Spend XP
+    SpendSkillHint: 'Increase a skill on the Attributes tab — costs 5 XP per point.'
+    SpendTalentHint: 'Add a talent on the Talents tab — costs 6 XP after your first 3 free talents.'
+    UseAttributeTab: Use the Attributes tab to increase skill values.
+    UseTalentTab: Use the Talents tab to add new talents.
 
   # Social Conflict
   Social:

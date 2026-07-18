@@ -116,10 +116,36 @@
     {{#each attrColumns}}
       <div class='stat-box rollable' data-action='rollAttribute' data-attribute='{{this.key}}'>
         <span class='stat-label'>{{localize this.label}}</span>
-        <span class='stat-value'>{{this.value}}</span>
+        {{#if this.isDamaged}}
+          <span class='stat-value stat-value--damaged'>{{this.value}}<span
+              class='stat-value__max'
+            >/{{this.max}}</span></span>
+        {{else}}
+          <span class='stat-value'>{{this.value}}</span>
+        {{/if}}
       </div>
     {{/each}}
   </div>
+
+  {{! Build Point Warnings }}
+  {{#if buildWarnings.hasWarnings}}
+    <div class='build-warnings'>
+      {{#if buildWarnings.attrDiff}}
+        <div class='build-warning {{buildWarnings.attrClass}}'>
+          <i class='fa-solid {{buildWarnings.attrIcon}}'></i>
+          {{localize 'NEONRELIC.Budget.Attributes'}}:
+          {{buildWarnings.attrDiffText}}
+        </div>
+      {{/if}}
+      {{#if buildWarnings.skillDiff}}
+        <div class='build-warning {{buildWarnings.skillClass}}'>
+          <i class='fa-solid {{buildWarnings.skillIcon}}'></i>
+          {{localize 'NEONRELIC.Budget.Skills'}}:
+          {{buildWarnings.skillDiffText}}
+        </div>
+      {{/if}}
+    </div>
+  {{/if}}
 
   {{! Skills }}
   <div class='section-title'>{{localize 'NEONRELIC.Agent.Skills'}}</div>
