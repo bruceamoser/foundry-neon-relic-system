@@ -828,7 +828,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
           {
             name: text,
             type: 'anchor',
-            system: { relationship: text },
+            system: { description: text },
           },
         ]);
         this.render();
@@ -855,7 +855,7 @@ export class CreationWizard extends HandlebarsApplicationMixin(ApplicationV2) {
         {
           name,
           type: 'anchor',
-          system: { relationship: '' },
+          system: { description: name },
         },
       ]);
       this.render();
