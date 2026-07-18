@@ -57,6 +57,7 @@
           <th class='center'>{{localize 'NEONRELIC.Weapon.Damage'}}</th>
           <th class='center'>{{localize 'NEONRELIC.Weapon.Range'}}</th>
           <th class='center'>{{localize 'NEONRELIC.Weapon.Bonus'}}</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -66,6 +67,19 @@
             <td class='center'>{{this.system.damage}}</td>
             <td class='center'>{{this.system.range}}</td>
             <td class='center'>{{this.system.gearBonus.value}}/{{this.system.gearBonus.max}}</td>
+            <td class='center'>
+              {{#if @root.isEditable}}
+                <button
+                  type='button'
+                  class='remove-btn'
+                  data-action='removeItem'
+                  data-item-id='{{this.id}}'
+                  title='{{localize "NEONRELIC.Item.Remove"}}'
+                >
+                  <i class='fa-solid fa-trash'></i>
+                </button>
+              {{/if}}
+            </td>
           </tr>
         {{/each}}
       </tbody>
@@ -80,6 +94,17 @@
     <div class='armor-entry' data-item-id='{{this.id}}'>
       <a class='armor-name item-name' data-action='viewItem'>{{this.name}}</a>
       <span class='armor-ar'>AR {{this.system.ar.value}}/{{this.system.ar.max}}</span>
+      {{#if @root.isEditable}}
+        <button
+          type='button'
+          class='remove-btn'
+          data-action='removeItem'
+          data-item-id='{{this.id}}'
+          title='{{localize "NEONRELIC.Item.Remove"}}'
+        >
+          <i class='fa-solid fa-trash'></i>
+        </button>
+      {{/if}}
     </div>
   {{/each}}
 
@@ -92,7 +117,27 @@
         <span class='injury-type'>{{this.system.injuryType}}</span>
         {{#if this.system.isLethal}}<span class='lethal-badge'>&dagger;</span>{{/if}}
         {{#if this.system.isHealed}}<span class='healed-badge'>&check;</span>{{/if}}
+        {{#if @root.isEditable}}
+          <button
+            type='button'
+            class='remove-btn'
+            data-action='removeItem'
+            data-item-id='{{this.id}}'
+            title='{{localize "NEONRELIC.Item.Remove"}}'
+          >
+            <i class='fa-solid fa-trash'></i>
+          </button>
+        {{/if}}
       </div>
     {{/each}}
+  {{/if}}
+
+  {{#if isEditable}}
+    <div class='add-buttons-row'>
+      <button type='button' class='add-btn' data-action='openCompendium' data-pack='neon-relic.weapons-armor'>+
+        {{localize 'NEONRELIC.Item.AddWeapon'}}</button>
+      <button type='button' class='add-btn' data-action='openCompendium' data-pack='neon-relic.weapons-armor'>+
+        {{localize 'NEONRELIC.Item.AddArmor'}}</button>
+    </div>
   {{/if}}
 </section>

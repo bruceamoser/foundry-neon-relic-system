@@ -33,6 +33,8 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       healCorruption: AgentSheet.#onHealCorruption,
       shortRest: AgentSheet.#onShortRest,
       takeDamage: AgentSheet.#onTakeDamage,
+      removeItem: AgentSheet.#onRemoveItem,
+      openCompendium: AgentSheet.#onOpenCompendium,
       awardXP: AgentSheet.#onAwardXP,
     },
     form: {
@@ -580,6 +582,31 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
         game.i18n.format('NEONRELIC.Damage.Applied', { amount: result.amount, type: types[result.type] }),
       );
     }
+  }
+
+  /**
+   * Remove an item from the actor.
+   */
+  static async #onRemoveItem(_event, target) {
+    const itemId = target.closest('[data-item-id]')?.dataset.itemId;
+    if (!itemId) return;
+    const item = this.document.items.get(itemId);
+    if (!item) return;
+    const confirmed = await foundry.applications.api.DialogV2.confirm({
+      window: { title: game.i18n.localize('NEONRELIC.Item.DeleteConfirm') },
+      content: game.i18n.format('NEONRELIC.Item.DeleteConfirmText', { name: item.name }),
+    });
+    if (confirmed) await item.delete();
+  }
+
+  /**
+   * Open a compendium pack by ID.
+   */
+  static async #onOpenCompendium(_event, target) {
+    const packId = target.dataset.pack;
+    if (!packId) return;
+    const pack = game.packs.get(packId);
+    if (pack) pack.render(true);
   }
 
   /**
