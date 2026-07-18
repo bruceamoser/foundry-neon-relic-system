@@ -287,13 +287,20 @@ export class NPCDataModel extends foundry.abstract.TypeDataModel {
 /* ------------------------------------------ */
 
 /**
- * TypeDataModel for Headquarters (HQ) actors — tracks Standing,
- * Development Points, upgrades, personnel, Threat, and vault state.
+ * TypeDataModel for Headquarters (HQ) actors using the City Network system.
+ * Tracks Standing, Development Points, city-based assets, Threat, and vault state.
  * @extends foundry.abstract.TypeDataModel
  */
 export class HeadquartersDataModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
+      // City Network
+      homeCity: new StringField({ blank: true }),
+      citySize: new StringField({ initial: 'mid', blank: false }), // major, mid, remote
+      safeHouse: new StringField({ blank: true }),
+      deadDrop: new StringField({ blank: true }),
+      coverIdentities: new ArrayField(new StringField()),
+
       standing: new NumberField({ required: true, integer: true, min: 0, max: 20, initial: 0 }),
       dp: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
       threat: new NumberField({ required: true, integer: true, min: 0, max: 6, initial: 0 }),
