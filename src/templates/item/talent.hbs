@@ -4,17 +4,27 @@
     <span class='cell-label'>{{localize 'NEONRELIC.Talent.Type'}}</span>
     <select name='system.talentType' {{disabled (not isEditable)}}>
       <option value='general' {{selected system.talentType 'general'}}>{{localize 'NEONRELIC.Talent.General'}}</option>
-      <option value='division' {{selected system.talentType 'division'}}>{{localize 'NEONRELIC.Talent.Division'}}</option>
+      <option value='division' {{selected system.talentType 'division'}}>{{localize
+          'NEONRELIC.Talent.Division'
+        }}</option>
       <option value='subunit' {{selected system.talentType 'subunit'}}>{{localize 'NEONRELIC.Talent.SubUnit'}}</option>
-      <option value='background' {{selected system.talentType 'background'}}>{{localize 'NEONRELIC.Talent.Background'}}</option>
+      <option value='background' {{selected system.talentType 'background'}}>{{localize
+          'NEONRELIC.Talent.Background'
+        }}</option>
     </select>
   </div>
   <div class='talent-id-cell'>
     <span class='cell-label'>{{localize 'NEONRELIC.Talent.Frequency'}}</span>
     <select name='system.frequency' {{disabled (not isEditable)}}>
-      <option value='at-will' {{selected system.frequency 'at-will'}}>{{localize 'NEONRELIC.Talent.FrequencyAtWill'}}</option>
-      <option value='per-session' {{selected system.frequency 'per-session'}}>{{localize 'NEONRELIC.Talent.FrequencyPerSession'}}</option>
-      <option value='per-case-file' {{selected system.frequency 'per-case-file'}}>{{localize 'NEONRELIC.Talent.FrequencyPerCaseFile'}}</option>
+      <option value='at-will' {{selected system.frequency 'at-will'}}>{{localize
+          'NEONRELIC.Talent.FrequencyAtWill'
+        }}</option>
+      <option value='per-session' {{selected system.frequency 'per-session'}}>{{localize
+          'NEONRELIC.Talent.FrequencyPerSession'
+        }}</option>
+      <option value='per-case-file' {{selected system.frequency 'per-case-file'}}>{{localize
+          'NEONRELIC.Talent.FrequencyPerCaseFile'
+        }}</option>
     </select>
   </div>
 </div>
@@ -23,29 +33,65 @@
   <div class='stat-block'>
     <span class='stat-label'>{{localize 'NEONRELIC.Talent.CorruptionCost'}}</span>
     <span class='stat-value'>
-      <input type='number' name='system.corruptionCost' value='{{system.corruptionCost}}' min='0' max='2' {{disabled (not isEditable)}} />
+      <input
+        type='number'
+        name='system.corruptionCost'
+        value='{{system.corruptionCost}}'
+        min='0'
+        max='2'
+        {{disabled (not isEditable)}}
+      />
     </span>
   </div>
   <div class='stat-block'>
     <span class='stat-label'>{{localize 'NEONRELIC.Talent.ThresholdMod'}}</span>
     <span class='stat-value'>
-      <input type='number' name='system.corruptionThresholdMod' value='{{system.corruptionThresholdMod}}' {{disabled (not isEditable)}} />
+      <input
+        type='number'
+        name='system.corruptionThresholdMod'
+        value='{{system.corruptionThresholdMod}}'
+        {{disabled (not isEditable)}}
+      />
     </span>
   </div>
   <div class='stat-block'>
     <span class='stat-label'>{{localize 'NEONRELIC.Talent.Uses'}}</span>
     <span class='stat-value'>
-      <input type='number' name='system.usesPerSession.value' value='{{system.usesPerSession.value}}' min='0' {{disabled (not isEditable)}} />
+      <input
+        type='number'
+        name='system.usesPerSession.value'
+        value='{{system.usesPerSession.value}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
       <span class='stat-sep'>/</span>
-      <input type='number' name='system.usesPerSession.max' value='{{system.usesPerSession.max}}' min='0' {{disabled (not isEditable)}} />
+      <input
+        type='number'
+        name='system.usesPerSession.max'
+        value='{{system.usesPerSession.max}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
     </span>
   </div>
   <div class='stat-block'>
     <span class='stat-label'>{{localize 'NEONRELIC.Talent.UsesPerCaseFile'}}</span>
     <span class='stat-value'>
-      <input type='number' name='system.usesPerCaseFile.value' value='{{system.usesPerCaseFile.value}}' min='0' {{disabled (not isEditable)}} />
+      <input
+        type='number'
+        name='system.usesPerCaseFile.value'
+        value='{{system.usesPerCaseFile.value}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
       <span class='stat-sep'>/</span>
-      <input type='number' name='system.usesPerCaseFile.max' value='{{system.usesPerCaseFile.max}}' min='0' {{disabled (not isEditable)}} />
+      <input
+        type='number'
+        name='system.usesPerCaseFile.max'
+        value='{{system.usesPerCaseFile.max}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
     </span>
   </div>
 </div>
@@ -56,7 +102,12 @@
     {{localize 'NEONRELIC.Talent.HealingTag'}}
   </label>
   <label class='{{oncePerSessionClass}}'>
-    <input type='checkbox' name='system.isOncePerSession' {{checked system.isOncePerSession}} {{disabled (not isEditable)}} />
+    <input
+      type='checkbox'
+      name='system.isOncePerSession'
+      {{checked system.isOncePerSession}}
+      {{disabled (not isEditable)}}
+    />
     {{localize 'NEONRELIC.Talent.OncePerSession'}}
   </label>
 </div>
@@ -64,7 +115,8 @@
 {{#if isEditable}}
   <div class='ammo-die-display'>
     <button type='button' data-action='useTalent'>
-      <i class='fa-solid fa-bolt'></i> {{localize 'NEONRELIC.Talent.Use'}}
+      <i class='fa-solid fa-bolt'></i>
+      {{localize 'NEONRELIC.Talent.Use'}}
     </button>
   </div>
 {{/if}}
@@ -88,7 +140,9 @@
         <select name='system.conditionalModifier.skill' {{disabled (not isEditable)}}>
           <option value=''>— {{localize 'NEONRELIC.Roll.None'}} —</option>
           {{#each config.skills as |data key|}}
-            <option value='{{key}}' {{selected key @root.system.conditionalModifier.skill}}>{{localize data.label}}</option>
+            <option value='{{key}}' {{selected key @root.system.conditionalModifier.skill}}>{{localize
+                data.label
+              }}</option>
           {{/each}}
         </select>
       </span>
@@ -96,13 +150,24 @@
     <div class='stat-block'>
       <span class='stat-label'>{{localize 'NEONRELIC.Talent.Bonus'}}</span>
       <span class='stat-value'>
-        <input type='number' name='system.conditionalModifier.bonus' value='{{system.conditionalModifier.bonus}}' {{disabled (not isEditable)}} />
+        <input
+          type='number'
+          name='system.conditionalModifier.bonus'
+          value='{{system.conditionalModifier.bonus}}'
+          {{disabled (not isEditable)}}
+        />
       </span>
     </div>
     <div class='stat-block' style='grid-column: 1 / -1;'>
       <span class='stat-label'>{{localize 'NEONRELIC.Talent.Condition'}}</span>
       <span class='stat-value'>
-        <input type='text' name='system.conditionalModifier.condition' value='{{system.conditionalModifier.condition}}' style='width: 100%;' {{disabled (not isEditable)}} />
+        <input
+          type='text'
+          name='system.conditionalModifier.condition'
+          value='{{system.conditionalModifier.condition}}'
+          style='width: 100%;'
+          {{disabled (not isEditable)}}
+        />
       </span>
     </div>
   </div>

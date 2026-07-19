@@ -20,6 +20,7 @@ TYPES:
     location: Location
     informationCard: Information Card
     playerCaseBrief: Player Case Brief
+    daCaseBrief: DA Case Brief
     subdivision: Subdivision
     Remove: Remove
     DeleteConfirm: Delete Item
@@ -123,6 +124,7 @@ NEONRELIC:
     location: Location
     informationCard: Information Card
     playerCaseBrief: Player Case Brief
+    daCaseBrief: DA Case Brief
 
   # Item shared
   Item:
@@ -1244,6 +1246,38 @@ NEONRELIC:
     FooterLeft: 'VC-18 • The Verdant Covenant • Agent Briefing'
     FooterCenter: 'Neon Relic © 2025'
     FooterRight: 'Case Brief — Player'
+
+  # DA Case Brief (VC-17)
+  DACaseBrief:
+    Title: Case Brief
+    Subtitle: Neon Relic — The Verdant Covenant
+    DAOnly: DA EYES ONLY
+    FormRef: VC-17 • Rev. 1987
+    CaseId: Case ID
+    CaseName: Case Name
+    RelicTier: Relic Tier
+    Region: Region
+    SectionI: I — Mystery Statement
+    SectionII: II — The Real Situation
+    SectionIII: III — Agent Objectives
+    SectionIV: IV — Containment Truths Summary
+    SectionV: V — Key Actors & Factions
+    SectionVI: VI — Resolution & Endgame
+    SectionVII: VII — Relic Milestones
+    SectionVIII: VIII — DA Notes
+    MysteryHint: Summarize the entire case in one sentence. If it takes more than one sentence, the case is too diffuse.
+    RealSituationHint: What is actually happening? Who is really involved? How does the case resolve?
+    PrimaryObjective: Primary Objective — What must the agents accomplish?
+    SecondaryObjective: Secondary Objective — Optional or bonus goals
+    ContainmentTrigger: Trigger — What makes the artifact more active or dangerous?
+    ContainmentAppetite: Appetite — What does the artifact feed on, amplify, or attract?
+    ContainmentQuiescence: Quiescence — What conditions make it safe to handle or contain?
+    KeyActorsHint: Who are the principal NPCs and organizations? What do they want? How do they interact with the relic?
+    BestCase: Best Case — What happens if the agents succeed?
+    WorstCase: Worst Case — What happens if the agents fail or do nothing?
+    MilestonesHint: Keyed to days on the Operations Board. When a shift crosses a milestone day, the artifact event triggers.
+    DANotesHint: Pacing cues, tone reminders, red herrings, things to watch for during play
+    Footer: VC-17 • The Verdant Covenant • DA Use Only
 
   # Session
   Session:

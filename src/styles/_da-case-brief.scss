@@ -1,0 +1,311 @@
+// Neon Relic — DA Case Brief Sheet Styles
+// Matches case-brief-da.html (VC-17) reference layout
+// Red-stamped DA EYES ONLY theme
+
+.neon-relic.item-sheet {
+  &:has(.da-case-brief-sheet) {
+    .item-header {
+      border-top: 3px solid $nr-red-stamp;
+      border-bottom: 2px solid $nr-red-stamp;
+
+      .item-type {
+        color: $nr-red-stamp;
+        letter-spacing: 3px;
+      }
+    }
+  }
+
+  .da-case-brief-sheet {
+    $dcb-red: $nr-red-stamp;
+    $dcb-green: $nr-green-stamp;
+
+    // ── Header ────────────────────────────────────────
+    .dcb-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-top: 3px solid $dcb-red;
+      border-bottom: 2px solid $dcb-red;
+      padding: 6px 0 7px;
+      margin-bottom: 10px;
+    }
+
+    .dcb-header-left {
+      flex: 1;
+    }
+
+    .dcb-header-title {
+      font-family: $nr-font-main;
+      font-size: 22pt;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      color: $dcb-red;
+      line-height: 1;
+      margin: 0;
+    }
+
+    .dcb-header-subtitle {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: $nr-ink-faded;
+      margin-top: 4px;
+    }
+
+    .dcb-header-right {
+      text-align: right;
+      font-size: 6.5pt;
+      color: $nr-ink-faded;
+      line-height: 1.6;
+      flex-shrink: 0;
+    }
+
+    .dcb-classification {
+      display: inline-block;
+      border: 2.5px solid $dcb-red;
+      color: $dcb-red;
+      font-family: $nr-font-main;
+      font-size: 10pt;
+      letter-spacing: 5px;
+      padding: 2px 10px;
+      transform: rotate(-2deg);
+      margin-bottom: 4px;
+    }
+
+    .dcb-form-ref {
+      font-family: $nr-font-main;
+      font-size: 6.5pt;
+      letter-spacing: 1.5px;
+      color: $nr-ink-light;
+    }
+
+    .dcb-case-id-row {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      justify-content: flex-end;
+      margin-top: 3px;
+    }
+
+    .dcb-case-id-input {
+      border: none;
+      border-bottom: 1px solid $nr-rule;
+      background: $nr-field-bg;
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      min-width: 130px;
+      height: 18px;
+      padding: 0 3px;
+
+      &:focus {
+        outline: none;
+        border-bottom-color: $dcb-red;
+      }
+    }
+
+    // ── Section Titles ────────────────────────────────
+    .dcb-section-title {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: $nr-ink;
+      border-bottom: 1.5px solid $nr-ink;
+      padding-bottom: 2px;
+      margin: 8px 0 4px;
+
+      &.red {
+        color: $dcb-red;
+        border-color: $dcb-red;
+      }
+
+      &.green {
+        color: $dcb-green;
+        border-color: $dcb-green;
+      }
+    }
+
+    // ── Field Labels ──────────────────────────────────
+    .dcb-field-label {
+      font-family: $nr-font-main;
+      font-size: 5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+      margin-bottom: 1px;
+      display: block;
+    }
+
+    .dcb-field-label-inline {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+    }
+
+    // ── Field Values ──────────────────────────────────
+    .dcb-field-value {
+      border-bottom: 1.5px solid $nr-rule;
+      min-height: 14px;
+      padding: 1px 3px;
+      background: $nr-field-bg;
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      margin-bottom: 4px;
+
+      &.med {
+        border: 1px solid $nr-rule;
+        border-bottom: 1.5px solid $nr-rule;
+        min-height: 36px;
+      }
+
+      &.xl {
+        border: 1px solid $nr-rule;
+        border-bottom: 1.5px solid $nr-rule;
+        min-height: 72px;
+      }
+
+      &.xxl {
+        border: 1px solid $nr-rule;
+        border-bottom: 1.5px solid $nr-rule;
+        min-height: 100px;
+      }
+
+      &.editor {
+        padding: 4px 6px;
+
+        .editor-content {
+          min-height: inherit;
+        }
+      }
+    }
+
+    // ── Identity Grid ─────────────────────────────────
+    .dcb-id-grid {
+      display: grid;
+      grid-template-columns: 2fr 0.8fr 0.8fr;
+      gap: 0;
+      border: 1.5px solid $nr-ink;
+      margin-bottom: 8px;
+    }
+
+    .dcb-id-cell {
+      padding: 3px 6px 4px;
+      border-right: 1px solid $nr-rule;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    .dcb-id-label {
+      display: block;
+      font-family: $nr-font-main;
+      font-size: 5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+      margin-bottom: 2px;
+    }
+
+    .dcb-id-value {
+      display: block;
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      min-height: 13px;
+      border: none;
+      border-bottom: 1px dotted $nr-rule;
+      background: transparent;
+      width: 100%;
+      padding: 0 2px;
+
+      &:focus {
+        outline: none;
+        border-bottom-color: $dcb-red;
+      }
+    }
+
+    // ── Two-Column Layout ─────────────────────────────
+    .dcb-two-col {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dcb-col {
+      flex: 1;
+      min-width: 0;
+    }
+
+    // ── Danger Box ────────────────────────────────────
+    .dcb-danger-box {
+      border: 1.5px solid $dcb-red;
+      padding: 4px 6px;
+      margin-bottom: 4px;
+    }
+
+    // ── Relic Milestones Grid ─────────────────────────
+    .dcb-milestone-grid {
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      gap: 2px 6px;
+      margin-top: 4px;
+    }
+
+    .dcb-milestone-day {
+      font-family: $nr-font-fill;
+      font-size: 7.5pt;
+      border: none;
+      border-bottom: 1px solid $nr-rule;
+      text-align: center;
+      min-height: 14px;
+      padding: 1px;
+      background: transparent;
+      width: 100%;
+
+      &:focus {
+        outline: none;
+        border-bottom-color: $dcb-green;
+      }
+    }
+
+    .dcb-milestone-desc {
+      font-family: $nr-font-fill;
+      font-size: 7.5pt;
+      border: none;
+      border-bottom: 1px dotted $nr-rule;
+      min-height: 14px;
+      padding: 1px 3px;
+      background: $nr-field-bg;
+      width: 100%;
+
+      &:focus {
+        outline: none;
+        border-bottom-color: $dcb-green;
+      }
+    }
+
+    // ── Footer ────────────────────────────────────────
+    .dcb-footer {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      font-family: $nr-font-main;
+      font-size: 5pt;
+      letter-spacing: 1.5px;
+      color: $nr-ink-light;
+      border-top: 1px solid $nr-rule-light;
+      padding-top: 4px;
+      text-transform: uppercase;
+    }
+
+    // ── Disabled inputs ───────────────────────────────
+    input:disabled,
+    select:disabled {
+      opacity: 1;
+      color: $nr-ink;
+      cursor: default;
+    }
+  }
+}

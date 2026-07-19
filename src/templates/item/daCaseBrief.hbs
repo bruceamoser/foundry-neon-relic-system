@@ -1,0 +1,202 @@
+{{! DA Case Brief item type template — matches case-brief-da.html (VC-17) }}
+<div class='da-case-brief-sheet'>
+
+  {{! Header — Red-Stamped }}
+  <header class='dcb-header'>
+    <div class='dcb-header-left'>
+      <h1 class='dcb-header-title'>{{localize 'NEONRELIC.DACaseBrief.Title'}}</h1>
+      <div class='dcb-header-subtitle'>{{localize 'NEONRELIC.DACaseBrief.Subtitle'}}</div>
+    </div>
+    <div class='dcb-header-right'>
+      <div class='dcb-classification'>{{localize 'NEONRELIC.DACaseBrief.DAOnly'}}</div>
+      <div class='dcb-form-ref'>{{localize 'NEONRELIC.DACaseBrief.FormRef'}}</div>
+      <div class='dcb-case-id-row'>
+        <span class='dcb-field-label-inline'>{{localize 'NEONRELIC.DACaseBrief.CaseId'}}:</span>
+        <input
+          type='text'
+          name='system.caseId'
+          value='{{system.caseId}}'
+          class='dcb-case-id-input'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+    </div>
+  </header>
+
+  {{! Case Identity Block — 3-column }}
+  <div class='dcb-id-grid'>
+    <div class='dcb-id-cell'>
+      <span class='dcb-id-label'>{{localize 'NEONRELIC.DACaseBrief.CaseName'}}</span>
+      <input
+        type='text'
+        name='system.caseName'
+        value='{{system.caseName}}'
+        class='dcb-id-value'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='dcb-id-cell'>
+      <span class='dcb-id-label'>{{localize 'NEONRELIC.DACaseBrief.RelicTier'}}</span>
+      <select name='system.relicTier' class='dcb-id-value' {{disabled (not isEditable)}}>
+        <option value='1' {{selected system.relicTier 1}}>1</option>
+        <option value='2' {{selected system.relicTier 2}}>2</option>
+        <option value='3' {{selected system.relicTier 3}}>3</option>
+        <option value='4' {{selected system.relicTier 4}}>4</option>
+      </select>
+    </div>
+    <div class='dcb-id-cell'>
+      <span class='dcb-id-label'>{{localize 'NEONRELIC.DACaseBrief.Region'}}</span>
+      <input
+        type='text'
+        name='system.region'
+        value='{{system.region}}'
+        class='dcb-id-value'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+  </div>
+
+  {{! I — Mystery Statement }}
+  <section class='dcb-section'>
+    <h2 class='dcb-section-title red'>{{localize 'NEONRELIC.DACaseBrief.SectionI'}}</h2>
+    <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.MysteryHint'}}</span>
+    <div class='dcb-field-value med editor'>{{{enrichedMysteryStatement}}}</div>
+    {{#if isEditable}}<textarea
+        name='system.mysteryStatement'
+        style='display:none;'
+      >{{system.mysteryStatement}}</textarea>{{/if}}
+  </section>
+
+  {{! II — The Real Situation }}
+  <section class='dcb-section'>
+    <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionII'}}</h2>
+    <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.RealSituationHint'}}</span>
+    <div class='dcb-field-value xl editor'>{{{enrichedRealSituation}}}</div>
+    {{#if isEditable}}<textarea
+        name='system.realSituation'
+        style='display:none;'
+      >{{system.realSituation}}</textarea>{{/if}}
+  </section>
+
+  {{! III — Agent Objectives (two-column) }}
+  <section class='dcb-section'>
+    <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionIII'}}</h2>
+    <div class='dcb-two-col'>
+      <div class='dcb-col'>
+        <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.PrimaryObjective'}}</span>
+        <div class='dcb-field-value med editor'>{{{enrichedPrimaryObjective}}}</div>
+        {{#if isEditable}}<textarea
+            name='system.primaryObjective'
+            style='display:none;'
+          >{{system.primaryObjective}}</textarea>{{/if}}
+      </div>
+      <div class='dcb-col'>
+        <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.SecondaryObjective'}}</span>
+        <div class='dcb-field-value med editor'>{{{enrichedSecondaryObjective}}}</div>
+        {{#if isEditable}}<textarea
+            name='system.secondaryObjective'
+            style='display:none;'
+          >{{system.secondaryObjective}}</textarea>{{/if}}
+      </div>
+    </div>
+  </section>
+
+  {{! IV — Containment Truths Summary }}
+  <section class='dcb-section'>
+    <h2 class='dcb-section-title red'>{{localize 'NEONRELIC.DACaseBrief.SectionIV'}}</h2>
+    <div class='dcb-danger-box'>
+      <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentTrigger'}}</span>
+      <div class='dcb-field-value editor'>{{{enrichedContainmentTrigger}}}</div>
+      {{#if isEditable}}<textarea
+          name='system.containmentTrigger'
+          style='display:none;'
+        >{{system.containmentTrigger}}</textarea>{{/if}}
+    </div>
+    <div class='dcb-danger-box'>
+      <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentAppetite'}}</span>
+      <div class='dcb-field-value editor'>{{{enrichedContainmentAppetite}}}</div>
+      {{#if isEditable}}<textarea
+          name='system.containmentAppetite'
+          style='display:none;'
+        >{{system.containmentAppetite}}</textarea>{{/if}}
+    </div>
+    <div class='dcb-danger-box'>
+      <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentQuiescence'}}</span>
+      <div class='dcb-field-value editor'>{{{enrichedContainmentQuiescence}}}</div>
+      {{#if isEditable}}<textarea
+          name='system.containmentQuiescence'
+          style='display:none;'
+        >{{system.containmentQuiescence}}</textarea>{{/if}}
+    </div>
+  </section>
+
+  {{! V — Key Actors & Factions }}
+  <section class='dcb-section'>
+    <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionV'}}</h2>
+    <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.KeyActorsHint'}}</span>
+    <div class='dcb-field-value xl editor'>{{{enrichedKeyActors}}}</div>
+    {{#if isEditable}}<textarea name='system.keyActors' style='display:none;'>{{system.keyActors}}</textarea>{{/if}}
+  </section>
+
+  {{! VI — Resolution & Endgame (two-column) }}
+  <section class='dcb-section'>
+    <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionVI'}}</h2>
+    <div class='dcb-two-col'>
+      <div class='dcb-col'>
+        <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.BestCase'}}</span>
+        <div class='dcb-field-value med editor'>{{{enrichedBestCaseResolution}}}</div>
+        {{#if isEditable}}<textarea
+            name='system.bestCaseResolution'
+            style='display:none;'
+          >{{system.bestCaseResolution}}</textarea>{{/if}}
+      </div>
+      <div class='dcb-col'>
+        <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.WorstCase'}}</span>
+        <div class='dcb-field-value med editor'>{{{enrichedWorstCaseResolution}}}</div>
+        {{#if isEditable}}<textarea
+            name='system.worstCaseResolution'
+            style='display:none;'
+          >{{system.worstCaseResolution}}</textarea>{{/if}}
+      </div>
+    </div>
+  </section>
+
+  {{! VII — Relic Milestones }}
+  <section class='dcb-section'>
+    <h2 class='dcb-section-title green'>{{localize 'NEONRELIC.DACaseBrief.SectionVII'}}</h2>
+    <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.MilestonesHint'}}</span>
+    <div class='dcb-milestone-grid'>
+      {{#each system.relicMilestones}}
+        <input
+          type='number'
+          name='system.relicMilestones.{{@index}}.day'
+          value='{{this.day}}'
+          class='dcb-milestone-day'
+          min='0'
+          {{disabled (not @root.isEditable)}}
+        />
+        <input
+          type='text'
+          name='system.relicMilestones.{{@index}}.description'
+          value='{{this.description}}'
+          class='dcb-milestone-desc'
+          {{disabled (not @root.isEditable)}}
+        />
+      {{/each}}
+    </div>
+  </section>
+
+  {{! VIII — DA Notes }}
+  <section class='dcb-section'>
+    <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionVIII'}}</h2>
+    <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.DANotesHint'}}</span>
+    <div class='dcb-field-value xxl editor'>{{{enrichedDANotes}}}</div>
+    {{#if isEditable}}<textarea name='system.daNotes' style='display:none;'>{{system.daNotes}}</textarea>{{/if}}
+  </section>
+
+  {{! Footer }}
+  <footer class='dcb-footer'>
+    <span>{{localize 'NEONRELIC.DACaseBrief.Footer'}}</span>
+  </footer>
+
+</div>

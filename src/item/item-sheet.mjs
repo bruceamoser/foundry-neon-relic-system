@@ -218,6 +218,52 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         { async: true, relativeTo: item },
       );
     }
+    if (item.type === 'daCaseBrief') {
+      context.enrichedMysteryStatement = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.mysteryStatement ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedRealSituation = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.realSituation ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedPrimaryObjective = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.primaryObjective ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedSecondaryObjective = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.secondaryObjective ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedContainmentTrigger = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.containmentTrigger ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedContainmentAppetite = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.containmentAppetite ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedContainmentQuiescence = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.containmentQuiescence ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedKeyActors = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.keyActors ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedBestCaseResolution = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.bestCaseResolution ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedWorstCaseResolution = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.worstCaseResolution ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedDANotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.daNotes ?? '',
+        { async: true, relativeTo: item },
+      );
+    }
 
     // Pre-computed CSS classes (Prettier-compatible — no {{#if}} in attributes)
     if (item.type === 'consumable') {

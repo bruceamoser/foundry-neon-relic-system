@@ -18,9 +18,12 @@
       <span class='nr-roll-card__pool-value'>{{totalPool}}</span>
     </div>
     <div class='nr-roll-card__pool-breakdown'>
-      {{#if baseCount}}<span class='nr-pool-chip nr-pool-chip--base'>{{localize 'NEONRELIC.Roll.BaseDice'}}: {{baseCount}}</span>{{/if}}
-      {{#if skillCount}}<span class='nr-pool-chip nr-pool-chip--skill'>{{localize 'NEONRELIC.Roll.SkillDice'}}: {{skillCount}}</span>{{/if}}
-      {{#if gearCount}}<span class='nr-pool-chip nr-pool-chip--gear'>{{localize 'NEONRELIC.Roll.GearDice'}}: {{gearCount}}</span>{{/if}}
+      {{#if baseCount}}<span class='nr-pool-chip nr-pool-chip--base'>{{localize 'NEONRELIC.Roll.BaseDice'}}:
+          {{baseCount}}</span>{{/if}}
+      {{#if skillCount}}<span class='nr-pool-chip nr-pool-chip--skill'>{{localize 'NEONRELIC.Roll.SkillDice'}}:
+          {{skillCount}}</span>{{/if}}
+      {{#if gearCount}}<span class='nr-pool-chip nr-pool-chip--gear'>{{localize 'NEONRELIC.Roll.GearDice'}}:
+          {{gearCount}}</span>{{/if}}
     </div>
   </div>
 
@@ -59,7 +62,10 @@
   </div>
 
   {{! ── Result Panel ── }}
-  <div class='nr-roll-card__result {{ternary isSuccess "nr-roll-card__result--pass" (ternary isFailure "nr-roll-card__result--fail" "")}}'>
+  <div
+    class='nr-roll-card__result
+      {{ternary isSuccess "nr-roll-card__result--pass" (ternary isFailure "nr-roll-card__result--fail" "")}}'
+  >
     <div class='nr-roll-card__result-row'>
       <div class='nr-roll-card__success-count'>
         <span class='nr-roll-card__success-icon'>✦</span>
@@ -71,7 +77,10 @@
           <span class='nr-roll-card__diff-label'>vs</span>
           <span class='nr-roll-card__diff-num'>{{difficulty}}</span>
         </div>
-        <div class='nr-roll-card__verdict {{ternary isSuccess "nr-roll-card__verdict--pass" "nr-roll-card__verdict--fail"}}'>
+        <div
+          class='nr-roll-card__verdict
+            {{ternary isSuccess "nr-roll-card__verdict--pass" "nr-roll-card__verdict--fail"}}'
+        >
           {{#if isSuccess}}{{localize 'NEONRELIC.Roll.Success'}}{{else}}{{localize 'NEONRELIC.Roll.Failure'}}{{/if}}
         </div>
       {{/if}}
@@ -80,7 +89,8 @@
       <div class='nr-roll-card__stunt-bar'>
         <span class='nr-stunt-icon'>⚡</span>
         <span class='nr-stunt-text'>
-          <strong>{{stuntPoints}}</strong> {{localize 'NEONRELIC.Stunt.Available'}}
+          <strong>{{stuntPoints}}</strong>
+          {{localize 'NEONRELIC.Stunt.Available'}}
         </span>
       </div>
     {{/if}}
@@ -94,9 +104,11 @@
         <span class='nr-gear-damage-label'>{{localize 'NEONRELIC.Roll.GearDamaged'}}</span>
         <span class='nr-gear-damage-item'>{{gearDamage.itemName}}
           {{#if gearDamage.isBroken}}
-            — <strong>{{localize 'NEONRELIC.Roll.GearBroken'}}</strong>
+            —
+            <strong>{{localize 'NEONRELIC.Roll.GearBroken'}}</strong>
           {{else}}
-            ({{localize 'NEONRELIC.Roll.GearBonus'}}: {{gearDamage.newBonus}})
+            ({{localize 'NEONRELIC.Roll.GearBonus'}}:
+            {{gearDamage.newBonus}})
           {{/if}}
         </span>
       </div>
@@ -108,9 +120,14 @@
     <div class='nr-roll-card__ammo {{ternary ammoDieResult.stepped "nr-roll-card__ammo--depleted" ""}}'>
       <span class='nr-ammo-icon'>🔫</span>
       <div class='nr-ammo-info'>
-        <span class='nr-ammo-label'>{{ammoDieResult.weaponName}} — {{localize 'NEONRELIC.Weapon.AmmoDie'}} ({{ammoDieResult.die}})</span>
+        <span class='nr-ammo-label'>{{ammoDieResult.weaponName}}
+          —
+          {{localize 'NEONRELIC.Weapon.AmmoDie'}}
+          ({{ammoDieResult.die}})</span>
         {{#if ammoDieResult.stepped}}
-          <span class='nr-ammo-result nr-ammo-result--bad'>Rolled 1 — {{localize 'NEONRELIC.Weapon.AmmoDepleted'}}! Now {{ammoDieResult.newDie}}</span>
+          <span class='nr-ammo-result nr-ammo-result--bad'>Rolled 1 —
+            {{localize 'NEONRELIC.Weapon.AmmoDepleted'}}! Now
+            {{ammoDieResult.newDie}}</span>
         {{else}}
           <span class='nr-ammo-result'>Rolled {{ammoDieResult.roll}} — no effect</span>
         {{/if}}

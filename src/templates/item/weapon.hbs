@@ -21,9 +21,21 @@
   <div class='stat-block'>
     <span class='stat-label'>{{localize 'NEONRELIC.Weapon.GearBonus'}}</span>
     <span class='stat-value'>
-      <input type='number' name='system.gearBonus.value' value='{{system.gearBonus.value}}' min='0' {{disabled (not isEditable)}} />
+      <input
+        type='number'
+        name='system.gearBonus.value'
+        value='{{system.gearBonus.value}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
       <span class='stat-sep'>/</span>
-      <input type='number' name='system.gearBonus.max' value='{{system.gearBonus.max}}' min='0' {{disabled (not isEditable)}} />
+      <input
+        type='number'
+        name='system.gearBonus.max'
+        value='{{system.gearBonus.max}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
     </span>
   </div>
   <div class='stat-block'>
@@ -39,7 +51,13 @@
   <div class='stat-block'>
     <span class='stat-label'>{{localize 'NEONRELIC.Encumbrance'}}</span>
     <span class='stat-value'>
-      <input type='number' name='system.encumbrance' value='{{system.encumbrance}}' min='0' {{disabled (not isEditable)}} />
+      <input
+        type='number'
+        name='system.encumbrance'
+        value='{{system.encumbrance}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
     </span>
   </div>
   <div class='stat-block'>
@@ -52,19 +70,39 @@
 
 <div class='trait-chips'>
   <label class='{{reliableClass}}'>
-    <input type='checkbox' name='system.traits.reliable' {{checked system.traits.reliable}} {{disabled (not isEditable)}} />
+    <input
+      type='checkbox'
+      name='system.traits.reliable'
+      {{checked system.traits.reliable}}
+      {{disabled (not isEditable)}}
+    />
     {{localize 'NEONRELIC.Weapon.Reliable'}}
   </label>
   <label class='{{highCapacityClass}}'>
-    <input type='checkbox' name='system.traits.highCapacity' {{checked system.traits.highCapacity}} {{disabled (not isEditable)}} />
+    <input
+      type='checkbox'
+      name='system.traits.highCapacity'
+      {{checked system.traits.highCapacity}}
+      {{disabled (not isEditable)}}
+    />
     {{localize 'NEONRELIC.Weapon.HighCapacity'}}
   </label>
   <label class='{{fullAutoClass}}'>
-    <input type='checkbox' name='system.traits.fullAuto' {{checked system.traits.fullAuto}} {{disabled (not isEditable)}} />
+    <input
+      type='checkbox'
+      name='system.traits.fullAuto'
+      {{checked system.traits.fullAuto}}
+      {{disabled (not isEditable)}}
+    />
     {{localize 'NEONRELIC.Weapon.FullAuto'}}
   </label>
   <label class='{{stunnedClass}}'>
-    <input type='checkbox' name='system.traits.stunned' {{checked system.traits.stunned}} {{disabled (not isEditable)}} />
+    <input
+      type='checkbox'
+      name='system.traits.stunned'
+      {{checked system.traits.stunned}}
+      {{disabled (not isEditable)}}
+    />
     {{localize 'NEONRELIC.Weapon.Stunned'}}
   </label>
   <label class='{{weaponBrokenClass}}'>
@@ -89,7 +127,8 @@
     <select name='system.linkedConsumableId' {{disabled (not isEditable)}}>
       <option value=''>— None —</option>
       {{#each linkedConsumables}}
-        <option value='{{this.id}}' {{selected this.id @root.system.linkedConsumableId}}>{{this.name}} ({{this.die}})</option>
+        <option value='{{this.id}}' {{selected this.id @root.system.linkedConsumableId}}>{{this.name}}
+          ({{this.die}})</option>
       {{/each}}
     </select>
   </div>
