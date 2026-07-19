@@ -159,6 +159,29 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         },
       );
     }
+    if (item.type === 'organization') {
+      context.enrichedActivationCondition = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.activationCondition ?? '',
+        {
+          async: true,
+          relativeTo: item,
+        },
+      );
+      context.enrichedLinkedEffects = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.linkedEffects ?? '',
+        {
+          async: true,
+          relativeTo: item,
+        },
+      );
+      context.enrichedPlayerFacingSigns = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.playerFacingSigns ?? '',
+        {
+          async: true,
+          relativeTo: item,
+        },
+      );
+    }
     if (item.type === 'informationCard') {
       context.enrichedContent = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
         system.content ?? '',
@@ -179,6 +202,86 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         supportingIntel: game.i18n.localize('NEONRELIC.InfoCard.SupportingIntel'),
         containmentTruth: game.i18n.localize('NEONRELIC.InfoCard.ContainmentTruth'),
       };
+    }
+    if (item.type === 'daCaseBrief') {
+      context.enrichedMysteryStatement = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.mysteryStatement ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedRealSituation = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.realSituation ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedPrimaryObjective = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.primaryObjective ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedSecondaryObjective = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.secondaryObjective ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedContainmentTrigger = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.containmentTrigger ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedContainmentAppetite = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.containmentAppetite ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedContainmentQuiescence = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.containmentQuiescence ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedKeyActors = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.keyActors ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedBestCaseResolution = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.bestCaseResolution ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedWorstCaseResolution = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.worstCaseResolution ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedDANotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.daNotes ?? '',
+        { async: true, relativeTo: item },
+      );
+    }
+    if (item.type === 'relicSheet') {
+      context.enrichedSurfaceRead = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.surfaceRead ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedOperationalRead = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.operationalRead ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedColdArchiveRead = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.coldArchiveRead ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedActivationCondition = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.activationCondition ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedMechanicalEffect = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.mechanicalEffect ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedFractureCondition = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.fractureCondition ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedContainmentProfile = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.containmentProfile ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedDaNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.daNotes ?? '',
+        { async: true, relativeTo: item },
+      );
     }
 
     // Render the type-specific partial to HTML

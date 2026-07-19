@@ -1,5 +1,5 @@
 // Neon Relic — Location Sheet Styles
-// Matches location-page.html reference layout
+// Matches location-page.html reference layout (VC-14)
 
 .neon-relic.item-sheet {
   &:has(.location-sheet) {
@@ -11,9 +11,71 @@
         letter-spacing: 3px;
       }
     }
+
+    // Hide global description for location — description is inline in the template
+    .item-body > .form-group.description {
+      display: none;
+    }
   }
 
   .location-sheet {
+    // ── Header ───────────────────────────────────────
+    .loc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-top: 3px solid $nr-ink;
+      border-bottom: 2px solid $nr-ink;
+      padding: 6px 0 7px;
+      margin-bottom: 10px;
+    }
+
+    .loc-header-left {
+      flex: 1;
+    }
+
+    .loc-header-title {
+      font-family: $nr-font-main;
+      font-size: 16pt;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: $nr-ink;
+      line-height: 1;
+    }
+
+    .loc-header-subtitle {
+      font-family: $nr-font-main;
+      font-size: 6pt;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: $nr-ink-faded;
+      margin-top: 4px;
+    }
+
+    .loc-header-right {
+      text-align: right;
+      font-size: 6pt;
+      color: $nr-ink-faded;
+      line-height: 1.6;
+    }
+
+    .loc-classification {
+      display: inline-block;
+      border: 2.5px solid $nr-red-stamp;
+      color: $nr-red-stamp;
+      font-family: $nr-font-main;
+      font-size: 8pt;
+      letter-spacing: 4px;
+      padding: 2px 8px;
+      transform: rotate(-2deg);
+      margin-bottom: 4px;
+    }
+
+    .loc-form-ref {
+      font-size: 5.5pt;
+      letter-spacing: 1px;
+    }
+
     // ── Location ID Badge ─────────────────────────────
     .loc-id-row {
       display: flex;
@@ -22,16 +84,72 @@
       margin-bottom: 5px;
     }
 
-    .loc-id {
+    .loc-id-badge {
+      border: 2px solid $nr-green-stamp;
+      min-width: 50px;
+      text-align: center;
+    }
+
+    .loc-id-input {
       font-family: $nr-font-main;
       font-size: 14pt;
       font-weight: bold;
       letter-spacing: 2px;
       color: $nr-green-stamp;
-      border: 2px solid $nr-green-stamp;
-      padding: 2px 10px;
-      min-width: 50px;
+      background: transparent;
+      border: none;
+      width: 100%;
       text-align: center;
+      padding: 2px 10px;
+
+      &::placeholder {
+        color: $nr-green-stamp;
+        opacity: 0.45;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .loc-name-col {
+      flex: 1;
+    }
+
+    .loc-name {
+      border-bottom: 2px solid $nr-ink;
+      min-height: 22px;
+      font-family: $nr-font-fill;
+      font-size: 10pt;
+      font-weight: bold;
+      padding: 2px 4px;
+    }
+
+    // ── Location Image ────────────────────────────────
+    .loc-image {
+      width: 100%;
+      height: 1.6in;
+      border: 1.5px solid $nr-rule;
+      background: $nr-field-bg;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .loc-image-placeholder {
+      font-family: $nr-font-main;
+      font-size: 6pt;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: $nr-ink-light;
     }
 
     // ── Availability ──────────────────────────────────
@@ -66,6 +184,11 @@
       &.red {
         color: $nr-red-stamp;
         border-color: $nr-red-stamp;
+      }
+
+      &.muted {
+        color: $nr-ink-faded;
+        border-color: $nr-rule-light;
       }
     }
 
@@ -110,6 +233,16 @@
         border-bottom: 1.5px solid $nr-rule;
         min-height: 58px;
       }
+
+      &.xl {
+        border: 1px solid $nr-rule;
+        min-height: 72px;
+      }
+    }
+
+    // ── Editor Overrides ──────────────────────────────
+    .editor {
+      min-height: inherit;
     }
 
     // ── Result Grid ───────────────────────────────────
@@ -123,6 +256,20 @@
     .result-col {
       display: flex;
       flex-direction: column;
+    }
+
+    // ── Footer ────────────────────────────────────────
+    .loc-footer {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      font-family: $nr-font-main;
+      font-size: 5pt;
+      letter-spacing: 1.5px;
+      color: $nr-ink-light;
+      border-top: 1px solid $nr-rule-light;
+      padding-top: 4px;
+      text-transform: uppercase;
     }
   }
 }
