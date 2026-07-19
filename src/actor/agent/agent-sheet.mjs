@@ -143,9 +143,13 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     context.collapsedSections = collapsedSections;
 
     // Pre-computed CSS classes for collapsible sections (Prettier-compatible)
-    context.collapseIdentityClass = collapsedSections.identity ? 'collapsible-section collapsed' : 'collapsible-section';
+    context.collapseIdentityClass = collapsedSections.identity
+      ? 'collapsible-section collapsed'
+      : 'collapsible-section';
     context.chevronIdentityClass = collapsedSections.identity ? 'fa-chevron-right' : 'fa-chevron-down';
-    context.collapseQuickStatsClass = collapsedSections.quickStats ? 'collapsible-section collapsed' : 'collapsible-section';
+    context.collapseQuickStatsClass = collapsedSections.quickStats
+      ? 'collapsible-section collapsed'
+      : 'collapsible-section';
     context.chevronQuickStatsClass = collapsedSections.quickStats ? 'fa-chevron-right' : 'fa-chevron-down';
 
     // Organize items by type

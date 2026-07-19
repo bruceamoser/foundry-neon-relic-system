@@ -462,6 +462,71 @@ export class PlayerCaseBriefDataModel extends foundry.abstract.TypeDataModel {
 }
 
 /* ------------------------------------------ */
+/*  DACaseBriefDataModel                      */
+/* ------------------------------------------ */
+
+/**
+ * TypeDataModel for DA Case Brief items — Director Agent master reference
+ * document (VC-17) with spoiler-filled sections I–VIII matching the form layout.
+ * @extends foundry.abstract.TypeDataModel
+ */
+export class DACaseBriefDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      caseId: new StringField({ blank: true }),
+      caseName: new StringField({ blank: true }),
+      relicTier: new NumberField({ required: true, integer: true, min: 1, max: 4, initial: 1 }),
+      region: new StringField({ blank: true }),
+
+      // I — Mystery Statement
+      mysteryStatement: new HTMLField({ blank: true }),
+
+      // II — The Real Situation
+      realSituation: new HTMLField({ blank: true }),
+
+      // III — Agent Objectives
+      primaryObjective: new HTMLField({ blank: true }),
+      secondaryObjective: new HTMLField({ blank: true }),
+
+      // IV — Containment Truths Summary
+      containmentTrigger: new HTMLField({ blank: true }),
+      containmentAppetite: new HTMLField({ blank: true }),
+      containmentQuiescence: new HTMLField({ blank: true }),
+
+      // V — Key Actors & Factions
+      keyActors: new HTMLField({ blank: true }),
+
+      // VI — Resolution & Endgame
+      bestCaseResolution: new HTMLField({ blank: true }),
+      worstCaseResolution: new HTMLField({ blank: true }),
+
+      // VII — Relic Milestones
+      relicMilestones: new ArrayField(
+        new SchemaField({
+          day: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+          description: new StringField({ blank: true }),
+        }),
+      ),
+
+      // VIII — DA Notes
+      daNotes: new HTMLField({ blank: true }),
+
+      description: new HTMLField({ blank: true }),
+    };
+  }
+
+  /** @override */
+  prepareDerivedData() {
+    if (!this.relicMilestones || this.relicMilestones.length < 6) {
+      this.relicMilestones = this.relicMilestones ?? [];
+      while (this.relicMilestones.length < 6) {
+        this.relicMilestones.push({ day: 0, description: '' });
+      }
+    }
+  }
+}
+
+/* ------------------------------------------ */
 /*  SubdivisionDataModel                      */
 /* ------------------------------------------ */
 
