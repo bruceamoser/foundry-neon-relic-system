@@ -237,7 +237,11 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       return;
     }
     const msg = result.stepped
-      ? game.i18n.format('NEONRELIC.Consumable.UseStepped', { die: result.die, roll: result.rolled, newDie: result.newDie })
+      ? game.i18n.format('NEONRELIC.Consumable.UseStepped', {
+          die: result.die,
+          roll: result.rolled,
+          newDie: result.newDie,
+        })
       : game.i18n.format('NEONRELIC.Consumable.UseOk', { die: result.die, roll: result.rolled });
     ChatMessage.create({ content: `<p><strong>${this.document.name}</strong>: ${msg}</p>` });
   }

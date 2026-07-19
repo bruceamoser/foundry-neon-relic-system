@@ -245,10 +245,22 @@
     border: 1px solid $nr-rule;
     margin-bottom: 6px;
 
-    &.supply { border-color: $nr-ink-light; color: $nr-ink-faded; }
-    &.medical { border-color: #c0392b; color: #c0392b; }
-    &.ammo { border-color: darken($nr-green-stamp, 5%); color: darken($nr-green-stamp, 5%); }
-    &.fuel { border-color: #d35400; color: #d35400; }
+    &.supply {
+      border-color: $nr-ink-light;
+      color: $nr-ink-faded;
+    }
+    &.medical {
+      border-color: #c0392b;
+      color: #c0392b;
+    }
+    &.ammo {
+      border-color: darken($nr-green-stamp, 5%);
+      color: darken($nr-green-stamp, 5%);
+    }
+    &.fuel {
+      border-color: #d35400;
+      color: #d35400;
+    }
   }
 
   // ── Talent sub-identity grid ──────────────────
@@ -272,7 +284,8 @@
         margin-bottom: 1px;
       }
 
-      select, input {
+      select,
+      input {
         width: 100%;
         font-family: $nr-font-fill;
         font-size: 9pt;

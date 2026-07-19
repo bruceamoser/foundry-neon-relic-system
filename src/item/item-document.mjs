@@ -92,7 +92,8 @@ export class NeonRelicItem extends Item {
   async useConsumable() {
     if (this.type !== 'consumable') return { rolled: 0, die: '', stepped: false, newDie: null, depleted: false };
     const current = this.system.currentDie;
-    if (!current || current === 'depleted') return { rolled: 0, die: 'depleted', stepped: false, newDie: null, depleted: true };
+    if (!current || current === 'depleted')
+      return { rolled: 0, die: 'depleted', stepped: false, newDie: null, depleted: true };
     const dieSize = parseInt(current.replace('d', ''), 10) || 8;
     const roll = await new Roll(`1d${dieSize}`).evaluate();
     const rollValue = roll.total;

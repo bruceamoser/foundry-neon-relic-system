@@ -704,9 +704,20 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
    * The 14 skill keys in definition order (matches AgentDataModel.defineSchema).
    */
   static SKILL_KEYS = [
-    'force', 'endure', 'brawl', 'firearms', 'deftHands',
-    'sneak', 'tech', 'investigate', 'lore', 'psychoanalyze',
-    'manipulate', 'command', 'healMental', 'healPhysical',
+    'force',
+    'endure',
+    'brawl',
+    'firearms',
+    'deftHands',
+    'sneak',
+    'tech',
+    'investigate',
+    'lore',
+    'psychoanalyze',
+    'manipulate',
+    'command',
+    'healMental',
+    'healPhysical',
   ];
 
   /**
@@ -1303,12 +1314,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const skillSum = AgentSheet._sumSkills(doc.system.skills);
     const budgetTotal = doc.system.budget?.skillTotal;
     const totalXP = doc.system.experience?.total;
-    const { spent, current: newCurrent } = AgentSheet._computeXP(
-      skillSum,
-      budgetTotal,
-      talentCount,
-      totalXP,
-    );
+    const { spent, current: newCurrent } = AgentSheet._computeXP(skillSum, budgetTotal, talentCount, totalXP);
     await doc.update({
       system: {
         experience: {
@@ -1455,9 +1461,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   static async #onToggleSection(_event, target) {
     const section = target.dataset.section || target.closest('[data-section]')?.dataset.section;
     if (!section) return;
-    const collapsedSections = foundry.utils.deepClone(
-      this.document.getFlag('neon-relic', 'collapsedSections') || {},
-    );
+    const collapsedSections = foundry.utils.deepClone(this.document.getFlag('neon-relic', 'collapsedSections') || {});
     collapsedSections[section] = !collapsedSections[section];
     await this.document.setFlag('neon-relic', 'collapsedSections', collapsedSections);
   }

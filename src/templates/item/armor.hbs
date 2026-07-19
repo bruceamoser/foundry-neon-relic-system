@@ -11,13 +11,24 @@
   <div class='stat-block'>
     <span class='stat-label'>{{localize 'NEONRELIC.Armor.AgilityPenalty'}}</span>
     <span class='stat-value'>
-      <input type='number' name='system.agilityPenalty' value='{{system.agilityPenalty}}' {{disabled (not isEditable)}} />
+      <input
+        type='number'
+        name='system.agilityPenalty'
+        value='{{system.agilityPenalty}}'
+        {{disabled (not isEditable)}}
+      />
     </span>
   </div>
   <div class='stat-block'>
     <span class='stat-label'>{{localize 'NEONRELIC.Encumbrance'}}</span>
     <span class='stat-value'>
-      <input type='number' name='system.encumbrance' value='{{system.encumbrance}}' min='0' {{disabled (not isEditable)}} />
+      <input
+        type='number'
+        name='system.encumbrance'
+        value='{{system.encumbrance}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
     </span>
   </div>
   <div class='stat-block'>

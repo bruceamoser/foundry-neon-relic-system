@@ -77,7 +77,14 @@
     </div>
     <div class='nr-roll-dialog__stat'>
       <label class='nr-field-label'>{{localize 'NEONRELIC.Roll.Difficulty'}}</label>
-      <input type='number' name='difficulty' value='{{difficulty}}' min='1' max='5' class='nr-field-num nr-field-num--large' />
+      <input
+        type='number'
+        name='difficulty'
+        value='{{difficulty}}'
+        min='1'
+        max='5'
+        class='nr-field-num nr-field-num--large'
+      />
     </div>
   </div>
 
@@ -119,8 +126,13 @@
   {{! ── Notes ── }}
   <div class='nr-roll-dialog__field'>
     <label class='nr-field-label'>{{localize 'NEONRELIC.Roll.Notes'}}</label>
-    <input type='text' name='notes' value='{{notes}}' class='nr-field-text'
-           placeholder='{{localize "NEONRELIC.Roll.NotesPlaceholder"}}' />
+    <input
+      type='text'
+      name='notes'
+      value='{{notes}}'
+      class='nr-field-text'
+      placeholder='{{localize "NEONRELIC.Roll.NotesPlaceholder"}}'
+    />
   </div>
 
 </div>

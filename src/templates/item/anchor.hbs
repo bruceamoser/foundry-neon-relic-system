@@ -6,9 +6,21 @@
       <div class='id-cell'>
         <span class='id-label'>{{localize 'NEONRELIC.Anchor.Uses'}}</span>
         <div class='id-value uses-row'>
-          <input type='number' name='system.uses.value' value='{{system.uses.value}}' min='0' {{disabled (not isEditable)}} />
+          <input
+            type='number'
+            name='system.uses.value'
+            value='{{system.uses.value}}'
+            min='0'
+            {{disabled (not isEditable)}}
+          />
           <span class='uses-sep'>/</span>
-          <input type='number' name='system.uses.max' value='{{system.uses.max}}' min='0' {{disabled (not isEditable)}} />
+          <input
+            type='number'
+            name='system.uses.max'
+            value='{{system.uses.max}}'
+            min='0'
+            {{disabled (not isEditable)}}
+          />
         </div>
       </div>
       <div class='id-cell'>
@@ -24,12 +36,22 @@
   {{! Relationship }}
   <div class='anchor-section'>
     <div class='section-label'>{{localize 'NEONRELIC.Anchor.Relationship'}}</div>
-    <textarea name='system.relationship' class='anchor-textarea' rows='3' {{disabled (not isEditable)}}>{{system.relationship}}</textarea>
+    <textarea
+      name='system.relationship'
+      class='anchor-textarea'
+      rows='3'
+      {{disabled (not isEditable)}}
+    >{{system.relationship}}</textarea>
   </div>
 
   {{! Memory }}
   <div class='anchor-section'>
     <div class='section-label'>{{localize 'NEONRELIC.Anchor.Memory'}}</div>
-    <textarea name='system.memory' class='anchor-textarea' rows='3' {{disabled (not isEditable)}}>{{system.memory}}</textarea>
+    <textarea
+      name='system.memory'
+      class='anchor-textarea'
+      rows='3'
+      {{disabled (not isEditable)}}
+    >{{system.memory}}</textarea>
   </div>
 </div>

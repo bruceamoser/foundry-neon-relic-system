@@ -200,7 +200,11 @@ export class NRRollDialog extends HandlebarsApplicationMixin(ApplicationV2) {
       gearItemId = data.gearItemId;
       const gearEntry = this.rollData.gearItems.find(g => g.id === gearItemId);
       gearBonus = gearEntry?.bonus ?? 0;
-      console.log(`neon-relic | Roll submit: gearItemId=${gearItemId}, gearEntry=`, gearEntry, `gearBonus=${gearBonus}`);
+      console.log(
+        `neon-relic | Roll submit: gearItemId=${gearItemId}, gearEntry=`,
+        gearEntry,
+        `gearBonus=${gearBonus}`,
+      );
     } else {
       gearBonus = Number(data.gearBonus) || 0;
       console.log(`neon-relic | Roll submit: no gearItemId, gearBonus=${gearBonus} (manual)`);
@@ -220,20 +224,26 @@ export class NRRollDialog extends HandlebarsApplicationMixin(ApplicationV2) {
 
     // ── Gear Degradation: gear dice rolling 1 degrades the item ──
     let gearDamage = null;
-    console.log(`neon-relic | Gear degradation check: gearOnes=${result.gearOnes}, gearItemId=${gearItemId}, actorId=${this.rollData.actorId}`);
+    console.log(
+      `neon-relic | Gear degradation check: gearOnes=${result.gearOnes}, gearItemId=${gearItemId}, actorId=${this.rollData.actorId}`,
+    );
     if (result.gearOnes > 0 && gearItemId && this.rollData.actorId) {
       const actor = game.actors.get(this.rollData.actorId);
       if (actor) {
         const gearItem = actor.items.get(gearItemId);
         if (gearItem && (gearItem.type === 'weapon' || gearItem.type === 'gear')) {
           const beforeBonus = gearItem.system.gearBonus.value;
-          console.log(`neon-relic | Gear degradation: ${gearItem.name} rolled ${result.gearOnes} gear one(s), bonus before: ${beforeBonus}`);
+          console.log(
+            `neon-relic | Gear degradation: ${gearItem.name} rolled ${result.gearOnes} gear one(s), bonus before: ${beforeBonus}`,
+          );
           await gearItem.degradeGear();
           // Re-fetch the item from the actor to get updated system data
           const updatedItem = actor.items.get(gearItemId);
           const afterBonus = updatedItem?.system.gearBonus.value ?? 0;
           const isBroken = updatedItem?.system.isBroken ?? false;
-          console.log(`neon-relic | Gear degradation result: ${gearItem.name} bonus after: ${afterBonus}, isBroken: ${isBroken}`);
+          console.log(
+            `neon-relic | Gear degradation result: ${gearItem.name} bonus after: ${afterBonus}, isBroken: ${isBroken}`,
+          );
           gearDamage = {
             itemName: gearItem.name,
             itemId: gearItem.id,
@@ -267,7 +277,11 @@ export class NRRollDialog extends HandlebarsApplicationMixin(ApplicationV2) {
                 depleted: result.depleted,
               };
             }
-          } else if (selectedItem.type === 'weapon' && selectedItem.system.ammoDie?.current && selectedItem.system.ammoDie.current !== 'depleted') {
+          } else if (
+            selectedItem.type === 'weapon' &&
+            selectedItem.system.ammoDie?.current &&
+            selectedItem.system.ammoDie.current !== 'depleted'
+          ) {
             // Fallback to built-in ammo die on weapons
             const currentDie = selectedItem.system.ammoDie.current;
             const dieSize = parseInt(currentDie.replace('d', ''), 10) || 8;

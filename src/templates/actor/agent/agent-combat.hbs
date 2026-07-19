@@ -72,7 +72,12 @@
             <td class='center'>{{this.system.gearBonus.value}}/{{this.system.gearBonus.max}}</td>
             <td class='center'>
               {{#if @root.isEditable}}
-                <input type='checkbox' data-action='toggleWorn' data-item-id='{{this.id}}' {{checked this.system.worn}} />
+                <input
+                  type='checkbox'
+                  data-action='toggleWorn'
+                  data-item-id='{{this.id}}'
+                  {{checked this.system.worn}}
+                />
               {{else}}
                 {{#if this.system.worn}}&#10003;{{/if}}
               {{/if}}
@@ -119,7 +124,12 @@
             <td class='center'>{{this.system.ar.value}}/{{this.system.ar.max}}</td>
             <td class='center'>
               {{#if @root.isEditable}}
-                <input type='checkbox' data-action='toggleWorn' data-item-id='{{this.id}}' {{checked this.system.worn}} />
+                <input
+                  type='checkbox'
+                  data-action='toggleWorn'
+                  data-item-id='{{this.id}}'
+                  {{checked this.system.worn}}
+                />
               {{else}}
                 {{#if this.system.worn}}&#10003;{{/if}}
               {{/if}}
