@@ -427,6 +427,7 @@ export class InformationCardDataModel extends foundry.abstract.TypeDataModel {
 export class PlayerCaseBriefDataModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
+      caseId: new StringField({ blank: true }),
       caseName: new StringField({ blank: true }),
       region: new StringField({ blank: true }),
       classification: new StringField({ initial: 'CLASSIFIED', blank: false }),
