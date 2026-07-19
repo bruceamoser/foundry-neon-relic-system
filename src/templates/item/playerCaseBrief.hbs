@@ -59,73 +59,41 @@
   <div class='pcb-section-title green'>{{localize 'NEONRELIC.PlayerCaseBrief.Section1'}}</div>
   <div>
     <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.SituationSummaryHint'}}</span>
-    {{#if isEditable}}
-      {{{editor
-        enrichedSituationSummary
-        target='system.situationSummary'
-        owner=item
-        button=true
-        editable=true
-        engine='prosemirror'
-        collaborate=false
-      }}}
-    {{else}}
-      <div class='editor-content'>{{{enrichedSituationSummary}}}</div>
-    {{/if}}
+    <div class='editor-content'>{{{enrichedSituationSummary}}}</div>
+    {{#if isEditable}}<textarea
+        name='system.situationSummary'
+        style='display:none;'
+      >{{system.situationSummary}}</textarea>{{/if}}
   </div>
 
   <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section2'}}</div>
   <div class='pcb-two-col'>
     <div>
       <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.PrimaryObjectiveHint'}}</span>
-      {{#if isEditable}}
-        {{{editor
-          enrichedPrimaryObjective
-          target='system.primaryObjective'
-          owner=item
-          button=true
-          editable=true
-          engine='prosemirror'
-          collaborate=false
-        }}}
-      {{else}}
-        <div class='editor-content'>{{{enrichedPrimaryObjective}}}</div>
-      {{/if}}
+      <div class='editor-content'>{{{enrichedPrimaryObjective}}}</div>
+      {{#if isEditable}}<textarea
+          name='system.primaryObjective'
+          style='display:none;'
+        >{{system.primaryObjective}}</textarea>{{/if}}
     </div>
     <div>
       <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.SecondaryObjectiveHint'}}</span>
-      {{#if isEditable}}
-        {{{editor
-          enrichedSecondaryObjective
-          target='system.secondaryObjective'
-          owner=item
-          button=true
-          editable=true
-          engine='prosemirror'
-          collaborate=false
-        }}}
-      {{else}}
-        <div class='editor-content'>{{{enrichedSecondaryObjective}}}</div>
-      {{/if}}
+      <div class='editor-content'>{{{enrichedSecondaryObjective}}}</div>
+      {{#if isEditable}}<textarea
+          name='system.secondaryObjective'
+          style='display:none;'
+        >{{system.secondaryObjective}}</textarea>{{/if}}
     </div>
   </div>
 
   <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section3'}}</div>
   <div>
     <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.KnownOrganizationsHint'}}</span>
-    {{#if isEditable}}
-      {{{editor
-        enrichedKnownOrganizations
-        target='system.knownOrganizations'
-        owner=item
-        button=true
-        editable=true
-        engine='prosemirror'
-        collaborate=false
-      }}}
-    {{else}}
-      <div class='editor-content'>{{{enrichedKnownOrganizations}}}</div>
-    {{/if}}
+    <div class='editor-content'>{{{enrichedKnownOrganizations}}}</div>
+    {{#if isEditable}}<textarea
+        name='system.knownOrganizations'
+        style='display:none;'
+      >{{system.knownOrganizations}}</textarea>{{/if}}
   </div>
 
   <div class='pcb-section-title green'>{{localize 'NEONRELIC.PlayerCaseBrief.Section4'}}</div>
@@ -168,83 +136,48 @@
   <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section5'}}</div>
   <div>
     <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.StartingLeadsHint'}}</span>
-    {{#if isEditable}}
-      {{{editor
-        enrichedStartingLeads
-        target='system.startingLeads'
-        owner=item
-        button=true
-        editable=true
-        engine='prosemirror'
-        collaborate=false
-      }}}
-    {{else}}
-      <div class='editor-content'>{{{enrichedStartingLeads}}}</div>
-    {{/if}}
+    <div class='editor-content'>{{{enrichedStartingLeads}}}</div>
+    {{#if isEditable}}<textarea
+        name='system.startingLeads'
+        style='display:none;'
+      >{{system.startingLeads}}</textarea>{{/if}}
   </div>
 
   <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section6'}}</div>
   <div class='pcb-two-col'>
     <div>
       <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.TimelinePressureHint'}}</span>
-      {{#if isEditable}}
-        {{{editor
-          enrichedTimelinePressure
-          target='system.timelinePressure'
-          owner=item
-          button=true
-          editable=true
-          engine='prosemirror'
-          collaborate=false
-        }}}
-      {{else}}
-        <div class='editor-content'>{{{enrichedTimelinePressure}}}</div>
-      {{/if}}
+      <div class='editor-content'>{{{enrichedTimelinePressure}}}</div>
+      {{#if isEditable}}<textarea
+          name='system.timelinePressure'
+          style='display:none;'
+        >{{system.timelinePressure}}</textarea>{{/if}}
     </div>
     <div>
       <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.ConstraintsHint'}}</span>
-      {{#if isEditable}}
-        {{{editor
-          enrichedConstraints
-          target='system.constraints'
-          owner=item
-          button=true
-          editable=true
-          engine='prosemirror'
-          collaborate=false
-        }}}
-      {{else}}
-        <div class='editor-content'>{{{enrichedConstraints}}}</div>
-      {{/if}}
+      <div class='editor-content'>{{{enrichedConstraints}}}</div>
+      {{#if isEditable}}<textarea
+          name='system.constraints'
+          style='display:none;'
+        >{{system.constraints}}</textarea>{{/if}}
     </div>
   </div>
 
   <div class='pcb-section-title green'>{{localize 'NEONRELIC.PlayerCaseBrief.Section7'}}</div>
   <div>
     <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.RegionalContactsHint'}}</span>
-    {{#if isEditable}}
-      {{{editor
-        enrichedRegionalContacts
-        target='system.regionalContacts'
-        owner=item
-        button=true
-        editable=true
-        engine='prosemirror'
-        collaborate=false
-      }}}
-    {{else}}
-      <div class='editor-content'>{{{enrichedRegionalContacts}}}</div>
-    {{/if}}
+    <div class='editor-content'>{{{enrichedRegionalContacts}}}</div>
+    {{#if isEditable}}<textarea
+        name='system.regionalContacts'
+        style='display:none;'
+      >{{system.regionalContacts}}</textarea>{{/if}}
   </div>
 
   <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section8'}}</div>
   <div>
     <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.AgentNotesHint'}}</span>
-    {{formInput
-      (formField system.fields.agentNotes value=system.agentNotes)
-      name='system.agentNotes'
-      type='prosemirror'
-    }}
+    <div class='editor-content'>{{{enrichedAgentNotes}}}</div>
+    {{#if isEditable}}<textarea name='system.agentNotes' style='display:none;'>{{system.agentNotes}}</textarea>{{/if}}
   </div>
 
   <div class='pcb-footer'>
