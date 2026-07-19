@@ -18,6 +18,12 @@ export function registerHandlebarsHelpers() {
   Handlebars.registerHelper('lt', (a, b) => a < b);
   Handlebars.registerHelper('lte', (a, b) => a <= b);
 
+  // Conditional value helper (Prettier-compatible — avoids {{#if}} in attributes)
+  Handlebars.registerHelper('ternary', (cond, trueVal, falseVal) => (cond ? trueVal : falseVal));
+
+  // CSS class helpers for templates
+  Handlebars.registerHelper('dieClass', (base, success) => (success ? `${base} nr-die--success` : base));
+
   // Logical helpers
   Handlebars.registerHelper('or', (...args) => {
     // Remove the Handlebars options object (last argument)

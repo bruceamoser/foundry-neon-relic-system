@@ -31,7 +31,7 @@
         <span class='nr-dice-group__label'>{{localize 'NEONRELIC.Roll.BaseDice'}}</span>
         <div class='nr-dice-group__dice'>
           {{#each baseDice}}
-            <span class='nr-die nr-die--base {{#if this.success}}nr-die--success{{/if}}'>{{this.value}}</span>
+            <span class='{{dieClass "nr-die nr-die--base" this.success}}'>{{this.value}}</span>
           {{/each}}
         </div>
       </div>
@@ -41,7 +41,7 @@
         <span class='nr-dice-group__label'>{{localize 'NEONRELIC.Roll.SkillDice'}}</span>
         <div class='nr-dice-group__dice'>
           {{#each skillDice}}
-            <span class='nr-die nr-die--skill {{#if this.success}}nr-die--success{{/if}}'>{{this.value}}</span>
+            <span class='{{dieClass "nr-die nr-die--skill" this.success}}'>{{this.value}}</span>
           {{/each}}
         </div>
       </div>
@@ -51,7 +51,7 @@
         <span class='nr-dice-group__label'>{{localize 'NEONRELIC.Roll.GearDice'}}</span>
         <div class='nr-dice-group__dice'>
           {{#each gearDice}}
-            <span class='nr-die nr-die--gear {{#if this.success}}nr-die--success{{/if}}'>{{this.value}}</span>
+            <span class='{{dieClass "nr-die nr-die--gear" this.success}}'>{{this.value}}</span>
           {{/each}}
         </div>
       </div>
@@ -59,7 +59,7 @@
   </div>
 
   {{! ── Result Panel ── }}
-  <div class='nr-roll-card__result {{#if isSuccess}}nr-roll-card__result--pass{{else}}{{#if isFailure}}nr-roll-card__result--fail{{/if}}{{/if}}'>
+  <div class='nr-roll-card__result {{ternary isSuccess "nr-roll-card__result--pass" (ternary isFailure "nr-roll-card__result--fail" "")}}'>
     <div class='nr-roll-card__result-row'>
       <div class='nr-roll-card__success-count'>
         <span class='nr-roll-card__success-icon'>✦</span>
@@ -71,7 +71,7 @@
           <span class='nr-roll-card__diff-label'>vs</span>
           <span class='nr-roll-card__diff-num'>{{difficulty}}</span>
         </div>
-        <div class='nr-roll-card__verdict {{#if isSuccess}}nr-roll-card__verdict--pass{{else}}nr-roll-card__verdict--fail{{/if}}'>
+        <div class='nr-roll-card__verdict {{ternary isSuccess "nr-roll-card__verdict--pass" "nr-roll-card__verdict--fail"}}'>
           {{#if isSuccess}}{{localize 'NEONRELIC.Roll.Success'}}{{else}}{{localize 'NEONRELIC.Roll.Failure'}}{{/if}}
         </div>
       {{/if}}
@@ -88,7 +88,7 @@
 
   {{! ── Gear Damage Notice ── }}
   {{#if gearDamage}}
-    <div class='nr-roll-card__gear-damage {{#if gearDamage.isBroken}}nr-roll-card__gear-damage--broken{{/if}}'>
+    <div class='nr-roll-card__gear-damage {{ternary gearDamage.isBroken "nr-roll-card__gear-damage--broken" ""}}'>
       <span class='nr-gear-damage-icon'>🔧</span>
       <div class='nr-gear-damage-info'>
         <span class='nr-gear-damage-label'>{{localize 'NEONRELIC.Roll.GearDamaged'}}</span>
@@ -105,7 +105,7 @@
 
   {{! ── Ammo Die ── }}
   {{#if ammoDieResult}}
-    <div class='nr-roll-card__ammo {{#if ammoDieResult.stepped}}nr-roll-card__ammo--depleted{{/if}}'>
+    <div class='nr-roll-card__ammo {{ternary ammoDieResult.stepped "nr-roll-card__ammo--depleted" ""}}'>
       <span class='nr-ammo-icon'>🔫</span>
       <div class='nr-ammo-info'>
         <span class='nr-ammo-label'>{{ammoDieResult.weaponName}} — {{localize 'NEONRELIC.Weapon.AmmoDie'}} ({{ammoDieResult.die}})</span>

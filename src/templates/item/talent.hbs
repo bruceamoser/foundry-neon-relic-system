@@ -51,11 +51,11 @@
 </div>
 
 <div class='trait-chips'>
-  <label class='trait-chip {{#if system.hasHealingTag}}active{{/if}}'>
+  <label class='{{healingTagClass}}'>
     <input type='checkbox' name='system.hasHealingTag' {{checked system.hasHealingTag}} {{disabled (not isEditable)}} />
     {{localize 'NEONRELIC.Talent.HealingTag'}}
   </label>
-  <label class='trait-chip {{#if system.isOncePerSession}}active{{/if}}'>
+  <label class='{{oncePerSessionClass}}'>
     <input type='checkbox' name='system.isOncePerSession' {{checked system.isOncePerSession}} {{disabled (not isEditable)}} />
     {{localize 'NEONRELIC.Talent.OncePerSession'}}
   </label>

@@ -180,6 +180,65 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         containmentTruth: game.i18n.localize('NEONRELIC.InfoCard.ContainmentTruth'),
       };
     }
+    if (item.type === 'playerCaseBrief') {
+      context.enrichedSituationSummary = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.situationSummary ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedPrimaryObjective = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.primaryObjective ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedSecondaryObjective = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.secondaryObjective ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedKnownOrganizations = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.knownOrganizations ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedStartingLeads = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.startingLeads ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedTimelinePressure = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.timelinePressure ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedConstraints = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.constraints ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedRegionalContacts = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.regionalContacts ?? '',
+        { async: true, relativeTo: item },
+      );
+      context.enrichedAgentNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.agentNotes ?? '',
+        { async: true, relativeTo: item },
+      );
+    }
+
+    // Pre-computed CSS classes (Prettier-compatible — no {{#if}} in attributes)
+    if (item.type === 'consumable') {
+      context.dieValueClass = system.isDepleted ? 'die-value depleted' : 'die-value';
+    }
+    if (item.type === 'gear') {
+      context.brokenClass = system.isBroken ? 'trait-chip active' : 'trait-chip';
+    }
+    if (item.type === 'talent') {
+      context.healingTagClass = system.hasHealingTag ? 'trait-chip active' : 'trait-chip';
+      context.oncePerSessionClass = system.isOncePerSession ? 'trait-chip active' : 'trait-chip';
+    }
+    if (item.type === 'weapon') {
+      context.reliableClass = system.traits.reliable ? 'trait-chip active' : 'trait-chip';
+      context.highCapacityClass = system.traits.highCapacity ? 'trait-chip active' : 'trait-chip';
+      context.fullAutoClass = system.traits.fullAuto ? 'trait-chip active' : 'trait-chip';
+      context.stunnedClass = system.traits.stunned ? 'trait-chip active' : 'trait-chip';
+      context.weaponBrokenClass = system.isBroken ? 'trait-chip active' : 'trait-chip';
+      context.ammoDieClass = system.ammoDie.current ? 'die-value' : 'die-value depleted';
+      context.ammoDieLabel = system.ammoDie.current ? system.ammoDie.current : '—';
+    }
 
     // Render the type-specific partial to HTML
     context.typeContent = await foundry.applications.handlebars.renderTemplate(typeTemplatePath, context);

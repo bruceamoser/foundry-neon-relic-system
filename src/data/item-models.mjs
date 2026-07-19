@@ -416,6 +416,52 @@ export class InformationCardDataModel extends foundry.abstract.TypeDataModel {
 }
 
 /* ------------------------------------------ */
+/*  PlayerCaseBriefDataModel                  */
+/* ------------------------------------------ */
+
+/**
+ * TypeDataModel for Player Case Brief items — VC-18 Agent Briefing
+ * with sections I–VIII and initial contacts NPC table.
+ * @extends foundry.abstract.TypeDataModel
+ */
+export class PlayerCaseBriefDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      caseName: new StringField({ blank: true }),
+      region: new StringField({ blank: true }),
+      classification: new StringField({ initial: 'CLASSIFIED', blank: false }),
+      situationSummary: new HTMLField({ blank: true }),
+      primaryObjective: new HTMLField({ blank: true }),
+      secondaryObjective: new HTMLField({ blank: true }),
+      knownOrganizations: new HTMLField({ blank: true }),
+      initialContacts: new ArrayField(
+        new SchemaField({
+          name: new StringField({ blank: true }),
+          role: new StringField({ blank: true }),
+          knownInfo: new StringField({ blank: true }),
+        }),
+      ),
+      startingLeads: new HTMLField({ blank: true }),
+      timelinePressure: new HTMLField({ blank: true }),
+      constraints: new HTMLField({ blank: true }),
+      regionalContacts: new HTMLField({ blank: true }),
+      agentNotes: new HTMLField({ blank: true }),
+      description: new HTMLField({ blank: true }),
+    };
+  }
+
+  /** @override */
+  prepareDerivedData() {
+    if (!this.initialContacts || this.initialContacts.length < 6) {
+      this.initialContacts = this.initialContacts ?? [];
+      while (this.initialContacts.length < 6) {
+        this.initialContacts.push({ name: '', role: '', knownInfo: '' });
+      }
+    }
+  }
+}
+
+/* ------------------------------------------ */
 /*  SubdivisionDataModel                      */
 /* ------------------------------------------ */
 
