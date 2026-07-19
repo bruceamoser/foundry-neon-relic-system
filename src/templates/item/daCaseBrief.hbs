@@ -61,11 +61,7 @@
     <h2 class='dcb-section-title red'>{{localize 'NEONRELIC.DACaseBrief.SectionI'}}</h2>
     <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.MysteryHint'}}</span>
     <div class='dcb-field-value med editor'>
-      <div class='editor-content'>{{{enrichedMysteryStatement}}}</div>
-      {{#if isEditable}}<textarea
-          name='system.mysteryStatement'
-          style='display:none;'
-        >{{system.mysteryStatement}}</textarea>{{/if}}
+      {{{enrichedMysteryStatement}}}
     </div>
   </section>
 
@@ -74,11 +70,7 @@
     <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionII'}}</h2>
     <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.RealSituationHint'}}</span>
     <div class='dcb-field-value xl editor'>
-      <div class='editor-content'>{{{enrichedRealSituation}}}</div>
-      {{#if isEditable}}<textarea
-          name='system.realSituation'
-          style='display:none;'
-        >{{system.realSituation}}</textarea>{{/if}}
+      {{{enrichedRealSituation}}}
     </div>
   </section>
 
@@ -89,21 +81,13 @@
       <div class='dcb-col'>
         <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.PrimaryObjective'}}</span>
         <div class='dcb-field-value med editor'>
-          <div class='editor-content'>{{{enrichedPrimaryObjective}}}</div>
-          {{#if isEditable}}<textarea
-              name='system.primaryObjective'
-              style='display:none;'
-            >{{system.primaryObjective}}</textarea>{{/if}}
+          {{{enrichedPrimaryObjective}}}
         </div>
       </div>
       <div class='dcb-col'>
         <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.SecondaryObjective'}}</span>
         <div class='dcb-field-value med editor'>
-          <div class='editor-content'>{{{enrichedSecondaryObjective}}}</div>
-          {{#if isEditable}}<textarea
-              name='system.secondaryObjective'
-              style='display:none;'
-            >{{system.secondaryObjective}}</textarea>{{/if}}
+          {{{enrichedSecondaryObjective}}}
         </div>
       </div>
     </div>
@@ -115,31 +99,19 @@
     <div class='dcb-danger-box'>
       <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentTrigger'}}</span>
       <div class='dcb-field-value editor'>
-        <div class='editor-content'>{{{enrichedContainmentTrigger}}}</div>
-        {{#if isEditable}}<textarea
-            name='system.containmentTrigger'
-            style='display:none;'
-          >{{system.containmentTrigger}}</textarea>{{/if}}
+        {{{enrichedContainmentTrigger}}}
       </div>
     </div>
     <div class='dcb-danger-box'>
       <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentAppetite'}}</span>
       <div class='dcb-field-value editor'>
-        <div class='editor-content'>{{{enrichedContainmentAppetite}}}</div>
-        {{#if isEditable}}<textarea
-            name='system.containmentAppetite'
-            style='display:none;'
-          >{{system.containmentAppetite}}</textarea>{{/if}}
+        {{{enrichedContainmentAppetite}}}
       </div>
     </div>
     <div class='dcb-danger-box'>
       <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentQuiescence'}}</span>
       <div class='dcb-field-value editor'>
-        <div class='editor-content'>{{{enrichedContainmentQuiescence}}}</div>
-        {{#if isEditable}}<textarea
-            name='system.containmentQuiescence'
-            style='display:none;'
-          >{{system.containmentQuiescence}}</textarea>{{/if}}
+        {{{enrichedContainmentQuiescence}}}
       </div>
     </div>
   </section>
@@ -149,8 +121,7 @@
     <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionV'}}</h2>
     <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.KeyActorsHint'}}</span>
     <div class='dcb-field-value xl editor'>
-      <div class='editor-content'>{{{enrichedKeyActors}}}</div>
-      {{#if isEditable}}<textarea name='system.keyActors' style='display:none;'>{{system.keyActors}}</textarea>{{/if}}
+      {{{enrichedKeyActors}}}
     </div>
   </section>
 
@@ -161,21 +132,13 @@
       <div class='dcb-col'>
         <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.BestCase'}}</span>
         <div class='dcb-field-value med editor'>
-          <div class='editor-content'>{{{enrichedBestCaseResolution}}}</div>
-          {{#if isEditable}}<textarea
-              name='system.bestCaseResolution'
-              style='display:none;'
-            >{{system.bestCaseResolution}}</textarea>{{/if}}
+          {{{enrichedBestCaseResolution}}}
         </div>
       </div>
       <div class='dcb-col'>
         <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.WorstCase'}}</span>
         <div class='dcb-field-value med editor'>
-          <div class='editor-content'>{{{enrichedWorstCaseResolution}}}</div>
-          {{#if isEditable}}<textarea
-              name='system.worstCaseResolution'
-              style='display:none;'
-            >{{system.worstCaseResolution}}</textarea>{{/if}}
+          {{{enrichedWorstCaseResolution}}}
         </div>
       </div>
     </div>
@@ -211,8 +174,7 @@
     <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionVIII'}}</h2>
     <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.DANotesHint'}}</span>
     <div class='dcb-field-value xxl editor'>
-      <div class='editor-content'>{{{enrichedDANotes}}}</div>
-      {{#if isEditable}}<textarea name='system.daNotes' style='display:none;'>{{system.daNotes}}</textarea>{{/if}}
+      {{{enrichedDANotes}}}
     </div>
   </section>
 
