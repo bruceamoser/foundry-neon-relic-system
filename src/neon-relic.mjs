@@ -29,6 +29,7 @@ import {
   UpgradeDataModel,
   LocationDataModel,
   InformationCardDataModel,
+  PlayerCaseBriefDataModel,
   SubdivisionDataModel,
 } from './data/item-models.mjs';
 import { NRItemSheet } from './item/item-sheet.mjs';
@@ -89,6 +90,7 @@ Hooks.once('init', () => {
   CONFIG.Item.dataModels.upgrade = UpgradeDataModel;
   CONFIG.Item.dataModels.location = LocationDataModel;
   CONFIG.Item.dataModels.informationCard = InformationCardDataModel;
+  CONFIG.Item.dataModels.playerCaseBrief = PlayerCaseBriefDataModel;
   CONFIG.Item.dataModels.subdivision = SubdivisionDataModel;
 
   // Register custom Handlebars helpers

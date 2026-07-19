@@ -1,10 +1,10 @@
 <section class='tab summary {{tab.cssClass}}' data-group='primary' data-tab='summary'>
 
   {{! Identity Block }}
-  <div class='collapsible-section {{#if (lookup collapsedSections 'identity')}}collapsed{{/if}}' data-section='identity'>
+  <div class='{{collapseIdentityClass}}' data-section='identity'>
     <div class='section-title collapsible-toggle' data-action='toggleSection' data-section='identity'>
       {{localize 'NEONRELIC.Agent.Identity'}}
-      <i class='fa-solid fa-chevron-{{#if (lookup collapsedSections 'identity')}}right{{else}}down{{/if}} collapsible-icon'></i>
+      <i class='fa-solid {{chevronIdentityClass}} collapsible-icon'></i>
     </div>
     <div class='collapsible-body'>
       <div class='id-block-row' style='grid-template-columns: 1.8fr 1fr 1.5fr;'>
@@ -103,10 +103,10 @@
   </div>
 
   {{! Quick Stats }}
-  <div class='collapsible-section {{#if (lookup collapsedSections 'quickStats')}}collapsed{{/if}}' data-section='quickStats'>
+  <div class='{{collapseQuickStatsClass}}' data-section='quickStats'>
     <div class='section-title collapsible-toggle' data-action='toggleSection' data-section='quickStats'>
       {{localize 'NEONRELIC.Agent.QuickStats'}}
-      <i class='fa-solid fa-chevron-{{#if (lookup collapsedSections 'quickStats')}}right{{else}}down{{/if}} collapsible-icon'></i>
+      <i class='fa-solid {{chevronQuickStatsClass}} collapsible-icon'></i>
     </div>
     <div class='collapsible-body'>
       <div class='attr-grid'>

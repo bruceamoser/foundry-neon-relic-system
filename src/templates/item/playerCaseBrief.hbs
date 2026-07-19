@@ -1,0 +1,122 @@
+{{! Player Case Brief — VC-18 Agent Briefing }}
+<div class='player-case-brief'>
+
+  <div class='pcb-header'>
+    <div class='pcb-header-left'>
+      <div class='pcb-header-title'>{{localize 'NEONRELIC.PlayerCaseBrief.HeaderTitle'}}</div>
+      <div class='pcb-header-subtitle'>{{localize 'NEONRELIC.PlayerCaseBrief.HeaderSubtitle'}}</div>
+    </div>
+    <div class='pcb-header-right'>
+      <div class='pcb-classification'>{{localize 'NEONRELIC.PlayerCaseBrief.Classified'}}</div>
+      <div class='pcb-form-ref'>{{localize 'NEONRELIC.PlayerCaseBrief.FormRef'}}</div>
+      <div class='pcb-case-id-row'>
+        <span class='pcb-case-id-label'>{{localize 'NEONRELIC.PlayerCaseBrief.CaseId'}}</span>
+        <input class='pcb-case-id-input' type='text' name='name' value='{{item.name}}' placeholder='{{localize "NEONRELIC.PlayerCaseBrief.CaseIdPlaceholder"}}' {{disabled (not isEditable)}} />
+      </div>
+    </div>
+  </div>
+
+  <div class='pcb-id-grid'>
+    <div class='pcb-id-cell'>
+      <span class='pcb-id-label'>{{localize 'NEONRELIC.PlayerCaseBrief.CaseName'}}</span>
+      <input class='pcb-id-value' type='text' name='system.caseName' value='{{system.caseName}}' {{disabled (not isEditable)}} />
+    </div>
+    <div class='pcb-id-cell'>
+      <span class='pcb-id-label'>{{localize 'NEONRELIC.PlayerCaseBrief.Region'}}</span>
+      <input class='pcb-id-value' type='text' name='system.region' value='{{system.region}}' {{disabled (not isEditable)}} />
+    </div>
+    <div class='pcb-id-cell'>
+      <span class='pcb-id-label'>{{localize 'NEONRELIC.PlayerCaseBrief.Classification'}}</span>
+      <input class='pcb-id-value' type='text' name='system.classification' value='{{system.classification}}' {{disabled (not isEditable)}} />
+    </div>
+  </div>
+
+  <div class='pcb-section-title green'>{{localize 'NEONRELIC.PlayerCaseBrief.Section1'}}</div>
+  <div>
+    <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.SituationSummaryHint'}}</span>
+    {{{enrichedSituationSummary}}}
+    {{#if isEditable}}<textarea name='system.situationSummary' style='display:none;'>{{system.situationSummary}}</textarea>{{/if}}
+  </div>
+
+  <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section2'}}</div>
+  <div class='pcb-two-col'>
+    <div>
+      <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.PrimaryObjectiveHint'}}</span>
+      {{{enrichedPrimaryObjective}}}
+      {{#if isEditable}}<textarea name='system.primaryObjective' style='display:none;'>{{system.primaryObjective}}</textarea>{{/if}}
+    </div>
+    <div>
+      <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.SecondaryObjectiveHint'}}</span>
+      {{{enrichedSecondaryObjective}}}
+      {{#if isEditable}}<textarea name='system.secondaryObjective' style='display:none;'>{{system.secondaryObjective}}</textarea>{{/if}}
+    </div>
+  </div>
+
+  <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section3'}}</div>
+  <div>
+    <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.KnownOrganizationsHint'}}</span>
+    {{{enrichedKnownOrganizations}}}
+    {{#if isEditable}}<textarea name='system.knownOrganizations' style='display:none;'>{{system.knownOrganizations}}</textarea>{{/if}}
+  </div>
+
+  <div class='pcb-section-title green'>{{localize 'NEONRELIC.PlayerCaseBrief.Section4'}}</div>
+  <div>
+    <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.InitialContactsHint'}}</span>
+    <div class='pcb-npc-table'>
+      <div class='pcb-npc-header-row'>
+        <div class='pcb-npc-header'>{{localize 'NEONRELIC.PlayerCaseBrief.ContactName'}}</div>
+        <div class='pcb-npc-header'>{{localize 'NEONRELIC.PlayerCaseBrief.ContactRole'}}</div>
+        <div class='pcb-npc-header'>{{localize 'NEONRELIC.PlayerCaseBrief.ContactKnownInfo'}}</div>
+      </div>
+      {{#each system.initialContacts}}
+        <div class='pcb-npc-row'>
+          <input class='pcb-npc-field' type='text' name='system.initialContacts.{{@index}}.name' value='{{this.name}}' {{disabled (not @root.isEditable)}} />
+          <input class='pcb-npc-field' type='text' name='system.initialContacts.{{@index}}.role' value='{{this.role}}' {{disabled (not @root.isEditable)}} />
+          <input class='pcb-npc-field' type='text' name='system.initialContacts.{{@index}}.knownInfo' value='{{this.knownInfo}}' {{disabled (not @root.isEditable)}} />
+        </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section5'}}</div>
+  <div>
+    <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.StartingLeadsHint'}}</span>
+    {{{enrichedStartingLeads}}}
+    {{#if isEditable}}<textarea name='system.startingLeads' style='display:none;'>{{system.startingLeads}}</textarea>{{/if}}
+  </div>
+
+  <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section6'}}</div>
+  <div class='pcb-two-col'>
+    <div>
+      <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.TimelinePressureHint'}}</span>
+      {{{enrichedTimelinePressure}}}
+      {{#if isEditable}}<textarea name='system.timelinePressure' style='display:none;'>{{system.timelinePressure}}</textarea>{{/if}}
+    </div>
+    <div>
+      <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.ConstraintsHint'}}</span>
+      {{{enrichedConstraints}}}
+      {{#if isEditable}}<textarea name='system.constraints' style='display:none;'>{{system.constraints}}</textarea>{{/if}}
+    </div>
+  </div>
+
+  <div class='pcb-section-title green'>{{localize 'NEONRELIC.PlayerCaseBrief.Section7'}}</div>
+  <div>
+    <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.RegionalContactsHint'}}</span>
+    {{{enrichedRegionalContacts}}}
+    {{#if isEditable}}<textarea name='system.regionalContacts' style='display:none;'>{{system.regionalContacts}}</textarea>{{/if}}
+  </div>
+
+  <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section8'}}</div>
+  <div>
+    <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.AgentNotesHint'}}</span>
+    {{{enrichedAgentNotes}}}
+    {{#if isEditable}}<textarea name='system.agentNotes' style='display:none;'>{{system.agentNotes}}</textarea>{{/if}}
+  </div>
+
+  <div class='pcb-footer'>
+    <span>{{localize 'NEONRELIC.PlayerCaseBrief.FooterLeft'}}</span>
+    <span>{{localize 'NEONRELIC.PlayerCaseBrief.FooterCenter'}}</span>
+    <span>{{localize 'NEONRELIC.PlayerCaseBrief.FooterRight'}}</span>
+  </div>
+
+</div>

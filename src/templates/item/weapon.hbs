@@ -51,23 +51,23 @@
 </div>
 
 <div class='trait-chips'>
-  <label class='trait-chip {{#if system.traits.reliable}}active{{/if}}'>
+  <label class='{{reliableClass}}'>
     <input type='checkbox' name='system.traits.reliable' {{checked system.traits.reliable}} {{disabled (not isEditable)}} />
     {{localize 'NEONRELIC.Weapon.Reliable'}}
   </label>
-  <label class='trait-chip {{#if system.traits.highCapacity}}active{{/if}}'>
+  <label class='{{highCapacityClass}}'>
     <input type='checkbox' name='system.traits.highCapacity' {{checked system.traits.highCapacity}} {{disabled (not isEditable)}} />
     {{localize 'NEONRELIC.Weapon.HighCapacity'}}
   </label>
-  <label class='trait-chip {{#if system.traits.fullAuto}}active{{/if}}'>
+  <label class='{{fullAutoClass}}'>
     <input type='checkbox' name='system.traits.fullAuto' {{checked system.traits.fullAuto}} {{disabled (not isEditable)}} />
     {{localize 'NEONRELIC.Weapon.FullAuto'}}
   </label>
-  <label class='trait-chip {{#if system.traits.stunned}}active{{/if}}'>
+  <label class='{{stunnedClass}}'>
     <input type='checkbox' name='system.traits.stunned' {{checked system.traits.stunned}} {{disabled (not isEditable)}} />
     {{localize 'NEONRELIC.Weapon.Stunned'}}
   </label>
-  <label class='trait-chip {{#if system.isBroken}}active{{/if}}'>
+  <label class='{{weaponBrokenClass}}'>
     <input type='checkbox' name='system.isBroken' {{checked system.isBroken}} {{disabled (not isEditable)}} />
     {{localize 'NEONRELIC.Weapon.Broken'}}
   </label>
@@ -96,7 +96,7 @@
 {{else}}
   <div class='ammo-die-display'>
     <span class='die-label'>{{localize 'NEONRELIC.Weapon.AmmoDie'}} (built-in)</span>
-    <span class='die-value {{#unless system.ammoDie.current}}depleted{{/unless}}'>{{#if system.ammoDie.current}}{{system.ammoDie.current}}{{else}}—{{/if}}</span>
+    <span class='{{ammoDieClass}}'>{{ammoDieLabel}}</span>
     {{#if isEditable}}
       <button type='button' data-action='stepDownAmmo' {{disabled (not system.ammoDie.current)}}>
         <i class='fa-solid fa-arrow-down'></i>

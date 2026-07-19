@@ -43,7 +43,7 @@
 
 <div class='ammo-die-display'>
   <span class='die-label'>{{localize 'NEONRELIC.Consumable.CurrentDie'}}</span>
-  <span class='die-value {{#if system.isDepleted}}depleted{{/if}}'>{{system.currentDie}}</span>
+  <span class='{{dieValueClass}}'>{{system.currentDie}}</span>
   {{#if isEditable}}
     <button type='button' data-action='useConsumable' {{disabled system.isDepleted}}>
       <i class='fa-solid fa-dice'></i> Use
@@ -55,5 +55,4 @@
       <i class='fa-solid fa-arrow-up'></i> Replenish
     </button>
   {{/if}}
-</div>
 </div>

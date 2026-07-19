@@ -34,7 +34,7 @@
 </div>
 
 <div class='trait-chips'>
-  <label class='trait-chip {{#if system.isBroken}}active{{/if}}'>
+  <label class='{{brokenClass}}'>
     <input type='checkbox' name='system.isBroken' {{checked system.isBroken}} {{disabled (not isEditable)}} />
     {{localize 'NEONRELIC.Gear.Broken'}}
   </label>
