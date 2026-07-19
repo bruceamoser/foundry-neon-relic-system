@@ -39,6 +39,8 @@
       "upgrade": {},
       "location": {},
       "informationCard": {},
+      "playerCaseBrief": {},
+      "daCaseBrief": {},
       "subdivision": {}
     }
   },
