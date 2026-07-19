@@ -174,10 +174,24 @@
       }
 
       &.editor {
-        padding: 4px 6px;
+        padding: 0;
+
+        .editor-container {
+          min-height: inherit;
+        }
 
         .editor-content {
           min-height: inherit;
+          padding: 4px 6px;
+          font-family: $nr-font-fill;
+          font-size: 8pt;
+          line-height: 1.4;
+        }
+
+        .prosemirror menu {
+          background: $nr-paper;
+          border-bottom: 1px solid $nr-rule;
+          padding: 2px 4px;
         }
       }
     }

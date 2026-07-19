@@ -59,41 +59,41 @@
   <div class='pcb-section-title green'>{{localize 'NEONRELIC.PlayerCaseBrief.Section1'}}</div>
   <div>
     <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.SituationSummaryHint'}}</span>
-    {{{enrichedSituationSummary}}}
-    {{#if isEditable}}<textarea
-        name='system.situationSummary'
-        style='display:none;'
-      >{{system.situationSummary}}</textarea>{{/if}}
+    {{formInput
+      (formField system.fields.situationSummary value=system.situationSummary)
+      name='system.situationSummary'
+      type='prosemirror'
+    }}
   </div>
 
   <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section2'}}</div>
   <div class='pcb-two-col'>
     <div>
       <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.PrimaryObjectiveHint'}}</span>
-      {{{enrichedPrimaryObjective}}}
-      {{#if isEditable}}<textarea
-          name='system.primaryObjective'
-          style='display:none;'
-        >{{system.primaryObjective}}</textarea>{{/if}}
+      {{formInput
+        (formField system.fields.primaryObjective value=system.primaryObjective)
+        name='system.primaryObjective'
+        type='prosemirror'
+      }}
     </div>
     <div>
       <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.SecondaryObjectiveHint'}}</span>
-      {{{enrichedSecondaryObjective}}}
-      {{#if isEditable}}<textarea
-          name='system.secondaryObjective'
-          style='display:none;'
-        >{{system.secondaryObjective}}</textarea>{{/if}}
+      {{formInput
+        (formField system.fields.secondaryObjective value=system.secondaryObjective)
+        name='system.secondaryObjective'
+        type='prosemirror'
+      }}
     </div>
   </div>
 
   <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section3'}}</div>
   <div>
     <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.KnownOrganizationsHint'}}</span>
-    {{{enrichedKnownOrganizations}}}
-    {{#if isEditable}}<textarea
-        name='system.knownOrganizations'
-        style='display:none;'
-      >{{system.knownOrganizations}}</textarea>{{/if}}
+    {{formInput
+      (formField system.fields.knownOrganizations value=system.knownOrganizations)
+      name='system.knownOrganizations'
+      type='prosemirror'
+    }}
   </div>
 
   <div class='pcb-section-title green'>{{localize 'NEONRELIC.PlayerCaseBrief.Section4'}}</div>
@@ -136,48 +136,51 @@
   <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section5'}}</div>
   <div>
     <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.StartingLeadsHint'}}</span>
-    {{{enrichedStartingLeads}}}
-    {{#if isEditable}}<textarea
-        name='system.startingLeads'
-        style='display:none;'
-      >{{system.startingLeads}}</textarea>{{/if}}
+    {{formInput
+      (formField system.fields.startingLeads value=system.startingLeads)
+      name='system.startingLeads'
+      type='prosemirror'
+    }}
   </div>
 
   <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section6'}}</div>
   <div class='pcb-two-col'>
     <div>
       <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.TimelinePressureHint'}}</span>
-      {{{enrichedTimelinePressure}}}
-      {{#if isEditable}}<textarea
-          name='system.timelinePressure'
-          style='display:none;'
-        >{{system.timelinePressure}}</textarea>{{/if}}
+      {{formInput
+        (formField system.fields.timelinePressure value=system.timelinePressure)
+        name='system.timelinePressure'
+        type='prosemirror'
+      }}
     </div>
     <div>
       <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.ConstraintsHint'}}</span>
-      {{{enrichedConstraints}}}
-      {{#if isEditable}}<textarea
-          name='system.constraints'
-          style='display:none;'
-        >{{system.constraints}}</textarea>{{/if}}
+      {{formInput
+        (formField system.fields.constraints value=system.constraints)
+        name='system.constraints'
+        type='prosemirror'
+      }}
     </div>
   </div>
 
   <div class='pcb-section-title green'>{{localize 'NEONRELIC.PlayerCaseBrief.Section7'}}</div>
   <div>
     <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.RegionalContactsHint'}}</span>
-    {{{enrichedRegionalContacts}}}
-    {{#if isEditable}}<textarea
-        name='system.regionalContacts'
-        style='display:none;'
-      >{{system.regionalContacts}}</textarea>{{/if}}
+    {{formInput
+      (formField system.fields.regionalContacts value=system.regionalContacts)
+      name='system.regionalContacts'
+      type='prosemirror'
+    }}
   </div>
 
   <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section8'}}</div>
   <div>
     <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.AgentNotesHint'}}</span>
-    {{{enrichedAgentNotes}}}
-    {{#if isEditable}}<textarea name='system.agentNotes' style='display:none;'>{{system.agentNotes}}</textarea>{{/if}}
+    {{formInput
+      (formField system.fields.agentNotes value=system.agentNotes)
+      name='system.agentNotes'
+      type='prosemirror'
+    }}
   </div>
 
   <div class='pcb-footer'>

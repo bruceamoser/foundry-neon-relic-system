@@ -14,7 +14,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   static DEFAULT_OPTIONS = {
     classes: [SYSTEM_ID, 'item-sheet'],
     position: {
-      width: 480,
+      width: 680,
       height: 'auto',
     },
     actions: {

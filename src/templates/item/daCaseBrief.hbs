@@ -60,22 +60,26 @@
   <section class='dcb-section'>
     <h2 class='dcb-section-title red'>{{localize 'NEONRELIC.DACaseBrief.SectionI'}}</h2>
     <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.MysteryHint'}}</span>
-    <div class='dcb-field-value med editor'>{{{enrichedMysteryStatement}}}</div>
-    {{#if isEditable}}<textarea
+    <div class='dcb-field-value med editor'>
+      {{formInput
+        (formField system.fields.mysteryStatement value=system.mysteryStatement)
         name='system.mysteryStatement'
-        style='display:none;'
-      >{{system.mysteryStatement}}</textarea>{{/if}}
+        type='prosemirror'
+      }}
+    </div>
   </section>
 
   {{! II — The Real Situation }}
   <section class='dcb-section'>
     <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionII'}}</h2>
     <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.RealSituationHint'}}</span>
-    <div class='dcb-field-value xl editor'>{{{enrichedRealSituation}}}</div>
-    {{#if isEditable}}<textarea
+    <div class='dcb-field-value xl editor'>
+      {{formInput
+        (formField system.fields.realSituation value=system.realSituation)
         name='system.realSituation'
-        style='display:none;'
-      >{{system.realSituation}}</textarea>{{/if}}
+        type='prosemirror'
+      }}
+    </div>
   </section>
 
   {{! III — Agent Objectives (two-column) }}
@@ -84,19 +88,23 @@
     <div class='dcb-two-col'>
       <div class='dcb-col'>
         <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.PrimaryObjective'}}</span>
-        <div class='dcb-field-value med editor'>{{{enrichedPrimaryObjective}}}</div>
-        {{#if isEditable}}<textarea
+        <div class='dcb-field-value med editor'>
+          {{formInput
+            (formField system.fields.primaryObjective value=system.primaryObjective)
             name='system.primaryObjective'
-            style='display:none;'
-          >{{system.primaryObjective}}</textarea>{{/if}}
+            type='prosemirror'
+          }}
+        </div>
       </div>
       <div class='dcb-col'>
         <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.SecondaryObjective'}}</span>
-        <div class='dcb-field-value med editor'>{{{enrichedSecondaryObjective}}}</div>
-        {{#if isEditable}}<textarea
+        <div class='dcb-field-value med editor'>
+          {{formInput
+            (formField system.fields.secondaryObjective value=system.secondaryObjective)
             name='system.secondaryObjective'
-            style='display:none;'
-          >{{system.secondaryObjective}}</textarea>{{/if}}
+            type='prosemirror'
+          }}
+        </div>
       </div>
     </div>
   </section>
@@ -106,27 +114,33 @@
     <h2 class='dcb-section-title red'>{{localize 'NEONRELIC.DACaseBrief.SectionIV'}}</h2>
     <div class='dcb-danger-box'>
       <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentTrigger'}}</span>
-      <div class='dcb-field-value editor'>{{{enrichedContainmentTrigger}}}</div>
-      {{#if isEditable}}<textarea
+      <div class='dcb-field-value editor'>
+        {{formInput
+          (formField system.fields.containmentTrigger value=system.containmentTrigger)
           name='system.containmentTrigger'
-          style='display:none;'
-        >{{system.containmentTrigger}}</textarea>{{/if}}
+          type='prosemirror'
+        }}
+      </div>
     </div>
     <div class='dcb-danger-box'>
       <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentAppetite'}}</span>
-      <div class='dcb-field-value editor'>{{{enrichedContainmentAppetite}}}</div>
-      {{#if isEditable}}<textarea
+      <div class='dcb-field-value editor'>
+        {{formInput
+          (formField system.fields.containmentAppetite value=system.containmentAppetite)
           name='system.containmentAppetite'
-          style='display:none;'
-        >{{system.containmentAppetite}}</textarea>{{/if}}
+          type='prosemirror'
+        }}
+      </div>
     </div>
     <div class='dcb-danger-box'>
       <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentQuiescence'}}</span>
-      <div class='dcb-field-value editor'>{{{enrichedContainmentQuiescence}}}</div>
-      {{#if isEditable}}<textarea
+      <div class='dcb-field-value editor'>
+        {{formInput
+          (formField system.fields.containmentQuiescence value=system.containmentQuiescence)
           name='system.containmentQuiescence'
-          style='display:none;'
-        >{{system.containmentQuiescence}}</textarea>{{/if}}
+          type='prosemirror'
+        }}
+      </div>
     </div>
   </section>
 
@@ -134,8 +148,13 @@
   <section class='dcb-section'>
     <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionV'}}</h2>
     <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.KeyActorsHint'}}</span>
-    <div class='dcb-field-value xl editor'>{{{enrichedKeyActors}}}</div>
-    {{#if isEditable}}<textarea name='system.keyActors' style='display:none;'>{{system.keyActors}}</textarea>{{/if}}
+    <div class='dcb-field-value xl editor'>
+      {{formInput
+        (formField system.fields.keyActors value=system.keyActors)
+        name='system.keyActors'
+        type='prosemirror'
+      }}
+    </div>
   </section>
 
   {{! VI — Resolution & Endgame (two-column) }}
@@ -144,19 +163,23 @@
     <div class='dcb-two-col'>
       <div class='dcb-col'>
         <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.BestCase'}}</span>
-        <div class='dcb-field-value med editor'>{{{enrichedBestCaseResolution}}}</div>
-        {{#if isEditable}}<textarea
+        <div class='dcb-field-value med editor'>
+          {{formInput
+            (formField system.fields.bestCaseResolution value=system.bestCaseResolution)
             name='system.bestCaseResolution'
-            style='display:none;'
-          >{{system.bestCaseResolution}}</textarea>{{/if}}
+            type='prosemirror'
+          }}
+        </div>
       </div>
       <div class='dcb-col'>
         <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.WorstCase'}}</span>
-        <div class='dcb-field-value med editor'>{{{enrichedWorstCaseResolution}}}</div>
-        {{#if isEditable}}<textarea
+        <div class='dcb-field-value med editor'>
+          {{formInput
+            (formField system.fields.worstCaseResolution value=system.worstCaseResolution)
             name='system.worstCaseResolution'
-            style='display:none;'
-          >{{system.worstCaseResolution}}</textarea>{{/if}}
+            type='prosemirror'
+          }}
+        </div>
       </div>
     </div>
   </section>
@@ -190,8 +213,9 @@
   <section class='dcb-section'>
     <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionVIII'}}</h2>
     <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.DANotesHint'}}</span>
-    <div class='dcb-field-value xxl editor'>{{{enrichedDANotes}}}</div>
-    {{#if isEditable}}<textarea name='system.daNotes' style='display:none;'>{{system.daNotes}}</textarea>{{/if}}
+    <div class='dcb-field-value xxl editor'>
+      {{formInput (formField system.fields.daNotes value=system.daNotes) name='system.daNotes' type='prosemirror'}}
+    </div>
   </section>
 
   {{! Footer }}
