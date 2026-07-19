@@ -127,6 +127,7 @@ NEONRELIC:
     Name: Item Name
     Bonus: Bonus
     Enc: Enc
+    Worn: Worn
     Die: Die
     Remove: Remove
     DeleteConfirm: Delete Item
@@ -140,6 +141,7 @@ NEONRELIC:
   # Roll Dialog
   Roll:
     ConfigTitle: Roll Configuration
+    DossierLabel: Field Operations
     Roll: Roll
     Attribute: Attribute
     Skill: Skill
@@ -147,6 +149,10 @@ NEONRELIC:
     Modifier: Modifier
     Difficulty: Difficulty
     TotalPool: Total Pool
+    Pool: Pool
+    BaseDice: Base Dice
+    SkillDice: Skill Dice
+    GearDice: Gear Dice
     Notes: Notes
     NotesPlaceholder: Roll notes...
     None: None
@@ -157,6 +163,8 @@ NEONRELIC:
     Success: Success
     Failure: Failure
     PushNote: Pushed — +1 Corruption
+    GearDamaged: Gear Damaged
+    GearBroken: BROKEN — cannot be used until repaired
 
   # Stunts
   Stunt:
@@ -198,6 +206,10 @@ NEONRELIC:
     Reliable: Reliable
     HighCapacity: High Capacity
     FullAuto: Full Auto
+    Stunned: Stunned
+    AmmoDie: Ammo Die
+    AmmoDepleted: Ammo Depleted
+    Broken: Broken
 
   # Damage
   Damage:
@@ -217,6 +229,8 @@ NEONRELIC:
     GearBonus: Gear Bonus
     SkillBonus: Skill Bonus
     Broken: Broken
+    Fix: Fix
+    Repaired: '"{name}" has been repaired.'
     Degraded: 'Gear degraded!'
     ArmorDegraded: 'Armor damaged!'
     BrokenUnusable: Item is broken and unusable.
@@ -230,6 +244,12 @@ NEONRELIC:
     Medical: Medical
     Ammo: Ammo
     Fuel: Fuel
+    Battery: Battery
+    UseOk: '{die} rolled {roll} — no effect.'
+    UseStepped: '{die} rolled {roll} — depleted! Now {newDie}.'
+    Depleted: This consumable is depleted.
+    Replenished: 'Die stepped up: {old} → {new}.'
+    ReplenishMax: Already at maximum (d12).
 
   # Artifact
   Artifact:
@@ -411,6 +431,9 @@ NEONRELIC:
     XPSpent: Spent
     Skills: Skills
     Encumbrance: Encumbrance
+    EncCurrent: Worn
+    EncMax: Max
+    EncOverloaded: Overloaded
     Equipment: Equipment & Requisitions
     DivisionItem: Division Item
     DivisionItemActive: Active
@@ -911,6 +934,8 @@ NEONRELIC:
     XPCurrent: Current
     AddXP: Add XP
     AddXPHint: Award XP from session debrief.
+    RemoveXP: Remove XP
+    RemoveXPHint: Remove XP (GM only). Decreases total and current.
     AutoXP: (auto)
     SpendXP: Spend XP
     SpendSkillHint: 'Increase a skill on the Attributes tab — costs 5 XP per point.'

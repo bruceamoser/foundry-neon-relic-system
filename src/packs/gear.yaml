@@ -5,6 +5,7 @@
 - _id: div001
   name: Verdant Codex
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: >-
       <p>Ancient leather-bound field journal issued to Wayfinder agents.
@@ -16,7 +17,7 @@
     gearBonus:
       value: 1
       max: 1
-    encumbrance: 1
+    encumbrance: 0
     cl: 1
     isBroken: false
     skillBonus: lore
@@ -24,6 +25,7 @@
 - _id: div002
   name: Verdant Satchel
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: >-
       <p>Reinforced satchel lined with containment materials, issued to
@@ -36,13 +38,14 @@
     gearBonus:
       value: 0
       max: 0
-    encumbrance: 1
+    encumbrance: 0
     cl: 1
     isBroken: false
 
 - _id: div003
   name: "Warden's Bracer"
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: >-
       <p>Reinforced bracer with embedded containment circuitry, issued to
@@ -53,7 +56,7 @@
     gearBonus:
       value: 0
       max: 0
-    encumbrance: 1
+    encumbrance: 0
     cl: 1
     isBroken: false
 
@@ -61,6 +64,7 @@
 - _id: gear011
   name: Briefcase
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: >-
       Leather briefcase with research materials — notepad, pens, and carbon
@@ -75,6 +79,7 @@
 - _id: gear012
   name: Forged Credentials
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: >-
       Covenant-issued forged identification — press pass, academic ID, or
@@ -90,6 +95,7 @@
 - _id: gear013
   name: Civilian Clothing
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: >-
       Appropriate civilian attire for blending into the investigation
@@ -105,6 +111,7 @@
 - _id: gear014
   name: Field Jacket
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: >-
       Rugged field jacket with concealed holster. Provides minimal
@@ -120,6 +127,7 @@
 - _id: gear015
   name: Containment Kit
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: >-
       Standard Keep-issue containment supplies — 1 kg salt, 10 m copper
@@ -135,6 +143,7 @@
 - _id: gear016
   name: Lore Reference Binder
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: >-
       Photocopied Covenant texts covering known artifact types, containment
@@ -151,6 +160,7 @@
 - _id: gear017
   name: Formal Attire
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: >-
       Formal attire or tactical jacket — player's choice based on role.
@@ -167,6 +177,7 @@
 - _id: gear018
   name: Signal Jammer
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: >-
       Prototype signal jammer. Disrupts radio communications and electronic
@@ -181,6 +192,7 @@
 - _id: gear019
   name: Coveralls
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: >-
       Practical coveralls or utility vest with multiple pockets.
@@ -196,6 +208,7 @@
 - _id: gear001
   name: Flashlight
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: Standard handheld flashlight. Eliminates Darkness penalty in immediate area.
     gearBonus:
@@ -208,6 +221,7 @@
 - _id: gear002
   name: Binoculars
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: 8x magnification binoculars. +1 die to Investigate at Long range.
     gearBonus:
@@ -221,6 +235,7 @@
 - _id: gear003
   name: First Aid Kit
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: Basic medical supplies. Required for Heal rolls to heal attribute damage.
     gearBonus:
@@ -234,6 +249,7 @@
 - _id: gear004
   name: Lockpick Set
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: Professional locksmith tools. Required for Tech rolls to pick locks.
     gearBonus:
@@ -247,6 +263,7 @@
 - _id: gear005
   name: Camera (35mm)
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: 35mm film camera with flash. Evidence documentation.
     gearBonus:
@@ -260,6 +277,7 @@
 - _id: gear006
   name: Tape Recorder
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: Portable cassette recorder. Records audio for playback and analysis.
     gearBonus:
@@ -273,6 +291,7 @@
 - _id: gear007
   name: Rope (50 ft)
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: Nylon rope. Essential for climbing, binding, and improvised uses.
     gearBonus:
@@ -286,6 +305,7 @@
 - _id: gear008
   name: Walkie-Talkie
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: Two-way radio. Short range communication between team members.
     gearBonus:
@@ -298,6 +318,7 @@
 - _id: gear009
   name: Geiger Counter
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: Detects radiation and certain occult emissions. +1 die to Lore identification.
     gearBonus:
@@ -311,6 +332,7 @@
 - _id: gear010
   name: Tool Kit
   type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: Mechanic's tools. Required for Tech repair rolls.
     gearBonus:
@@ -325,44 +347,122 @@
 - _id: cons001
   name: Rations (1 day)
   type: consumable
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: One day's food and water supply.
-    uses: 1
-    maxUses: 1
-    cost: 1
+    consumableType: supply
+    currentDie: d8
+    startingDie: d8
+    cl: 1
 
 - _id: cons002
   name: Bandages
   type: consumable
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: Sterile bandages. Heal 1 STR damage without a Heal roll.
-    uses: 3
-    maxUses: 3
-    cost: 1
+    consumableType: medical
+    currentDie: d8
+    startingDie: d8
+    cl: 1
 
 - _id: cons003
   name: Painkillers
   type: consumable
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: Over-the-counter analgesics. Ignore Broken condition for 1 scene.
-    uses: 2
-    maxUses: 2
-    cost: 1
+    consumableType: medical
+    currentDie: d6
+    startingDie: d6
+    cl: 1
 
 - _id: cons004
   name: Flare
   type: consumable
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: Emergency signal flare. Illuminates area, removes Dark for 1 round.
-    uses: 1
-    maxUses: 1
-    cost: 1
+    consumableType: supply
+    currentDie: d8
+    startingDie: d8
+    cl: 1
 
 - _id: cons005
   name: Chalk
   type: consumable
+  img: systems/neon-relic/assets/icons/gear-default.svg
   system:
     description: Marking chalk. Leave signs, mark paths, draw containment circles.
-    uses: 5
-    maxUses: 5
-    cost: 1
+    consumableType: supply
+    currentDie: d6
+    startingDie: d6
+    cl: 1
+
+# Ammo Consumables
+- _id: ammo001
+  name: 9mm Ammo
+  type: consumable
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Standard 9mm ammunition box. Compatible with 9mm pistols and SMGs.
+    consumableType: ammo
+    currentDie: d10
+    startingDie: d10
+    cl: 1
+
+- _id: ammo002
+  name: 5.56mm Ammo
+  type: consumable
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: 5.56mm NATO rifle ammunition. Compatible with assault rifles.
+    consumableType: ammo
+    currentDie: d8
+    startingDie: d8
+    cl: 1
+
+- _id: ammo003
+  name: .45 ACP Ammo
+  type: consumable
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: .45 caliber ammunition. Heavy pistol rounds.
+    consumableType: ammo
+    currentDie: d8
+    startingDie: d8
+    cl: 1
+
+- _id: ammo004
+  name: Shotgun Shells
+  type: consumable
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: 12-gauge shotgun shells. Buckshot or slug.
+    consumableType: ammo
+    currentDie: d8
+    startingDie: d8
+    cl: 1
+
+# Battery Consumables
+- _id: batt001
+  name: Batteries (D-Cell)
+  type: consumable
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Standard D-cell batteries. Powers flashlights, radios, and portable electronics.
+    consumableType: battery
+    currentDie: d8
+    startingDie: d8
+    cl: 1
+
+- _id: batt002
+  name: Batteries (9V)
+  type: consumable
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: 9-volt batteries. Powers small electronics, detectors, and surveillance gear.
+    consumableType: battery
+    currentDie: d6
+    startingDie: d6
+    cl: 1

@@ -1,60 +1,129 @@
 {{! Roll result chat card }}
 <div class='nr-roll-card' data-actor-id='{{actorId}}'>
+
+  {{! ── Header ── }}
   <header class='nr-roll-card__header'>
-    <h3>
-      {{#if skillLabel}}{{skillLabel}} ({{attributeLabel}}){{else}}{{attributeLabel}}{{/if}}
+    <h3 class='nr-roll-card__title'>
+      {{#if skillLabel}}{{skillLabel}}{{else}}{{attributeLabel}}{{/if}}
     </h3>
+    {{#if skillLabel}}
+      <span class='nr-roll-card__subtitle'>{{attributeLabel}}</span>
+    {{/if}}
   </header>
 
-  <div class='nr-roll-card__dice'>
-    {{#each baseDice}}
-      {{#if this.success}}
-        <span class='nr-die nr-die--base nr-die--success'>{{this.value}}</span>
-      {{else}}
-        <span class='nr-die nr-die--base'>{{this.value}}</span>
-      {{/if}}
-    {{/each}}
-    {{#each skillDice}}
-      {{#if this.success}}
-        <span class='nr-die nr-die--skill nr-die--success'>{{this.value}}</span>
-      {{else}}
-        <span class='nr-die nr-die--skill'>{{this.value}}</span>
-      {{/if}}
-    {{/each}}
-    {{#each gearDice}}
-      {{#if this.success}}
-        <span class='nr-die nr-die--gear nr-die--success'>{{this.value}}</span>
-      {{else}}
-        <span class='nr-die nr-die--gear'>{{this.value}}</span>
-      {{/if}}
-    {{/each}}
+  {{! ── Pool Summary Bar ── }}
+  <div class='nr-roll-card__pool-bar'>
+    <div class='nr-roll-card__pool-total'>
+      <span class='nr-roll-card__pool-label'>{{localize 'NEONRELIC.Roll.Pool'}}</span>
+      <span class='nr-roll-card__pool-value'>{{totalPool}}</span>
+    </div>
+    <div class='nr-roll-card__pool-breakdown'>
+      {{#if baseCount}}<span class='nr-pool-chip nr-pool-chip--base'>{{localize 'NEONRELIC.Roll.BaseDice'}}: {{baseCount}}</span>{{/if}}
+      {{#if skillCount}}<span class='nr-pool-chip nr-pool-chip--skill'>{{localize 'NEONRELIC.Roll.SkillDice'}}: {{skillCount}}</span>{{/if}}
+      {{#if gearCount}}<span class='nr-pool-chip nr-pool-chip--gear'>{{localize 'NEONRELIC.Roll.GearDice'}}: {{gearCount}}</span>{{/if}}
+    </div>
   </div>
 
-  <div class='nr-roll-card__result'>
-    <span class='nr-roll-card__successes'>
-      {{localize 'NEONRELIC.Roll.Successes'}}:
-      <strong>{{successes}}</strong>
-    </span>
-    {{#if difficulty}}
-      {{#if isSuccess}}
-        <span class='nr-roll-card__outcome nr-roll-card__outcome--pass'>{{localize 'NEONRELIC.Roll.Success'}}</span>
-      {{else}}
-        <span class='nr-roll-card__outcome nr-roll-card__outcome--fail'>{{localize 'NEONRELIC.Roll.Failure'}}</span>
-      {{/if}}
+  {{! ── Dice Groups ── }}
+  <div class='nr-roll-card__dice-groups'>
+    {{#if baseDice.length}}
+      <div class='nr-dice-group nr-dice-group--base'>
+        <span class='nr-dice-group__label'>{{localize 'NEONRELIC.Roll.BaseDice'}}</span>
+        <div class='nr-dice-group__dice'>
+          {{#each baseDice}}
+            <span class='nr-die nr-die--base {{#if this.success}}nr-die--success{{/if}}'>{{this.value}}</span>
+          {{/each}}
+        </div>
+      </div>
+    {{/if}}
+    {{#if skillDice.length}}
+      <div class='nr-dice-group nr-dice-group--skill'>
+        <span class='nr-dice-group__label'>{{localize 'NEONRELIC.Roll.SkillDice'}}</span>
+        <div class='nr-dice-group__dice'>
+          {{#each skillDice}}
+            <span class='nr-die nr-die--skill {{#if this.success}}nr-die--success{{/if}}'>{{this.value}}</span>
+          {{/each}}
+        </div>
+      </div>
+    {{/if}}
+    {{#if gearDice.length}}
+      <div class='nr-dice-group nr-dice-group--gear'>
+        <span class='nr-dice-group__label'>{{localize 'NEONRELIC.Roll.GearDice'}}</span>
+        <div class='nr-dice-group__dice'>
+          {{#each gearDice}}
+            <span class='nr-die nr-die--gear {{#if this.success}}nr-die--success{{/if}}'>{{this.value}}</span>
+          {{/each}}
+        </div>
+      </div>
     {{/if}}
   </div>
 
-  {{#if stuntPoints}}
-    <div class='nr-roll-card__stunt-points'>
-      <span>{{localize 'NEONRELIC.Stunt.Available'}}: <strong>{{stuntPoints}}</strong></span>
+  {{! ── Result Panel ── }}
+  <div class='nr-roll-card__result {{#if isSuccess}}nr-roll-card__result--pass{{else}}{{#if isFailure}}nr-roll-card__result--fail{{/if}}{{/if}}'>
+    <div class='nr-roll-card__result-row'>
+      <div class='nr-roll-card__success-count'>
+        <span class='nr-roll-card__success-icon'>✦</span>
+        <span class='nr-roll-card__success-num'>{{successes}}</span>
+        <span class='nr-roll-card__success-label'>{{localize 'NEONRELIC.Roll.Successes'}}</span>
+      </div>
+      {{#if difficulty}}
+        <div class='nr-roll-card__difficulty'>
+          <span class='nr-roll-card__diff-label'>vs</span>
+          <span class='nr-roll-card__diff-num'>{{difficulty}}</span>
+        </div>
+        <div class='nr-roll-card__verdict {{#if isSuccess}}nr-roll-card__verdict--pass{{else}}nr-roll-card__verdict--fail{{/if}}'>
+          {{#if isSuccess}}{{localize 'NEONRELIC.Roll.Success'}}{{else}}{{localize 'NEONRELIC.Roll.Failure'}}{{/if}}
+        </div>
+      {{/if}}
+    </div>
+    {{#if stuntPoints}}
+      <div class='nr-roll-card__stunt-bar'>
+        <span class='nr-stunt-icon'>⚡</span>
+        <span class='nr-stunt-text'>
+          <strong>{{stuntPoints}}</strong> {{localize 'NEONRELIC.Stunt.Available'}}
+        </span>
+      </div>
+    {{/if}}
+  </div>
+
+  {{! ── Gear Damage Notice ── }}
+  {{#if gearDamage}}
+    <div class='nr-roll-card__gear-damage {{#if gearDamage.isBroken}}nr-roll-card__gear-damage--broken{{/if}}'>
+      <span class='nr-gear-damage-icon'>🔧</span>
+      <div class='nr-gear-damage-info'>
+        <span class='nr-gear-damage-label'>{{localize 'NEONRELIC.Roll.GearDamaged'}}</span>
+        <span class='nr-gear-damage-item'>{{gearDamage.itemName}}
+          {{#if gearDamage.isBroken}}
+            — <strong>{{localize 'NEONRELIC.Roll.GearBroken'}}</strong>
+          {{else}}
+            ({{localize 'NEONRELIC.Roll.GearBonus'}}: {{gearDamage.newBonus}})
+          {{/if}}
+        </span>
+      </div>
     </div>
   {{/if}}
 
+  {{! ── Ammo Die ── }}
+  {{#if ammoDieResult}}
+    <div class='nr-roll-card__ammo {{#if ammoDieResult.stepped}}nr-roll-card__ammo--depleted{{/if}}'>
+      <span class='nr-ammo-icon'>🔫</span>
+      <div class='nr-ammo-info'>
+        <span class='nr-ammo-label'>{{ammoDieResult.weaponName}} — {{localize 'NEONRELIC.Weapon.AmmoDie'}} ({{ammoDieResult.die}})</span>
+        {{#if ammoDieResult.stepped}}
+          <span class='nr-ammo-result nr-ammo-result--bad'>Rolled 1 — {{localize 'NEONRELIC.Weapon.AmmoDepleted'}}! Now {{ammoDieResult.newDie}}</span>
+        {{else}}
+          <span class='nr-ammo-result'>Rolled {{ammoDieResult.roll}} — no effect</span>
+        {{/if}}
+      </div>
+    </div>
+  {{/if}}
+
+  {{! ── Push ── }}
   {{#if canPush}}
-    <div class='nr-roll-card__push'>
+    <div class='nr-roll-card__actions'>
       <button
         type='button'
-        class='push-btn'
+        class='nr-push-btn'
         data-action='pushRoll'
         data-actor-id='{{actorId}}'
         data-attribute='{{attributeKey}}'
@@ -62,9 +131,9 @@
         data-pool='{{poolData}}'
       >
         <i class='fa-solid fa-dice'></i>
-        {{localize 'NEONRELIC.Roll.Push'}}
+        <span>{{localize 'NEONRELIC.Roll.Push'}}</span>
       </button>
-      <span class='push-cost'>+1 {{localize 'NEONRELIC.Corruption.Label'}}</span>
+      <span class='nr-push-cost'>+1 {{localize 'NEONRELIC.Corruption.Label'}}</span>
     </div>
   {{/if}}
   {{#if isPush}}
@@ -73,9 +142,12 @@
     </div>
   {{/if}}
 
+  {{! ── Notes ── }}
   {{#if notes}}
     <div class='nr-roll-card__notes'>
-      <em>{{notes}}</em>
+      <span class='nr-notes-label'>{{localize 'NEONRELIC.Roll.Notes'}}:</span>
+      <span class='nr-notes-text'>{{notes}}</span>
     </div>
   {{/if}}
+
 </div>

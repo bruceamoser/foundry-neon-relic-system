@@ -22,6 +22,9 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       stepDownAmmo: NRItemSheet.#onStepDownAmmo,
       stepDownArtifact: NRItemSheet.#onStepDownArtifact,
       useTalent: NRItemSheet.#onUseTalent,
+      useConsumable: NRItemSheet.#onUseConsumable,
+      replenishConsumable: NRItemSheet.#onReplenishConsumable,
+      fixItem: NRItemSheet.#onFixItem,
     },
     form: {
       submitOnChange: true,
@@ -47,10 +50,27 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     const item = this.document;
     const system = item.system;
 
+    context.item = item;
     context.system = system;
     context.config = CONFIG.NEON_RELIC;
     context.isEditable = this.isEditable;
     context.itemType = item.type;
+
+    // Linked consumable options (only when item is on an actor)
+    if (item.parent && (item.type === 'weapon' || item.type === 'gear')) {
+      const consumables = item.parent.items.filter(i => i.type === 'consumable');
+      context.linkedConsumables = consumables.map(c => ({
+        id: c.id,
+        name: c.name,
+        die: c.system.currentDie,
+        type: c.system.consumableType,
+        selected: c.id === system.linkedConsumableId,
+      }));
+      context.hasLinkedConsumables = consumables.length > 0;
+    } else {
+      context.linkedConsumables = [];
+      context.hasLinkedConsumables = false;
+    }
 
     // Pre-render type-specific template content
     const typeTemplatePath = `systems/${SYSTEM_ID}/templates/item/${item.type}.hbs`;
@@ -205,5 +225,41 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
    */
   static async #onUseTalent(_event, _target) {
     await this.document.useTalent();
+  }
+
+  /**
+   * Use a consumable — roll the resource die and step down on a 1.
+   */
+  static async #onUseConsumable(_event, _target) {
+    const result = await this.document.useConsumable();
+    if (result.depleted && result.rolled === 0) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Consumable.Depleted'));
+      return;
+    }
+    const msg = result.stepped
+      ? game.i18n.format('NEONRELIC.Consumable.UseStepped', { die: result.die, roll: result.rolled, newDie: result.newDie })
+      : game.i18n.format('NEONRELIC.Consumable.UseOk', { die: result.die, roll: result.rolled });
+    ChatMessage.create({ content: `<p><strong>${this.document.name}</strong>: ${msg}</p>` });
+  }
+
+  /**
+   * Replenish a consumable — step the resource die up one size.
+   */
+  static async #onReplenishConsumable(_event, _target) {
+    const result = await this.document.replenish();
+    if (result.stepped) {
+      ui.notifications.info(
+        game.i18n.format('NEONRELIC.Consumable.Replenished', { old: result.oldDie, new: result.newDie }),
+      );
+    } else {
+      ui.notifications.info(game.i18n.localize('NEONRELIC.Consumable.ReplenishMax'));
+    }
+  }
+
+  /**
+   * Repair a broken gear item or weapon — restore bonus to max, clear Broken flag.
+   */
+  static async #onFixItem(_event, _target) {
+    await this.document.repair();
   }
 }

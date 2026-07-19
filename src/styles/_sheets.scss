@@ -177,7 +177,6 @@
     margin-bottom: $nr-spacing-sm;
     display: flex;
     flex-wrap: nowrap;
-    overflow-x: auto;
 
     a {
       color: $nr-ink-faded;
@@ -273,36 +272,313 @@
   // ── Scrollable content areas ──
   .scrollable {
     overflow-y: auto;
+    min-height: 0;
     scrollbar-width: thin;
     scrollbar-color: $nr-rule $nr-paper;
   }
 
   // ── Roll dialog ─────────────────────────────────────
   .nr-roll-dialog {
-    .roll-talents {
-      .talent-list {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
+    padding: 0;
+    background: $nr-paper;
+    border: 1px solid $nr-rule;
+    border-radius: 4px;
+    overflow: hidden;
 
-      .roll-talent-entry {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 2px 4px;
-        background: $nr-field-bg;
-        border: 1px solid $nr-rule;
-        border-radius: 2px;
-        font-family: $nr-font-fill;
-        font-size: 8pt;
-      }
-
-      .roll-talent-bonus {
-        font-weight: bold;
-        color: $nr-green-stamp;
-      }
+    // Header
+    &__header {
+      background: linear-gradient(180deg, darken($nr-paper, 8%) 0%, darken($nr-paper, 5%) 100%);
+      border-bottom: 2px solid $nr-ink;
+      padding: 10px 14px 8px;
+      text-align: center;
     }
+
+    &__dossier-label {
+      display: block;
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: $nr-ink-faded;
+      margin-bottom: 2px;
+    }
+
+    &__title {
+      font-family: $nr-font-main;
+      font-size: 11pt;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: $nr-ink;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    // Field row wrapper
+    &__field {
+      padding: 8px 14px;
+    }
+
+    // Two-column stat row
+    &__stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 8px 14px;
+    }
+
+    &__stat {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    // Pool display
+    &__pool {
+      margin: 6px 14px 10px;
+      padding: 10px 14px;
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid $nr-rule;
+      border-radius: 3px;
+      text-align: center;
+    }
+
+    &__pool-badge {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    &__pool-label {
+      font-family: $nr-font-main;
+      font-size: 8pt;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: $nr-ink-faded;
+    }
+
+    &__pool-value {
+      font-family: $nr-font-main;
+      font-size: 26pt;
+      font-weight: bold;
+      color: $nr-ink;
+      line-height: 1;
+    }
+
+    &__pool-detail {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      font-family: $nr-font-fill;
+      font-size: 7.5pt;
+      color: $nr-ink-faded;
+    }
+  }
+
+  .nr-pool-plus {
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    color: $nr-ink-light;
+    margin: 0 1px;
+  }
+
+  // ── Field components (shared) ──────────────────────
+  .nr-field-label {
+    display: block;
+    font-family: $nr-font-main;
+    font-size: 6.5pt;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: $nr-ink-faded;
+    margin-bottom: 3px;
+  }
+
+  .nr-field-combo {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &__sep {
+      font-family: $nr-font-fill;
+      font-size: 9pt;
+      color: $nr-ink-light;
+      min-width: 8px;
+      text-align: center;
+    }
+  }
+
+  .nr-field-select {
+    font-family: $nr-font-fill;
+    font-size: 9pt;
+    color: $nr-ink;
+    background: $nr-field-bg;
+    border: 1px solid $nr-rule;
+    border-radius: 2px;
+    padding: 3px 5px;
+    flex: 1;
+    min-width: 0;
+
+    &--full {
+      width: 100%;
+    }
+  }
+
+  .nr-field-num {
+    font-family: $nr-font-main;
+    font-size: 13pt;
+    font-weight: bold;
+    color: $nr-ink;
+    background: $nr-field-bg;
+    border: 1px solid $nr-rule;
+    border-radius: 2px;
+    padding: 2px 6px;
+    width: 42px;
+    text-align: center;
+
+    &--large {
+      width: 100%;
+      font-size: 18pt;
+      padding: 6px 8px;
+    }
+
+    &--wide {
+      width: 100%;
+      font-size: 13pt;
+      padding: 4px 8px;
+      text-align: left;
+    }
+  }
+
+  .nr-field-text {
+    font-family: $nr-font-fill;
+    font-size: 9pt;
+    color: $nr-ink;
+    background: $nr-field-bg;
+    border: 1px solid $nr-rule;
+    border-radius: 2px;
+    padding: 5px 8px;
+    width: 100%;
+
+    &::placeholder {
+      color: $nr-ink-light;
+      font-style: italic;
+    }
+  }
+
+  // Locked field (non-editable from sheet)
+  .nr-field-locked {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 5px 8px;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid $nr-rule;
+    border-radius: 2px;
+
+    &__label {
+      font-family: $nr-font-main;
+      font-size: 9pt;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: $nr-ink;
+    }
+
+    &__value {
+      font-family: $nr-font-main;
+      font-size: 13pt;
+      font-weight: bold;
+      color: $nr-ink;
+    }
+  }
+
+  // Pool chips
+  .nr-pool-chip {
+    font-family: $nr-font-fill;
+    font-size: 7pt;
+    padding: 1px 6px;
+    border-radius: 2px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+
+    &--base {
+      background: #f0ece0;
+      color: $nr-ink;
+      border: 1px solid darken(#f0ece0, 20%);
+    }
+    &--skill {
+      background: rgba(58, 110, 53, 0.12);
+      color: $nr-green-stamp;
+      border: 1px solid rgba(58, 110, 53, 0.25);
+    }
+    &--gear {
+      background: rgba(42, 42, 40, 0.08);
+      color: #2a2a28;
+      border: 1px solid rgba(42, 42, 40, 0.2);
+    }
+  }
+
+  .nr-pool-mod {
+    font-family: $nr-font-main;
+    font-size: 8pt;
+    font-weight: bold;
+    color: $nr-red-stamp;
+    background: rgba(139, 26, 26, 0.06);
+    border: 1px solid rgba(139, 26, 26, 0.15);
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+
+  // Talent chips
+  .nr-talent-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .nr-talent-chip {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 8px;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid $nr-rule-light;
+    border-radius: 2px;
+    font-family: $nr-font-fill;
+    font-size: 8pt;
+    color: $nr-ink;
+
+    &__bonus {
+      font-family: $nr-font-main;
+      font-weight: bold;
+      color: $nr-green-stamp;
+      font-size: 8pt;
+    }
+  }
+}
+
+// ── Agent sheet scrolling (ApplicationV2 flex layout) ──
+.agent-sheet {
+  .window-content {
+    overflow: hidden;
+  }
+
+  form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .tab {
+    flex: 1 1 0;
+    min-height: 0;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: $nr-rule $nr-paper;
   }
 }
 

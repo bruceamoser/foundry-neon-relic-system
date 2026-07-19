@@ -150,11 +150,13 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
     }
     this.corruption.threshold = 10 + this.attributes.emp.max + thresholdMod;
 
-    // Encumbrance from owned items
+    // Encumbrance from owned items (only worn items count)
     let enc = 0;
     if (this.parent?.items) {
       for (const item of this.parent.items) {
-        enc += item.system.encumbrance ?? 0;
+        if (item.system.worn !== false) {
+          enc += item.system.encumbrance ?? 0;
+        }
       }
     }
     this.encumbrance.current = enc;
@@ -185,11 +187,18 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
       skillRemaining: group.skill - skillSpent,
     };
 
-    // Validate XP invariant: Current = Total − Spent
-    if (this.experience.current !== this.experience.total - this.experience.spent) {
-      console.warn(
-        `neon-relic | XP invariant broken for "${this.parent?.name}": current=${this.experience.current}, total=${this.experience.total}, spent=${this.experience.spent}. Expected current=${this.experience.total - this.experience.spent}.`,
-      );
+    // Recalculate spent XP from current skills and talents.
+    // Spent = (skill points beyond age-group budget × 5) + (talents beyond 3 free × 6)
+    const talentCount = this.parent?.items?.filter(i => i.type === 'talent').length ?? 0;
+    const overBudget = Math.max(0, skillSpent - group.skill);
+    const skillXP = overBudget * 5;
+    const talentXP = Math.max(0, talentCount - 3) * 6;
+    const computedSpent = (skillXP + talentXP) | 0;
+    const computedCurrent = Math.max(0, (this.experience.total | 0) - computedSpent);
+
+    if (this.experience.spent !== computedSpent || this.experience.current !== computedCurrent) {
+      this.experience.spent = computedSpent;
+      this.experience.current = computedCurrent;
     }
 
     // Clearance Level is set by the character creation wizard and manually

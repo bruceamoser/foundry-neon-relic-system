@@ -3,7 +3,20 @@
   <div class='three-col talent-grid'>
     {{#each talents}}
       <div class='talent-block' data-item-id='{{this.id}}'>
-        <div class='talent-type'>{{this.system.talentType}}</div>
+        <div class='talent-header'>
+          <div class='talent-type'>{{this.system.talentType}}</div>
+          {{#if @root.isEditable}}
+            <button
+              type='button'
+              class='remove-btn'
+              data-action='removeItem'
+              data-item-id='{{this.id}}'
+              title='{{localize "NEONRELIC.Item.Remove"}}'
+            >
+              <i class='fa-solid fa-trash'></i>
+            </button>
+          {{/if}}
+        </div>
         <a class='talent-name item-name' data-action='viewItem'>{{this.name}}</a>
         <div class='talent-meta'>
           <span class='talent-frequency {{this.system.frequency}}'>

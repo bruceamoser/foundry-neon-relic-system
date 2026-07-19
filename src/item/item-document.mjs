@@ -29,6 +29,22 @@ export class NeonRelicItem extends Item {
     return this;
   }
 
+  /**
+   * Repair a broken gear/weapon — restore gear bonus to max, clear Broken flag.
+   * @returns {Promise<NeonRelicItem>}
+   */
+  async repair() {
+    if (!['weapon', 'gear'].includes(this.type)) return this;
+    const max = this.system.gearBonus.max;
+    const updates = {
+      'system.gearBonus.value': max,
+      'system.isBroken': false,
+    };
+    await this.update(updates);
+    ui.notifications.info(game.i18n.format('NEONRELIC.Gear.Repaired', { name: this.name }));
+    return this;
+  }
+
   /* ------------------------------------------ */
   /*  Armor Degradation                         */
   /* ------------------------------------------ */
@@ -64,6 +80,48 @@ export class NeonRelicItem extends Item {
     const idx = chain.indexOf(current);
     if (idx === -1 || current === 'depleted') return { stepped: false, oldDie: current, newDie: current };
     const newDie = chain[idx + 1] ?? 'depleted';
+    await this.update({ 'system.currentDie': newDie });
+    return { stepped: true, oldDie: current, newDie };
+  }
+
+  /**
+   * Use a consumable — rolls the resource die and steps down on a 1.
+   * Returns the roll result for chat display.
+   * @returns {Promise<{rolled: number, die: string, stepped: boolean, newDie: string|null, depleted: boolean}>}
+   */
+  async useConsumable() {
+    if (this.type !== 'consumable') return { rolled: 0, die: '', stepped: false, newDie: null, depleted: false };
+    const current = this.system.currentDie;
+    if (!current || current === 'depleted') return { rolled: 0, die: 'depleted', stepped: false, newDie: null, depleted: true };
+    const dieSize = parseInt(current.replace('d', ''), 10) || 8;
+    const roll = await new Roll(`1d${dieSize}`).evaluate();
+    const rollValue = roll.total;
+    const stepped = rollValue === 1;
+    let newDie = current;
+    if (stepped) {
+      const result = await this.stepDown();
+      newDie = result.newDie;
+    }
+    return {
+      rolled: rollValue,
+      die: current,
+      stepped,
+      newDie,
+      depleted: newDie === 'depleted',
+    };
+  }
+
+  /**
+   * Replenish a consumable — step the resource die UP one size (max d12).
+   * @returns {Promise<{stepped: boolean, oldDie: string, newDie: string}>}
+   */
+  async replenish() {
+    if (this.type !== 'consumable') return { stepped: false, oldDie: '', newDie: '' };
+    const chain = NeonRelicItem.RESOURCE_DIE_CHAIN;
+    const current = this.system.currentDie;
+    const idx = chain.indexOf(current);
+    if (idx <= 0 || current === 'd12') return { stepped: false, oldDie: current, newDie: current };
+    const newDie = chain[idx - 1] ?? 'd12';
     await this.update({ 'system.currentDie': newDie });
     return { stepped: true, oldDie: current, newDie };
   }

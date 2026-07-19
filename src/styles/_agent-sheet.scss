@@ -20,9 +20,10 @@
     }
 
     &__portrait {
-      @include portrait-frame(48px, 56px);
+      @include portrait-frame(72px, 90px);
       border: 1.5px solid $nr-ink;
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     &__identity {
@@ -63,6 +64,45 @@
       margin-top: 2px;
     }
 
+    &__actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    &__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: $nr-paper;
+      background: $nr-ink;
+      border: none;
+      border-radius: 2px;
+      padding: 3px 10px;
+      cursor: pointer;
+      transition: all 0.12s ease;
+
+      i {
+        font-size: 8pt;
+      }
+
+      &:hover {
+        background: lighten($nr-ink, 15%);
+      }
+
+      &--damage {
+        background: $nr-red-stamp;
+
+        &:hover {
+          background: lighten($nr-red-stamp, 10%);
+        }
+      }
+    }
+
     &__right {
       text-align: right;
       flex-shrink: 0;
@@ -87,6 +127,40 @@
       letter-spacing: 3px;
       font-weight: bold;
     }
+  }
+
+  // ── Collapsible Sections ────────────────────────────
+  .collapsible-section {
+    &.collapsed .collapsible-body {
+      display: none;
+    }
+  }
+
+  .collapsible-toggle {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .collapsible-icon {
+      font-size: 8pt;
+      color: $nr-ink-faded;
+      transition: transform 0.15s ease;
+      margin-left: auto;
+    }
+
+    &:hover {
+      color: $nr-ink;
+
+      .collapsible-icon {
+        color: $nr-ink;
+      }
+    }
+  }
+
+  .collapsible-body {
+    // Smooth reveal handled by display toggle
   }
 
   // ── Identity Block ──────────────────────────────────
@@ -609,8 +683,10 @@
   }
 
   .heal-button-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
     margin-top: 0.5rem;
-    text-align: center;
 
     .heal-btn {
       background: $nr-green-stamp;
@@ -711,7 +787,7 @@
       font-size: 5.5pt;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      color: $nr-ink-faded;
+      color: $nr-ink-light;
       border-bottom: 1.5px solid $nr-ink;
       padding: 2px 4px 3px;
       background: rgba(0, 0, 0, 0.04);
@@ -849,6 +925,36 @@
         padding-bottom: 2px;
       }
 
+      .talent-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 3px;
+        border-bottom: 1px dotted $nr-rule-light;
+        padding-bottom: 2px;
+
+        .talent-type {
+          margin-bottom: 0;
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+
+        .remove-btn {
+          flex-shrink: 0;
+          background: transparent;
+          border: none;
+          color: $nr-ink-faded;
+          font-size: 8pt;
+          cursor: pointer;
+          padding: 0 2px;
+          line-height: 1;
+
+          &:hover {
+            color: $nr-red-stamp;
+          }
+        }
+      }
+
       .talent-name {
         font-family: $nr-font-fill;
         font-size: 8.5pt;
@@ -937,11 +1043,22 @@
     background: $nr-field-bg;
     padding: $nr-spacing-sm;
     min-height: 120px;
+    cursor: text;
 
-    .editor-content {
+    .editor {
+      min-height: 100px;
+    }
+
+    .editor-content,
+    .ProseMirror {
+      min-height: 100px;
       font-family: $nr-font-fill;
       font-size: 9pt;
       line-height: 1.5;
+
+      &:focus {
+        outline: none;
+      }
     }
   }
 
@@ -1093,6 +1210,16 @@
 
       &:hover {
         background: $nr-green-stamp;
+        color: $nr-paper;
+      }
+    }
+
+    &--remove {
+      border-color: $nr-red-stamp;
+      color: $nr-red-stamp;
+
+      &:hover {
+        background: $nr-red-stamp;
         color: $nr-paper;
       }
     }

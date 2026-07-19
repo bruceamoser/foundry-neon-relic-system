@@ -1,106 +1,106 @@
 {{! Weapon item type template }}
-<div class='weapon-fields'>
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Weapon.Damage'}}</label>
-    <input type='number' name='system.damage' value='{{system.damage}}' min='0' {{disabled (not isEditable)}} />
+<div class='item-stats-grid'>
+  <div class='stat-block'>
+    <span class='stat-label'>{{localize 'NEONRELIC.Weapon.Damage'}}</span>
+    <span class='stat-value'>
+      <input type='number' name='system.damage' value='{{system.damage}}' min='0' {{disabled (not isEditable)}} />
+    </span>
   </div>
-
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Weapon.Range'}}</label>
-    <select name='system.range' {{disabled (not isEditable)}}>
-      <option value='engaged' {{selected system.range 'engaged'}}>{{localize 'NEONRELIC.Range.Engaged'}}</option>
-      <option value='near' {{selected system.range 'near'}}>{{localize 'NEONRELIC.Range.Near'}}</option>
-      <option value='short' {{selected system.range 'short'}}>{{localize 'NEONRELIC.Range.Short'}}</option>
-      <option value='long' {{selected system.range 'long'}}>{{localize 'NEONRELIC.Range.Long'}}</option>
-      <option value='extreme' {{selected system.range 'extreme'}}>{{localize 'NEONRELIC.Range.Extreme'}}</option>
-    </select>
+  <div class='stat-block'>
+    <span class='stat-label'>{{localize 'NEONRELIC.Weapon.Range'}}</span>
+    <span class='stat-value'>
+      <select name='system.range' {{disabled (not isEditable)}}>
+        <option value='engaged' {{selected system.range 'engaged'}}>{{localize 'NEONRELIC.Range.Engaged'}}</option>
+        <option value='near' {{selected system.range 'near'}}>{{localize 'NEONRELIC.Range.Near'}}</option>
+        <option value='short' {{selected system.range 'short'}}>{{localize 'NEONRELIC.Range.Short'}}</option>
+        <option value='long' {{selected system.range 'long'}}>{{localize 'NEONRELIC.Range.Long'}}</option>
+        <option value='extreme' {{selected system.range 'extreme'}}>{{localize 'NEONRELIC.Range.Extreme'}}</option>
+      </select>
+    </span>
   </div>
-
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Weapon.GearBonus'}}</label>
-    <input
-      type='number'
-      name='system.gearBonus.value'
-      value='{{system.gearBonus.value}}'
-      min='0'
-      {{disabled (not isEditable)}}
-    />
-    <span>/</span>
-    <input
-      type='number'
-      name='system.gearBonus.max'
-      value='{{system.gearBonus.max}}'
-      min='0'
-      {{disabled (not isEditable)}}
-    />
+  <div class='stat-block'>
+    <span class='stat-label'>{{localize 'NEONRELIC.Weapon.GearBonus'}}</span>
+    <span class='stat-value'>
+      <input type='number' name='system.gearBonus.value' value='{{system.gearBonus.value}}' min='0' {{disabled (not isEditable)}} />
+      <span class='stat-sep'>/</span>
+      <input type='number' name='system.gearBonus.max' value='{{system.gearBonus.max}}' min='0' {{disabled (not isEditable)}} />
+    </span>
   </div>
+  <div class='stat-block'>
+    <span class='stat-label'>{{localize 'NEONRELIC.Weapon.TargetAttribute'}}</span>
+    <span class='stat-value'>
+      <select name='system.targetAttribute' {{disabled (not isEditable)}}>
+        {{#each config.attributes as |label key|}}
+          <option value='{{key}}' {{selected key @root.system.targetAttribute}}>{{localize label}}</option>
+        {{/each}}
+      </select>
+    </span>
+  </div>
+  <div class='stat-block'>
+    <span class='stat-label'>{{localize 'NEONRELIC.Encumbrance'}}</span>
+    <span class='stat-value'>
+      <input type='number' name='system.encumbrance' value='{{system.encumbrance}}' min='0' {{disabled (not isEditable)}} />
+    </span>
+  </div>
+  <div class='stat-block'>
+    <span class='stat-label'>{{localize 'NEONRELIC.CL'}}</span>
+    <span class='stat-value'>
+      <input type='number' name='system.cl' value='{{system.cl}}' min='1' max='5' {{disabled (not isEditable)}} />
+    </span>
+  </div>
+</div>
 
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Weapon.TargetAttribute'}}</label>
-    <select name='system.targetAttribute' {{disabled (not isEditable)}}>
-      {{#each config.attributes as |label key|}}
-        <option value='{{key}}' {{selected key @root.system.targetAttribute}}>{{localize label}}</option>
+<div class='trait-chips'>
+  <label class='trait-chip {{#if system.traits.reliable}}active{{/if}}'>
+    <input type='checkbox' name='system.traits.reliable' {{checked system.traits.reliable}} {{disabled (not isEditable)}} />
+    {{localize 'NEONRELIC.Weapon.Reliable'}}
+  </label>
+  <label class='trait-chip {{#if system.traits.highCapacity}}active{{/if}}'>
+    <input type='checkbox' name='system.traits.highCapacity' {{checked system.traits.highCapacity}} {{disabled (not isEditable)}} />
+    {{localize 'NEONRELIC.Weapon.HighCapacity'}}
+  </label>
+  <label class='trait-chip {{#if system.traits.fullAuto}}active{{/if}}'>
+    <input type='checkbox' name='system.traits.fullAuto' {{checked system.traits.fullAuto}} {{disabled (not isEditable)}} />
+    {{localize 'NEONRELIC.Weapon.FullAuto'}}
+  </label>
+  <label class='trait-chip {{#if system.traits.stunned}}active{{/if}}'>
+    <input type='checkbox' name='system.traits.stunned' {{checked system.traits.stunned}} {{disabled (not isEditable)}} />
+    {{localize 'NEONRELIC.Weapon.Stunned'}}
+  </label>
+  <label class='trait-chip {{#if system.isBroken}}active{{/if}}'>
+    <input type='checkbox' name='system.isBroken' {{checked system.isBroken}} {{disabled (not isEditable)}} />
+    {{localize 'NEONRELIC.Weapon.Broken'}}
+  </label>
+</div>
+
+{{#if system.isBroken}}
+  <div class='item-fix-bar'>
+    <button type='button' class='nr-btn nr-btn--fix' data-action='fixItem'>
+      <i class='fa-solid fa-wrench'></i>
+      {{localize 'NEONRELIC.Gear.Fix'}}
+    </button>
+  </div>
+{{/if}}
+
+{{! Linked consumable (ammo) }}
+{{#if hasLinkedConsumables}}
+  <div class='ammo-die-display'>
+    <span class='die-label'>{{localize 'NEONRELIC.Consumable.Ammo'}}</span>
+    <select name='system.linkedConsumableId' {{disabled (not isEditable)}}>
+      <option value=''>— None —</option>
+      {{#each linkedConsumables}}
+        <option value='{{this.id}}' {{selected this.id @root.system.linkedConsumableId}}>{{this.name}} ({{this.die}})</option>
       {{/each}}
     </select>
   </div>
-
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Weapon.Traits'}}</label>
-    <div class='trait-checkboxes'>
-      <label><input
-          type='checkbox'
-          name='system.traits.reliable'
-          {{checked system.traits.reliable}}
-          {{disabled (not isEditable)}}
-        />
-        {{localize 'NEONRELIC.Weapon.Reliable'}}</label>
-      <label><input
-          type='checkbox'
-          name='system.traits.highCapacity'
-          {{checked system.traits.highCapacity}}
-          {{disabled (not isEditable)}}
-        />
-        {{localize 'NEONRELIC.Weapon.HighCapacity'}}</label>
-      <label><input
-          type='checkbox'
-          name='system.traits.fullAuto'
-          {{checked system.traits.fullAuto}}
-          {{disabled (not isEditable)}}
-        />
-        {{localize 'NEONRELIC.Weapon.FullAuto'}}</label>
-      <label><input
-          type='checkbox'
-          name='system.traits.stunned'
-          {{checked system.traits.stunned}}
-          {{disabled (not isEditable)}}
-        />
-        {{localize 'NEONRELIC.Weapon.Stunned'}}</label>
-    </div>
-  </div>
-
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Weapon.AmmoDie'}}</label>
-    <span class='die-display'>{{system.ammoDie.current}}</span>
+{{else}}
+  <div class='ammo-die-display'>
+    <span class='die-label'>{{localize 'NEONRELIC.Weapon.AmmoDie'}} (built-in)</span>
+    <span class='die-value {{#unless system.ammoDie.current}}depleted{{/unless}}'>{{#if system.ammoDie.current}}{{system.ammoDie.current}}{{else}}—{{/if}}</span>
     {{#if isEditable}}
       <button type='button' data-action='stepDownAmmo' {{disabled (not system.ammoDie.current)}}>
         <i class='fa-solid fa-arrow-down'></i>
       </button>
     {{/if}}
   </div>
-
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Encumbrance'}}</label>
-    <input
-      type='number'
-      name='system.encumbrance'
-      value='{{system.encumbrance}}'
-      min='0'
-      {{disabled (not isEditable)}}
-    />
-  </div>
-
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.CL'}}</label>
-    <input type='number' name='system.cl' value='{{system.cl}}' min='1' max='5' {{disabled (not isEditable)}} />
-  </div>
-</div>
+{{/if}}

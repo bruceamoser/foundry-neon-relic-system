@@ -10,11 +10,13 @@
         style='width: {{attributeBar system.encumbrance.current system.encumbrance.overloaded}}%'
       ></div>
     </div>
-    <span class='encumbrance-values'>{{system.encumbrance.current}}
-      /
-      {{system.encumbrance.max}}
-      /
-      {{system.encumbrance.overloaded}}</span>
+    <span class='encumbrance-values'>
+      {{localize 'NEONRELIC.Agent.EncCurrent'}}: {{system.encumbrance.current}}
+      &nbsp;|&nbsp;
+      {{localize 'NEONRELIC.Agent.EncMax'}}: {{system.encumbrance.max}}
+      &nbsp;|&nbsp;
+      {{localize 'NEONRELIC.Agent.EncOverloaded'}}: {{system.encumbrance.overloaded}}
+    </span>
   </div>
 
   {{! Division Item }}
@@ -44,6 +46,7 @@
           <th>{{localize 'NEONRELIC.Item.Name'}}</th>
           <th class='center'>{{localize 'NEONRELIC.Item.Bonus'}}</th>
           <th class='center'>{{localize 'NEONRELIC.Item.Enc'}}</th>
+          <th class='center'>{{localize 'NEONRELIC.Item.Worn'}}</th>
           <th></th>
         </tr>
       </thead>
@@ -54,6 +57,13 @@
             <td><a class='item-name' data-action='viewItem'>{{this.name}}</a></td>
             <td class='center'>+{{this.system.gearBonus.value}}</td>
             <td class='center'>{{this.system.encumbrance}}</td>
+            <td class='center'>
+              {{#if @root.isEditable}}
+                <input type='checkbox' data-action='toggleWorn' data-item-id='{{this.id}}' {{checked this.system.worn}} />
+              {{else}}
+                {{#if this.system.worn}}&#10003;{{/if}}
+              {{/if}}
+            </td>
             <td class='center'>
               {{#if @root.isEditable}}
                 <button
@@ -152,6 +162,8 @@
     <div class='add-buttons-row'>
       <button type='button' class='add-btn' data-action='addGear'>+
         {{localize 'NEONRELIC.Item.AddGear'}}</button>
+      <button type='button' class='add-btn' data-action='addConsumable'>+
+        {{localize 'NEONRELIC.Item.AddConsumable'}}</button>
       <button type='button' class='add-btn' data-action='addArtifact'>+
         {{localize 'NEONRELIC.Item.AddArtifact'}}</button>
     </div>

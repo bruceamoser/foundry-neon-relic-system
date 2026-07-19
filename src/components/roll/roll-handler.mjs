@@ -113,6 +113,7 @@ export async function executeRoll(pool, options = {}) {
  * @param {string} [context.notes] - Player notes.
  * @param {string} [context.actorId] - Actor ID.
  * @param {number} [context.stuntPoints] - Extra successes above difficulty.
+ * @param {object} [context.ammoDieResult] - Ammo die roll result for firearms.
  * @returns {Promise<ChatMessage>}
  */
 export async function sendRollToChat(result, context = {}) {
@@ -135,6 +136,10 @@ export async function sendRollToChat(result, context = {}) {
     baseDice: result.baseResults.map(v => ({ value: v, success: v === 6 })),
     skillDice: result.skillResults.map(v => ({ value: v, success: v === 6 })),
     gearDice: result.gearResults.map(v => ({ value: v, success: v === 6 })),
+    baseCount: result.baseResults.length,
+    skillCount: result.skillResults.length,
+    gearCount: result.gearResults.length,
+    totalPool: result.pool.totalPool,
     successes: result.successes,
     difficulty,
     stuntPoints,
@@ -146,11 +151,12 @@ export async function sendRollToChat(result, context = {}) {
     attributeKey: context.attribute || '',
     previousRolls: JSON.stringify(result.rolls),
     poolData: JSON.stringify(result.pool),
+    ammoDieResult: context.ammoDieResult || null,
   };
 
   let content;
   try {
-    content = await renderTemplate(CHAT_TEMPLATE, templateData);
+    content = await foundry.applications.handlebars.renderTemplate(CHAT_TEMPLATE, templateData);
   } catch (err) {
     console.error('neon-relic | Failed to render roll chat card:', err);
     // Fallback: plain text message

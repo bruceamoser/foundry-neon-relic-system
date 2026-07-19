@@ -1,0 +1,319 @@
+// Neon Relic — Item Sheet Styles
+// Unified layout for all item type sheets
+
+.neon-relic.item-sheet {
+  // ── Item Header ───────────────────────────────
+  .item-header {
+    display: flex;
+    align-items: center;
+    gap: $nr-spacing-sm;
+    padding: 6px 8px;
+    border-bottom: 2px solid $nr-rule;
+    margin-bottom: $nr-spacing-sm;
+
+    .item-img {
+      flex: 0 0 40px;
+      height: 40px;
+      border: 1px solid $nr-rule;
+      border-radius: 2px;
+      object-fit: cover;
+    }
+
+    .header-fields {
+      flex: 1;
+      min-width: 0;
+
+      h1 input {
+        font-family: $nr-font-main;
+        font-size: 14pt;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        border: none;
+        border-bottom: 1px dotted $nr-rule;
+        background: transparent;
+        width: 100%;
+        padding: 2px 0;
+        color: $nr-ink;
+      }
+
+      .item-type {
+        display: inline-block;
+        font-family: $nr-font-main;
+        font-size: 6pt;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: $nr-ink-faded;
+        background: rgba(0, 0, 0, 0.04);
+        padding: 1px 8px;
+        border: 1px solid $nr-rule-light;
+        margin-top: 2px;
+      }
+    }
+  }
+
+  // ── Stats Grid ────────────────────────────────
+  .item-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 4px 8px;
+    margin-bottom: $nr-spacing-sm;
+    padding: 6px 8px;
+    border: 1px solid $nr-rule;
+    background: rgba(0, 0, 0, 0.02);
+
+    .stat-block {
+      display: flex;
+      flex-direction: column;
+
+      .stat-label {
+        font-family: $nr-font-main;
+        font-size: 5pt;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: $nr-ink-faded;
+        margin-bottom: 1px;
+      }
+
+      .stat-value {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        font-family: $nr-font-fill;
+        font-size: 11pt;
+        font-weight: bold;
+        color: $nr-ink;
+
+        input[type='number'] {
+          width: 44px;
+          text-align: center;
+          font-weight: bold;
+        }
+
+        select {
+          font-weight: bold;
+          min-width: 80px;
+        }
+
+        .stat-sep {
+          color: $nr-ink-light;
+          margin: 0 1px;
+        }
+      }
+    }
+  }
+
+  // ── Trait Chips ───────────────────────────────
+  .trait-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 6px 8px;
+
+    .trait-chip {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: $nr-font-fill;
+      font-size: 9pt;
+      padding: 4px 10px;
+      border: 1px solid $nr-rule;
+      background: rgba(0, 0, 0, 0.02);
+      cursor: pointer;
+      user-select: none;
+
+      input[type='checkbox'] {
+        width: 14px;
+        height: 14px;
+        margin: 0;
+        cursor: pointer;
+        accent-color: $nr-green-stamp;
+      }
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
+
+      &.active {
+        background: rgba($nr-green-stamp, 0.08);
+        border-color: $nr-green-stamp;
+        color: $nr-green-stamp;
+        font-weight: bold;
+      }
+    }
+  }
+
+  // ── Ammo Die Display ──────────────────────────
+  .ammo-die-display {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    margin-bottom: $nr-spacing-sm;
+    border: 1px solid $nr-rule;
+    background: rgba(0, 0, 0, 0.02);
+
+    .die-label {
+      font-family: $nr-font-main;
+      font-size: 6pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $nr-ink-faded;
+    }
+
+    .die-value {
+      font-family: $nr-font-fill;
+      font-size: 14pt;
+      font-weight: bold;
+      color: $nr-green-stamp;
+      min-width: 36px;
+      text-align: center;
+
+      &.depleted {
+        color: $nr-red-stamp;
+        text-decoration: line-through;
+      }
+    }
+
+    button {
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      font-weight: bold;
+      color: $nr-ink;
+      padding: 3px 10px;
+      background: linear-gradient(180deg, darken($nr-paper, 3%) 0%, darken($nr-paper, 10%) 100%);
+      border: 1px solid darken($nr-paper, 25%);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.12s ease;
+
+      i {
+        margin-right: 3px;
+        color: $nr-ink-faded;
+      }
+
+      &:hover {
+        background: linear-gradient(180deg, darken($nr-paper, 6%) 0%, darken($nr-paper, 14%) 100%);
+        border-color: darken($nr-paper, 35%);
+        color: darken($nr-ink, 10%);
+      }
+
+      &:active {
+        background: darken($nr-paper, 12%);
+      }
+
+      &[disabled] {
+        opacity: 0.35;
+        cursor: default;
+        pointer-events: none;
+      }
+    }
+  }
+
+  // ── Description ───────────────────────────────
+  .description {
+    padding: 0 8px;
+
+    label {
+      font-family: $nr-font-main;
+      font-size: 6pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $nr-ink-faded;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .editor {
+      min-height: 60px;
+      padding: 6px;
+      border: 1px solid $nr-rule;
+      background: $nr-field-bg;
+      font-family: $nr-font-fill;
+      font-size: 9pt;
+      line-height: 1.5;
+    }
+  }
+
+  // ── Consumable type badge ─────────────────────
+  .consumable-type-badge {
+    display: inline-block;
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border: 1px solid $nr-rule;
+    margin-bottom: 6px;
+
+    &.supply { border-color: $nr-ink-light; color: $nr-ink-faded; }
+    &.medical { border-color: #c0392b; color: #c0392b; }
+    &.ammo { border-color: darken($nr-green-stamp, 5%); color: darken($nr-green-stamp, 5%); }
+    &.fuel { border-color: #d35400; color: #d35400; }
+  }
+
+  // ── Talent sub-identity grid ──────────────────
+  .talent-id-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 8px;
+    padding: 6px 8px;
+    margin-bottom: $nr-spacing-sm;
+    border: 1px solid $nr-rule;
+    background: rgba(0, 0, 0, 0.02);
+
+    .talent-id-cell {
+      .cell-label {
+        font-family: $nr-font-main;
+        font-size: 5pt;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: $nr-ink-faded;
+        display: block;
+        margin-bottom: 1px;
+      }
+
+      select, input {
+        width: 100%;
+        font-family: $nr-font-fill;
+        font-size: 9pt;
+      }
+    }
+  }
+
+  // ── Fix Button (broken gear / weapon) ────────
+  .item-fix-bar {
+    padding: 8px 0 0;
+    border-top: 1px dashed $nr-rule-light;
+    margin-top: 4px;
+    text-align: center;
+  }
+
+  .nr-btn--fix {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: $nr-font-main;
+    font-size: 9pt;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: $nr-green-stamp;
+    background: linear-gradient(180deg, rgba(45, 90, 39, 0.08) 0%, rgba(45, 90, 39, 0.04) 100%);
+    border: 1px solid rgba(45, 90, 39, 0.35);
+    border-radius: 3px;
+    padding: 6px 18px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    i {
+      font-size: 10pt;
+    }
+
+    &:hover {
+      background: linear-gradient(180deg, rgba(45, 90, 39, 0.15) 0%, rgba(45, 90, 39, 0.08) 100%);
+      border-color: $nr-green-stamp;
+      color: darken($nr-green-stamp, 8%);
+      box-shadow: 0 0 6px rgba(45, 90, 39, 0.12);
+    }
+  }
+}

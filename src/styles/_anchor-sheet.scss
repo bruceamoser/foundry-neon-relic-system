@@ -1,0 +1,145 @@
+// Neon Relic — Anchor Sheet Styles
+// Identity-grid layout matching artifact/relic sheet patterns
+
+.neon-relic.item-sheet {
+  &:has(.anchor-sheet) {
+    .item-header {
+      border-top: 3px solid $nr-green-stamp;
+      border-bottom: 2px solid $nr-green-stamp;
+
+      .item-type {
+        color: $nr-green-stamp;
+        letter-spacing: 3px;
+      }
+    }
+  }
+
+  .anchor-sheet {
+    // ── Identity Grid ─────────────────────────────
+    .anchor-id-grid {
+      margin-bottom: 8px;
+    }
+
+    .id-block-row {
+      display: grid;
+      gap: 0;
+      border: 1.5px solid $nr-ink;
+
+      &.three-col {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .id-cell {
+      padding: 4px 8px 5px;
+      border-right: 1px solid $nr-rule;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    .id-label {
+      display: block;
+      font-family: $nr-font-main;
+      font-size: 5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+      margin-bottom: 3px;
+    }
+
+    .id-value {
+      display: block;
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      min-height: 16px;
+    }
+
+    // ── Uses row ──────────────────────────────────
+    .uses-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      input[type='number'] {
+        width: 36px;
+        text-align: center;
+        font-family: $nr-font-fill;
+        font-size: 9pt;
+        border: none;
+        border-bottom: 1px dotted $nr-rule;
+        background: transparent;
+        padding: 1px 2px;
+        appearance: textfield;
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+          appearance: none;
+          margin: 0;
+        }
+
+        &:focus {
+          outline: none;
+          border-bottom-color: $nr-ink;
+        }
+      }
+
+      .uses-sep {
+        font-family: $nr-font-main;
+        font-size: 7pt;
+        color: $nr-ink-faded;
+      }
+    }
+
+    // ── Lost flag ─────────────────────────────────
+    .lost-flag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+
+      input[type='checkbox'] {
+        width: 12px;
+        height: 12px;
+        accent-color: $nr-red-stamp;
+        cursor: pointer;
+      }
+
+      .lost-label {
+        font-family: $nr-font-main;
+        font-size: 7pt;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: $nr-red-stamp;
+      }
+    }
+
+    // ── Section blocks ────────────────────────────
+    .anchor-section {
+      margin-bottom: 10px;
+
+      .section-label {
+        margin-bottom: 4px;
+      }
+    }
+
+    // ── Textareas ─────────────────────────────────
+    .anchor-textarea {
+      width: 100%;
+      font-family: $nr-font-fill;
+      font-size: 9pt;
+      line-height: 1.5;
+      color: $nr-ink;
+      background: $nr-field-bg;
+      border: 1px solid $nr-rule;
+      padding: 6px 8px;
+      resize: vertical;
+
+      &:focus {
+        outline: none;
+        border-color: $nr-ink;
+        box-shadow: 0 0 0 1px rgba($nr-green-stamp, 0.2);
+      }
+    }
+  }
+}

@@ -20,6 +20,9 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       width: 720,
       height: 680,
     },
+    window: {
+      resizable: true,
+    },
     actions: {
       rollAttribute: AgentSheet.#onRollAttribute,
       rollSkill: AgentSheet.#onRollSkill,
@@ -38,9 +41,13 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       addArtifact: AgentSheet.#onAddArtifact,
       addTalent: AgentSheet.#onAddTalent,
       addItem: AgentSheet.#onAddItem,
+      addConsumable: AgentSheet.#onAddConsumable,
       awardXP: AgentSheet.#onAwardXP,
+      removeXP: AgentSheet.#onRemoveXP,
       switchTab: AgentSheet.#onSwitchTab,
       useAnchor: AgentSheet.#onUseAnchor,
+      toggleWorn: AgentSheet.#onToggleWorn,
+      toggleSection: AgentSheet.#onToggleSection,
     },
     form: {
       submitOnChange: true,
@@ -129,6 +136,11 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     context.isEditable = this.isEditable;
     context.isGM = game.user.isGM;
     context.actor = actor;
+    context.owner = actor;
+
+    // Collapsed sections (persisted via actor flag)
+    const collapsedSections = actor.getFlag(SYSTEM_ID, 'collapsedSections') || {};
+    context.collapsedSections = collapsedSections;
 
     // Organize items by type
     context.weapons = actor.items.filter(i => i.type === 'weapon');
@@ -237,18 +249,25 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
         buildWarnings.attrDiffText = game.i18n.format('NEONRELIC.Budget.Under', { n: buildWarnings.attrDiff });
       }
     }
-    if (budget.skillRemaining !== 0) {
-      buildWarnings.hasWarnings = true;
-      buildWarnings.skillDiff = Math.abs(budget.skillRemaining);
-      if (budget.skillRemaining < 0) {
+    // Skill warning: "under budget" always shows. "Over budget" only shows
+    // when the agent lacks the XP to cover the overage (5 XP per point over).
+    if (budget.skillRemaining < 0) {
+      const overage = Math.abs(budget.skillRemaining);
+      const xpNeeded = overage * 5;
+      const currentXP = system.experience.current ?? 0;
+      if (currentXP < xpNeeded) {
+        buildWarnings.hasWarnings = true;
+        buildWarnings.skillDiff = overage;
         buildWarnings.skillClass = 'build-warning--over';
         buildWarnings.skillIcon = 'fa-triangle-exclamation';
-        buildWarnings.skillDiffText = game.i18n.format('NEONRELIC.Budget.Over', { n: buildWarnings.skillDiff });
-      } else {
-        buildWarnings.skillClass = 'build-warning--under';
-        buildWarnings.skillIcon = 'fa-circle-info';
-        buildWarnings.skillDiffText = game.i18n.format('NEONRELIC.Budget.Under', { n: buildWarnings.skillDiff });
+        buildWarnings.skillDiffText = game.i18n.format('NEONRELIC.Budget.Over', { n: overage });
       }
+    } else if (budget.skillRemaining > 0) {
+      buildWarnings.hasWarnings = true;
+      buildWarnings.skillDiff = budget.skillRemaining;
+      buildWarnings.skillClass = 'build-warning--under';
+      buildWarnings.skillIcon = 'fa-circle-info';
+      buildWarnings.skillDiffText = game.i18n.format('NEONRELIC.Budget.Under', { n: budget.skillRemaining });
     }
     context.buildWarnings = buildWarnings;
 
@@ -305,6 +324,14 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   /* ------------------------------------------ */
 
   /** @override */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+    // ProseMirror editors are <prose-mirror> custom elements that auto-activate
+    // when connected to the DOM. No manual activation is needed — Foundry handles
+    // their lifecycle natively via connectedCallback/disconnectedCallback.
+  }
+
+  /** @override */
   _getHeaderControls() {
     const controls = super._getHeaderControls();
     controls.unshift(
@@ -347,7 +374,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
     // Handle talent drop — enforce free talent limit and XP cost
     if (item.type === 'talent') {
-      const talentCount = this.document.items.filter(i => i.type === 'talent').size;
+      const talentCount = this.document.items.filter(i => i.type === 'talent').length;
       const freeTalents = 3;
       if (talentCount >= freeTalents) {
         const xpCost = 6;
@@ -356,16 +383,29 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
           ui.notifications.warn(game.i18n.localize('NEONRELIC.Talent.InsufficientXP'));
           return;
         }
-        // Deduct XP and allow the drop, tracking spent
-        await this.document.update({
-          'system.experience.current': xp - xpCost,
-          'system.experience.spent': (this.document.system.experience.spent ?? 0) + xpCost,
-        });
-        ui.notifications.info(game.i18n.format('NEONRELIC.Talent.XPSpent', { cost: xpCost }));
       }
     }
 
-    return super._onDropItem(event, data);
+    await super._onDropItem(event, data);
+    if (item.type === 'talent') {
+      const sys = this.document.system;
+      const talentCount = this.document.items.filter(i => i.type === 'talent').length;
+      const skillSum = AgentSheet._sumSkills(sys.skills);
+      const { spent, current } = AgentSheet._computeXP(
+        skillSum,
+        sys.budget?.skillTotal,
+        talentCount,
+        sys.experience?.total,
+      );
+      await this.document.update({
+        system: {
+          experience: {
+            spent: spent,
+            current: current,
+          },
+        },
+      });
+    }
   }
 
   /**
@@ -519,6 +559,8 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const items = [];
     for (const item of actor.items) {
       if (item.type !== 'gear' && item.type !== 'weapon') continue;
+      // Skip broken items — they can't provide gear bonus
+      if (item.system.isBroken) continue;
       const bonus = item.system.gearBonus?.value ?? 0;
       if (bonus <= 0) continue;
 
@@ -659,7 +701,49 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   /**
-   * Remove an item from the actor.
+   * The 14 skill keys in definition order (matches AgentDataModel.defineSchema).
+   */
+  static SKILL_KEYS = [
+    'force', 'endure', 'brawl', 'firearms', 'deftHands',
+    'sneak', 'tech', 'investigate', 'lore', 'psychoanalyze',
+    'manipulate', 'command', 'healMental', 'healPhysical',
+  ];
+
+  /**
+   * Sum all skill values by reading each key explicitly from the system DataModel.
+   * Avoids Object.values() which is unreliable on DataModel instances.
+   * @param {object} skills  doc.system.skills DataModel
+   * @returns {number}
+   */
+  static _sumSkills(skills) {
+    let sum = 0;
+    for (const key of AgentSheet.SKILL_KEYS) {
+      sum += Number(skills[key]) || 0;
+    }
+    return sum;
+  }
+
+  /**
+   * Compute spent & current XP from summed skill points, talent count, and total earned.
+   * Spent = (skillPointsBeyondBudget × 5) + (talentsBeyondFree × 6)
+   * Current = Total − Spent
+   * @param {number} skillSum      Sum of all current skill values
+   * @param {number} skillBudget   Age-group skill budget (e.g. 10/12/14)
+   * @param {number} talentCount   Number of talent items on the actor
+   * @param {number} totalXP       Lifetime total XP earned
+   * @returns {{ spent: number, current: number }}
+   */
+  static _computeXP(skillSum, skillBudget, talentCount, totalXP) {
+    const overBudget = Math.max(0, skillSum - (Number(skillBudget) || 0));
+    const skillXP = overBudget * 5;
+    const talentXP = Math.max(0, talentCount - 3) * 6;
+    const spent = (skillXP + talentXP) | 0;
+    const current = Math.max(0, (Number(totalXP) | 0) - spent);
+    return { spent, current };
+  }
+
+  /**
+   * Remove an item from the actor. Recomputes XP when removing a talent.
    */
   static async #onRemoveItem(_event, target) {
     const itemId = target.closest('[data-item-id]')?.dataset.itemId;
@@ -670,7 +754,28 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       window: { title: game.i18n.localize('NEONRELIC.Item.DeleteConfirm') },
       content: game.i18n.format('NEONRELIC.Item.DeleteConfirmText', { name: item.name }),
     });
-    if (confirmed) await item.delete();
+    if (confirmed) {
+      await item.delete();
+      if (item.type === 'talent') {
+        const sys = this.document.system;
+        const talentCount = this.document.items.filter(i => i.type === 'talent').length;
+        const skillSum = AgentSheet._sumSkills(sys.skills);
+        const { spent, current } = AgentSheet._computeXP(
+          skillSum,
+          sys.budget?.skillTotal,
+          talentCount,
+          sys.experience?.total,
+        );
+        await this.document.update({
+          system: {
+            experience: {
+              spent: spent,
+              current: current,
+            },
+          },
+        });
+      }
+    }
   }
 
   /**
@@ -679,7 +784,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
    */
   static async #onAddGear(_event, _target) {
     const cl = this.document.system.clearanceLevel ?? 1;
-    const packs = ['neon-relic.gear', 'neon-relic.consumables'];
+    const packs = ['neon-relic.gear'];
     const items = [];
 
     for (const packId of packs) {
@@ -798,6 +903,125 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   /**
+   * Create a custom consumable from scratch. Opens a dialog for name,
+   * type (supply/medical/ammo/fuel), and starting resource die.
+   * Shows existing consumables from the gear pack for quick add, with a Custom option.
+   */
+  static async #onAddConsumable(_event, _target) {
+    const cl = this.document.system.clearanceLevel ?? 1;
+    const pack = game.packs.get('neon-relic.gear');
+    const packItems = [];
+
+    // Load existing consumables from the gear pack
+    if (pack) {
+      await pack.getIndex();
+      const docs = await pack.getDocuments();
+      for (const doc of docs) {
+        if (doc.type !== 'consumable') continue;
+        const itemCL = doc.system?.cl ?? doc.system?.clearanceLevel ?? 99;
+        packItems.push({
+          uuid: doc.uuid,
+          name: doc.name,
+          cl: itemCL,
+          img: doc.img,
+          allowed: itemCL <= cl,
+        });
+      }
+    }
+
+    packItems.sort((a, b) => b.allowed - a.allowed || a.name.localeCompare(b.name));
+
+    const rows = packItems
+      .map(
+        i => `
+        <li class="gear-popup-item ${i.allowed ? '' : 'locked'}" data-uuid="${i.uuid}"
+            title="${i.allowed ? '' : game.i18n.localize('NEONRELIC.Agent.CLTooLow')}">
+          <img src="${i.img}" class="gear-popup-img" alt="${i.name}" />
+          <span class="gear-popup-name">${i.name}</span>
+          <span class="gear-popup-cl">CL ${i.cl}</span>
+          ${
+            i.allowed
+              ? `<button type="button" class="gear-popup-add" data-uuid="${i.uuid}">+</button>`
+              : `<span class="gear-popup-locked"><i class="fa-solid fa-lock"></i></span>`
+          }
+        </li>`,
+      )
+      .join('');
+
+    const popupContent = `
+      <div class="gear-popup">
+        <p class="gear-popup-hint">${game.i18n.format('NEONRELIC.Agent.AddGearHint', { cl })}</p>
+        ${packItems.length ? `<ul class="gear-popup-list">${rows}</ul>` : '<p class="empty-list">No consumables found in compendium.</p>'}
+      </div>`;
+
+    // Show popup with existing consumables; returns uuid or null if cancelled
+    const uuid = await AgentSheet.#itemPicker(game.i18n.localize('NEONRELIC.Item.AddConsumable'), popupContent);
+
+    if (uuid) {
+      const doc = await fromUuid(uuid);
+      if (doc) {
+        await this.document.createEmbeddedDocuments('Item', [doc.toObject()]);
+      }
+      return;
+    }
+
+    // User cancelled the popup — offer custom creation
+    const customResult = await foundry.applications.api.DialogV2.prompt({
+      window: { title: game.i18n.localize('NEONRELIC.Item.AddConsumable') },
+      content: `
+        <div class="form-group">
+          <label>${game.i18n.localize('NEONRELIC.Item.Name')}</label>
+          <input type="text" name="name" value="" autofocus />
+        </div>
+        <div class="form-group">
+          <label>${game.i18n.localize('NEONRELIC.Consumable.Type')}</label>
+          <select name="consumableType">
+            <option value="supply">${game.i18n.localize('NEONRELIC.Consumable.Supply')}</option>
+            <option value="medical">${game.i18n.localize('NEONRELIC.Consumable.Medical')}</option>
+            <option value="ammo">${game.i18n.localize('NEONRELIC.Consumable.Ammo')}</option>
+            <option value="fuel">${game.i18n.localize('NEONRELIC.Consumable.Fuel')}</option>
+            <option value="battery">${game.i18n.localize('NEONRELIC.Consumable.Battery')}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>${game.i18n.localize('NEONRELIC.Consumable.StartingDie')}</label>
+          <select name="startingDie">
+            <option value="d12">d12</option>
+            <option value="d10" selected>d10</option>
+            <option value="d8">d8</option>
+            <option value="d6">d6</option>
+            <option value="d4">d4</option>
+          </select>
+        </div>`,
+      ok: {
+        callback: (event, button) => {
+          const form = button.form;
+          return {
+            name: form.elements.name.value.trim() || game.i18n.localize('NEONRELIC.ItemType.consumable'),
+            consumableType: form.elements.consumableType.value,
+            startingDie: form.elements.startingDie.value,
+          };
+        },
+      },
+    });
+
+    if (customResult?.name) {
+      await this.document.createEmbeddedDocuments('Item', [
+        {
+          name: customResult.name,
+          type: 'consumable',
+          system: {
+            consumableType: customResult.consumableType,
+            currentDie: customResult.startingDie,
+            startingDie: customResult.startingDie,
+            cl: 1,
+          },
+        },
+      ]);
+    }
+  }
+
+  /**
    * Open a custom popup listing talents from the talents compendium.
    * XP gating is enforced before the popup opens.
    */
@@ -855,16 +1079,27 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       const doc = await fromUuid(uuid);
       if (!doc) return;
 
-      // Deduct XP if beyond free talents
+      await this.document.createEmbeddedDocuments('Item', [doc.toObject()]);
+      const sys = this.document.system;
+      const talentCount = this.document.items.filter(i => i.type === 'talent').length;
+      const skillSum = AgentSheet._sumSkills(sys.skills);
+      const { spent, current } = AgentSheet._computeXP(
+        skillSum,
+        sys.budget?.skillTotal,
+        talentCount,
+        sys.experience?.total,
+      );
+      await this.document.update({
+        system: {
+          experience: {
+            spent: spent,
+            current: current,
+          },
+        },
+      });
       if (xpCost > 0) {
-        await this.document.update({
-          'system.experience.current': this.document.system.experience.current - xpCost,
-          'system.experience.spent': (this.document.system.experience.spent ?? 0) + xpCost,
-        });
         ui.notifications.info(game.i18n.format('NEONRELIC.Talent.XPSpent', { cost: xpCost }));
       }
-
-      await this.document.createEmbeddedDocuments('Item', [doc.toObject()]);
     }
   }
 
@@ -1028,37 +1263,30 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   /**
    * Adjust a skill value by +/−1.
    * During creation: free within budget (max 3, key skill max 4).
-   * During play: +1 costs 5 XP.
+   * During play: +1 costs 5 XP. XP spent is always fully recalculated.
    * @param {PointerEvent} _event
    * @param {HTMLElement} target
    */
   static async #onAdjustSkill(_event, target) {
     const key = target.dataset.skill;
     const delta = Number(target.dataset.delta);
-    const sys = this.document.system;
+    const doc = this.document;
+    const sys = doc.system;
     const current = sys.skills[key] ?? 0;
     const newVal = current + delta;
 
     if (newVal < 0 || newVal > 5) return;
 
     // Determine max at creation (3 normally, 4 for key skill)
-    const keySkill = this.document.items.find(i => i.type === 'subdivision')?.system.keySkill;
+    const keySkill = doc.items.find(i => i.type === 'subdivision')?.system.keySkill;
     const creationMax = key === keySkill ? 4 : 3;
 
     // If increasing and no budget remaining, require XP
     if (delta > 0 && sys.budget.skillRemaining <= 0) {
-      const xpCost = 5;
-      if (sys.experience.current < xpCost) {
+      if (sys.experience.current < 5) {
         ui.notifications.warn(game.i18n.localize('NEONRELIC.Budget.InsufficientXP'));
         return;
       }
-      // Spend XP — track spent
-      await this.document.update({
-        [`system.skills.${key}`]: newVal,
-        'system.experience.current': sys.experience.current - xpCost,
-        'system.experience.spent': (sys.experience.spent ?? 0) + xpCost,
-      });
-      return;
     }
 
     // During creation: enforce max
@@ -1067,7 +1295,28 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       return;
     }
 
-    await this.document.update({ [`system.skills.${key}`]: newVal });
+    // Update skill first
+    await doc.update({ [`system.skills.${key}`]: newVal });
+
+    // Then recompute XP and update using nested object (bypasses expandObject)
+    const talentCount = doc.items.filter(i => i.type === 'talent').length;
+    const skillSum = AgentSheet._sumSkills(doc.system.skills);
+    const budgetTotal = doc.system.budget?.skillTotal;
+    const totalXP = doc.system.experience?.total;
+    const { spent, current: newCurrent } = AgentSheet._computeXP(
+      skillSum,
+      budgetTotal,
+      talentCount,
+      totalXP,
+    );
+    await doc.update({
+      system: {
+        experience: {
+          spent: spent,
+          current: newCurrent,
+        },
+      },
+    });
   }
 
   /**
@@ -1091,6 +1340,35 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   /**
+   * Remove XP from the agent via a dialog prompt.
+   * Decrements both current and total.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} _target
+   */
+  static async #onRemoveXP(_event, _target) {
+    const sys = this.document.system;
+    const amount = await foundry.applications.api.DialogV2.prompt({
+      window: { title: game.i18n.localize('NEONRELIC.Progression.RemoveXP') },
+      content: `<div class="form-group"><label>${game.i18n.localize('NEONRELIC.Agent.XP')}</label><input type="number" name="amount" value="1" min="1" max="${sys.experience.total}" autofocus /></div><p class="hint">${game.i18n.localize('NEONRELIC.Progression.RemoveXPHint')}</p>`,
+      ok: {
+        callback: (event, button) => Math.max(0, Number(button.form.elements.amount.value) || 0),
+      },
+    });
+    if (amount > 0) {
+      const newTotal = Math.max(0, sys.experience.total - amount);
+      const newCurrent = Math.max(0, sys.experience.current - amount);
+      await this.document.update({
+        system: {
+          experience: {
+            total: newTotal,
+            current: newCurrent,
+          },
+        },
+      });
+    }
+  }
+
+  /**
    * Switch to a specific tab by group and tab ID.
    * @param {PointerEvent} _event
    * @param {HTMLElement} target
@@ -1098,7 +1376,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   static #onSwitchTab(_event, target) {
     const group = target.dataset.tabGroup || 'primary';
     const tab = target.dataset.tab;
-    if (tab) this.switchTab(group, tab);
+    if (tab) this.changeTab(tab, group);
   }
 
   /**
@@ -1154,5 +1432,33 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
     // Re-render to reflect changes
     this.render();
+  }
+
+  /**
+   * Toggle whether an item is worn/carried — affects encumbrance.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   */
+  static async #onToggleWorn(_event, target) {
+    const itemId = target.closest('[data-item-id]')?.dataset.itemId;
+    if (!itemId) return;
+    const item = this.document.items.get(itemId);
+    if (!item) return;
+    await item.update({ 'system.worn': !item.system.worn });
+  }
+
+  /**
+   * Toggle a collapsible section on/off and persist to actor flags.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   */
+  static async #onToggleSection(_event, target) {
+    const section = target.dataset.section || target.closest('[data-section]')?.dataset.section;
+    if (!section) return;
+    const collapsedSections = foundry.utils.deepClone(
+      this.document.getFlag('neon-relic', 'collapsedSections') || {},
+    );
+    collapsedSections[section] = !collapsedSections[section];
+    await this.document.setFlag('neon-relic', 'collapsedSections', collapsedSections);
   }
 }

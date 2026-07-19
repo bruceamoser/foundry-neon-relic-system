@@ -16,7 +16,7 @@
     </div>
   </div>
 
-  {{! Add XP }}
+  {{! Add/Remove XP }}
   {{#if isEditable}}
     <div class='xp-actions'>
       <button
@@ -27,6 +27,15 @@
       >
         <i class='fa-solid fa-plus'></i>
         {{localize 'NEONRELIC.Progression.AddXP'}}
+      </button>
+      <button
+        type='button'
+        data-action='removeXP'
+        class='xp-btn xp-btn--remove'
+        title='{{localize "NEONRELIC.Progression.RemoveXPHint"}}'
+      >
+        <i class='fa-solid fa-minus'></i>
+        {{localize 'NEONRELIC.Progression.RemoveXP'}}
       </button>
     </div>
   {{/if}}

@@ -1,37 +1,59 @@
 {{! Consumable item type template }}
-<div class='consumable-fields'>
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Consumable.Type'}}</label>
-    <select name='system.consumableType' {{disabled (not isEditable)}}>
-      <option value='supply' {{selected system.consumableType 'supply'}}>{{localize
-          'NEONRELIC.Consumable.Supply'
-        }}</option>
-      <option value='medical' {{selected system.consumableType 'medical'}}>{{localize
-          'NEONRELIC.Consumable.Medical'
-        }}</option>
-      <option value='ammo' {{selected system.consumableType 'ammo'}}>{{localize 'NEONRELIC.Consumable.Ammo'}}</option>
-      <option value='fuel' {{selected system.consumableType 'fuel'}}>{{localize 'NEONRELIC.Consumable.Fuel'}}</option>
-    </select>
-  </div>
+<div class='consumable-type-badge {{system.consumableType}}'>
+  {{#if (eq system.consumableType 'supply')}}{{localize 'NEONRELIC.Consumable.Supply'}}
+  {{else if (eq system.consumableType 'medical')}}{{localize 'NEONRELIC.Consumable.Medical'}}
+  {{else if (eq system.consumableType 'ammo')}}{{localize 'NEONRELIC.Consumable.Ammo'}}
+  {{else if (eq system.consumableType 'fuel')}}{{localize 'NEONRELIC.Consumable.Fuel'}}
+  {{else}}{{system.consumableType}}
+  {{/if}}
+</div>
 
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Consumable.CurrentDie'}}</label>
-    <span class='die-display' data-depleted='{{system.isDepleted}}'>{{system.currentDie}}</span>
-    {{#if isEditable}}
-      <button type='button' data-action='stepDown' {{disabled system.isDepleted}}>
-        <i class='fa-solid fa-arrow-down'></i>
-      </button>
-    {{/if}}
+<div class='item-stats-grid'>
+  <div class='stat-block'>
+    <span class='stat-label'>{{localize 'NEONRELIC.Consumable.Type'}}</span>
+    <span class='stat-value'>
+      <select name='system.consumableType' {{disabled (not isEditable)}}>
+        <option value='supply' {{selected system.consumableType 'supply'}}>{{localize 'NEONRELIC.Consumable.Supply'}}</option>
+        <option value='medical' {{selected system.consumableType 'medical'}}>{{localize 'NEONRELIC.Consumable.Medical'}}</option>
+        <option value='ammo' {{selected system.consumableType 'ammo'}}>{{localize 'NEONRELIC.Consumable.Ammo'}}</option>
+        <option value='fuel' {{selected system.consumableType 'fuel'}}>{{localize 'NEONRELIC.Consumable.Fuel'}}</option>
+        <option value='battery' {{selected system.consumableType 'battery'}}>{{localize 'NEONRELIC.Consumable.Battery'}}</option>
+      </select>
+    </span>
   </div>
+  <div class='stat-block'>
+    <span class='stat-label'>{{localize 'NEONRELIC.Consumable.StartingDie'}}</span>
+    <span class='stat-value'>
+      <select name='system.startingDie' {{disabled (not isEditable)}}>
+        <option value='d12' {{selected system.startingDie 'd12'}}>d12</option>
+        <option value='d10' {{selected system.startingDie 'd10'}}>d10</option>
+        <option value='d8' {{selected system.startingDie 'd8'}}>d8</option>
+        <option value='d6' {{selected system.startingDie 'd6'}}>d6</option>
+        <option value='d4' {{selected system.startingDie 'd4'}}>d4</option>
+      </select>
+    </span>
+  </div>
+  <div class='stat-block'>
+    <span class='stat-label'>{{localize 'NEONRELIC.CL'}}</span>
+    <span class='stat-value'>
+      <input type='number' name='system.cl' value='{{system.cl}}' min='1' max='5' {{disabled (not isEditable)}} />
+    </span>
+  </div>
+</div>
 
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Consumable.StartingDie'}}</label>
-    <select name='system.startingDie' {{disabled (not isEditable)}}>
-      <option value='d12' {{selected system.startingDie 'd12'}}>d12</option>
-      <option value='d10' {{selected system.startingDie 'd10'}}>d10</option>
-      <option value='d8' {{selected system.startingDie 'd8'}}>d8</option>
-      <option value='d6' {{selected system.startingDie 'd6'}}>d6</option>
-      <option value='d4' {{selected system.startingDie 'd4'}}>d4</option>
-    </select>
-  </div>
+<div class='ammo-die-display'>
+  <span class='die-label'>{{localize 'NEONRELIC.Consumable.CurrentDie'}}</span>
+  <span class='die-value {{#if system.isDepleted}}depleted{{/if}}'>{{system.currentDie}}</span>
+  {{#if isEditable}}
+    <button type='button' data-action='useConsumable' {{disabled system.isDepleted}}>
+      <i class='fa-solid fa-dice'></i> Use
+    </button>
+    <button type='button' data-action='stepDown' {{disabled system.isDepleted}}>
+      <i class='fa-solid fa-arrow-down'></i>
+    </button>
+    <button type='button' data-action='replenishConsumable' {{disabled (eq system.currentDie 'd12')}}>
+      <i class='fa-solid fa-arrow-up'></i> Replenish
+    </button>
+  {{/if}}
+</div>
 </div>

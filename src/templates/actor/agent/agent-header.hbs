@@ -15,6 +15,20 @@
         {{localize 'NEONRELIC.Agent.Dossier'}}
         &mdash; The Verdant Covenant
       </div>
+      {{#if isEditable}}
+        <div class='agent-header__actions'>
+          <button type='button' data-action='takeDamage' class='agent-header__btn agent-header__btn--damage'
+                  title='{{localize "NEONRELIC.Damage.TakeDamageHint"}}'>
+            <i class='fa-solid fa-heart-crack'></i>
+            {{localize 'NEONRELIC.Damage.TakeDamage'}}
+          </button>
+          <button type='button' data-action='shortRest' class='agent-header__btn'
+                  title='{{localize "NEONRELIC.Agent.ShortRestHint"}}'>
+            <i class='fa-solid fa-bed'></i>
+            {{localize 'NEONRELIC.Agent.ShortRest'}}
+          </button>
+        </div>
+      {{/if}}
     </div>
   </div>
   <div class='agent-header__right'>

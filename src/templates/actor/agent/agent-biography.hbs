@@ -34,15 +34,9 @@
   <div class='section-title'>{{localize 'NEONRELIC.Agent.Backstory'}}</div>
   <div class='biography-editor'>
     {{#if isEditable}}
-      {{{editor
-        enrichedDescription
-        target='system.description'
-        owner=actor
-        button=true
-        editable=true
-        engine='prosemirror'
-        collaborate=false
-      }}}
+      <prose-mirror name='system.description' value='{{ system.description }}'
+                    data-document-uuid='{{ document.uuid }}' relative>
+      </prose-mirror>
     {{else}}
       <div class='editor-content'>{{{enrichedDescription}}}</div>
     {{/if}}

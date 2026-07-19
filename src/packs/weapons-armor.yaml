@@ -5,6 +5,7 @@
 - _id: wpn001
   name: Fists
   type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
   system:
     description: Bare-knuckle strikes.
     damage: 1
@@ -19,6 +20,7 @@
 - _id: wpn002
   name: Knife
   type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
   system:
     description: Combat knife. Concealable.
     damage: 2
@@ -33,6 +35,7 @@
 - _id: wpn003
   name: Baseball Bat
   type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
   system:
     description: Aluminum or wooden bat. Common improvised weapon.
     damage: 2
@@ -47,6 +50,7 @@
 - _id: wpn004
   name: Crowbar
   type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
   system:
     description: Heavy iron crowbar. Also useful for prying.
     damage: 2
@@ -61,6 +65,7 @@
 - _id: wpn005
   name: Revolver (.38)
   type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
   system:
     description: Six-shot revolver. Reliable sidearm.
     damage: 2
@@ -80,6 +85,7 @@
 - _id: wpn006
   name: Pistol (9mm)
   type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
   system:
     description: Semi-automatic pistol. Standard law enforcement sidearm.
     damage: 2
@@ -97,6 +103,7 @@
 - _id: wpn007
   name: Shotgun (12-gauge)
   type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
   system:
     description: Pump-action shotgun. Devastating at close range.
     damage: 3
@@ -114,6 +121,7 @@
 - _id: wpn008
   name: Hunting Rifle
   type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
   system:
     description: Bolt-action hunting rifle with scope.
     damage: 3
@@ -131,6 +139,7 @@
 - _id: wpn009
   name: Submachine Gun
   type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
   system:
     description: Compact automatic weapon. Full-auto capable.
     damage: 2
@@ -150,6 +159,7 @@
 - _id: wpn010
   name: Improvised Weapon
   type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
   system:
     description: Anything grabbed in desperation. Chair leg, bottle, etc.
     damage: 1
@@ -165,6 +175,7 @@
 - _id: arm001
   name: Leather Jacket
   type: armor
+  img: systems/neon-relic/assets/icons/armor-default.svg
   system:
     description: Thick leather jacket. Light protection, no movement penalty.
     ar:
@@ -176,6 +187,7 @@
 - _id: arm002
   name: Flak Vest
   type: armor
+  img: systems/neon-relic/assets/icons/armor-default.svg
   system:
     description: Military surplus ballistic vest.
     ar:
@@ -187,6 +199,7 @@
 - _id: arm003
   name: Riot Shield
   type: armor
+  img: systems/neon-relic/assets/icons/armor-default.svg
   system:
     description: Polycarbonate riot shield. Can be used with Cover action.
     ar:
@@ -198,6 +211,7 @@
 - _id: arm004
   name: Kevlar Vest
   type: armor
+  img: systems/neon-relic/assets/icons/armor-default.svg
   system:
     description: Modern concealed body armor.
     ar:
@@ -209,6 +223,7 @@
 - _id: arm005
   name: Hard Hat
   type: armor
+  img: systems/neon-relic/assets/icons/armor-default.svg
   system:
     description: Construction hard hat. Protects against falling debris.
     ar:

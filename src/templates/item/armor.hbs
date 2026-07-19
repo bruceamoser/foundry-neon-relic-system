@@ -1,30 +1,29 @@
 {{! Armor item type template }}
-<div class='armor-fields'>
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Armor.AR'}}</label>
-    <input type='number' name='system.ar.value' value='{{system.ar.value}}' min='0' {{disabled (not isEditable)}} />
-    <span>/</span>
-    <input type='number' name='system.ar.max' value='{{system.ar.max}}' min='0' {{disabled (not isEditable)}} />
+<div class='item-stats-grid'>
+  <div class='stat-block'>
+    <span class='stat-label'>{{localize 'NEONRELIC.Armor.AR'}}</span>
+    <span class='stat-value'>
+      <input type='number' name='system.ar.value' value='{{system.ar.value}}' min='0' {{disabled (not isEditable)}} />
+      <span class='stat-sep'>/</span>
+      <input type='number' name='system.ar.max' value='{{system.ar.max}}' min='0' {{disabled (not isEditable)}} />
+    </span>
   </div>
-
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Armor.AgilityPenalty'}}</label>
-    <input type='number' name='system.agilityPenalty' value='{{system.agilityPenalty}}' {{disabled (not isEditable)}} />
+  <div class='stat-block'>
+    <span class='stat-label'>{{localize 'NEONRELIC.Armor.AgilityPenalty'}}</span>
+    <span class='stat-value'>
+      <input type='number' name='system.agilityPenalty' value='{{system.agilityPenalty}}' {{disabled (not isEditable)}} />
+    </span>
   </div>
-
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Encumbrance'}}</label>
-    <input
-      type='number'
-      name='system.encumbrance'
-      value='{{system.encumbrance}}'
-      min='0'
-      {{disabled (not isEditable)}}
-    />
+  <div class='stat-block'>
+    <span class='stat-label'>{{localize 'NEONRELIC.Encumbrance'}}</span>
+    <span class='stat-value'>
+      <input type='number' name='system.encumbrance' value='{{system.encumbrance}}' min='0' {{disabled (not isEditable)}} />
+    </span>
   </div>
-
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.CL'}}</label>
-    <input type='number' name='system.cl' value='{{system.cl}}' min='1' max='5' {{disabled (not isEditable)}} />
+  <div class='stat-block'>
+    <span class='stat-label'>{{localize 'NEONRELIC.CL'}}</span>
+    <span class='stat-value'>
+      <input type='number' name='system.cl' value='{{system.cl}}' min='1' max='5' {{disabled (not isEditable)}} />
+    </span>
   </div>
 </div>

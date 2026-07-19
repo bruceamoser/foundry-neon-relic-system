@@ -1,24 +1,35 @@
 {{! Anchor item type template }}
-<div class='anchor-fields'>
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Anchor.Relationship'}}</label>
-    <textarea name='system.relationship' {{disabled (not isEditable)}}>{{system.relationship}}</textarea>
+<div class='anchor-sheet'>
+  {{! Identity Grid }}
+  <div class='anchor-id-grid'>
+    <div class='id-block-row three-col'>
+      <div class='id-cell'>
+        <span class='id-label'>{{localize 'NEONRELIC.Anchor.Uses'}}</span>
+        <div class='id-value uses-row'>
+          <input type='number' name='system.uses.value' value='{{system.uses.value}}' min='0' {{disabled (not isEditable)}} />
+          <span class='uses-sep'>/</span>
+          <input type='number' name='system.uses.max' value='{{system.uses.max}}' min='0' {{disabled (not isEditable)}} />
+        </div>
+      </div>
+      <div class='id-cell'>
+        <span class='id-label'>{{localize 'NEONRELIC.Anchor.Lost'}}</span>
+        <label class='id-value lost-flag'>
+          <input type='checkbox' name='system.isLost' {{checked system.isLost}} {{disabled (not isEditable)}} />
+          <span class='lost-label'>{{#if system.isLost}}{{localize 'NEONRELIC.Anchor.Depleted'}}{{else}}—{{/if}}</span>
+        </label>
+      </div>
+    </div>
   </div>
 
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Anchor.Memory'}}</label>
-    <textarea name='system.memory' {{disabled (not isEditable)}}>{{system.memory}}</textarea>
+  {{! Relationship }}
+  <div class='anchor-section'>
+    <div class='section-label'>{{localize 'NEONRELIC.Anchor.Relationship'}}</div>
+    <textarea name='system.relationship' class='anchor-textarea' rows='3' {{disabled (not isEditable)}}>{{system.relationship}}</textarea>
   </div>
 
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Anchor.Uses'}}</label>
-    <input type='number' name='system.uses.value' value='{{system.uses.value}}' min='0' {{disabled (not isEditable)}} />
-    <span>/</span>
-    <input type='number' name='system.uses.max' value='{{system.uses.max}}' min='0' {{disabled (not isEditable)}} />
-  </div>
-
-  <div class='form-group'>
-    <label>{{localize 'NEONRELIC.Anchor.Lost'}}</label>
-    <input type='checkbox' name='system.isLost' {{checked system.isLost}} {{disabled (not isEditable)}} />
+  {{! Memory }}
+  <div class='anchor-section'>
+    <div class='section-label'>{{localize 'NEONRELIC.Anchor.Memory'}}</div>
+    <textarea name='system.memory' class='anchor-textarea' rows='3' {{disabled (not isEditable)}}>{{system.memory}}</textarea>
   </div>
 </div>

@@ -1,159 +1,149 @@
 <section class='tab summary {{tab.cssClass}}' data-group='primary' data-tab='summary'>
 
-  {{#if isEditable}}
-    <div class='heal-button-row'>
-      <button
-        type='button'
-        data-action='takeDamage'
-        class='heal-btn damage-btn'
-        title='{{localize "NEONRELIC.Damage.TakeDamageHint"}}'
-      >
-        <i class='fa-solid fa-heart-crack'></i>
-        {{localize 'NEONRELIC.Damage.TakeDamage'}}
-      </button>
-      <button
-        type='button'
-        data-action='shortRest'
-        class='heal-btn'
-        title='{{localize "NEONRELIC.Agent.ShortRestHint"}}'
-      >
-        <i class='fa-solid fa-bed'></i>
-        {{localize 'NEONRELIC.Agent.ShortRest'}}
-      </button>
-    </div>
-  {{/if}}
-
   {{! Identity Block }}
-  <div class='section-title'>{{localize 'NEONRELIC.Agent.Identity'}}</div>
-  <div class='id-block-row' style='grid-template-columns: 2.6fr 1fr 1fr;'>
-    <div class='id-cell'>
-      <span class='id-label'>{{localize 'NEONRELIC.Agent.Name'}}</span>
-      <span class='id-value'>{{actor.name}}</span>
+  <div class='collapsible-section {{#if (lookup collapsedSections 'identity')}}collapsed{{/if}}' data-section='identity'>
+    <div class='section-title collapsible-toggle' data-action='toggleSection' data-section='identity'>
+      {{localize 'NEONRELIC.Agent.Identity'}}
+      <i class='fa-solid fa-chevron-{{#if (lookup collapsedSections 'identity')}}right{{else}}down{{/if}} collapsible-icon'></i>
     </div>
-    <div class='id-cell'>
-      <span class='id-label'>{{localize 'NEONRELIC.Agent.Division'}}</span>
-      <select class='id-value' name='system.division' {{disabled (not isEditable)}}>
-        {{#each config.divisions as |label key|}}
-          <option value='{{key}}' {{selected key @root.system.division}}>{{localize label}}</option>
-        {{/each}}
-      </select>
+    <div class='collapsible-body'>
+      <div class='id-block-row' style='grid-template-columns: 1.8fr 1fr 1.5fr;'>
+        <div class='id-cell'>
+          <span class='id-label'>{{localize 'NEONRELIC.Agent.Name'}}</span>
+          <span class='id-value'>{{actor.name}}</span>
+        </div>
+        <div class='id-cell'>
+          <span class='id-label'>{{localize 'NEONRELIC.Agent.Division'}}</span>
+          <select class='id-value' name='system.division' {{disabled (not isEditable)}}>
+            {{#each config.divisions as |label key|}}
+              <option value='{{key}}' {{selected key @root.system.division}}>{{localize label}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class='id-cell'>
+          <span class='id-label'>{{localize 'NEONRELIC.Agent.SubUnit'}}</span>
+          <input
+            class='id-value'
+            type='text'
+            name='system.subUnit'
+            value='{{system.subUnit}}'
+            {{disabled (not isEditable)}}
+          />
+        </div>
+      </div>
+      <div class='id-block-row' style='grid-template-columns: 1fr 0.35fr 0.8fr 1fr;'>
+        <div class='id-cell'>
+          <span class='id-label'>{{localize 'NEONRELIC.Agent.Specialty'}}</span>
+          <input
+            class='id-value'
+            type='text'
+            name='system.specialty'
+            value='{{system.specialty}}'
+            {{disabled (not isEditable)}}
+          />
+        </div>
+        <div class='id-cell'>
+          <span class='id-label'>{{localize 'NEONRELIC.Agent.CL'}}</span>
+          <input
+            class='id-value'
+            type='number'
+            name='system.clearanceLevel'
+            value='{{system.clearanceLevel}}'
+            min='1'
+            max='5'
+            {{disabled (not isEditable)}}
+          />
+        </div>
+        <div class='id-cell'>
+          <span class='id-label'>{{localize 'NEONRELIC.Agent.Origin'}}</span>
+          <input
+            class='id-value'
+            type='text'
+            name='system.countryOfOrigin'
+            value='{{system.countryOfOrigin}}'
+            {{disabled (not isEditable)}}
+          />
+        </div>
+        <div class='id-cell'>
+          <span class='id-label'>{{localize 'NEONRELIC.Agent.DivisionItem'}}</span>
+          <label class='id-value division-item-toggle'>
+            <input
+              type='checkbox'
+              name='system.divisionItem.active'
+              {{checked system.divisionItem.active}}
+              {{disabled (not isEditable)}}
+            />
+            {{localize 'NEONRELIC.Agent.DivisionItemActive'}}
+          </label>
+        </div>
+      </div>
+      <div class='id-block-row' style='grid-template-columns: 1.5fr 0.5fr 1fr;'>
+        <div class='id-cell'>
+          <span class='id-label'>{{localize 'NEONRELIC.Agent.AgeGroup'}}</span>
+          <select class='id-value' name='system.ageGroup' {{disabled (not isEditable)}}>
+            {{#each config.ageGroups as |label key|}}
+              <option value='{{key}}' {{selected key @root.system.ageGroup}}>{{localize label}}</option>
+            {{/each}}
+          </select>
+        </div>
+        <div class='id-cell'>
+          <span class='id-label'>{{localize 'NEONRELIC.Agent.Age'}}</span>
+          <input
+            class='id-value'
+            type='number'
+            name='system.age'
+            value='{{system.age}}'
+            min='18'
+            {{disabled (not isEditable)}}
+          />
+        </div>
+        <div class='id-cell'></div>
+      </div>
     </div>
-    <div class='id-cell'>
-      <span class='id-label'>{{localize 'NEONRELIC.Agent.SubUnit'}}</span>
-      <input
-        class='id-value'
-        type='text'
-        name='system.subUnit'
-        value='{{system.subUnit}}'
-        {{disabled (not isEditable)}}
-      />
-    </div>
-  </div>
-  <div class='id-block-row' style='grid-template-columns: 1fr 0.65fr 0.75fr 1.6fr;'>
-    <div class='id-cell'>
-      <span class='id-label'>{{localize 'NEONRELIC.Agent.Specialty'}}</span>
-      <input
-        class='id-value'
-        type='text'
-        name='system.specialty'
-        value='{{system.specialty}}'
-        {{disabled (not isEditable)}}
-      />
-    </div>
-    <div class='id-cell'>
-      <span class='id-label'>{{localize 'NEONRELIC.Agent.CL'}}</span>
-      <input
-        class='id-value'
-        type='number'
-        name='system.clearanceLevel'
-        value='{{system.clearanceLevel}}'
-        min='1'
-        max='5'
-        {{disabled (not isEditable)}}
-      />
-    </div>
-    <div class='id-cell'>
-      <span class='id-label'>{{localize 'NEONRELIC.Agent.Origin'}}</span>
-      <input
-        class='id-value'
-        type='text'
-        name='system.countryOfOrigin'
-        value='{{system.countryOfOrigin}}'
-        {{disabled (not isEditable)}}
-      />
-    </div>
-    <div class='id-cell'>
-      <span class='id-label'>{{localize 'NEONRELIC.Agent.DivisionItem'}}</span>
-      <label class='id-value division-item-toggle'>
-        <input
-          type='checkbox'
-          name='system.divisionItem.active'
-          {{checked system.divisionItem.active}}
-          {{disabled (not isEditable)}}
-        />
-        {{localize 'NEONRELIC.Agent.DivisionItemActive'}}
-      </label>
-    </div>
-  </div>
-  <div class='id-block-row' style='grid-template-columns: 1fr 0.65fr 1.35fr;'>
-    <div class='id-cell'>
-      <span class='id-label'>{{localize 'NEONRELIC.Agent.AgeGroup'}}</span>
-      <select class='id-value' name='system.ageGroup' {{disabled (not isEditable)}}>
-        {{#each config.ageGroups as |label key|}}
-          <option value='{{key}}' {{selected key @root.system.ageGroup}}>{{localize label}}</option>
-        {{/each}}
-      </select>
-    </div>
-    <div class='id-cell'>
-      <span class='id-label'>{{localize 'NEONRELIC.Agent.Age'}}</span>
-      <input
-        class='id-value'
-        type='number'
-        name='system.age'
-        value='{{system.age}}'
-        min='18'
-        {{disabled (not isEditable)}}
-      />
-    </div>
-    <div class='id-cell'></div>
   </div>
 
   {{! Quick Stats }}
-  <div class='section-title'>{{localize 'NEONRELIC.Agent.QuickStats'}}</div>
-  <div class='attr-grid'>
-    {{#each attrColumns}}
-      <div class='stat-box rollable' data-action='rollAttribute' data-attribute='{{this.key}}'>
-        <span class='stat-label'>{{localize this.label}}</span>
-        {{#if this.isDamaged}}
-          <span class='stat-value stat-value--damaged'>{{this.value}}<span
-              class='stat-value__max'
-            >/{{this.max}}</span></span>
-        {{else}}
-          <span class='stat-value'>{{this.value}}</span>
-        {{/if}}
+  <div class='collapsible-section {{#if (lookup collapsedSections 'quickStats')}}collapsed{{/if}}' data-section='quickStats'>
+    <div class='section-title collapsible-toggle' data-action='toggleSection' data-section='quickStats'>
+      {{localize 'NEONRELIC.Agent.QuickStats'}}
+      <i class='fa-solid fa-chevron-{{#if (lookup collapsedSections 'quickStats')}}right{{else}}down{{/if}} collapsible-icon'></i>
+    </div>
+    <div class='collapsible-body'>
+      <div class='attr-grid'>
+        {{#each attrColumns}}
+          <div class='stat-box rollable' data-action='rollAttribute' data-attribute='{{this.key}}'>
+            <span class='stat-label'>{{localize this.label}}</span>
+            {{#if this.isDamaged}}
+              <span class='stat-value stat-value--damaged'>{{this.value}}<span
+                  class='stat-value__max'
+                >/{{this.max}}</span></span>
+            {{else}}
+              <span class='stat-value'>{{this.value}}</span>
+            {{/if}}
+          </div>
+        {{/each}}
       </div>
-    {{/each}}
-  </div>
-
-  {{! Build Point Warnings }}
-  {{#if buildWarnings.hasWarnings}}
-    <div class='build-warnings'>
-      {{#if buildWarnings.attrDiff}}
-        <div class='build-warning {{buildWarnings.attrClass}}'>
-          <i class='fa-solid {{buildWarnings.attrIcon}}'></i>
-          {{localize 'NEONRELIC.Budget.Attributes'}}:
-          {{buildWarnings.attrDiffText}}
-        </div>
-      {{/if}}
-      {{#if buildWarnings.skillDiff}}
-        <div class='build-warning {{buildWarnings.skillClass}}'>
-          <i class='fa-solid {{buildWarnings.skillIcon}}'></i>
-          {{localize 'NEONRELIC.Budget.Skills'}}:
-          {{buildWarnings.skillDiffText}}
+      {{! Build Point Warnings }}
+      {{#if buildWarnings.hasWarnings}}
+        <div class='build-warnings'>
+          {{#if buildWarnings.attrDiff}}
+            <div class='build-warning {{buildWarnings.attrClass}}'>
+              <i class='fa-solid {{buildWarnings.attrIcon}}'></i>
+              {{localize 'NEONRELIC.Budget.Attributes'}}:
+              {{buildWarnings.attrDiffText}}
+            </div>
+          {{/if}}
+          {{#if buildWarnings.skillDiff}}
+            <div class='build-warning {{buildWarnings.skillClass}}'>
+              <i class='fa-solid {{buildWarnings.skillIcon}}'></i>
+              {{localize 'NEONRELIC.Budget.Skills'}}:
+              {{buildWarnings.skillDiffText}}
+            </div>
+          {{/if}}
         </div>
       {{/if}}
     </div>
-  {{/if}}
+  </div>
 
   {{! Skills }}
   <div class='section-title'>{{localize 'NEONRELIC.Agent.Skills'}}</div>

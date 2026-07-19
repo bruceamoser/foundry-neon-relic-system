@@ -79,7 +79,7 @@ export async function openTalentPicker({ slotType, division, talentKey, subUnitN
     ),
   }));
 
-  const content = await renderTemplate(TEMPLATE, {
+  const content = await foundry.applications.handlebars.renderTemplate(TEMPLATE, {
     talents: talentData,
     hint,
   });

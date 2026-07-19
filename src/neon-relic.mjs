@@ -209,7 +209,7 @@ Hooks.on('renderChatMessageHTML', (message, html, _data) => {
       const CHAT_TEMPLATE = 'systems/neon-relic/templates/roll/roll-chatcard.hbs';
       let newContent;
       try {
-        newContent = await renderTemplate(CHAT_TEMPLATE, templateData);
+        newContent = await foundry.applications.handlebars.renderTemplate(CHAT_TEMPLATE, templateData);
       } catch (err) {
         console.error('neon-relic | Failed to render push roll chat card:', err);
         return;
