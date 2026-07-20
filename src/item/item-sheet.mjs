@@ -543,13 +543,18 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 
   /** @override */
   _canDragDrop(_event) {
-    return (this.document.type === 'organization' || this.document.type === 'location') && this.isEditable;
+    return (
+      (this.document.type === 'organization' ||
+        this.document.type === 'location' ||
+        this.document.type === 'informationCard') &&
+      this.isEditable
+    );
   }
 
   /** @override */
   async _onDrop(event) {
     const docType = this.document.type;
-    if (docType !== 'organization' && docType !== 'location') return;
+    if (docType !== 'organization' && docType !== 'location' && docType !== 'informationCard') return;
 
     // Extract drag data — Foundry stores document UUIDs as JSON in text/plain
     let data;
@@ -570,6 +575,10 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 
     if (docType === 'organization') {
       // Organization: only accept NPC actors
+      if (data.type !== 'Actor' || doc.type !== 'npc') return;
+      uuidField = 'system.npcUuids';
+    } else if (docType === 'informationCard') {
+      // Information Card: only accept NPC actors
       if (data.type !== 'Actor' || doc.type !== 'npc') return;
       uuidField = 'system.npcUuids';
     } else {

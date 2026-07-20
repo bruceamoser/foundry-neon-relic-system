@@ -1,89 +1,140 @@
-{{#unless showBack}}
-  <section class='npc-front'>
-    {{! Secret and Goal }}
-    <div class='field-row'>
-      <div class='field-col'>
-        <span class='field-label'>{{localize 'NEONRELIC.NPC.Secret'}}</span>
-        <input
-          class='field-value med'
-          name='system.secret'
-          type='text'
-          value='{{system.secret}}'
-          {{disabled (not isEditable)}}
-        />
-      </div>
-      <div class='field-col'>
-        <span class='field-label'>{{localize 'NEONRELIC.NPC.Goal'}}</span>
-        <input
-          class='field-value med'
-          name='system.goal'
-          type='text'
-          value='{{system.goal}}'
-          {{disabled (not isEditable)}}
-        />
-      </div>
-    </div>
-
-    {{! Knowledge }}
-    <div class='section-label'>{{localize 'NEONRELIC.NPC.Knowledge'}}</div>
-    <div class='field-row'>
-      <div class='field-col'>
-        <span class='field-label'>{{localize 'NEONRELIC.NPC.StartingKnowledge'}} (I#)</span>
-        <input
-          class='field-value'
-          name='system.startingKnowledge'
-          type='text'
-          value='{{system.startingKnowledge}}'
-          {{disabled (not isEditable)}}
-        />
-      </div>
-      <div class='field-col'>
-        <span class='field-label'>{{localize 'NEONRELIC.NPC.GainedKnowledge'}}</span>
-        <input
-          class='field-value'
-          name='system.gainedKnowledge'
-          type='text'
-          value='{{system.gainedKnowledge}}'
-          {{disabled (not isEditable)}}
-        />
-      </div>
-    </div>
-
-    {{! Locations }}
-    <div>
-      <span class='field-label'>{{localize 'NEONRELIC.NPC.Locations'}} (L#)</span>
+<section class='npc-card-tab'>
+  {{! Secret and Goal }}
+  <div class='field-row'>
+    <div class='field-col'>
+      <span class='field-label'>{{localize 'NEONRELIC.NPC.Secret'}}</span>
       <input
-        class='field-value'
-        name='system.locations'
+        class='field-value med'
+        name='system.secret'
         type='text'
-        value='{{locationsString}}'
+        value='{{system.secret}}'
         {{disabled (not isEditable)}}
       />
     </div>
-
-    {{! Engagement Results }}
-    <div class='section-label red'>{{localize 'NEONRELIC.NPC.EngagementResults'}}</div>
-    <div class='field-row'>
-      <div class='field-col'>
-        <span class='field-label'>{{localize 'NEONRELIC.NPC.PositiveResult'}}</span>
-        <input
-          class='field-value med'
-          name='system.positiveResult'
-          type='text'
-          value='{{system.positiveResult}}'
-          {{disabled (not isEditable)}}
-        />
-      </div>
-      <div class='field-col'>
-        <span class='field-label'>{{localize 'NEONRELIC.NPC.NegativeResult'}}</span>
-        <input
-          class='field-value med'
-          name='system.negativeResult'
-          type='text'
-          value='{{system.negativeResult}}'
-          {{disabled (not isEditable)}}
-        />
-      </div>
+    <div class='field-col'>
+      <span class='field-label'>{{localize 'NEONRELIC.NPC.Goal'}}</span>
+      <input
+        class='field-value med'
+        name='system.goal'
+        type='text'
+        value='{{system.goal}}'
+        {{disabled (not isEditable)}}
+      />
     </div>
-  </section>
-{{/unless}}
+  </div>
+
+  {{! Starting Knowledge (I#) — drag-drop information cards }}
+  <div class='section-label'>{{localize 'NEONRELIC.NPC.Knowledge'}}</div>
+  <div class='knowledge-section'>
+    <div class='knowledge-block'>
+      <span class='field-label'>{{localize 'NEONRELIC.NPC.StartingKnowledge'}} (I#)</span>
+      {{#if linkedStartingKnowledge.length}}
+        <ul class='linked-doc-list'>
+          {{#each linkedStartingKnowledge}}
+            <li class='linked-doc-row'>
+              <img class='linked-doc-img' src='{{this.img}}' alt='{{this.name}}' />
+              <a class='linked-doc-name' data-action='openLinkedDoc' data-uuid='{{this.uuid}}'>{{this.name}}</a>
+              {{#if @root.isEditable}}
+                <button
+                  type='button'
+                  class='linked-doc-remove'
+                  data-action='removeLinkedDoc'
+                  data-uuid='{{this.uuid}}'
+                  data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
+                >&times;</button>
+              {{/if}}
+            </li>
+          {{/each}}
+        </ul>
+      {{/if}}
+      {{#if isEditable}}
+        <div class='dropzone dropzone-knowledge' data-drop-key='startingKnowledge'>
+          <span class='dropzone-hint'>{{localize 'NEONRELIC.NPC.DropKnowledgeHint'}}</span>
+        </div>
+      {{/if}}
+    </div>
+
+    {{! Gained Knowledge (milestone-triggered) — drag-drop information cards }}
+    <div class='knowledge-block'>
+      <span class='field-label'>{{localize 'NEONRELIC.NPC.GainedKnowledge'}}</span>
+      {{#if linkedGainedKnowledge.length}}
+        <ul class='linked-doc-list'>
+          {{#each linkedGainedKnowledge}}
+            <li class='linked-doc-row'>
+              <img class='linked-doc-img' src='{{this.img}}' alt='{{this.name}}' />
+              <a class='linked-doc-name' data-action='openLinkedDoc' data-uuid='{{this.uuid}}'>{{this.name}}</a>
+              {{#if @root.isEditable}}
+                <button
+                  type='button'
+                  class='linked-doc-remove'
+                  data-action='removeLinkedDoc'
+                  data-uuid='{{this.uuid}}'
+                  data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
+                >&times;</button>
+              {{/if}}
+            </li>
+          {{/each}}
+        </ul>
+      {{/if}}
+      {{#if isEditable}}
+        <div class='dropzone dropzone-knowledge' data-drop-key='gainedKnowledge'>
+          <span class='dropzone-hint'>{{localize 'NEONRELIC.NPC.DropKnowledgeHint'}}</span>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+
+  {{! Locations (L#) — drag-drop location cards }}
+  <div class='section-label'>{{localize 'NEONRELIC.NPC.Locations'}} (L#)</div>
+  <div class='locations-section'>
+    {{#if linkedLocations.length}}
+      <ul class='linked-doc-list'>
+        {{#each linkedLocations}}
+          <li class='linked-doc-row'>
+            <img class='linked-doc-img' src='{{this.img}}' alt='{{this.name}}' />
+            <a class='linked-doc-name' data-action='openLinkedDoc' data-uuid='{{this.uuid}}'>{{this.name}}</a>
+            {{#if @root.isEditable}}
+              <button
+                type='button'
+                class='linked-doc-remove'
+                data-action='removeLinkedDoc'
+                data-uuid='{{this.uuid}}'
+                data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
+              >&times;</button>
+            {{/if}}
+          </li>
+        {{/each}}
+      </ul>
+    {{/if}}
+    {{#if isEditable}}
+      <div class='dropzone dropzone-location' data-drop-key='locations'>
+        <span class='dropzone-hint'>{{localize 'NEONRELIC.NPC.DropLocationHint'}}</span>
+      </div>
+    {{/if}}
+  </div>
+
+  {{! Engagement Results }}
+  <div class='section-label red'>{{localize 'NEONRELIC.NPC.EngagementResults'}}</div>
+  <div class='field-row'>
+    <div class='field-col'>
+      <span class='field-label'>{{localize 'NEONRELIC.NPC.PositiveResult'}}</span>
+      <input
+        class='field-value med'
+        name='system.positiveResult'
+        type='text'
+        value='{{system.positiveResult}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='field-col'>
+      <span class='field-label'>{{localize 'NEONRELIC.NPC.NegativeResult'}}</span>
+      <input
+        class='field-value med'
+        name='system.negativeResult'
+        type='text'
+        value='{{system.negativeResult}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+  </div>
+</section>

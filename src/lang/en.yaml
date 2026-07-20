@@ -724,8 +724,13 @@ NEONRELIC:
     PositiveResult: Positive Result
     NegativeResult: Negative Result
     Locations: Locations
-    Front: Front (Case Card)
-    Back: Back (Stat Block)
+    TabCaseCard: Case Card
+    TabStatBlock: Stat Block
+    TabEntity: Entity
+    RemoveLinked: Remove link
+    DropOrgHint: Drop organization here
+    DropKnowledgeHint: Drop information card here
+    DropLocationHint: Drop location here
 
   # Mob
   Mob:
