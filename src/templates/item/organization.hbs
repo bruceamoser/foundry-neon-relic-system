@@ -23,7 +23,7 @@
     </div>
   </header>
 
-  {{! Tab Navigation — at the top, right below the header }}
+  {{! Tab Navigation }}
   <nav class='org-tabs tabs' data-group='org-primary'>
     <a class='item active' data-tab='details' data-group='org-primary'>
       {{localize 'NEONRELIC.OrgRef.TabDetails'}}
@@ -35,48 +35,46 @@
 
   {{! Tab Content }}
   <section class='org-tab-content'>
-    {{! Details Tab — contains identity block + detail fields }}
+    {{! Details Tab }}
     <div class='tab active' data-tab='details' data-group='org-primary'>
-      {{! Organization Identity Block }}
-      <div class='org-id-block'>
-        <div class='org-id-row'>
-          <div class='org-id-field'>
-            <span class='field-label'>{{localize 'NEONRELIC.OrgRef.OrganizationId'}}</span>
-            <input
-              class='field-value'
-              type='text'
-              name='system.organizationId'
-              value='{{system.organizationId}}'
-              placeholder='O-1'
-              {{disabled (not isEditable)}}
-            />
-          </div>
-          <div class='org-desc-field'>
-            <span class='field-label'>{{localize 'NEONRELIC.Description'}}</span>
-            {{#if isEditable}}
-              <prose-mirror
-                name='system.description'
-                value='{{system.description}}'
-                data-document-uuid='{{document.uuid}}'
-                relative
-              ></prose-mirror>
-            {{else}}
-              <div class='field-value editor'>{{{enrichedDescription}}}</div>
-            {{/if}}
-          </div>
-        </div>
+      {{! Organization ID }}
+      <div class='org-field'>
+        <span class='field-label'>{{localize 'NEONRELIC.OrgRef.OrganizationId'}}</span>
+        <input
+          class='field-value org-id-input'
+          type='text'
+          name='system.organizationId'
+          value='{{system.organizationId}}'
+          placeholder='O-1'
+          {{disabled (not isEditable)}}
+        />
+      </div>
 
-        {{! Status Checkboxes }}
-        <div class='org-status-row'>
-          <label class='status-check'>
-            <input type='checkbox' name='system.isActive' {{checked system.isActive}} {{disabled (not isEditable)}} />
-            <span>{{localize 'NEONRELIC.OrgRef.Active'}}</span>
-          </label>
-          <label class='status-check'>
-            <input type='checkbox' name='system.isDormant' {{checked system.isDormant}} {{disabled (not isEditable)}} />
-            <span>{{localize 'NEONRELIC.OrgRef.Dormant'}}</span>
-          </label>
-        </div>
+      {{! Active / Dormant }}
+      <div class='org-status-row'>
+        <label class='status-check'>
+          <input type='checkbox' name='system.isActive' {{checked system.isActive}} {{disabled (not isEditable)}} />
+          <span>{{localize 'NEONRELIC.OrgRef.Active'}}</span>
+        </label>
+        <label class='status-check'>
+          <input type='checkbox' name='system.isDormant' {{checked system.isDormant}} {{disabled (not isEditable)}} />
+          <span>{{localize 'NEONRELIC.OrgRef.Dormant'}}</span>
+        </label>
+      </div>
+
+      {{! Description }}
+      <div class='org-field org-desc'>
+        <span class='field-label'>{{localize 'NEONRELIC.Description'}}</span>
+        {{#if isEditable}}
+          <textarea
+            class='field-value org-textarea'
+            name='system.description'
+            rows='6'
+            {{disabled (not isEditable)}}
+          >{{system.description}}</textarea>
+        {{else}}
+          <div class='field-value org-desc-readonly'>{{{enrichedDescription}}}</div>
+        {{/if}}
       </div>
     </div>
 
