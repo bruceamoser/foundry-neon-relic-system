@@ -89,12 +89,12 @@
       <div>
         <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.SituationSummaryHint'}}</span>
         {{#if isEditable}}
-          <prose-mirror
+          <textarea
+            class='pcb-textarea'
             name='system.situationSummary'
-            value='{{system.situationSummary}}'
-            data-document-uuid='{{document.uuid}}'
-            relative
-          ></prose-mirror>
+            rows='4'
+            {{disabled (not isEditable)}}
+          >{{system.situationSummary}}</textarea>
         {{else}}
           {{{enrichedSituationSummary}}}
         {{/if}}
@@ -108,12 +108,12 @@
         <div>
           <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.PrimaryObjectiveHint'}}</span>
           {{#if isEditable}}
-            <prose-mirror
+            <textarea
+              class='pcb-textarea'
               name='system.primaryObjective'
-              value='{{system.primaryObjective}}'
-              data-document-uuid='{{document.uuid}}'
-              relative
-            ></prose-mirror>
+              rows='4'
+              {{disabled (not isEditable)}}
+            >{{system.primaryObjective}}</textarea>
           {{else}}
             {{{enrichedPrimaryObjective}}}
           {{/if}}
@@ -121,12 +121,12 @@
         <div>
           <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.SecondaryObjectiveHint'}}</span>
           {{#if isEditable}}
-            <prose-mirror
+            <textarea
+              class='pcb-textarea'
               name='system.secondaryObjective'
-              value='{{system.secondaryObjective}}'
-              data-document-uuid='{{document.uuid}}'
-              relative
-            ></prose-mirror>
+              rows='4'
+              {{disabled (not isEditable)}}
+            >{{system.secondaryObjective}}</textarea>
           {{else}}
             {{{enrichedSecondaryObjective}}}
           {{/if}}
@@ -140,12 +140,12 @@
       <div>
         <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.KnownOrganizationsHint'}}</span>
         {{#if isEditable}}
-          <prose-mirror
+          <textarea
+            class='pcb-textarea'
             name='system.knownOrganizations'
-            value='{{system.knownOrganizations}}'
-            data-document-uuid='{{document.uuid}}'
-            relative
-          ></prose-mirror>
+            rows='4'
+            {{disabled (not isEditable)}}
+          >{{system.knownOrganizations}}</textarea>
         {{else}}
           {{{enrichedKnownOrganizations}}}
         {{/if}}
@@ -198,12 +198,12 @@
       <div>
         <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.StartingLeadsHint'}}</span>
         {{#if isEditable}}
-          <prose-mirror
+          <textarea
+            class='pcb-textarea'
             name='system.startingLeads'
-            value='{{system.startingLeads}}'
-            data-document-uuid='{{document.uuid}}'
-            relative
-          ></prose-mirror>
+            rows='4'
+            {{disabled (not isEditable)}}
+          >{{system.startingLeads}}</textarea>
         {{else}}
           {{{enrichedStartingLeads}}}
         {{/if}}
@@ -217,12 +217,12 @@
         <div>
           <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.TimelinePressureHint'}}</span>
           {{#if isEditable}}
-            <prose-mirror
+            <textarea
+              class='pcb-textarea'
               name='system.timelinePressure'
-              value='{{system.timelinePressure}}'
-              data-document-uuid='{{document.uuid}}'
-              relative
-            ></prose-mirror>
+              rows='4'
+              {{disabled (not isEditable)}}
+            >{{system.timelinePressure}}</textarea>
           {{else}}
             {{{enrichedTimelinePressure}}}
           {{/if}}
@@ -230,12 +230,12 @@
         <div>
           <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.ConstraintsHint'}}</span>
           {{#if isEditable}}
-            <prose-mirror
+            <textarea
+              class='pcb-textarea'
               name='system.constraints'
-              value='{{system.constraints}}'
-              data-document-uuid='{{document.uuid}}'
-              relative
-            ></prose-mirror>
+              rows='4'
+              {{disabled (not isEditable)}}
+            >{{system.constraints}}</textarea>
           {{else}}
             {{{enrichedConstraints}}}
           {{/if}}
@@ -249,12 +249,12 @@
       <div>
         <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.RegionalContactsHint'}}</span>
         {{#if isEditable}}
-          <prose-mirror
+          <textarea
+            class='pcb-textarea'
             name='system.regionalContacts'
-            value='{{system.regionalContacts}}'
-            data-document-uuid='{{document.uuid}}'
-            relative
-          ></prose-mirror>
+            rows='4'
+            {{disabled (not isEditable)}}
+          >{{system.regionalContacts}}</textarea>
         {{else}}
           {{{enrichedRegionalContacts}}}
         {{/if}}
