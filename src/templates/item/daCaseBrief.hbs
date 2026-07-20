@@ -79,9 +79,6 @@
     <a class='item' data-tab='section-vii' data-group='dcb-primary'>
       {{localize 'NEONRELIC.DACaseBrief.TabVII'}}
     </a>
-    <a class='item' data-tab='section-viii' data-group='dcb-primary'>
-      {{localize 'NEONRELIC.DACaseBrief.TabVIII'}}
-    </a>
   </nav>
 
   {{! Tab Content }}
@@ -302,29 +299,8 @@
         </div>
       </section>
     </div>
-
-    {{! VIII — DA Notes }}
-    <div class='tab' data-tab='section-viii' data-group='dcb-primary'>
-      <section class='dcb-section'>
-        <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionVIII'}}</h2>
-        <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.DANotesHint'}}</span>
-        {{#if isEditable}}
-          <prose-mirror
-            name='system.daNotes'
-            value='{{system.daNotes}}'
-            data-document-uuid='{{document.uuid}}'
-            relative
-          ></prose-mirror>
-        {{else}}
-          <div class='dcb-field-value xxl'>
-            {{{enrichedDANotes}}}
-          </div>
-        {{/if}}
-      </section>
-    </div>
   </section>
 
-  {{! Footer }}
   <footer class='dcb-footer'>
     <span>{{localize 'NEONRELIC.DACaseBrief.Footer'}}</span>
   </footer>
