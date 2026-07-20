@@ -591,7 +591,6 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     const docType = this.document.type;
     if (docType !== 'organization' && docType !== 'location' && docType !== 'informationCard') return;
 
-    // Extract drag data — Foundry stores document UUIDs as JSON in text/plain
     let data;
     try {
       const raw = event.dataTransfer.getData('text/plain');
@@ -607,17 +606,26 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 
     const system = this.document.system;
     let uuidField;
+    let reverseField; // field on the dropped document to update for bidirectional linking
 
     if (docType === 'organization') {
       // Organization: only accept NPC actors
       if (data.type !== 'Actor' || doc.type !== 'npc') return;
       uuidField = 'system.npcUuids';
+      // Bidirectional: set this org as the NPC's organization
+      reverseField = 'system.organizationUuid';
     } else if (docType === 'informationCard') {
-      // Information Card: accept Locations (foundAt) and NPC Actors (knownBy or linked NPCs)
       const dropKey = event.target.closest('[data-drop-key]')?.dataset?.dropKey;
       if (data.type === 'Item' && doc.type === 'location' && dropKey === 'foundAt') {
         if (system.foundAtUuid === data.uuid) return;
         await this.document.update({ 'system.foundAtUuid': data.uuid });
+        // Bidirectional: add this info card to the location's informationCardUuids
+        const locUuids = [...(doc.system.informationCardUuids ?? [])];
+        const selfUuid = this.document.uuid;
+        if (!locUuids.includes(selfUuid)) {
+          locUuids.push(selfUuid);
+          await doc.update({ 'system.informationCardUuids': locUuids });
+        }
         return;
       } else if (data.type === 'Actor' && doc.type === 'npc') {
         if (dropKey === 'knownBy') {
@@ -625,10 +633,19 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
           if (uuids.includes(data.uuid)) return;
           uuids.push(data.uuid);
           await this.document.update({ 'system.knownByUuids': uuids });
+          // Bidirectional: add this info card to the NPC's startingKnowledgeUuids
+          const npcUuids = [...(doc.system.startingKnowledgeUuids ?? [])];
+          const selfUuid = this.document.uuid;
+          if (!npcUuids.includes(selfUuid)) {
+            npcUuids.push(selfUuid);
+            await doc.update({ 'system.startingKnowledgeUuids': npcUuids });
+          }
           return;
         }
-        // Default: add to linked NPCs
+        // Default drop: add to linked NPCs
         uuidField = 'system.npcUuids';
+        // Bidirectional: add this info card to NPC's startingKnowledgeUuids
+        reverseField = 'system.startingKnowledgeUuids';
       } else {
         return;
       }
@@ -636,8 +653,11 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       // Location: accept NPCs, Information Cards, and Organizations
       if (data.type === 'Actor' && doc.type === 'npc') {
         uuidField = 'system.npcUuids';
+        // Bidirectional: add this location to NPC's locationUuids
+        reverseField = 'system.locationUuids';
       } else if (data.type === 'Item' && doc.type === 'informationCard') {
         uuidField = 'system.informationCardUuids';
+        // Bidirectional: no reverse field on info card for locations (foundAt is already handled above)
       } else if (data.type === 'Item' && doc.type === 'organization') {
         uuidField = 'system.organizationUuids';
       } else {
@@ -645,10 +665,27 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       }
     }
 
+    // Add to this document's UUID array
     const uuids = [...(foundry.utils.getProperty(system, uuidField.split('.').slice(1).join('.')) ?? [])];
     if (!uuids.includes(data.uuid)) {
       uuids.push(data.uuid);
       await this.document.update({ [uuidField]: uuids });
+    }
+
+    // Bidirectional: update the dropped document
+    if (reverseField) {
+      const selfUuid = this.document.uuid;
+      if (reverseField === 'system.organizationUuid') {
+        // Single UUID field — replace
+        await doc.update({ [reverseField]: selfUuid });
+      } else {
+        // Array UUID field — append
+        const revUuids = [...(foundry.utils.getProperty(doc.system, reverseField.split('.').slice(1).join('.')) ?? [])];
+        if (!revUuids.includes(selfUuid)) {
+          revUuids.push(selfUuid);
+          await doc.update({ [reverseField]: revUuids });
+        }
+      }
     }
   }
 
@@ -659,28 +696,70 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     const uuid = target.dataset.uuid;
     if (!uuid) return;
     const system = this.document.system;
+    const selfUuid = this.document.uuid;
+    const docType = this.document.type;
+
+    // Resolve the dropped document for reverse-unlinking
+    let doc = null;
+    try {
+      doc = await fromUuid(uuid);
+    } catch {
+      /* skip */
+    }
 
     // Handle single-UUID field (foundAt on info cards)
     if (system.foundAtUuid === uuid) {
       await this.document.update({ 'system.foundAtUuid': '' });
+      // Bidirectional unlink: remove info card from location's informationCardUuids
+      if (doc?.system?.informationCardUuids) {
+        const locUuids = doc.system.informationCardUuids.filter(u => u !== selfUuid);
+        await doc.update({ 'system.informationCardUuids': locUuids });
+      }
       return;
     }
 
-    // Handle array-UUID fields
+    // Handle array-UUID fields with reverse unlinking
     const collections = [
-      ['system.npcUuids', system.npcUuids],
-      ['system.knownByUuids', system.knownByUuids],
-      ['system.informationCardUuids', system.informationCardUuids],
-      ['system.organizationUuids', system.organizationUuids],
+      {
+        path: 'system.npcUuids',
+        arr: system.npcUuids,
+        // Reverse: remove this document's UUID from the NPC
+        reverse(doc) {
+          if (!doc) return;
+          if (docType === 'organization') return doc.update({ 'system.organizationUuid': '' });
+          if (docType === 'location') {
+            const locUuids = (doc.system.locationUuids ?? []).filter(u => u !== selfUuid);
+            return doc.update({ 'system.locationUuids': locUuids });
+          }
+          if (docType === 'informationCard') {
+            const skUuids = (doc.system.startingKnowledgeUuids ?? []).filter(u => u !== selfUuid);
+            return doc.update({ 'system.startingKnowledgeUuids': skUuids });
+          }
+        },
+      },
+      {
+        path: 'system.knownByUuids',
+        arr: system.knownByUuids,
+        reverse(doc) {
+          if (!doc) return;
+          // Remove info card from NPC's startingKnowledgeUuids
+          const skUuids = (doc.system.startingKnowledgeUuids ?? []).filter(u => u !== selfUuid);
+          return doc.update({ 'system.startingKnowledgeUuids': skUuids });
+        },
+      },
+      { path: 'system.informationCardUuids', arr: system.informationCardUuids },
+      { path: 'system.organizationUuids', arr: system.organizationUuids },
     ];
 
-    for (const [path, arr] of collections) {
-      if (!arr?.length) continue;
-      const idx = arr.indexOf(uuid);
+    for (const col of collections) {
+      if (!col.arr?.length) continue;
+      const idx = col.arr.indexOf(uuid);
       if (idx !== -1) {
-        const updated = [...arr];
+        const updated = [...col.arr];
         updated.splice(idx, 1);
-        await this.document.update({ [path]: updated });
+        await this.document.update({ [col.path]: updated });
+        // Reverse unlink
+        if (col.reverse) await col.reverse(doc);
         return;
       }
     }
