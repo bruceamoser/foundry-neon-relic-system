@@ -621,8 +621,10 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         return;
       } else if (data.type === 'Actor' && doc.type === 'npc') {
         if (dropKey === 'knownBy') {
-          if (system.knownByUuid === data.uuid) return;
-          await this.document.update({ 'system.knownByUuid': data.uuid });
+          const uuids = [...(system.knownByUuids ?? [])];
+          if (uuids.includes(data.uuid)) return;
+          uuids.push(data.uuid);
+          await this.document.update({ 'system.knownByUuids': uuids });
           return;
         }
         // Default: add to linked NPCs
@@ -658,19 +660,16 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     if (!uuid) return;
     const system = this.document.system;
 
-    // Handle single-UUID fields (foundAt, knownBy on info cards)
+    // Handle single-UUID field (foundAt on info cards)
     if (system.foundAtUuid === uuid) {
       await this.document.update({ 'system.foundAtUuid': '' });
-      return;
-    }
-    if (system.knownByUuid === uuid) {
-      await this.document.update({ 'system.knownByUuid': '' });
       return;
     }
 
     // Handle array-UUID fields
     const collections = [
       ['system.npcUuids', system.npcUuids],
+      ['system.knownByUuids', system.knownByUuids],
       ['system.informationCardUuids', system.informationCardUuids],
       ['system.organizationUuids', system.organizationUuids],
     ];

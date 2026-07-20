@@ -409,7 +409,7 @@ export class InformationCardDataModel extends foundry.abstract.TypeDataModel {
       cardType: new StringField({ initial: 'supportingIntel', blank: false }),
       content: new HTMLField({ blank: true }),
       foundAtUuid: new StringField({ blank: true }),
-      knownByUuid: new StringField({ blank: true }),
+      knownByUuids: new ArrayField(new StringField({ blank: true })),
       hqFallback: new NumberField({ initial: 0, integer: true, min: 0 }),
       daNotes: new HTMLField({ blank: true }),
       revealed: new BooleanField({ initial: false }),

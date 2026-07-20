@@ -108,25 +108,26 @@
         </div>
         <div class='back-field'>
           <label class='field-label'>{{localize 'NEONRELIC.InfoCard.KnownBy'}}</label>
-          {{#if linkedKnownBy}}
-            <div class='linked-doc-row'>
-              <img class='linked-doc-img' src='{{linkedKnownBy.img}}' alt='{{linkedKnownBy.name}}' />
-              <a
-                class='linked-doc-name'
-                data-action='openLinkedDoc'
-                data-uuid='{{linkedKnownBy.uuid}}'
-              >{{linkedKnownBy.name}}</a>
-              {{#if isEditable}}
-                <button
-                  type='button'
-                  class='linked-doc-remove'
-                  data-action='removeLinkedDoc'
-                  data-uuid='{{linkedKnownBy.uuid}}'
-                  data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
-                >&times;</button>
-              {{/if}}
-            </div>
-          {{else}}
+          {{#if linkedKnownBy.length}}
+            <ul class='linked-doc-list'>
+              {{#each linkedKnownBy}}
+                <li class='linked-doc-row'>
+                  <img class='linked-doc-img' src='{{this.img}}' alt='{{this.name}}' />
+                  <a class='linked-doc-name' data-action='openLinkedDoc' data-uuid='{{this.uuid}}'>{{this.name}}</a>
+                  {{#if @root.isEditable}}
+                    <button
+                      type='button'
+                      class='linked-doc-remove'
+                      data-action='removeLinkedDoc'
+                      data-uuid='{{this.uuid}}'
+                      data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
+                    >&times;</button>
+                  {{/if}}
+                </li>
+              {{/each}}
+            </ul>
+          {{/if}}
+          {{#if isEditable}}
             <div class='dropzone' data-drop-key='knownBy'>
               <span class='dropzone-hint'>{{localize 'NEONRELIC.InfoCard.DropNpcHint'}}</span>
             </div>
