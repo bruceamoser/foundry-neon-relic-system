@@ -158,6 +158,13 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
           relativeTo: item,
         },
       );
+      context.enrichedDaNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.daNotes ?? '',
+        {
+          async: true,
+          relativeTo: item,
+        },
+      );
     }
     if (item.type === 'organization') {
       context.enrichedActivationCondition = await foundry.applications.ux.TextEditor.implementation.enrichHTML(

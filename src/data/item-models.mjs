@@ -378,6 +378,8 @@ export class UpgradeDataModel extends foundry.abstract.TypeDataModel {
 export class LocationDataModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
+      locationId: new StringField({ blank: true }),
+      caseId: new StringField({ blank: true }),
       availability: new StringField({ initial: 'open', blank: false }),
       availabilityCondition: new StringField({ blank: true }),
       npcsPresent: new HTMLField({ blank: true }),
@@ -386,6 +388,8 @@ export class LocationDataModel extends foundry.abstract.TypeDataModel {
       positiveResult: new HTMLField({ blank: true }),
       negativeResult: new HTMLField({ blank: true }),
       milestoneChanges: new HTMLField({ blank: true }),
+      daNotes: new HTMLField({ blank: true }),
+      image: new StringField({ blank: true }),
       description: new HTMLField({ blank: true }),
     };
   }

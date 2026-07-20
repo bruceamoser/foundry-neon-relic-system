@@ -271,5 +271,24 @@
       padding-top: 4px;
       text-transform: uppercase;
     }
+
+    // ── Case ID ───────────────────────────────────────
+    .loc-case-id {
+      margin-top: 3px;
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      justify-content: flex-end;
+    }
+
+    .case-id-input {
+      min-width: 130px;
+    }
+
+    // ── DA Notes Lines ────────────────────────────────
+    .notes-line {
+      border-bottom: 1px solid $nr-rule-light;
+      height: 17px;
+    }
   }
 }

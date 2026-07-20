@@ -413,6 +413,17 @@ NEONRELIC:
 
   # Location
   Location:
+    HeaderTitle: Location Reference
+    HeaderSubtitle: Neon Relic &mdash; The Verdant Covenant
+    Classification: DA EYES ONLY
+    FormRef: 'VC-14 &bull; Rev. 1987'
+    CaseId: Case ID
+    LocationId: Location ID
+    LocationName: Location Name
+    LocationImage: Location Image
+    LocationImagePlaceholder: Location Image
+    LocationImageHint: Click to set location image
+    DescriptionHint: Description &mdash; What the agents see when they arrive
     Availability: Availability
     AvailabilityCondition: Availability Condition (if not Open)
     Open: Open
@@ -431,6 +442,10 @@ NEONRELIC:
     NegativeResult: Negative Result — failed engagement
     MilestoneChanges: Milestone Changes
     MilestoneHint: How this location changes when organization milestones are reached
+    DANotes: DA Notes
+    FooterLeft: 'VC-14 &bull; The Verdant Covenant &bull; DA Use Only'
+    FooterCenter: 'Neon Relic &copy; 2025'
+    FooterRight: Location Reference Sheet
 
   # Subdivision
   Subdivision:

@@ -1,8 +1,65 @@
-{{! Location item type template — matches location-page.html }}
+{{! Location item type template — matches location-page.html (VC-14) }}
 <div class='location-sheet'>
-  {{! Location ID Badge }}
+  {{! Header — VC-14 }}
+  <div class='loc-header'>
+    <div class='loc-header-left'>
+      <div class='loc-header-title'>
+        {{localize 'NEONRELIC.Location.HeaderTitle'}}
+      </div>
+      <div class='loc-header-subtitle'>
+        {{localize 'NEONRELIC.Location.HeaderSubtitle'}}
+      </div>
+    </div>
+    <div class='loc-header-right'>
+      <div class='loc-classification'>
+        {{localize 'NEONRELIC.Location.Classification'}}
+      </div>
+      <div class='loc-form-ref'>
+        {{localize 'NEONRELIC.Location.FormRef'}}
+      </div>
+      <div class='loc-case-id'>
+        <span class='field-label'>{{localize 'NEONRELIC.Location.CaseId'}}</span>
+        <input
+          class='field-value case-id-input'
+          type='text'
+          name='system.caseId'
+          value='{{system.caseId}}'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+    </div>
+  </div>
+
+  {{! Location ID Badge & Name }}
   <div class='loc-id-row'>
-    <div class='loc-id'>LOC</div>
+    <div class='loc-id-badge'>
+      <input
+        class='loc-id-input'
+        type='text'
+        name='system.locationId'
+        value='{{system.locationId}}'
+        placeholder='L-1'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='loc-name-col'>
+      <span class='field-label'>{{localize 'NEONRELIC.Location.LocationName'}}</span>
+      <div class='loc-name'>{{item.name}}</div>
+    </div>
+  </div>
+
+  {{! Location Image }}
+  <div class='loc-image' data-action='openImage' data-tooltip='{{localize "NEONRELIC.Location.LocationImageHint"}}'>
+    <img src='{{system.image}}' alt='{{localize "NEONRELIC.Location.LocationImage"}}' />
+    <span class='loc-image-placeholder'>{{localize 'NEONRELIC.Location.LocationImagePlaceholder'}}</span>
+  </div>
+
+  {{! Description — what agents see when they arrive }}
+  <div class='field'>
+    <span class='field-label'>
+      {{localize 'NEONRELIC.Location.DescriptionHint'}}
+    </span>
+    <div class='field-value xl editor'>{{{enrichedDescription}}}</div>
   </div>
 
   {{! Availability }}
@@ -108,5 +165,20 @@
     <div class='field-value tall editor'>
       {{{enrichedMilestoneChanges}}}
     </div>
+  </div>
+
+  {{! DA Notes }}
+  <div class='section-title muted'>
+    {{localize 'NEONRELIC.Location.DANotes'}}
+  </div>
+  <div>
+    <div class='field-value xl editor'>{{{enrichedDaNotes}}}</div>
+  </div>
+
+  {{! Footer }}
+  <div class='loc-footer'>
+    <span>{{localize 'NEONRELIC.Location.FooterLeft'}}</span>
+    <span>{{localize 'NEONRELIC.Location.FooterCenter'}}</span>
+    <span>{{localize 'NEONRELIC.Location.FooterRight'}}</span>
   </div>
 </div>
