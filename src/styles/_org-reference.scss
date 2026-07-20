@@ -139,18 +139,19 @@
     flex-wrap: wrap;
     gap: 0;
     border-bottom: 2px solid $nr-ink;
-    margin: 0 0 0;
+    margin: 0 0 6px;
 
     .item {
       flex: 1 1 auto;
       text-align: center;
-      padding: 4px 6px;
+      padding: 5px 8px;
       font-family: $nr-font-main;
-      font-size: 7pt;
+      font-size: 8pt;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      color: $nr-ink-faded;
-      background: $nr-field-bg;
+      letter-spacing: 1.5px;
+      color: $nr-ink;
+      background: darken($nr-paper, 8%);
       border: 1px solid $nr-rule;
       border-bottom: none;
       cursor: pointer;
@@ -159,7 +160,7 @@
         color 0.15s;
 
       &:hover {
-        background: $nr-ink-light;
+        background: darken($nr-paper, 14%);
         color: $nr-ink;
       }
 
@@ -169,6 +170,7 @@
         font-weight: 700;
         border-bottom: 2px solid $nr-paper;
         margin-bottom: -2px;
+        box-shadow: 0 -2px 0 $nr-red-stamp;
       }
     }
   }

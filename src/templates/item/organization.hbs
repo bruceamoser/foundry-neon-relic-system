@@ -23,59 +23,9 @@
     </div>
   </header>
 
-  {{! Organization Identity Block }}
-  <div class='org-id-block'>
-    <div class='org-id-row'>
-      <div class='org-id-field'>
-        <span class='field-label'>{{localize 'NEONRELIC.OrgRef.OrganizationId'}}</span>
-        <input
-          class='field-value'
-          type='text'
-          name='system.organizationId'
-          value='{{system.organizationId}}'
-          placeholder='O-1'
-          {{disabled (not isEditable)}}
-        />
-      </div>
-      <div class='org-name-field'>
-        <span class='field-label'>{{localize 'NEONRELIC.OrgRef.OrganizationName'}}</span>
-        <input
-          class='field-value'
-          type='text'
-          name='system.organizationName'
-          value='{{system.organizationName}}'
-          {{disabled (not isEditable)}}
-        />
-      </div>
-      <div class='org-value-field'>
-        <span class='field-label'>{{localize 'NEONRELIC.OrgRef.Value'}}</span>
-        <input
-          class='field-value'
-          type='number'
-          name='system.value'
-          value='{{system.value}}'
-          min='0'
-          {{disabled (not isEditable)}}
-        />
-      </div>
-    </div>
-
-    {{! Status Checkboxes }}
-    <div class='org-status-row'>
-      <label class='status-check'>
-        <input type='checkbox' name='system.isActive' {{checked system.isActive}} {{disabled (not isEditable)}} />
-        <span>{{localize 'NEONRELIC.OrgRef.Active'}}</span>
-      </label>
-      <label class='status-check'>
-        <input type='checkbox' name='system.isDormant' {{checked system.isDormant}} {{disabled (not isEditable)}} />
-        <span>{{localize 'NEONRELIC.OrgRef.Dormant'}}</span>
-      </label>
-    </div>
-  </div>
-
-  {{! Tab Navigation }}
+  {{! Tab Navigation — at the top, right below the header }}
   <nav class='org-tabs tabs' data-group='org-primary'>
-    <a class='item' data-tab='details' data-group='org-primary'>
+    <a class='item active' data-tab='details' data-group='org-primary'>
       {{localize 'NEONRELIC.OrgRef.TabDetails'}}
     </a>
     <a class='item' data-tab='npcs' data-group='org-primary'>
@@ -85,8 +35,58 @@
 
   {{! Tab Content }}
   <section class='org-tab-content'>
-    {{! Details Tab }}
-    <div class='tab' data-tab='details' data-group='org-primary'>
+    {{! Details Tab — contains identity block + detail fields }}
+    <div class='tab active' data-tab='details' data-group='org-primary'>
+      {{! Organization Identity Block }}
+      <div class='org-id-block'>
+        <div class='org-id-row'>
+          <div class='org-id-field'>
+            <span class='field-label'>{{localize 'NEONRELIC.OrgRef.OrganizationId'}}</span>
+            <input
+              class='field-value'
+              type='text'
+              name='system.organizationId'
+              value='{{system.organizationId}}'
+              placeholder='O-1'
+              {{disabled (not isEditable)}}
+            />
+          </div>
+          <div class='org-name-field'>
+            <span class='field-label'>{{localize 'NEONRELIC.OrgRef.OrganizationName'}}</span>
+            <input
+              class='field-value'
+              type='text'
+              name='system.organizationName'
+              value='{{system.organizationName}}'
+              {{disabled (not isEditable)}}
+            />
+          </div>
+          <div class='org-value-field'>
+            <span class='field-label'>{{localize 'NEONRELIC.OrgRef.Value'}}</span>
+            <input
+              class='field-value'
+              type='number'
+              name='system.value'
+              value='{{system.value}}'
+              min='0'
+              {{disabled (not isEditable)}}
+            />
+          </div>
+        </div>
+
+        {{! Status Checkboxes }}
+        <div class='org-status-row'>
+          <label class='status-check'>
+            <input type='checkbox' name='system.isActive' {{checked system.isActive}} {{disabled (not isEditable)}} />
+            <span>{{localize 'NEONRELIC.OrgRef.Active'}}</span>
+          </label>
+          <label class='status-check'>
+            <input type='checkbox' name='system.isDormant' {{checked system.isDormant}} {{disabled (not isEditable)}} />
+            <span>{{localize 'NEONRELIC.OrgRef.Dormant'}}</span>
+          </label>
+        </div>
+      </div>
+
       <div class='org-details'>
         <div class='org-detail-row'>
           <div class='org-detail'>
@@ -143,7 +143,7 @@
           </div>
         {{/if}}
         {{#if isEditable}}
-          <div class='org-npc-dropzone' data-action='dropNpc'>
+          <div class='org-npc-dropzone'>
             <span>{{localize 'NEONRELIC.OrgRef.DropNpcHint'}}</span>
           </div>
         {{/if}}
