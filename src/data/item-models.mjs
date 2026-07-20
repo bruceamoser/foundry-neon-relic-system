@@ -388,6 +388,7 @@ export class LocationDataModel extends foundry.abstract.TypeDataModel {
       npcUuids: new ArrayField(new StringField({ blank: true })),
       informationCardUuids: new ArrayField(new StringField({ blank: true })),
       organizationUuids: new ArrayField(new StringField({ blank: true })),
+      locationUuids: new ArrayField(new StringField({ blank: true })),
       description: new HTMLField({ blank: true }),
     };
   }
@@ -408,7 +409,7 @@ export class InformationCardDataModel extends foundry.abstract.TypeDataModel {
       cardId: new StringField({ initial: '', blank: true }),
       cardType: new StringField({ initial: 'supportingIntel', blank: false }),
       content: new HTMLField({ blank: true }),
-      foundAtUuid: new StringField({ blank: true }),
+      foundAtUuids: new ArrayField(new StringField({ blank: true })),
       knownByUuids: new ArrayField(new StringField({ blank: true })),
       hqFallback: new NumberField({ initial: 0, integer: true, min: 0 }),
       daNotes: new HTMLField({ blank: true }),

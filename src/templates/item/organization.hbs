@@ -31,6 +31,9 @@
     <a class='item' data-tab='npcs' data-group='org-primary'>
       {{localize 'NEONRELIC.OrgRef.TabNpcs'}}
     </a>
+    <a class='item' data-tab='locations' data-group='org-primary'>
+      {{localize 'NEONRELIC.OrgRef.TabLocations'}}
+    </a>
   </nav>
 
   {{! Tab Content }}
@@ -86,26 +89,55 @@
             {{#each linkedNpcs}}
               <li class='org-npc-item' data-uuid='{{this.uuid}}'>
                 <img class='org-npc-img' src='{{this.img}}' alt='{{this.name}}' />
-                <a class='org-npc-name' data-action='openNpcSheet' data-uuid='{{this.uuid}}'>{{this.name}}</a>
-                <button
-                  type='button'
-                  class='org-npc-remove'
-                  data-action='removeNpc'
-                  data-uuid='{{this.uuid}}'
-                  data-tooltip='{{localize "NEONRELIC.OrgRef.RemoveNpc"}}'
-                  {{disabled (not @root.isEditable)}}
-                >&times;</button>
+                <a class='org-npc-name' data-action='openLinkedDoc' data-uuid='{{this.uuid}}'>{{this.name}}</a>
+                {{#if @root.isEditable}}
+                  <button
+                    type='button'
+                    class='org-npc-remove'
+                    data-action='removeLinkedDoc'
+                    data-uuid='{{this.uuid}}'
+                    data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
+                  >&times;</button>
+                {{/if}}
               </li>
             {{/each}}
           </ul>
         {{else}}
-          <div class='org-npc-empty'>
-            <p>{{localize 'NEONRELIC.OrgRef.NoNpcs'}}</p>
-          </div>
+          <div class='org-npc-empty'><p>{{localize 'NEONRELIC.OrgRef.NoNpcs'}}</p></div>
         {{/if}}
         {{#if isEditable}}
-          <div class='org-npc-dropzone'>
-            <span>{{localize 'NEONRELIC.OrgRef.DropNpcHint'}}</span>
+          <div class='org-npc-dropzone'><span>{{localize 'NEONRELIC.OrgRef.DropNpcHint'}}</span></div>
+        {{/if}}
+      </div>
+    </div>
+
+    {{! Locations Tab }}
+    <div class='tab' data-tab='locations' data-group='org-primary'>
+      <div class='org-locations-tab'>
+        {{#if linkedLocations.length}}
+          <ul class='linked-doc-list'>
+            {{#each linkedLocations}}
+              <li class='linked-doc-row'>
+                <img class='linked-doc-img' src='{{this.img}}' alt='{{this.name}}' />
+                <a class='linked-doc-name' data-action='openLinkedDoc' data-uuid='{{this.uuid}}'>{{this.name}}</a>
+                {{#if @root.isEditable}}
+                  <button
+                    type='button'
+                    class='linked-doc-remove'
+                    data-action='removeLinkedDoc'
+                    data-uuid='{{this.uuid}}'
+                    data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
+                  >&times;</button>
+                {{/if}}
+              </li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <div class='org-npc-empty'><p>{{localize 'NEONRELIC.OrgRef.NoLocations'}}</p></div>
+        {{/if}}
+        {{#if isEditable}}
+          <div class='dropzone' data-drop-key='locations'>
+            <span class='dropzone-hint'>{{localize 'NEONRELIC.OrgRef.DropLocationHint'}}</span>
           </div>
         {{/if}}
       </div>

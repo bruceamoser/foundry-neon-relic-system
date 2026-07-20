@@ -109,6 +109,51 @@
       margin-bottom: 8px;
     }
 
+    // ── Tab Navigation ──
+    .info-tabs {
+      display: flex;
+      gap: 0;
+      margin: 4px 0;
+      border-bottom: 1.5px solid $nr-rule;
+      font-family: $nr-font-main;
+
+      .item {
+        padding: 4px 10px;
+        font-size: 7pt;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: $nr-ink-faded;
+        cursor: pointer;
+        border: 1px solid transparent;
+        border-bottom: none;
+        border-radius: 2px 2px 0 0;
+        background: rgba(0, 0, 0, 0.03);
+
+        &:hover {
+          color: $nr-ink;
+          border-color: $nr-rule;
+          background: $nr-field-bg;
+        }
+
+        &.active {
+          color: $nr-ink;
+          font-weight: bold;
+          border-color: $nr-rule;
+          border-bottom-color: $nr-paper;
+          background: $nr-field-bg;
+        }
+      }
+    }
+
+    .info-tab-content {
+      .tab {
+        display: none;
+        &.active {
+          display: block;
+        }
+      }
+    }
+
     .back-title {
       font-family: $nr-font-main;
       font-size: 12pt;

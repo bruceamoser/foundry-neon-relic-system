@@ -39,128 +39,147 @@
         <span class='back-stamp'>{{localize 'NEONRELIC.InfoCard.DAEyesOnly'}}</span>
       </div>
 
-      {{! Card ID on back }}
-      <div class='back-field'>
-        <label class='field-label'>{{localize 'NEONRELIC.InfoCard.CardId'}}</label>
-        <input
-          type='text'
-          name='system.cardId'
-          value='{{system.cardId}}'
-          placeholder='{{localize "NEONRELIC.InfoCard.CardIdHint"}}'
-          {{disabled (not isEditable)}}
-        />
-      </div>
+      {{! ── Tab Navigation ── }}
+      <nav class='info-tabs tabs' data-group='info-primary'>
+        <a class='item active' data-tab='details' data-group='info-primary'>{{localize
+            'NEONRELIC.InfoCard.TabDetails'
+          }}</a>
+        <a class='item' data-tab='knownBy' data-group='info-primary'>{{localize 'NEONRELIC.InfoCard.KnownBy'}}
+          ({{linkedKnownBy.length}})</a>
+        <a class='item' data-tab='foundAt' data-group='info-primary'>{{localize 'NEONRELIC.InfoCard.FoundAt'}}
+          ({{linkedFoundAt.length}})</a>
+      </nav>
 
-      {{! Card Type — Radio buttons matching reference template }}
-      <div class='back-field card-type-field'>
-        <label class='field-label'>{{localize 'NEONRELIC.InfoCard.CardType'}}</label>
-        <div class='radio-group'>
-          <label class='radio-label'>
+      {{! ── Tab Content ── }}
+      <div class='info-tab-content'>
+        {{! Details Tab }}
+        <div class='tab active' data-tab='details' data-group='info-primary'>
+          <div class='back-field'>
+            <label class='field-label'>{{localize 'NEONRELIC.InfoCard.CardId'}}</label>
             <input
-              type='radio'
-              name='system.cardType'
-              value='supportingIntel'
-              {{checked (eq system.cardType 'supportingIntel')}}
+              type='text'
+              name='system.cardId'
+              value='{{system.cardId}}'
+              placeholder='{{localize "NEONRELIC.InfoCard.CardIdHint"}}'
               {{disabled (not isEditable)}}
             />
-            {{localize 'NEONRELIC.InfoCard.SupportingIntel'}}
-          </label>
-          <label class='radio-label'>
+          </div>
+
+          <div class='back-field card-type-field'>
+            <label class='field-label'>{{localize 'NEONRELIC.InfoCard.CardType'}}</label>
+            <div class='radio-group'>
+              <label class='radio-label'>
+                <input
+                  type='radio'
+                  name='system.cardType'
+                  value='supportingIntel'
+                  {{checked (eq system.cardType 'supportingIntel')}}
+                  {{disabled (not isEditable)}}
+                />
+                {{localize 'NEONRELIC.InfoCard.SupportingIntel'}}
+              </label>
+              <label class='radio-label'>
+                <input
+                  type='radio'
+                  name='system.cardType'
+                  value='containmentTruth'
+                  {{checked (eq system.cardType 'containmentTruth')}}
+                  {{disabled (not isEditable)}}
+                />
+                {{localize 'NEONRELIC.InfoCard.ContainmentTruth'}}
+              </label>
+            </div>
+          </div>
+
+          <div class='back-field'>
+            <label class='field-label'>{{localize 'NEONRELIC.InfoCard.HQFallback'}}</label>
             <input
-              type='radio'
-              name='system.cardType'
-              value='containmentTruth'
-              {{checked (eq system.cardType 'containmentTruth')}}
+              type='number'
+              name='system.hqFallback'
+              value='{{system.hqFallback}}'
+              min='0'
+              placeholder='{{localize "NEONRELIC.InfoCard.HQFallbackHint"}}'
               {{disabled (not isEditable)}}
             />
-            {{localize 'NEONRELIC.InfoCard.ContainmentTruth'}}
-          </label>
-        </div>
-      </div>
+          </div>
 
-      {{! Back fields grid }}
-      <div class='back-fields'>
-        <div class='back-field'>
-          <label class='field-label'>{{localize 'NEONRELIC.InfoCard.FoundAt'}}</label>
-          {{#if linkedFoundAt}}
-            <div class='linked-doc-row'>
-              <img class='linked-doc-img' src='{{linkedFoundAt.img}}' alt='{{linkedFoundAt.name}}' />
-              <a
-                class='linked-doc-name'
-                data-action='openLinkedDoc'
-                data-uuid='{{linkedFoundAt.uuid}}'
-              >{{linkedFoundAt.name}}</a>
-              {{#if isEditable}}
-                <button
-                  type='button'
-                  class='linked-doc-remove'
-                  data-action='removeLinkedDoc'
-                  data-uuid='{{linkedFoundAt.uuid}}'
-                  data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
-                >&times;</button>
-              {{/if}}
-            </div>
-          {{else}}
-            <div class='dropzone' data-drop-key='foundAt'>
-              <span class='dropzone-hint'>{{localize 'NEONRELIC.InfoCard.DropLocationHint'}}</span>
-            </div>
-          {{/if}}
+          <div class='back-content'>
+            <label class='field-label'>{{localize 'NEONRELIC.InfoCard.DANotes'}}</label>
+            <span class='field-hint'>{{localize 'NEONRELIC.InfoCard.DANotesHint'}}</span>
+            {{#if isEditable}}
+              <prose-mirror
+                name='system.daNotes'
+                value='{{system.daNotes}}'
+                data-document-uuid='{{document.uuid}}'
+                relative
+              ></prose-mirror>
+            {{else}}
+              {{{enrichedDANotes}}}
+            {{/if}}
+          </div>
         </div>
-        <div class='back-field'>
-          <label class='field-label'>{{localize 'NEONRELIC.InfoCard.KnownBy'}}</label>
-          {{#if linkedKnownBy.length}}
-            <ul class='linked-doc-list'>
-              {{#each linkedKnownBy}}
-                <li class='linked-doc-row'>
-                  <img class='linked-doc-img' src='{{this.img}}' alt='{{this.name}}' />
-                  <a class='linked-doc-name' data-action='openLinkedDoc' data-uuid='{{this.uuid}}'>{{this.name}}</a>
-                  {{#if @root.isEditable}}
-                    <button
-                      type='button'
-                      class='linked-doc-remove'
-                      data-action='removeLinkedDoc'
-                      data-uuid='{{this.uuid}}'
-                      data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
-                    >&times;</button>
-                  {{/if}}
-                </li>
-              {{/each}}
-            </ul>
-          {{/if}}
-          {{#if isEditable}}
-            <div class='dropzone' data-drop-key='knownBy'>
-              <span class='dropzone-hint'>{{localize 'NEONRELIC.InfoCard.DropNpcHint'}}</span>
-            </div>
-          {{/if}}
+
+        {{! Known By Tab }}
+        <div class='tab' data-tab='knownBy' data-group='info-primary'>
+          <div class='back-field'>
+            <label class='field-label'>{{localize 'NEONRELIC.InfoCard.KnownBy'}}</label>
+            {{#if linkedKnownBy.length}}
+              <ul class='linked-doc-list'>
+                {{#each linkedKnownBy}}
+                  <li class='linked-doc-row'>
+                    <img class='linked-doc-img' src='{{this.img}}' alt='{{this.name}}' />
+                    <a class='linked-doc-name' data-action='openLinkedDoc' data-uuid='{{this.uuid}}'>{{this.name}}</a>
+                    {{#if @root.isEditable}}
+                      <button
+                        type='button'
+                        class='linked-doc-remove'
+                        data-action='removeLinkedDoc'
+                        data-uuid='{{this.uuid}}'
+                        data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
+                      >&times;</button>
+                    {{/if}}
+                  </li>
+                {{/each}}
+              </ul>
+            {{/if}}
+            {{#if isEditable}}
+              <div class='dropzone' data-drop-key='knownBy'>
+                <span class='dropzone-hint'>{{localize 'NEONRELIC.InfoCard.DropNpcHint'}}</span>
+              </div>
+            {{/if}}
+          </div>
         </div>
-      </div>
 
-      <div class='back-field'>
-        <label class='field-label'>{{localize 'NEONRELIC.InfoCard.HQFallback'}}</label>
-        <input
-          type='number'
-          name='system.hqFallback'
-          value='{{system.hqFallback}}'
-          min='0'
-          placeholder='{{localize "NEONRELIC.InfoCard.HQFallbackHint"}}'
-          {{disabled (not isEditable)}}
-        />
-      </div>
-
-      {{! DA Notes }}
-      <div class='back-content'>
-        <label class='field-label'>{{localize 'NEONRELIC.InfoCard.DANotes'}}</label>
-        <span class='field-hint'>{{localize 'NEONRELIC.InfoCard.DANotesHint'}}</span>
-        {{#if isEditable}}
-          <prose-mirror
-            name='system.daNotes'
-            value='{{system.daNotes}}'
-            data-document-uuid='{{document.uuid}}'
-            relative
-          ></prose-mirror>
-        {{else}}
-          {{{enrichedDANotes}}}
-        {{/if}}
+        {{! Found At Tab }}
+        <div class='tab' data-tab='foundAt' data-group='info-primary'>
+          <div class='back-field'>
+            <label class='field-label'>{{localize 'NEONRELIC.InfoCard.FoundAt'}}</label>
+            {{#if linkedFoundAt.length}}
+              <ul class='linked-doc-list'>
+                {{#each linkedFoundAt}}
+                  <li class='linked-doc-row'>
+                    <img class='linked-doc-img' src='{{this.img}}' alt='{{this.name}}' />
+                    <a class='linked-doc-name' data-action='openLinkedDoc' data-uuid='{{this.uuid}}'>{{this.name}}</a>
+                    {{#if @root.isEditable}}
+                      <button
+                        type='button'
+                        class='linked-doc-remove'
+                        data-action='removeLinkedDoc'
+                        data-uuid='{{this.uuid}}'
+                        data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
+                      >&times;</button>
+                    {{/if}}
+                  </li>
+                {{/each}}
+              </ul>
+            {{/if}}
+            {{#if isEditable}}
+              <div class='dropzone' data-drop-key='foundAt'>
+                <span class='dropzone-hint'>{{localize 'NEONRELIC.InfoCard.DropLocationHint'}}</span>
+              </div>
+            {{/if}}
+          </div>
+        </div>
       </div>
 
       {{! Revealed Toggle }}

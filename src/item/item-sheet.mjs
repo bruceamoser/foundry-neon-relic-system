@@ -180,6 +180,19 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
           }
         }
       }
+      // Resolve linked locations
+      context.linkedLocations = [];
+      if (system.locationUuids?.length) {
+        for (const uuid of system.locationUuids) {
+          if (!uuid) continue;
+          try {
+            const doc = await fromUuid(uuid);
+            if (doc) context.linkedLocations.push({ uuid, name: doc.name, img: doc.img, type: doc.type });
+          } catch {
+            /* skip */
+          }
+        }
+      }
     }
     if (item.type === 'informationCard') {
       context.enrichedContent = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
@@ -206,23 +219,30 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       context.isIntel = system.cardType === 'supportingIntel';
 
       // Resolve linked documents
-      context.linkedFoundAt = null;
-      if (system.foundAtUuid) {
-        try {
-          const doc = await fromUuid(system.foundAtUuid);
-          if (doc) context.linkedFoundAt = { uuid: system.foundAtUuid, name: doc.name, img: doc.img, type: doc.type };
-        } catch {
-          /* skip */
+      context.linkedFoundAt = [];
+      if (system.foundAtUuids?.length) {
+        for (const uuid of system.foundAtUuids) {
+          if (!uuid) continue;
+          try {
+            const doc = await fromUuid(uuid);
+            if (doc) context.linkedFoundAt.push({ uuid, name: doc.name, img: doc.img, type: doc.type });
+          } catch {
+            /* skip */
+          }
         }
       }
 
-      context.linkedKnownBy = null;
-      if (system.knownByUuid) {
-        try {
-          const doc = await fromUuid(system.knownByUuid);
-          if (doc) context.linkedKnownBy = { uuid: system.knownByUuid, name: doc.name, img: doc.img, type: doc.type };
-        } catch {
-          /* skip */
+      // Resolve linked NPCs (knownBy — multiple NPCs)
+      context.linkedKnownBy = [];
+      if (system.knownByUuids?.length) {
+        for (const uuid of system.knownByUuids) {
+          if (!uuid) continue;
+          try {
+            const doc = await fromUuid(uuid);
+            if (doc) context.linkedKnownBy.push({ uuid, name: doc.name, img: doc.img, type: doc.type });
+          } catch {
+            /* skip */
+          }
         }
       }
 
@@ -453,7 +473,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         initial: this._orgActiveTab || 'details',
         group: 'org-primary',
         callback: (_event, _tabs, tab) => {
-          this._orgActiveTab = tab.dataset.tab;
+          if (tab) this._orgActiveTab = tab.dataset.tab;
         },
       }).bind(this.element);
     } else if (itemType === 'location') {
@@ -463,7 +483,17 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         initial: this._locActiveTab || 'details',
         group: 'loc-primary',
         callback: (_event, _tabs, tab) => {
-          this._locActiveTab = tab.dataset.tab;
+          if (tab) this._locActiveTab = tab.dataset.tab;
+        },
+      }).bind(this.element);
+    } else if (itemType === 'informationCard') {
+      new foundry.applications.ux.Tabs({
+        navSelector: '.info-tabs',
+        contentSelector: '.info-tab-content',
+        initial: this._infoActiveTab || 'details',
+        group: 'info-primary',
+        callback: (_event, _tabs, tab) => {
+          if (tab) this._infoActiveTab = tab.dataset.tab;
         },
       }).bind(this.element);
     }
@@ -609,16 +639,24 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     let reverseField; // field on the dropped document to update for bidirectional linking
 
     if (docType === 'organization') {
-      // Organization: only accept NPC actors
-      if (data.type !== 'Actor' || doc.type !== 'npc') return;
-      uuidField = 'system.npcUuids';
-      // Bidirectional: set this org as the NPC's organization
-      reverseField = 'system.organizationUuid';
+      // Organization: accept NPC actors and Locations
+      if (data.type === 'Actor' && doc.type === 'npc') {
+        uuidField = 'system.npcUuids';
+        reverseField = 'system.organizationUuid';
+      } else if (data.type === 'Item' && doc.type === 'location') {
+        uuidField = 'system.locationUuids';
+        // Bidirectional: add this org to the location's organizationUuids
+        reverseField = 'system.organizationUuids';
+      } else {
+        return;
+      }
     } else if (docType === 'informationCard') {
       const dropKey = event.target.closest('[data-drop-key]')?.dataset?.dropKey;
       if (data.type === 'Item' && doc.type === 'location' && dropKey === 'foundAt') {
-        if (system.foundAtUuid === data.uuid) return;
-        await this.document.update({ 'system.foundAtUuid': data.uuid });
+        const uuids = [...(system.foundAtUuids ?? [])];
+        if (uuids.includes(data.uuid)) return;
+        uuids.push(data.uuid);
+        await this.document.update({ 'system.foundAtUuids': uuids });
         // Bidirectional: add this info card to the location's informationCardUuids
         const locUuids = [...(doc.system.informationCardUuids ?? [])];
         const selfUuid = this.document.uuid;
@@ -707,9 +745,10 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       /* skip */
     }
 
-    // Handle single-UUID field (foundAt on info cards)
-    if (system.foundAtUuid === uuid) {
-      await this.document.update({ 'system.foundAtUuid': '' });
+    // Handle foundAtUuids (array) on info cards
+    if (system.foundAtUuids?.includes(uuid)) {
+      const updated = system.foundAtUuids.filter(u => u !== uuid);
+      await this.document.update({ 'system.foundAtUuids': updated });
       // Bidirectional unlink: remove info card from location's informationCardUuids
       if (doc?.system?.informationCardUuids) {
         const locUuids = doc.system.informationCardUuids.filter(u => u !== selfUuid);
@@ -749,6 +788,16 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       },
       { path: 'system.informationCardUuids', arr: system.informationCardUuids },
       { path: 'system.organizationUuids', arr: system.organizationUuids },
+      {
+        path: 'system.locationUuids',
+        arr: system.locationUuids,
+        reverse(doc) {
+          if (!doc || docType !== 'organization') return;
+          // Remove this org from the location's organizationUuids
+          const orgUuids = (doc.system.organizationUuids ?? []).filter(u => u !== selfUuid);
+          return doc.update({ 'system.organizationUuids': orgUuids });
+        },
+      },
     ];
 
     for (const col of collections) {

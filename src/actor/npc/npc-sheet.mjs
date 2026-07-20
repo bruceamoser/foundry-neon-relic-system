@@ -117,7 +117,7 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       initial: this._npcActiveTab || 'card',
       group: 'npc-primary',
       callback: (_event, _tabs, tab) => {
-        this._npcActiveTab = tab.dataset.tab;
+        if (tab) this._npcActiveTab = tab.dataset.tab;
       },
     }).bind(this.element);
   }

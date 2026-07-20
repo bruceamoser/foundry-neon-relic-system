@@ -818,6 +818,9 @@ NEONRELIC:
     DropNpcHint: Drop NPC actors here to link them to this organization
     NoNpcs: No NPCs linked. Drag NPC actors from the sidebar onto this tab.
     RemoveNpc: Remove NPC
+    TabLocations: Locations
+    DropLocationHint: Drop location here
+    NoLocations: No locations linked. Drag locations from the sidebar onto this tab.
 
   # Information Cards
   InfoCard:
@@ -841,6 +844,7 @@ NEONRELIC:
     DANotesHint: Reference notes for the Director
     DropLocationHint: Drop location here
     DropNpcHint: Drop NPC here
+    TabDetails: Details
     Revealed: Revealed
     RevealedHint: Content hidden until revealed
     Footer: Neon Relic • The Verdant Covenant
