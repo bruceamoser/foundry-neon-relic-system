@@ -414,6 +414,7 @@ export class InformationCardDataModel extends foundry.abstract.TypeDataModel {
       daNotes: new HTMLField({ blank: true }),
       revealed: new BooleanField({ initial: false }),
       description: new HTMLField({ blank: true }),
+      npcUuids: new ArrayField(new StringField({ blank: true })),
     };
   }
 }

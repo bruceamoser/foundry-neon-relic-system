@@ -21,15 +21,32 @@
             {{disabled (not isEditable)}}
           />
         </div>
+        {{! Organization is now a drag-drop link, not text input }}
         <div class='org-col'>
           <span class='field-label'>{{localize 'NEONRELIC.NPC.Organization'}} (O#)</span>
-          <input
-            class='npc-org'
-            name='system.organization'
-            type='text'
-            value='{{system.organization}}'
-            {{disabled (not isEditable)}}
-          />
+          {{#if linkedOrg}}
+            <div class='linked-doc-row'>
+              <img class='linked-doc-img' src='{{linkedOrg.img}}' alt='{{linkedOrg.name}}' />
+              <a
+                class='linked-doc-name'
+                data-action='openLinkedDoc'
+                data-uuid='{{linkedOrg.uuid}}'
+              >{{linkedOrg.name}}</a>
+              {{#if isEditable}}
+                <button
+                  type='button'
+                  class='linked-doc-remove'
+                  data-action='removeLinkedDoc'
+                  data-uuid='{{linkedOrg.uuid}}'
+                  data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
+                >&times;</button>
+              {{/if}}
+            </div>
+          {{else}}
+            <div class='dropzone dropzone-org' data-drop-key='org'>
+              <span class='dropzone-hint'>{{localize 'NEONRELIC.NPC.DropOrgHint'}}</span>
+            </div>
+          {{/if}}
         </div>
       </div>
       <div>
@@ -47,12 +64,6 @@
 
   {{#if isEditable}}
     <div class='npc-badges'>
-      <button type='button' class='flip-btn' data-action='flipCard'>
-        <i class='fa-solid fa-rotate'></i>
-        <span class='flip-label'>{{#if showBack}}{{localize 'NEONRELIC.NPC.Front'}}{{else}}{{localize
-              'NEONRELIC.NPC.Back'
-            }}{{/if}}</span>
-      </button>
       <button type='button' class='flip-btn' data-action='toggleSimplified'>
         <i class='fa-solid fa-compress'></i>
       </button>

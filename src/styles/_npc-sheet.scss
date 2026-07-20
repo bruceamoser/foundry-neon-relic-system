@@ -494,35 +494,105 @@
     padding: $nr-spacing-sm;
   }
 
-  // ── Back card styling ───────────────────────────
-  .npc-back {
-    padding-top: 2px;
+  // ── Tab Content ─────────────────────────────────
+  .npc-card-tab,
+  .npc-stats-tab,
+  .npc-entity-tab {
+    padding: 4px 2px;
+  }
 
-    .npc-badges {
-      margin-bottom: 6px;
-      padding-bottom: 4px;
-      border-bottom: 1px dotted $nr-rule;
+  // ── Drop Zones ──────────────────────────────────
+  .dropzone {
+    border: 1.5px dashed $nr-rule;
+    border-radius: 2px;
+    padding: 6px;
+    margin: 2px 0;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.015);
+    transition:
+      border-color 0.2s,
+      background 0.2s;
+
+    &:hover {
+      border-color: $nr-green-stamp;
+      background: rgba(45, 90, 39, 0.05);
     }
 
-    .npc-description {
-      min-height: 100px;
-    }
-
-    .npc-entity {
-      margin-top: 4px;
-      padding-top: 4px;
-      border-top: 1px solid $nr-rule-light;
+    &.dropzone-org {
+      min-height: 18px;
+      padding: 2px 4px;
     }
   }
 
-  // ── Flip button label ───────────────────────────
-  .flip-btn {
-    .flip-label {
-      margin-left: 4px;
-      font-family: $nr-font-main;
-      font-size: 6pt;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+  .dropzone-hint {
+    font-family: $nr-font-main;
+    font-size: 5.5pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $nr-ink-light;
+  }
+
+  // ── Linked Document Rows ────────────────────────
+  .linked-doc-list {
+    list-style: none;
+    margin: 2px 0;
+    padding: 0;
+  }
+
+  .linked-doc-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 4px;
+    border: 1px solid $nr-rule;
+    background: $nr-field-bg;
+    margin: 2px 0;
+    border-radius: 2px;
+  }
+
+  .linked-doc-img {
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    border: 1px solid $nr-rule-light;
+    flex-shrink: 0;
+  }
+
+  .linked-doc-name {
+    flex: 1;
+    font-family: $nr-font-fill;
+    font-size: 8pt;
+    cursor: pointer;
+    text-decoration: none;
+    color: $nr-ink;
+
+    &:hover {
+      text-decoration: underline;
+      color: $nr-green-stamp;
     }
+  }
+
+  .linked-doc-remove {
+    background: transparent;
+    border: none;
+    color: $nr-red-stamp;
+    cursor: pointer;
+    font-size: 10pt;
+    padding: 0 4px;
+    line-height: 1;
+
+    &:hover {
+      color: darken($nr-red-stamp, 10%);
+    }
+  }
+
+  // ── Knowledge / Locations Sections ──────────────
+  .knowledge-section,
+  .locations-section {
+    margin: 3px 0;
+  }
+
+  .knowledge-block {
+    margin-bottom: 4px;
   }
 }

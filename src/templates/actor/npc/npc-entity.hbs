@@ -1,94 +1,73 @@
-{{#unless isSimplified}}
-  {{#if showBack}}
-    <section class='npc-entity'>
-      <div class='section-label red'>
-        {{localize 'NEONRELIC.NPC.EntityFields'}}
-      </div>
+<section class='npc-entity-tab'>
+  <div class='section-label red'>{{localize 'NEONRELIC.NPC.EntityFields'}}</div>
 
-      <div class='field-row'>
-        <div class='field-col'>
-          <span class='field-label'>
-            {{localize 'NEONRELIC.NPC.EntityAnchor'}}
-          </span>
-          <input
-            class='field-value'
-            type='text'
-            name='system.entityAnchor'
-            value='{{system.entityAnchor}}'
-            {{disabled (not isEditable)}}
-          />
-        </div>
-        <div class='field-col'>
-          <span class='field-label'>
-            {{localize 'NEONRELIC.NPC.DissolutionMethod'}}
-          </span>
-          <input
-            class='field-value'
-            type='text'
-            name='system.dissolutionMethod'
-            value='{{system.dissolutionMethod}}'
-            {{disabled (not isEditable)}}
-          />
-        </div>
-      </div>
+  <div class='field-row'>
+    <div class='field-col'>
+      <span class='field-label'>{{localize 'NEONRELIC.NPC.EntityAnchor'}}</span>
+      <input
+        class='field-value'
+        type='text'
+        name='system.entityAnchor'
+        value='{{system.entityAnchor}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='field-col'>
+      <span class='field-label'>{{localize 'NEONRELIC.NPC.DissolutionMethod'}}</span>
+      <input
+        class='field-value'
+        type='text'
+        name='system.dissolutionMethod'
+        value='{{system.dissolutionMethod}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+  </div>
 
-      <div class='field-row'>
-        <div class='field-col'>
-          <span class='field-label'>
-            {{localize 'NEONRELIC.NPC.ReconstitutionTimer'}}
-          </span>
-          <input
-            class='field-value'
-            type='number'
-            name='system.reconstitutionTimer'
-            value='{{system.reconstitutionTimer}}'
-            min='0'
-            {{disabled (not isEditable)}}
-          />
-        </div>
-        <div class='field-col'>
-          <span class='field-label'>
-            {{localize 'NEONRELIC.NPC.ArtifactTetherRange'}}
-          </span>
-          <input
-            class='field-value'
-            type='number'
-            name='system.artifactTetherRange'
-            value='{{system.artifactTetherRange}}'
-            min='0'
-            {{disabled (not isEditable)}}
-          />
-        </div>
-        <div class='field-col'>
-          <span class='field-label'>
-            {{localize 'NEONRELIC.NPC.CorruptionOnContact'}}
-          </span>
-          <input
-            class='field-value'
-            type='number'
-            name='system.corruptionCostOnContact'
-            value='{{system.corruptionCostOnContact}}'
-            min='0'
-            {{disabled (not isEditable)}}
-          />
-        </div>
-      </div>
+  <div class='field-row'>
+    <div class='field-col'>
+      <span class='field-label'>{{localize 'NEONRELIC.NPC.ReconstitutionTimer'}}</span>
+      <input
+        class='field-value'
+        type='number'
+        name='system.reconstitutionTimer'
+        value='{{system.reconstitutionTimer}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='field-col'>
+      <span class='field-label'>{{localize 'NEONRELIC.NPC.ArtifactTetherRange'}}</span>
+      <input
+        class='field-value'
+        type='number'
+        name='system.artifactTetherRange'
+        value='{{system.artifactTetherRange}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='field-col'>
+      <span class='field-label'>{{localize 'NEONRELIC.NPC.CorruptionOnContact'}}</span>
+      <input
+        class='field-value'
+        type='number'
+        name='system.corruptionCostOnContact'
+        value='{{system.corruptionCostOnContact}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+  </div>
 
-      <div class='entity-flags'>
-        <label class='entity-flag'>
-          <input
-            type='checkbox'
-            name='system.incorporeal'
-            {{checked system.incorporeal}}
-            {{disabled (not isEditable)}}
-          />
-          {{localize 'NEONRELIC.NPC.Incorporeal'}}
-        </label>
-        <label class='entity-flag'>
-          <input type='checkbox' name='system.zoneLocked' {{checked system.zoneLocked}} {{disabled (not isEditable)}} />
-          {{localize 'NEONRELIC.NPC.ZoneLocked'}}
-        </label>
-      </div>
-    </section>
-  {{/if}}
-{{/unless}}
+  <div class='entity-flags'>
+    <label class='entity-flag'>
+      <input type='checkbox' name='system.incorporeal' {{checked system.incorporeal}} {{disabled (not isEditable)}} />
+      {{localize 'NEONRELIC.NPC.Incorporeal'}}
+    </label>
+    <label class='entity-flag'>
+      <input type='checkbox' name='system.zoneLocked' {{checked system.zoneLocked}} {{disabled (not isEditable)}} />
+      {{localize 'NEONRELIC.NPC.ZoneLocked'}}
+    </label>
+  </div>
+</section>

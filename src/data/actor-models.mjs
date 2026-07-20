@@ -265,13 +265,13 @@ export class NPCDataModel extends foundry.abstract.TypeDataModel {
       dissolutionMethod: new StringField({ blank: true }),
 
       // Operations Board card data
-      organization: new StringField({ blank: true }),
+      organizationUuid: new StringField({ blank: true }),
       secret: new StringField({ blank: true }),
       goal: new StringField({ blank: true }),
       artifactConnection: new StringField({ blank: true }),
-      startingKnowledge: new StringField({ blank: true }),
-      gainedKnowledge: new StringField({ blank: true }),
-      locations: new StringField({ blank: true }),
+      startingKnowledgeUuids: new ArrayField(new StringField({ blank: true })),
+      gainedKnowledgeUuids: new ArrayField(new StringField({ blank: true })),
+      locationUuids: new ArrayField(new StringField({ blank: true })),
       positiveResult: new StringField({ blank: true }),
       negativeResult: new StringField({ blank: true }),
 
