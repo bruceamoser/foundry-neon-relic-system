@@ -1,0 +1,154 @@
+{{! Organization Reference item template — matches VC-20 }}
+<div class='org-reference'>
+
+  {{! Header — Red-Stamped }}
+  <header class='org-ref-header'>
+    <div class='header-left'>
+      <h1 class='header-title'>{{localize 'NEONRELIC.OrgRef.Title'}}</h1>
+      <div class='header-subtitle'>{{localize 'NEONRELIC.OrgRef.HeaderSubtitle'}}</div>
+    </div>
+    <div class='header-right'>
+      <div class='classification'>{{localize 'NEONRELIC.OrgRef.Classification'}}</div>
+      <div class='org-ref-formref'>{{localize 'NEONRELIC.OrgRef.FormRef'}}</div>
+      <div class='org-ref-caseid'>
+        <span class='field-label'>{{localize 'NEONRELIC.OrgRef.CaseId'}}</span>
+        <input
+          class='field-value case-id-input'
+          type='text'
+          name='system.caseId'
+          value='{{system.caseId}}'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+    </div>
+  </header>
+
+  {{! Organization Identity Block }}
+  <div class='org-id-block'>
+    <div class='org-id-row'>
+      <div class='org-id-field'>
+        <span class='field-label'>{{localize 'NEONRELIC.OrgRef.OrganizationId'}}</span>
+        <input
+          class='field-value'
+          type='text'
+          name='system.organizationId'
+          value='{{system.organizationId}}'
+          placeholder='O-1'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+      <div class='org-name-field'>
+        <span class='field-label'>{{localize 'NEONRELIC.OrgRef.OrganizationName'}}</span>
+        <input
+          class='field-value'
+          type='text'
+          name='system.organizationName'
+          value='{{system.organizationName}}'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+      <div class='org-value-field'>
+        <span class='field-label'>{{localize 'NEONRELIC.OrgRef.Value'}}</span>
+        <input
+          class='field-value'
+          type='number'
+          name='system.value'
+          value='{{system.value}}'
+          min='0'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+    </div>
+
+    {{! Status Checkboxes }}
+    <div class='org-status-row'>
+      <label class='status-check'>
+        <input type='checkbox' name='system.isActive' {{checked system.isActive}} {{disabled (not isEditable)}} />
+        <span>{{localize 'NEONRELIC.OrgRef.Active'}}</span>
+      </label>
+      <label class='status-check'>
+        <input type='checkbox' name='system.isDormant' {{checked system.isDormant}} {{disabled (not isEditable)}} />
+        <span>{{localize 'NEONRELIC.OrgRef.Dormant'}}</span>
+      </label>
+    </div>
+  </div>
+
+  {{! Milestones }}
+  <div class='org-milestones'>
+    <span class='section-label'>{{localize 'NEONRELIC.OrgRef.Milestones'}}</span>
+    <div class='milestone-list'>
+      {{#each system.milestones}}
+        <div class='milestone-row'>
+          {{#if @last}}
+            <input
+              class='milestone-day zero-milestone'
+              type='number'
+              name='system.milestones.{{@index}}.day'
+              value='{{this.day}}'
+              min='0'
+              {{disabled (not @root.isEditable)}}
+            />
+            <input
+              class='milestone-desc'
+              type='text'
+              name='system.milestones.{{@index}}.description'
+              value='{{this.description}}'
+              placeholder='{{localize "NEONRELIC.OrgRef.MilestoneZeroHint"}}'
+              {{disabled (not @root.isEditable)}}
+            />
+          {{else}}
+            <input
+              class='milestone-day'
+              type='number'
+              name='system.milestones.{{@index}}.day'
+              value='{{this.day}}'
+              min='0'
+              {{disabled (not @root.isEditable)}}
+            />
+            <input
+              class='milestone-desc'
+              type='text'
+              name='system.milestones.{{@index}}.description'
+              value='{{this.description}}'
+              placeholder='{{localize "NEONRELIC.OrgRef.MilestoneForwardHint"}}'
+              {{disabled (not @root.isEditable)}}
+            />
+          {{/if}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+
+  {{! Detail Section }}
+  <div class='org-details'>
+    <div class='org-detail-row'>
+      <div class='org-detail'>
+        <span class='field-label'>{{localize 'NEONRELIC.OrgRef.ActivationCondition'}}</span>
+        <div class='field-value editor'>{{{enrichedActivationCondition}}}</div>
+        {{#if isEditable}}
+          <textarea name='system.activationCondition' style='display:none;'>{{system.activationCondition}}</textarea>
+        {{/if}}
+      </div>
+      <div class='org-detail'>
+        <span class='field-label'>{{localize 'NEONRELIC.OrgRef.LinkedEffects'}}</span>
+        <div class='field-value editor'>{{{enrichedLinkedEffects}}}</div>
+        {{#if isEditable}}
+          <textarea name='system.linkedEffects' style='display:none;'>{{system.linkedEffects}}</textarea>
+        {{/if}}
+      </div>
+      <div class='org-detail'>
+        <span class='field-label'>{{localize 'NEONRELIC.OrgRef.PlayerFacingSigns'}}</span>
+        <div class='field-value editor'>{{{enrichedPlayerFacingSigns}}}</div>
+        {{#if isEditable}}
+          <textarea name='system.playerFacingSigns' style='display:none;'>{{system.playerFacingSigns}}</textarea>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  {{! Footer }}
+  <footer class='org-ref-footer'>
+    <span>VC-20 &bull; The Verdant Covenant &bull; DA Use Only</span>
+    <span>Neon Relic</span>
+  </footer>
+</div>
