@@ -56,225 +56,272 @@
     </div>
   </div>
 
-  {{! I — Mystery Statement }}
-  <section class='dcb-section'>
-    <h2 class='dcb-section-title red'>{{localize 'NEONRELIC.DACaseBrief.SectionI'}}</h2>
-    <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.MysteryHint'}}</span>
-    {{#if isEditable}}
-      <prose-mirror
-        name='system.mysteryStatement'
-        value='{{system.mysteryStatement}}'
-        data-document-uuid='{{document.uuid}}'
-        relative
-      ></prose-mirror>
-    {{else}}
-      <div class='dcb-field-value med'>
-        {{{enrichedMysteryStatement}}}
-      </div>
-    {{/if}}
-  </section>
+  {{! Tab Navigation }}
+  <nav class='dcb-tabs tabs' data-group='dcb-primary'>
+    <a class='item' data-tab='section-i' data-group='dcb-primary'>
+      {{localize 'NEONRELIC.DACaseBrief.TabI'}}
+    </a>
+    <a class='item' data-tab='section-ii' data-group='dcb-primary'>
+      {{localize 'NEONRELIC.DACaseBrief.TabII'}}
+    </a>
+    <a class='item' data-tab='section-iii' data-group='dcb-primary'>
+      {{localize 'NEONRELIC.DACaseBrief.TabIII'}}
+    </a>
+    <a class='item' data-tab='section-iv' data-group='dcb-primary'>
+      {{localize 'NEONRELIC.DACaseBrief.TabIV'}}
+    </a>
+    <a class='item' data-tab='section-v' data-group='dcb-primary'>
+      {{localize 'NEONRELIC.DACaseBrief.TabV'}}
+    </a>
+    <a class='item' data-tab='section-vi' data-group='dcb-primary'>
+      {{localize 'NEONRELIC.DACaseBrief.TabVI'}}
+    </a>
+    <a class='item' data-tab='section-vii' data-group='dcb-primary'>
+      {{localize 'NEONRELIC.DACaseBrief.TabVII'}}
+    </a>
+    <a class='item' data-tab='section-viii' data-group='dcb-primary'>
+      {{localize 'NEONRELIC.DACaseBrief.TabVIII'}}
+    </a>
+  </nav>
 
-  {{! II — The Real Situation }}
-  <section class='dcb-section'>
-    <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionII'}}</h2>
-    <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.RealSituationHint'}}</span>
-    {{#if isEditable}}
-      <prose-mirror
-        name='system.realSituation'
-        value='{{system.realSituation}}'
-        data-document-uuid='{{document.uuid}}'
-        relative
-      ></prose-mirror>
-    {{else}}
-      <div class='dcb-field-value xl'>
-        {{{enrichedRealSituation}}}
-      </div>
-    {{/if}}
-  </section>
-
-  {{! III — Agent Objectives (two-column) }}
-  <section class='dcb-section'>
-    <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionIII'}}</h2>
-    <div class='dcb-two-col'>
-      <div class='dcb-col'>
-        <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.PrimaryObjective'}}</span>
+  {{! Tab Content }}
+  <section class='dcb-tab-content'>
+    {{! I — Mystery Statement }}
+    <div class='tab' data-tab='section-i' data-group='dcb-primary'>
+      <section class='dcb-section'>
+        <h2 class='dcb-section-title red'>{{localize 'NEONRELIC.DACaseBrief.SectionI'}}</h2>
+        <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.MysteryHint'}}</span>
         {{#if isEditable}}
           <prose-mirror
-            name='system.primaryObjective'
-            value='{{system.primaryObjective}}'
+            name='system.mysteryStatement'
+            value='{{system.mysteryStatement}}'
             data-document-uuid='{{document.uuid}}'
             relative
           ></prose-mirror>
         {{else}}
           <div class='dcb-field-value med'>
-            {{{enrichedPrimaryObjective}}}
+            {{{enrichedMysteryStatement}}}
           </div>
         {{/if}}
-      </div>
-      <div class='dcb-col'>
-        <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.SecondaryObjective'}}</span>
-        {{#if isEditable}}
-          <prose-mirror
-            name='system.secondaryObjective'
-            value='{{system.secondaryObjective}}'
-            data-document-uuid='{{document.uuid}}'
-            relative
-          ></prose-mirror>
-        {{else}}
-          <div class='dcb-field-value med'>
-            {{{enrichedSecondaryObjective}}}
-          </div>
-        {{/if}}
-      </div>
+      </section>
     </div>
-  </section>
 
-  {{! IV — Containment Truths Summary }}
-  <section class='dcb-section'>
-    <h2 class='dcb-section-title red'>{{localize 'NEONRELIC.DACaseBrief.SectionIV'}}</h2>
-    <div class='dcb-danger-box'>
-      <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentTrigger'}}</span>
-      {{#if isEditable}}
-        <prose-mirror
-          name='system.containmentTrigger'
-          value='{{system.containmentTrigger}}'
-          data-document-uuid='{{document.uuid}}'
-          relative
-        ></prose-mirror>
-      {{else}}
-        <div class='dcb-field-value'>
-          {{{enrichedContainmentTrigger}}}
+    {{! II — The Real Situation }}
+    <div class='tab' data-tab='section-ii' data-group='dcb-primary'>
+      <section class='dcb-section'>
+        <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionII'}}</h2>
+        <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.RealSituationHint'}}</span>
+        {{#if isEditable}}
+          <prose-mirror
+            name='system.realSituation'
+            value='{{system.realSituation}}'
+            data-document-uuid='{{document.uuid}}'
+            relative
+          ></prose-mirror>
+        {{else}}
+          <div class='dcb-field-value xl'>
+            {{{enrichedRealSituation}}}
+          </div>
+        {{/if}}
+      </section>
+    </div>
+
+    {{! III — Agent Objectives (two-column) }}
+    <div class='tab' data-tab='section-iii' data-group='dcb-primary'>
+      <section class='dcb-section'>
+        <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionIII'}}</h2>
+        <div class='dcb-two-col'>
+          <div class='dcb-col'>
+            <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.PrimaryObjective'}}</span>
+            {{#if isEditable}}
+              <prose-mirror
+                name='system.primaryObjective'
+                value='{{system.primaryObjective}}'
+                data-document-uuid='{{document.uuid}}'
+                relative
+              ></prose-mirror>
+            {{else}}
+              <div class='dcb-field-value med'>
+                {{{enrichedPrimaryObjective}}}
+              </div>
+            {{/if}}
+          </div>
+          <div class='dcb-col'>
+            <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.SecondaryObjective'}}</span>
+            {{#if isEditable}}
+              <prose-mirror
+                name='system.secondaryObjective'
+                value='{{system.secondaryObjective}}'
+                data-document-uuid='{{document.uuid}}'
+                relative
+              ></prose-mirror>
+            {{else}}
+              <div class='dcb-field-value med'>
+                {{{enrichedSecondaryObjective}}}
+              </div>
+            {{/if}}
+          </div>
         </div>
-      {{/if}}
+      </section>
     </div>
-    <div class='dcb-danger-box'>
-      <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentAppetite'}}</span>
-      {{#if isEditable}}
-        <prose-mirror
-          name='system.containmentAppetite'
-          value='{{system.containmentAppetite}}'
-          data-document-uuid='{{document.uuid}}'
-          relative
-        ></prose-mirror>
-      {{else}}
-        <div class='dcb-field-value'>
-          {{{enrichedContainmentAppetite}}}
-        </div>
-      {{/if}}
-    </div>
-    <div class='dcb-danger-box'>
-      <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentQuiescence'}}</span>
-      {{#if isEditable}}
-        <prose-mirror
-          name='system.containmentQuiescence'
-          value='{{system.containmentQuiescence}}'
-          data-document-uuid='{{document.uuid}}'
-          relative
-        ></prose-mirror>
-      {{else}}
-        <div class='dcb-field-value'>
-          {{{enrichedContainmentQuiescence}}}
-        </div>
-      {{/if}}
-    </div>
-  </section>
 
-  {{! V — Key Actors & Factions }}
-  <section class='dcb-section'>
-    <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionV'}}</h2>
-    <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.KeyActorsHint'}}</span>
-    {{#if isEditable}}
-      <prose-mirror
-        name='system.keyActors'
-        value='{{system.keyActors}}'
-        data-document-uuid='{{document.uuid}}'
-        relative
-      ></prose-mirror>
-    {{else}}
-      <div class='dcb-field-value xl'>
-        {{{enrichedKeyActors}}}
-      </div>
-    {{/if}}
-  </section>
+    {{! IV — Containment Truths Summary }}
+    <div class='tab' data-tab='section-iv' data-group='dcb-primary'>
+      <section class='dcb-section'>
+        <h2 class='dcb-section-title red'>{{localize 'NEONRELIC.DACaseBrief.SectionIV'}}</h2>
+        <div class='dcb-danger-box'>
+          <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentTrigger'}}</span>
+          {{#if isEditable}}
+            <prose-mirror
+              name='system.containmentTrigger'
+              value='{{system.containmentTrigger}}'
+              data-document-uuid='{{document.uuid}}'
+              relative
+            ></prose-mirror>
+          {{else}}
+            <div class='dcb-field-value'>
+              {{{enrichedContainmentTrigger}}}
+            </div>
+          {{/if}}
+        </div>
+        <div class='dcb-danger-box'>
+          <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentAppetite'}}</span>
+          {{#if isEditable}}
+            <prose-mirror
+              name='system.containmentAppetite'
+              value='{{system.containmentAppetite}}'
+              data-document-uuid='{{document.uuid}}'
+              relative
+            ></prose-mirror>
+          {{else}}
+            <div class='dcb-field-value'>
+              {{{enrichedContainmentAppetite}}}
+            </div>
+          {{/if}}
+        </div>
+        <div class='dcb-danger-box'>
+          <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentQuiescence'}}</span>
+          {{#if isEditable}}
+            <prose-mirror
+              name='system.containmentQuiescence'
+              value='{{system.containmentQuiescence}}'
+              data-document-uuid='{{document.uuid}}'
+              relative
+            ></prose-mirror>
+          {{else}}
+            <div class='dcb-field-value'>
+              {{{enrichedContainmentQuiescence}}}
+            </div>
+          {{/if}}
+        </div>
+      </section>
+    </div>
 
-  {{! VI — Resolution & Endgame (two-column) }}
-  <section class='dcb-section'>
-    <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionVI'}}</h2>
-    <div class='dcb-two-col'>
-      <div class='dcb-col'>
-        <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.BestCase'}}</span>
+    {{! V — Key Actors & Factions }}
+    <div class='tab' data-tab='section-v' data-group='dcb-primary'>
+      <section class='dcb-section'>
+        <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionV'}}</h2>
+        <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.KeyActorsHint'}}</span>
         {{#if isEditable}}
           <prose-mirror
-            name='system.bestCaseResolution'
-            value='{{system.bestCaseResolution}}'
+            name='system.keyActors'
+            value='{{system.keyActors}}'
             data-document-uuid='{{document.uuid}}'
             relative
           ></prose-mirror>
         {{else}}
-          <div class='dcb-field-value med'>
-            {{{enrichedBestCaseResolution}}}
+          <div class='dcb-field-value xl'>
+            {{{enrichedKeyActors}}}
           </div>
         {{/if}}
-      </div>
-      <div class='dcb-col'>
-        <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.WorstCase'}}</span>
+      </section>
+    </div>
+
+    {{! VI — Resolution & Endgame (two-column) }}
+    <div class='tab' data-tab='section-vi' data-group='dcb-primary'>
+      <section class='dcb-section'>
+        <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionVI'}}</h2>
+        <div class='dcb-two-col'>
+          <div class='dcb-col'>
+            <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.BestCase'}}</span>
+            {{#if isEditable}}
+              <prose-mirror
+                name='system.bestCaseResolution'
+                value='{{system.bestCaseResolution}}'
+                data-document-uuid='{{document.uuid}}'
+                relative
+              ></prose-mirror>
+            {{else}}
+              <div class='dcb-field-value med'>
+                {{{enrichedBestCaseResolution}}}
+              </div>
+            {{/if}}
+          </div>
+          <div class='dcb-col'>
+            <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.WorstCase'}}</span>
+            {{#if isEditable}}
+              <prose-mirror
+                name='system.worstCaseResolution'
+                value='{{system.worstCaseResolution}}'
+                data-document-uuid='{{document.uuid}}'
+                relative
+              ></prose-mirror>
+            {{else}}
+              <div class='dcb-field-value med'>
+                {{{enrichedWorstCaseResolution}}}
+              </div>
+            {{/if}}
+          </div>
+        </div>
+      </section>
+    </div>
+
+    {{! VII — Relic Milestones }}
+    <div class='tab' data-tab='section-vii' data-group='dcb-primary'>
+      <section class='dcb-section'>
+        <h2 class='dcb-section-title green'>{{localize 'NEONRELIC.DACaseBrief.SectionVII'}}</h2>
+        <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.MilestonesHint'}}</span>
+        <div class='dcb-milestone-grid'>
+          {{#each system.relicMilestones}}
+            <input
+              type='number'
+              name='system.relicMilestones.{{@index}}.day'
+              value='{{this.day}}'
+              class='dcb-milestone-day'
+              min='0'
+              {{disabled (not @root.isEditable)}}
+            />
+            <input
+              type='text'
+              name='system.relicMilestones.{{@index}}.description'
+              value='{{this.description}}'
+              class='dcb-milestone-desc'
+              {{disabled (not @root.isEditable)}}
+            />
+          {{/each}}
+        </div>
+      </section>
+    </div>
+
+    {{! VIII — DA Notes }}
+    <div class='tab' data-tab='section-viii' data-group='dcb-primary'>
+      <section class='dcb-section'>
+        <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionVIII'}}</h2>
+        <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.DANotesHint'}}</span>
         {{#if isEditable}}
           <prose-mirror
-            name='system.worstCaseResolution'
-            value='{{system.worstCaseResolution}}'
+            name='system.daNotes'
+            value='{{system.daNotes}}'
             data-document-uuid='{{document.uuid}}'
             relative
           ></prose-mirror>
         {{else}}
-          <div class='dcb-field-value med'>
-            {{{enrichedWorstCaseResolution}}}
+          <div class='dcb-field-value xxl'>
+            {{{enrichedDANotes}}}
           </div>
         {{/if}}
-      </div>
+      </section>
     </div>
-  </section>
-
-  {{! VII — Relic Milestones }}
-  <section class='dcb-section'>
-    <h2 class='dcb-section-title green'>{{localize 'NEONRELIC.DACaseBrief.SectionVII'}}</h2>
-    <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.MilestonesHint'}}</span>
-    <div class='dcb-milestone-grid'>
-      {{#each system.relicMilestones}}
-        <input
-          type='number'
-          name='system.relicMilestones.{{@index}}.day'
-          value='{{this.day}}'
-          class='dcb-milestone-day'
-          min='0'
-          {{disabled (not @root.isEditable)}}
-        />
-        <input
-          type='text'
-          name='system.relicMilestones.{{@index}}.description'
-          value='{{this.description}}'
-          class='dcb-milestone-desc'
-          {{disabled (not @root.isEditable)}}
-        />
-      {{/each}}
-    </div>
-  </section>
-
-  {{! VIII — DA Notes }}
-  <section class='dcb-section'>
-    <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionVIII'}}</h2>
-    <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.DANotesHint'}}</span>
-    {{#if isEditable}}
-      <prose-mirror
-        name='system.daNotes'
-        value='{{system.daNotes}}'
-        data-document-uuid='{{document.uuid}}'
-        relative
-      ></prose-mirror>
-    {{else}}
-      <div class='dcb-field-value xxl'>
-        {{{enrichedDANotes}}}
-      </div>
-    {{/if}}
   </section>
 
   {{! Footer }}
