@@ -271,7 +271,7 @@ export class NPCDataModel extends foundry.abstract.TypeDataModel {
       artifactConnection: new StringField({ blank: true }),
       startingKnowledge: new StringField({ blank: true }),
       gainedKnowledge: new StringField({ blank: true }),
-      locations: new ArrayField(new StringField()),
+      locations: new StringField({ blank: true }),
       positiveResult: new StringField({ blank: true }),
       negativeResult: new StringField({ blank: true }),
 

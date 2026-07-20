@@ -1,5 +1,5 @@
 {{#unless isSimplified}}
-  {{#unless showBack}}
+  {{#if showBack}}
     <section class='npc-entity'>
       <div class='section-label red'>
         {{localize 'NEONRELIC.NPC.EntityFields'}}
@@ -90,5 +90,5 @@
         </label>
       </div>
     </section>
-  {{/unless}}
+  {{/if}}
 {{/unless}}

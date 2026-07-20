@@ -95,6 +95,9 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     // Items
     context.abilities = actor.items.filter(i => i.type === 'talent');
 
+    // Locations string for display
+    context.locationsString = system.locations ?? '';
+
     return context;
   }
 

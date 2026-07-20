@@ -1,4 +1,5 @@
 <div class='npc-sheet'>
+  {{! HEADER: Always visible }}
   <header class='npc-card-header'>
     <div class='card-header'>
       <div class='card-title'>{{localize 'NEONRELIC.NPC.CardTitle'}}</div>
@@ -23,7 +24,7 @@
             />
           </div>
           <div class='org-col'>
-            <span class='field-label'>{{localize 'NEONRELIC.NPC.Organization'}}</span>
+            <span class='field-label'>{{localize 'NEONRELIC.NPC.Organization'}} (O#)</span>
             <input
               class='npc-org'
               name='system.organization'
@@ -46,34 +47,25 @@
       </div>
     </div>
 
-    <div class='npc-badges'>
-      <span class='tier-badge {{tierClass}}'>T{{system.tier}}</span>
-      <span class='fear-badge'>
-        {{localize 'NEONRELIC.NPC.FR'}}
-        {{system.fearRating}}
-        {{#if system.escalatedFearRating}}
-          /
-          {{system.escalatedFearRating}}
-        {{/if}}
-      </span>
-      <span class='corruption-stage-badge stage-{{corruptionStageLabel}}'>
-        {{localize 'NEONRELIC.NPC.CorruptionStage'}}:
-        {{corruptionStageLabel}}
-      </span>
-      {{#if isEditable}}
+    {{#if isEditable}}
+      <div class='npc-badges'>
         <button type='button' class='flip-btn' data-action='flipCard'>
           <i class='fa-solid fa-rotate'></i>
+          <span class='flip-label'>{{#if showBack}}{{localize 'NEONRELIC.NPC.Front'}}{{else}}{{localize
+                'NEONRELIC.NPC.Back'
+              }}{{/if}}</span>
         </button>
         <button type='button' class='flip-btn' data-action='toggleSimplified'>
           <i class='fa-solid fa-compress'></i>
         </button>
-      {{/if}}
-    </div>
+      </div>
+    {{/if}}
   </header>
 
+  {{! FRONT: Case-file management card }}
   {{#unless showBack}}
     <section class='npc-front'>
-      {{! Secret & Goal }}
+      {{! Secret and Goal }}
       <div class='field-row'>
         <div class='field-col'>
           <span class='field-label'>{{localize 'NEONRELIC.NPC.Secret'}}</span>
@@ -95,6 +87,87 @@
             {{disabled (not isEditable)}}
           />
         </div>
+      </div>
+
+      {{! Knowledge }}
+      <div class='section-label'>{{localize 'NEONRELIC.NPC.Knowledge'}}</div>
+      <div class='field-row'>
+        <div class='field-col'>
+          <span class='field-label'>{{localize 'NEONRELIC.NPC.StartingKnowledge'}} (I#)</span>
+          <input
+            class='field-value'
+            name='system.startingKnowledge'
+            type='text'
+            value='{{system.startingKnowledge}}'
+            {{disabled (not isEditable)}}
+          />
+        </div>
+        <div class='field-col'>
+          <span class='field-label'>{{localize 'NEONRELIC.NPC.GainedKnowledge'}}</span>
+          <input
+            class='field-value'
+            name='system.gainedKnowledge'
+            type='text'
+            value='{{system.gainedKnowledge}}'
+            {{disabled (not isEditable)}}
+          />
+        </div>
+      </div>
+
+      {{! Locations }}
+      <div>
+        <span class='field-label'>{{localize 'NEONRELIC.NPC.Locations'}} (L#)</span>
+        <input
+          class='field-value'
+          name='system.locations'
+          type='text'
+          value='{{locationsString}}'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+
+      {{! Engagement Results }}
+      <div class='section-label red'>{{localize 'NEONRELIC.NPC.EngagementResults'}}</div>
+      <div class='field-row'>
+        <div class='field-col'>
+          <span class='field-label'>{{localize 'NEONRELIC.NPC.PositiveResult'}}</span>
+          <input
+            class='field-value med'
+            name='system.positiveResult'
+            type='text'
+            value='{{system.positiveResult}}'
+            {{disabled (not isEditable)}}
+          />
+        </div>
+        <div class='field-col'>
+          <span class='field-label'>{{localize 'NEONRELIC.NPC.NegativeResult'}}</span>
+          <input
+            class='field-value med'
+            name='system.negativeResult'
+            type='text'
+            value='{{system.negativeResult}}'
+            {{disabled (not isEditable)}}
+          />
+        </div>
+      </div>
+    </section>
+  {{/unless}}
+
+  {{! BACK: Combat stats block }}
+  {{#if showBack}}
+    <section class='npc-back'>
+      {{! Badges row }}
+      <div class='npc-badges'>
+        <span class='tier-badge {{tierClass}}'>T{{system.tier}}</span>
+        <span class='fear-badge'>
+          {{localize 'NEONRELIC.NPC.FR'}}
+          {{system.fearRating}}
+          {{#if system.escalatedFearRating}}/{{system.escalatedFearRating}}{{/if}}
+        </span>
+        <span class='corruption-stage-badge stage-{{corruptionStageLabel}}'>
+          {{localize 'NEONRELIC.NPC.CorruptionStage'}}:
+          {{corruptionStageLabel}}
+        </span>
       </div>
 
       {{! Attributes }}
@@ -169,18 +242,18 @@
         <div class='combat-field'>
           <span class='field-label'>{{localize 'NEONRELIC.NPC.CorruptionStage'}}</span>
           <select name='system.corruptionStage' class='combat-input' {{disabled (not isEditable)}}>
-            <option value='0' {{selected system.corruptionStage 0}}>
-              {{localize 'NEONRELIC.CorruptionStage.Clean'}}
-            </option>
-            <option value='1' {{selected system.corruptionStage 1}}>
-              {{localize 'NEONRELIC.CorruptionStage.Touched'}}
-            </option>
-            <option value='2' {{selected system.corruptionStage 2}}>
-              {{localize 'NEONRELIC.CorruptionStage.Marked'}}
-            </option>
-            <option value='3' {{selected system.corruptionStage 3}}>
-              {{localize 'NEONRELIC.CorruptionStage.Consumed'}}
-            </option>
+            <option value='0' {{selected system.corruptionStage 0}}>{{localize
+                'NEONRELIC.CorruptionStage.Clean'
+              }}</option>
+            <option value='1' {{selected system.corruptionStage 1}}>{{localize
+                'NEONRELIC.CorruptionStage.Touched'
+              }}</option>
+            <option value='2' {{selected system.corruptionStage 2}}>{{localize
+                'NEONRELIC.CorruptionStage.Marked'
+              }}</option>
+            <option value='3' {{selected system.corruptionStage 3}}>{{localize
+                'NEONRELIC.CorruptionStage.Consumed'
+              }}</option>
           </select>
         </div>
       </div>
@@ -221,25 +294,13 @@
         {{/each}}
       {{/unless}}
 
-      {{! Description }}
-      <div class='npc-description'>
-        <div class='editor'>{{{enrichedDescription}}}</div>
-      </div>
-    </section>
-  {{/unless}}
-
-  {{#unless isSimplified}}
-    {{#unless showBack}}
-      <section class='npc-entity'>
-        <div class='section-label red'>
-          {{localize 'NEONRELIC.NPC.EntityFields'}}
-        </div>
+      {{! Entity fields }}
+      {{#unless isSimplified}}
+        <div class='section-label red'>{{localize 'NEONRELIC.NPC.EntityFields'}}</div>
 
         <div class='field-row'>
           <div class='field-col'>
-            <span class='field-label'>
-              {{localize 'NEONRELIC.NPC.EntityAnchor'}}
-            </span>
+            <span class='field-label'>{{localize 'NEONRELIC.NPC.EntityAnchor'}}</span>
             <input
               class='field-value'
               type='text'
@@ -249,9 +310,7 @@
             />
           </div>
           <div class='field-col'>
-            <span class='field-label'>
-              {{localize 'NEONRELIC.NPC.DissolutionMethod'}}
-            </span>
+            <span class='field-label'>{{localize 'NEONRELIC.NPC.DissolutionMethod'}}</span>
             <input
               class='field-value'
               type='text'
@@ -264,9 +323,7 @@
 
         <div class='field-row'>
           <div class='field-col'>
-            <span class='field-label'>
-              {{localize 'NEONRELIC.NPC.ReconstitutionTimer'}}
-            </span>
+            <span class='field-label'>{{localize 'NEONRELIC.NPC.ReconstitutionTimer'}}</span>
             <input
               class='field-value'
               type='number'
@@ -277,9 +334,7 @@
             />
           </div>
           <div class='field-col'>
-            <span class='field-label'>
-              {{localize 'NEONRELIC.NPC.ArtifactTetherRange'}}
-            </span>
+            <span class='field-label'>{{localize 'NEONRELIC.NPC.ArtifactTetherRange'}}</span>
             <input
               class='field-value'
               type='number'
@@ -290,9 +345,7 @@
             />
           </div>
           <div class='field-col'>
-            <span class='field-label'>
-              {{localize 'NEONRELIC.NPC.CorruptionOnContact'}}
-            </span>
+            <span class='field-label'>{{localize 'NEONRELIC.NPC.CorruptionOnContact'}}</span>
             <input
               class='field-value'
               type='number'
@@ -324,71 +377,9 @@
             {{localize 'NEONRELIC.NPC.ZoneLocked'}}
           </label>
         </div>
-      </section>
-    {{/unless}}
-  {{/unless}}
+      {{/unless}}
 
-  {{#if showBack}}
-    <section class='npc-back'>
-      <div class='section-label'>{{localize 'NEONRELIC.NPC.Knowledge'}}</div>
-      <div class='field-row'>
-        <div class='field-col'>
-          <span class='field-label'>
-            {{localize 'NEONRELIC.NPC.StartingKnowledge'}}
-          </span>
-          <input
-            class='field-value'
-            type='text'
-            name='system.startingKnowledge'
-            value='{{system.startingKnowledge}}'
-            {{disabled (not isEditable)}}
-          />
-        </div>
-        <div class='field-col'>
-          <span class='field-label'>
-            {{localize 'NEONRELIC.NPC.GainedKnowledge'}}
-          </span>
-          <input
-            class='field-value'
-            type='text'
-            name='system.gainedKnowledge'
-            value='{{system.gainedKnowledge}}'
-            {{disabled (not isEditable)}}
-          />
-        </div>
-      </div>
-
-      <div class='section-label red'>
-        {{localize 'NEONRELIC.NPC.EngagementResults'}}
-      </div>
-      <div class='field-row'>
-        <div class='field-col'>
-          <span class='field-label'>
-            {{localize 'NEONRELIC.NPC.PositiveResult'}}
-          </span>
-          <input
-            class='field-value med'
-            type='text'
-            name='system.positiveResult'
-            value='{{system.positiveResult}}'
-            {{disabled (not isEditable)}}
-          />
-        </div>
-        <div class='field-col'>
-          <span class='field-label'>
-            {{localize 'NEONRELIC.NPC.NegativeResult'}}
-          </span>
-          <input
-            class='field-value med'
-            type='text'
-            name='system.negativeResult'
-            value='{{system.negativeResult}}'
-            {{disabled (not isEditable)}}
-          />
-        </div>
-      </div>
-
-      {{! DA Description/Notes }}
+      {{! DA Notes / Description }}
       <div class='section-label'>{{localize 'NEONRELIC.NPC.DANotes'}}</div>
       <div class='npc-description'>
         <div class='editor'>{{{enrichedDescription}}}</div>
