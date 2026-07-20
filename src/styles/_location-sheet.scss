@@ -112,22 +112,8 @@
       }
     }
 
-    .loc-name-col {
-      flex: 1;
-    }
-
-    .loc-name {
-      border-bottom: 2px solid $nr-ink;
-      min-height: 22px;
-      font-family: $nr-font-fill;
-      font-size: 10pt;
-      font-weight: bold;
-      padding: 2px 4px;
-    }
-
     // ── Location Image ────────────────────────────────
     // (Removed — image handling deferred to future issue)
-
     // ── Tabs ──────────────────────────────────────────
     .loc-tabs {
       display: flex;

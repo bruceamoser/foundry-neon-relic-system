@@ -419,7 +419,6 @@ NEONRELIC:
     FormRef: 'VC-14 &bull; Rev. 1987'
     CaseId: Case ID
     LocationId: Location ID
-    LocationName: Location Name
     DescriptionHint: Description &mdash; What the agents see when they arrive
     Availability: Availability
     AvailabilityCondition: Availability Condition (if not Open)
