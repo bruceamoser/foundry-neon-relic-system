@@ -409,6 +409,7 @@ export class InformationCardDataModel extends foundry.abstract.TypeDataModel {
       foundAt: new StringField({ blank: true }),
       knownBy: new StringField({ blank: true }),
       hqFallback: new NumberField({ initial: 0, integer: true, min: 0 }),
+      daNotes: new HTMLField({ blank: true }),
       revealed: new BooleanField({ initial: false }),
       description: new HTMLField({ blank: true }),
     };

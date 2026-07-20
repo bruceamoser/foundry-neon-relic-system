@@ -748,16 +748,26 @@ NEONRELIC:
   # Information Cards
   InfoCard:
     Label: Information Card
+    CardLabel: Information Card
     CardId: Card ID
+    CardIdHint: I-# format (e.g., I-1, I-2)
     CardType: Card Type
     Content: Content
     FoundAt: Found At
+    FoundAtHint: Enter Location ID (L#)
     KnownBy: Known By
+    KnownByHint: Enter NPC name
     HQFallback: HQ Fallback (Day)
+    HQFallbackHint: Day number for HQ fallback
     ContainmentTruth: Containment Truth
     SupportingIntel: Supporting Intel
     DAReference: DA Reference
+    DAEyesOnly: DA Eyes Only
+    DANotes: DA Notes
+    DANotesHint: Reference notes for the Director
     Revealed: Revealed
+    RevealedHint: Content hidden until revealed
+    Footer: Neon Relic • The Verdant Covenant
 
   # Scene Resolution
   Scene:
