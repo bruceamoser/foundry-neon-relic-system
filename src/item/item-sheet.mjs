@@ -621,15 +621,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     const docType = this.document.type;
     if (docType !== 'organization' && docType !== 'location' && docType !== 'informationCard') return;
 
-    let data;
-    try {
-      const raw = event.dataTransfer.getData('text/plain');
-      if (!raw) return;
-      data = JSON.parse(raw);
-    } catch {
-      return;
-    }
-
+    const data = TextEditor.getDragEventData(event);
     if (!data?.uuid) return;
     const doc = await fromUuid(data.uuid);
     if (!doc) return;
