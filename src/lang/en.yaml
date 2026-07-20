@@ -22,6 +22,8 @@ TYPES:
     playerCaseBrief: Player Case Brief
     daCaseBrief: DA Case Brief
     subdivision: Subdivision
+    organization: Organization Reference
+    relicSheet: Relic Sheet
     Remove: Remove
     DeleteConfirm: Delete Item
     DeleteConfirmText: 'Delete "{name}"? This cannot be undone.'
@@ -30,6 +32,7 @@ TYPES:
     AddArtifact: Add Artifact
     AddWeapon: Add Weapon
     AddArmor: Add Armor
+    AddRelicSheet: Add Relic Sheet
 
 NEONRELIC:
   System: Neon Relic
@@ -123,6 +126,7 @@ NEONRELIC:
     upgrade: Upgrade
     location: Location
     informationCard: Information Card
+    organization: Organization
     playerCaseBrief: Player Case Brief
     daCaseBrief: DA Case Brief
 
@@ -292,6 +296,45 @@ NEONRELIC:
     Pressure: Artifact Pressure
     Trigger: Trigger
 
+  # Relic Sheet (VC-16)
+  RelicSheet:
+    HazardousMaterial: HAZARDOUS MATERIAL
+    FormId: 'Form VC-16 • Rev. 1987'
+    CaseId: Case ID
+    RelicName: Relic Name
+    Tier: Tier
+    Category: Category
+    CategoryObject: Object
+    CategoryText: Text
+    CategoryLocation: Location
+    CategoryEntity: Entity
+    CategoryPhenomenon: Phenomenon
+    RiskTag: Risk Tag
+    CorruptionCost: Corruption Cost
+    ArtifactDie: Artifact Die
+    EmissionType: Emission Type
+    MundaneAppearance: Mundane Appearance
+    IntelligenceReads: Intelligence Reads
+    SurfaceReadLabel: 'Surface Read — What does a civilian see?'
+    OperationalReadLabel: 'Operational Read — What does the Covenant understand?'
+    ColdArchiveReadLabel: 'Cold Archive Read — What does the deep record show?'
+    ActivationAndEffect: Activation & Effect
+    ActivationConditionLabel: 'Activation Condition — What triggers the artifact?'
+    MechanicalEffectLabel: 'Mechanical Effect — What does it do when activated?'
+    FractureLabel: 'Fracture — What happens on an Artifact Die roll of 1?'
+    ContainmentProfile: Containment Profile
+    ContainmentProfileLabel: Full handling and transport requirements
+    ContainmentTruthChecklist: Containment Truth Checklist
+    TruthId: ID
+    TruthDescription: Description
+    DesignatedAgentNotes: Designated Agent Notes
+    RelicImage: Relic Photograph
+    RelicImagePlaceholder: 'Affix relic\nphotograph\nhere'
+    RelicImagePath: Relic Image Path
+    FooterLeft: 'VC-16 • The Verdant Covenant • DA Use Only'
+    FooterCenter: 'Neon Relic © 2025'
+    FooterRight: Relic Sheet
+
   # Talent
   Talent:
     Type: Talent Type
@@ -370,6 +413,17 @@ NEONRELIC:
 
   # Location
   Location:
+    HeaderTitle: Location Reference
+    HeaderSubtitle: Neon Relic &mdash; The Verdant Covenant
+    Classification: DA EYES ONLY
+    FormRef: 'VC-14 &bull; Rev. 1987'
+    CaseId: Case ID
+    LocationId: Location ID
+    LocationName: Location Name
+    LocationImage: Location Image
+    LocationImagePlaceholder: Location Image
+    LocationImageHint: Click to set location image
+    DescriptionHint: Description &mdash; What the agents see when they arrive
     Availability: Availability
     AvailabilityCondition: Availability Condition (if not Open)
     Open: Open
@@ -388,6 +442,10 @@ NEONRELIC:
     NegativeResult: Negative Result — failed engagement
     MilestoneChanges: Milestone Changes
     MilestoneHint: How this location changes when organization milestones are reached
+    DANotes: DA Notes
+    FooterLeft: 'VC-14 &bull; The Verdant Covenant &bull; DA Use Only'
+    FooterCenter: 'Neon Relic &copy; 2025'
+    FooterRight: Location Reference Sheet
 
   # Subdivision
   Subdivision:
@@ -740,9 +798,28 @@ NEONRELIC:
   # Organization Reference
   OrgRef:
     Title: Organization Reference
+    FormRef: VC-20 &bull; Rev. 1987
+    HeaderSubtitle: Neon Relic &mdash; The Verdant Covenant
+    Classification: DA EYES ONLY
+    CaseId: Case ID
+    OrganizationId: Organization ID
+    OrganizationName: Organization Name
+    Value: Value
+    Active: Active
+    Dormant: Dormant
     Activate: Activate
     SetDormant: Set Dormant
     ActivationCondition: Activation Condition
+    ActivationConditionHint: What triggers dormant &rarr; active
+    LinkedEffects: Linked Effects
+    LinkedEffectsHint: What happens when milestones trigger
+    PlayerFacingSigns: Player-Facing Signs
+    PlayerFacingSignsHint: What agents observe as the org progresses
+    Milestones: Milestones
+    MilestoneDay: Day
+    MilestoneDescription: Description
+    MilestoneZeroHint: Baseline — before any milestones trigger
+    MilestoneForwardHint: Forward milestone
     Goal: Countdown Goal
 
   # Information Cards

@@ -378,6 +378,8 @@ export class UpgradeDataModel extends foundry.abstract.TypeDataModel {
 export class LocationDataModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
+      locationId: new StringField({ blank: true }),
+      caseId: new StringField({ blank: true }),
       availability: new StringField({ initial: 'open', blank: false }),
       availabilityCondition: new StringField({ blank: true }),
       npcsPresent: new HTMLField({ blank: true }),
@@ -386,6 +388,8 @@ export class LocationDataModel extends foundry.abstract.TypeDataModel {
       positiveResult: new HTMLField({ blank: true }),
       negativeResult: new HTMLField({ blank: true }),
       milestoneChanges: new HTMLField({ blank: true }),
+      daNotes: new HTMLField({ blank: true }),
+      image: new StringField({ blank: true }),
       description: new HTMLField({ blank: true }),
     };
   }
@@ -561,5 +565,124 @@ export class SubdivisionDataModel extends foundry.abstract.TypeDataModel {
       divisionItemName: new StringField({ blank: true }),
       description: new HTMLField({ blank: true }),
     };
+  }
+}
+
+/* ------------------------------------------ */
+/*  RelicSheetDataModel (VC-16)               */
+/* ------------------------------------------ */
+
+/**
+ * TypeDataModel for Relic Sheet (VC-16) — DA-facing case file document
+ * for the central artifact that drives a case. Distinct from the Artifact
+ * item type used by players.
+ * @extends foundry.abstract.TypeDataModel
+ */
+export class RelicSheetDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      // Relic Identity
+      relicName: new StringField({ blank: true }),
+      tier: new NumberField({ required: true, integer: true, min: 1, max: 4, initial: 1 }),
+      category: new StringField({ initial: 'object', blank: false }),
+      riskTag: new StringField({ blank: true }),
+      corruptionCost: new NumberField({ required: true, integer: true, min: 0, initial: 1 }),
+      artifactDie: new StringField({ initial: 'd20', blank: false }),
+      emissionType: new StringField({ blank: true }),
+      mundaneAppearance: new StringField({ blank: true }),
+
+      // Intelligence Reads
+      surfaceRead: new HTMLField({ blank: true }),
+      operationalRead: new HTMLField({ blank: true }),
+      coldArchiveRead: new HTMLField({ blank: true }),
+
+      // Activation & Effect
+      activationCondition: new HTMLField({ blank: true }),
+      mechanicalEffect: new HTMLField({ blank: true }),
+
+      // Fracture
+      fractureCondition: new HTMLField({ blank: true }),
+
+      // Containment Profile
+      containmentProfile: new HTMLField({ blank: true }),
+
+      // Containment Truth Checklist (up to 8)
+      containmentTruths: new ArrayField(
+        new SchemaField({
+          id: new StringField({ blank: true }),
+          description: new StringField({ blank: true }),
+          checked: new BooleanField({ initial: false }),
+        }),
+      ),
+
+      // Relic Image
+      relicImage: new StringField({ blank: true }),
+
+      // DA Notes
+      daNotes: new HTMLField({ blank: true }),
+
+      // Cross-reference
+      caseId: new StringField({ blank: true }),
+
+      description: new HTMLField({ blank: true }),
+    };
+  }
+
+  /* ------------------------------------------ */
+
+  /** @override */
+  prepareDerivedData() {
+    // Ensure at least 8 containment truth rows exist for the template grid
+    if (!this.containmentTruths || this.containmentTruths.length < 8) {
+      this.containmentTruths = this.containmentTruths ?? [];
+      while (this.containmentTruths.length < 8) {
+        this.containmentTruths.push({ id: '', description: '', checked: false });
+      }
+    }
+  }
+}
+
+/* ------------------------------------------ */
+/*  OrganizationDataModel                     */
+/* ------------------------------------------ */
+
+/**
+ * TypeDataModel for Organization Reference items — DA-only faction tracker
+ * (VC-20) with milestone countdowns, activation conditions, and player signs.
+ * Cross-referenced by NPC Cards, Location sheets, and DA Case Brief via O#.
+ * @extends foundry.abstract.TypeDataModel
+ */
+export class OrganizationDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      organizationId: new StringField({ initial: '', blank: true }),
+      organizationName: new StringField({ initial: '', blank: true }),
+      value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+      isActive: new BooleanField({ initial: true }),
+      isDormant: new BooleanField({ initial: false }),
+      activationCondition: new HTMLField({ blank: true }),
+      linkedEffects: new HTMLField({ blank: true }),
+      playerFacingSigns: new HTMLField({ blank: true }),
+      milestones: new ArrayField(
+        new SchemaField({
+          day: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+          description: new StringField({ blank: true }),
+        }),
+      ),
+      description: new HTMLField({ blank: true }),
+    };
+  }
+
+  /* ------------------------------------------ */
+
+  /** @override */
+  prepareDerivedData() {
+    // Ensure exactly 4 milestone rows exist (3 forward + 1 baseline at day 0)
+    if (!this.milestones || this.milestones.length < 4) {
+      this.milestones = this.milestones ?? [];
+      while (this.milestones.length < 4) {
+        this.milestones.push({ day: 0, description: '' });
+      }
+    }
   }
 }
