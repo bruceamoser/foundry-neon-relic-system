@@ -25,6 +25,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       useConsumable: NRItemSheet.#onUseConsumable,
       replenishConsumable: NRItemSheet.#onReplenishConsumable,
       fixItem: NRItemSheet.#onFixItem,
+      removeNpc: NRItemSheet.#onRemoveNpc,
     },
     form: {
       submitOnChange: true,
@@ -188,6 +189,22 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
           relativeTo: item,
         },
       );
+
+      // Resolve linked NPCs from UUIDs
+      context.linkedNpcs = [];
+      if (system.npcUuids?.length) {
+        for (const uuid of system.npcUuids) {
+          if (!uuid) continue;
+          try {
+            const doc = await fromUuid(uuid);
+            if (doc) {
+              context.linkedNpcs.push({ uuid, name: doc.name, img: doc.img });
+            }
+          } catch {
+            // UUID may be stale; skip
+          }
+        }
+      }
     }
     if (item.type === 'informationCard') {
       context.enrichedContent = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
@@ -500,5 +517,43 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
    */
   static async #onFixItem(_event, _target) {
     await this.document.repair();
+  }
+
+  /**
+   * Remove a linked NPC from the organization reference.
+   */
+  static async #onRemoveNpc(_event, target) {
+    const uuid = target.dataset.uuid;
+    if (!uuid) return;
+    const system = this.document.system;
+    const npcUuids = [...(system.npcUuids ?? [])];
+    const idx = npcUuids.indexOf(uuid);
+    if (idx !== -1) {
+      npcUuids.splice(idx, 1);
+      await this.document.update({ 'system.npcUuids': npcUuids });
+    }
+  }
+
+  /* ------------------------------------------ */
+
+  /** @override */
+  _canDragDrop(_event) {
+    return this.document.type === 'organization' && this.isEditable;
+  }
+
+  /** @override */
+  async _onDrop(event) {
+    if (this.document.type !== 'organization') return;
+    const data = TextEditor.getDragEventData(event);
+    if (!data?.uuid) return;
+    const doc = await fromUuid(data.uuid);
+    if (!doc || doc.type !== 'npc') return;
+
+    const system = this.document.system;
+    const npcUuids = [...(system.npcUuids ?? [])];
+    if (!npcUuids.includes(data.uuid)) {
+      npcUuids.push(data.uuid);
+      await this.document.update({ 'system.npcUuids': npcUuids });
+    }
   }
 }
