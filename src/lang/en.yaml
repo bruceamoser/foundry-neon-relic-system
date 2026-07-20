@@ -798,8 +798,8 @@ NEONRELIC:
   # Organization Reference
   OrgRef:
     Title: Organization Reference
-    FormRef: VC-20 &bull; Rev. 1987
-    HeaderSubtitle: Neon Relic &mdash; The Verdant Covenant
+    FormRef: 'VC-20 • Rev. 1987'
+    HeaderSubtitle: 'Neon Relic — The Verdant Covenant'
     Classification: DA EYES ONLY
     CaseId: Case ID
     OrganizationId: Organization ID
@@ -807,20 +807,17 @@ NEONRELIC:
     Value: Value
     Active: Active
     Dormant: Dormant
-    Activate: Activate
-    SetDormant: Set Dormant
     ActivationCondition: Activation Condition
-    ActivationConditionHint: What triggers dormant &rarr; active
+    ActivationConditionHint: What triggers dormant → active
     LinkedEffects: Linked Effects
     LinkedEffectsHint: What happens when milestones trigger
     PlayerFacingSigns: Player-Facing Signs
     PlayerFacingSignsHint: What agents observe as the org progresses
-    Milestones: Milestones
-    MilestoneDay: Day
-    MilestoneDescription: Description
-    MilestoneZeroHint: Baseline — before any milestones trigger
-    MilestoneForwardHint: Forward milestone
-    Goal: Countdown Goal
+    TabDetails: Details
+    TabNpcs: NPCs
+    DropNpcHint: Drop NPC actors here to link them to this organization
+    NoNpcs: No NPCs linked. Drag NPC actors from the sidebar onto this tab.
+    RemoveNpc: Remove NPC
 
   # Information Cards
   InfoCard:

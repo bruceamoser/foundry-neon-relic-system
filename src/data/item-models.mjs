@@ -648,8 +648,9 @@ export class RelicSheetDataModel extends foundry.abstract.TypeDataModel {
 
 /**
  * TypeDataModel for Organization Reference items — DA-only faction tracker
- * (VC-20) with milestone countdowns, activation conditions, and player signs.
- * Cross-referenced by NPC Cards, Location sheets, and DA Case Brief via O#.
+ * (VC-20) with activation conditions, linked effects, and player-facing signs.
+ * Supports NPC drag-drop linking. Cross-referenced by NPC Cards, Location
+ * sheets, and DA Case Brief via O#.
  * @extends foundry.abstract.TypeDataModel
  */
 export class OrganizationDataModel extends foundry.abstract.TypeDataModel {
@@ -664,26 +665,7 @@ export class OrganizationDataModel extends foundry.abstract.TypeDataModel {
       activationCondition: new HTMLField({ blank: true }),
       linkedEffects: new HTMLField({ blank: true }),
       playerFacingSigns: new HTMLField({ blank: true }),
-      milestones: new ArrayField(
-        new SchemaField({
-          day: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
-          description: new StringField({ blank: true }),
-        }),
-      ),
-      description: new HTMLField({ blank: true }),
+      npcUuids: new ArrayField(new StringField({ blank: true })),
     };
-  }
-
-  /* ------------------------------------------ */
-
-  /** @override */
-  prepareDerivedData() {
-    // Ensure exactly 4 milestone rows exist (3 forward + 1 baseline at day 0)
-    if (!this.milestones || this.milestones.length < 4) {
-      this.milestones = this.milestones ?? [];
-      while (this.milestones.length < 4) {
-        this.milestones.push({ day: 0, description: '' });
-      }
-    }
   }
 }

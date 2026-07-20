@@ -73,82 +73,87 @@
     </div>
   </div>
 
-  {{! Milestones }}
-  <div class='org-milestones'>
-    <span class='section-label'>{{localize 'NEONRELIC.OrgRef.Milestones'}}</span>
-    <div class='milestone-list'>
-      {{#each system.milestones}}
-        <div class='milestone-row'>
-          {{#if @last}}
-            <input
-              class='milestone-day zero-milestone'
-              type='number'
-              name='system.milestones.{{@index}}.day'
-              value='{{this.day}}'
-              min='0'
-              {{disabled (not @root.isEditable)}}
-            />
-            <input
-              class='milestone-desc'
-              type='text'
-              name='system.milestones.{{@index}}.description'
-              value='{{this.description}}'
-              placeholder='{{localize "NEONRELIC.OrgRef.MilestoneZeroHint"}}'
-              {{disabled (not @root.isEditable)}}
-            />
-          {{else}}
-            <input
-              class='milestone-day'
-              type='number'
-              name='system.milestones.{{@index}}.day'
-              value='{{this.day}}'
-              min='0'
-              {{disabled (not @root.isEditable)}}
-            />
-            <input
-              class='milestone-desc'
-              type='text'
-              name='system.milestones.{{@index}}.description'
-              value='{{this.description}}'
-              placeholder='{{localize "NEONRELIC.OrgRef.MilestoneForwardHint"}}'
-              {{disabled (not @root.isEditable)}}
-            />
-          {{/if}}
-        </div>
-      {{/each}}
-    </div>
-  </div>
+  {{! Tab Navigation }}
+  <nav class='org-tabs tabs' data-group='org-primary'>
+    <a class='item' data-tab='details' data-group='org-primary'>
+      {{localize 'NEONRELIC.OrgRef.TabDetails'}}
+    </a>
+    <a class='item' data-tab='npcs' data-group='org-primary'>
+      {{localize 'NEONRELIC.OrgRef.TabNpcs'}}
+    </a>
+  </nav>
 
-  {{! Detail Section }}
-  <div class='org-details'>
-    <div class='org-detail-row'>
-      <div class='org-detail'>
-        <span class='field-label'>{{localize 'NEONRELIC.OrgRef.ActivationCondition'}}</span>
-        <div class='field-value editor'>{{{enrichedActivationCondition}}}</div>
-        {{#if isEditable}}
-          <textarea name='system.activationCondition' style='display:none;'>{{system.activationCondition}}</textarea>
-        {{/if}}
+  {{! Tab Content }}
+  <section class='org-tab-content'>
+    {{! Details Tab }}
+    <div class='tab' data-tab='details' data-group='org-primary'>
+      <div class='org-details'>
+        <div class='org-detail-row'>
+          <div class='org-detail'>
+            <span class='field-label'>{{localize 'NEONRELIC.OrgRef.ActivationCondition'}}</span>
+            <div class='field-value editor'>{{{enrichedActivationCondition}}}</div>
+            {{#if isEditable}}
+              <textarea
+                name='system.activationCondition'
+                style='display:none;'
+              >{{system.activationCondition}}</textarea>
+            {{/if}}
+          </div>
+          <div class='org-detail'>
+            <span class='field-label'>{{localize 'NEONRELIC.OrgRef.LinkedEffects'}}</span>
+            <div class='field-value editor'>{{{enrichedLinkedEffects}}}</div>
+            {{#if isEditable}}
+              <textarea name='system.linkedEffects' style='display:none;'>{{system.linkedEffects}}</textarea>
+            {{/if}}
+          </div>
+          <div class='org-detail'>
+            <span class='field-label'>{{localize 'NEONRELIC.OrgRef.PlayerFacingSigns'}}</span>
+            <div class='field-value editor'>{{{enrichedPlayerFacingSigns}}}</div>
+            {{#if isEditable}}
+              <textarea name='system.playerFacingSigns' style='display:none;'>{{system.playerFacingSigns}}</textarea>
+            {{/if}}
+          </div>
+        </div>
       </div>
-      <div class='org-detail'>
-        <span class='field-label'>{{localize 'NEONRELIC.OrgRef.LinkedEffects'}}</span>
-        <div class='field-value editor'>{{{enrichedLinkedEffects}}}</div>
-        {{#if isEditable}}
-          <textarea name='system.linkedEffects' style='display:none;'>{{system.linkedEffects}}</textarea>
+    </div>
+
+    {{! NPCs Tab }}
+    <div class='tab' data-tab='npcs' data-group='org-primary'>
+      <div class='org-npc-tab'>
+        {{#if linkedNpcs.length}}
+          <ul class='org-npc-list'>
+            {{#each linkedNpcs}}
+              <li class='org-npc-item' data-uuid='{{this.uuid}}'>
+                <img class='org-npc-img' src='{{this.img}}' alt='{{this.name}}' />
+                <span class='org-npc-name'>{{this.name}}</span>
+                <button
+                  type='button'
+                  class='org-npc-remove'
+                  data-action='removeNpc'
+                  data-uuid='{{this.uuid}}'
+                  data-tooltip='{{localize "NEONRELIC.OrgRef.RemoveNpc"}}'
+                  {{disabled (not @root.isEditable)}}
+                >&times;</button>
+              </li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <div class='org-npc-empty'>
+            <p>{{localize 'NEONRELIC.OrgRef.NoNpcs'}}</p>
+          </div>
         {{/if}}
-      </div>
-      <div class='org-detail'>
-        <span class='field-label'>{{localize 'NEONRELIC.OrgRef.PlayerFacingSigns'}}</span>
-        <div class='field-value editor'>{{{enrichedPlayerFacingSigns}}}</div>
         {{#if isEditable}}
-          <textarea name='system.playerFacingSigns' style='display:none;'>{{system.playerFacingSigns}}</textarea>
+          <div class='org-npc-dropzone' data-action='dropNpc'>
+            <span>{{localize 'NEONRELIC.OrgRef.DropNpcHint'}}</span>
+          </div>
         {{/if}}
       </div>
     </div>
-  </div>
+  </section>
 
   {{! Footer }}
   <footer class='org-ref-footer'>
-    <span>VC-20 &bull; The Verdant Covenant &bull; DA Use Only</span>
+    <span>VC-20 • The Verdant Covenant • DA Use Only</span>
     <span>Neon Relic</span>
   </footer>
 </div>
