@@ -27,6 +27,8 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       fixItem: NRItemSheet.#onFixItem,
       removeNpc: NRItemSheet.#onRemoveNpc,
       openNpcSheet: NRItemSheet.#onOpenNpcSheet,
+      removeLinkedDoc: NRItemSheet.#onRemoveLinkedDoc,
+      openLinkedDoc: NRItemSheet.#onOpenLinkedDoc,
     },
     form: {
       submitOnChange: true,
@@ -139,34 +141,28 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
           relativeTo: item,
         },
       );
-      context.enrichedNpcsPresent = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-        system.npcsPresent ?? '',
-        {
-          async: true,
-          relativeTo: item,
-        },
-      );
-      context.enrichedInformationAvailable = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-        system.informationAvailable ?? '',
-        {
-          async: true,
-          relativeTo: item,
-        },
-      );
-      context.enrichedOrganizationsPresent = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-        system.organizationsPresent ?? '',
-        {
-          async: true,
-          relativeTo: item,
-        },
-      );
-      context.enrichedDaNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-        system.daNotes ?? '',
-        {
-          async: true,
-          relativeTo: item,
-        },
-      );
+
+      // Resolve linked documents from UUIDs
+      context.linkedNpcs = [];
+      context.linkedInfoCards = [];
+      context.linkedOrgs = [];
+
+      const resolveDocs = async (uuids, target) => {
+        if (!uuids?.length) return;
+        for (const uuid of uuids) {
+          if (!uuid) continue;
+          try {
+            const doc = await fromUuid(uuid);
+            if (doc) target.push({ uuid, name: doc.name, img: doc.img });
+          } catch {
+            // UUID may be stale; skip
+          }
+        }
+      };
+
+      await resolveDocs(system.npcUuids, context.linkedNpcs);
+      await resolveDocs(system.informationCardUuids, context.linkedInfoCards);
+      await resolveDocs(system.organizationUuids, context.linkedOrgs);
     }
     if (item.type === 'organization') {
       // Resolve linked NPCs from UUIDs
@@ -425,6 +421,16 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
           this._orgActiveTab = tab.dataset.tab;
         },
       }).bind(this.element);
+    } else if (itemType === 'location') {
+      new foundry.applications.ux.Tabs({
+        navSelector: '.loc-tabs',
+        contentSelector: '.loc-tab-content',
+        initial: this._locActiveTab || 'details',
+        group: 'loc-primary',
+        callback: (_event, _tabs, tab) => {
+          this._locActiveTab = tab.dataset.tab;
+        },
+      }).bind(this.element);
     }
   }
 
@@ -537,12 +543,13 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 
   /** @override */
   _canDragDrop(_event) {
-    return this.document.type === 'organization' && this.isEditable;
+    return (this.document.type === 'organization' || this.document.type === 'location') && this.isEditable;
   }
 
   /** @override */
   async _onDrop(event) {
-    if (this.document.type !== 'organization') return;
+    const docType = this.document.type;
+    if (docType !== 'organization' && docType !== 'location') return;
 
     // Extract drag data — Foundry stores document UUIDs as JSON in text/plain
     let data;
@@ -554,16 +561,70 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       return;
     }
 
-    // Only accept NPC actors
-    if (!data?.uuid || data.type !== 'Actor') return;
+    if (!data?.uuid) return;
     const doc = await fromUuid(data.uuid);
-    if (!doc || doc.type !== 'npc') return;
+    if (!doc) return;
 
     const system = this.document.system;
-    const npcUuids = [...(system.npcUuids ?? [])];
-    if (!npcUuids.includes(data.uuid)) {
-      npcUuids.push(data.uuid);
-      await this.document.update({ 'system.npcUuids': npcUuids });
+    let uuidField;
+
+    if (docType === 'organization') {
+      // Organization: only accept NPC actors
+      if (data.type !== 'Actor' || doc.type !== 'npc') return;
+      uuidField = 'system.npcUuids';
+    } else {
+      // Location: accept NPCs, Information Cards, and Organizations
+      if (data.type === 'Actor' && doc.type === 'npc') {
+        uuidField = 'system.npcUuids';
+      } else if (data.type === 'Item' && doc.type === 'informationCard') {
+        uuidField = 'system.informationCardUuids';
+      } else if (data.type === 'Item' && doc.type === 'organization') {
+        uuidField = 'system.organizationUuids';
+      } else {
+        return;
+      }
     }
+
+    const uuids = [...(foundry.utils.getProperty(system, uuidField.split('.').slice(1).join('.')) ?? [])];
+    if (!uuids.includes(data.uuid)) {
+      uuids.push(data.uuid);
+      await this.document.update({ [uuidField]: uuids });
+    }
+  }
+
+  /**
+   * Remove a linked document from a location or organization.
+   */
+  static async #onRemoveLinkedDoc(_event, target) {
+    const uuid = target.dataset.uuid;
+    if (!uuid) return;
+    const system = this.document.system;
+
+    const collections = [
+      ['system.npcUuids', system.npcUuids],
+      ['system.informationCardUuids', system.informationCardUuids],
+      ['system.organizationUuids', system.organizationUuids],
+    ];
+
+    for (const [path, arr] of collections) {
+      if (!arr?.length) continue;
+      const idx = arr.indexOf(uuid);
+      if (idx !== -1) {
+        const updated = [...arr];
+        updated.splice(idx, 1);
+        await this.document.update({ [path]: updated });
+        return;
+      }
+    }
+  }
+
+  /**
+   * Open a linked document sheet from a location or organization.
+   */
+  static async #onOpenLinkedDoc(_event, target) {
+    const uuid = target.dataset.uuid;
+    if (!uuid) return;
+    const doc = await fromUuid(uuid);
+    if (doc) doc.sheet.render(true);
   }
 }
