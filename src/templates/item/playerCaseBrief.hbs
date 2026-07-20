@@ -59,41 +59,69 @@
   <div class='pcb-section-title green'>{{localize 'NEONRELIC.PlayerCaseBrief.Section1'}}</div>
   <div>
     <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.SituationSummaryHint'}}</span>
-    {{formInput
-      (formField system.fields.situationSummary value=system.situationSummary)
-      name='system.situationSummary'
-      type='prosemirror'
-    }}
+    {{#if isEditable}}
+      <prose-mirror
+        name='system.situationSummary'
+        value='{{system.situationSummary}}'
+        data-document-uuid='{{document.uuid}}'
+        relative
+      ></prose-mirror>
+    {{else}}
+      <div class='dcb-field-value'>
+        {{{enrichedSituationSummary}}}
+      </div>
+    {{/if}}
   </div>
 
   <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section2'}}</div>
   <div class='pcb-two-col'>
     <div>
       <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.PrimaryObjectiveHint'}}</span>
-      {{formInput
-        (formField system.fields.primaryObjective value=system.primaryObjective)
-        name='system.primaryObjective'
-        type='prosemirror'
-      }}
+      {{#if isEditable}}
+        <prose-mirror
+          name='system.primaryObjective'
+          value='{{system.primaryObjective}}'
+          data-document-uuid='{{document.uuid}}'
+          relative
+        ></prose-mirror>
+      {{else}}
+        <div class='dcb-field-value'>
+          {{{enrichedPrimaryObjective}}}
+        </div>
+      {{/if}}
     </div>
     <div>
       <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.SecondaryObjectiveHint'}}</span>
-      {{formInput
-        (formField system.fields.secondaryObjective value=system.secondaryObjective)
-        name='system.secondaryObjective'
-        type='prosemirror'
-      }}
+      {{#if isEditable}}
+        <prose-mirror
+          name='system.secondaryObjective'
+          value='{{system.secondaryObjective}}'
+          data-document-uuid='{{document.uuid}}'
+          relative
+        ></prose-mirror>
+      {{else}}
+        <div class='dcb-field-value'>
+          {{{enrichedSecondaryObjective}}}
+        </div>
+      {{/if}}
     </div>
   </div>
 
   <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section3'}}</div>
   <div>
     <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.KnownOrganizationsHint'}}</span>
-    {{formInput
-      (formField system.fields.knownOrganizations value=system.knownOrganizations)
-      name='system.knownOrganizations'
-      type='prosemirror'
-    }}
+    {{#if isEditable}}
+      <prose-mirror
+        name='system.knownOrganizations'
+        value='{{system.knownOrganizations}}'
+        data-document-uuid='{{document.uuid}}'
+        relative
+      ></prose-mirror>
+    {{else}}
+      <div class='dcb-field-value'>
+        {{{enrichedKnownOrganizations}}}
+      </div>
+    {{/if}}
   </div>
 
   <div class='pcb-section-title green'>{{localize 'NEONRELIC.PlayerCaseBrief.Section4'}}</div>
@@ -136,51 +164,86 @@
   <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section5'}}</div>
   <div>
     <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.StartingLeadsHint'}}</span>
-    {{formInput
-      (formField system.fields.startingLeads value=system.startingLeads)
-      name='system.startingLeads'
-      type='prosemirror'
-    }}
+    {{#if isEditable}}
+      <prose-mirror
+        name='system.startingLeads'
+        value='{{system.startingLeads}}'
+        data-document-uuid='{{document.uuid}}'
+        relative
+      ></prose-mirror>
+    {{else}}
+      <div class='dcb-field-value'>
+        {{{enrichedStartingLeads}}}
+      </div>
+    {{/if}}
   </div>
 
   <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section6'}}</div>
   <div class='pcb-two-col'>
     <div>
       <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.TimelinePressureHint'}}</span>
-      {{formInput
-        (formField system.fields.timelinePressure value=system.timelinePressure)
-        name='system.timelinePressure'
-        type='prosemirror'
-      }}
+      {{#if isEditable}}
+        <prose-mirror
+          name='system.timelinePressure'
+          value='{{system.timelinePressure}}'
+          data-document-uuid='{{document.uuid}}'
+          relative
+        ></prose-mirror>
+      {{else}}
+        <div class='dcb-field-value'>
+          {{{enrichedTimelinePressure}}}
+        </div>
+      {{/if}}
     </div>
     <div>
       <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.ConstraintsHint'}}</span>
-      {{formInput
-        (formField system.fields.constraints value=system.constraints)
-        name='system.constraints'
-        type='prosemirror'
-      }}
+      {{#if isEditable}}
+        <prose-mirror
+          name='system.constraints'
+          value='{{system.constraints}}'
+          data-document-uuid='{{document.uuid}}'
+          relative
+        ></prose-mirror>
+      {{else}}
+        <div class='dcb-field-value'>
+          {{{enrichedConstraints}}}
+        </div>
+      {{/if}}
     </div>
   </div>
 
   <div class='pcb-section-title green'>{{localize 'NEONRELIC.PlayerCaseBrief.Section7'}}</div>
   <div>
     <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.RegionalContactsHint'}}</span>
-    {{formInput
-      (formField system.fields.regionalContacts value=system.regionalContacts)
-      name='system.regionalContacts'
-      type='prosemirror'
-    }}
+    {{#if isEditable}}
+      <prose-mirror
+        name='system.regionalContacts'
+        value='{{system.regionalContacts}}'
+        data-document-uuid='{{document.uuid}}'
+        relative
+      ></prose-mirror>
+    {{else}}
+      <div class='dcb-field-value'>
+        {{{enrichedRegionalContacts}}}
+      </div>
+    {{/if}}
   </div>
 
   <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section8'}}</div>
   <div>
     <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.AgentNotesHint'}}</span>
-    {{formInput
-      (formField system.fields.agentNotes value=system.agentNotes)
-      name='system.agentNotes'
-      type='prosemirror'
-    }}
+    {{#if isEditable}}
+      <prose-mirror
+        name='system.agentNotes'
+        value='{{system.agentNotes}}'
+        data-document-uuid='{{document.uuid}}'
+        relative
+      ></prose-mirror>
+    {{else}}
+      <div class='dcb-field-value'>
+        {{{enrichedAgentNotes}}}
+      </div>
+    {{/if}}
   </div>
 
   <div class='pcb-footer'>
