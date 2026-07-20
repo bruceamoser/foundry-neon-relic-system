@@ -293,6 +293,31 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   }
 
   /* ------------------------------------------ */
+
+  /** @override */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+
+    // Initialize tabs for case brief item types
+    const itemType = this.document.type;
+    if (itemType === 'daCaseBrief') {
+      new foundry.applications.ux.Tabs({
+        navSelector: '.dcb-tabs',
+        contentSelector: '.dcb-tab-content',
+        initial: 'section-i',
+        group: 'dcb-primary',
+      }).bind(this.element);
+    } else if (itemType === 'playerCaseBrief') {
+      new foundry.applications.ux.Tabs({
+        navSelector: '.pcb-tabs',
+        contentSelector: '.pcb-tab-content',
+        initial: 'section-1',
+        group: 'pcb-primary',
+      }).bind(this.element);
+    }
+  }
+
+  /* ------------------------------------------ */
   /*  Action Handlers                            */
   /* ------------------------------------------ */
 

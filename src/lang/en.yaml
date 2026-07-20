@@ -1243,6 +1243,14 @@ NEONRELIC:
     RegionalContactsHint: 'Covenant assets, safe houses, supply caches, or local contacts in the operational area.'
     Section8: 'VIII — Agent Notes'
     AgentNotesHint: Space for player notes during play.
+    Tab1: 'I — Situation'
+    Tab2: 'II — Objectives'
+    Tab3: 'III — Organizations'
+    Tab4: 'IV — Contacts'
+    Tab5: 'V — Leads'
+    Tab6: 'VI — Parameters'
+    Tab7: 'VII — Region'
+    Tab8: 'VIII — Notes'
     FooterLeft: 'VC-18 • The Verdant Covenant • Agent Briefing'
     FooterCenter: 'Neon Relic © 2025'
     FooterRight: 'Case Brief — Player'
@@ -1257,6 +1265,14 @@ NEONRELIC:
     CaseName: Case Name
     RelicTier: Relic Tier
     Region: Region
+    TabI: 'I — Mystery'
+    TabII: 'II — Real Situation'
+    TabIII: 'III — Objectives'
+    TabIV: 'IV — Containment'
+    TabV: 'V — Key Actors'
+    TabVI: 'VI — Resolution'
+    TabVII: 'VII — Milestones'
+    TabVIII: 'VIII — DA Notes'
     SectionI: I — Mystery Statement
     SectionII: II — The Real Situation
     SectionIII: III — Agent Objectives

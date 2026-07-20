@@ -266,3 +266,52 @@
     }
   }
 }
+
+// ── Tab Navigation ──────────────────────────────
+.pcb-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border-bottom: 2px solid $nr-ink;
+  margin: 8px 0 0;
+
+  .item {
+    flex: 1 1 auto;
+    text-align: center;
+    padding: 4px 6px;
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $nr-ink-faded;
+    background: $nr-field-bg;
+    border: 1px solid $nr-rule;
+    border-bottom: none;
+    cursor: pointer;
+    transition:
+      background 0.15s,
+      color 0.15s;
+
+    &:hover {
+      background: $nr-ink-light;
+      color: $nr-ink;
+    }
+
+    &.active {
+      background: $nr-paper;
+      color: $nr-ink;
+      font-weight: 700;
+      border-bottom: 2px solid $nr-paper;
+      margin-bottom: -2px;
+    }
+  }
+}
+
+.pcb-tab-content {
+  .tab {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+}
