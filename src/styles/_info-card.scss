@@ -220,5 +220,75 @@
         margin-bottom: 4px;
       }
     }
+
+    // ── Drop Zones & Linked Docs ──────────────────
+    .dropzone {
+      border: 1.5px dashed $nr-rule;
+      border-radius: 2px;
+      padding: 6px;
+      margin: 2px 0;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.015);
+
+      &:hover {
+        border-color: $nr-green-stamp;
+        background: rgba(45, 90, 39, 0.05);
+      }
+    }
+
+    .dropzone-hint {
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $nr-ink-light;
+    }
+
+    .linked-doc-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 4px;
+      border: 1px solid $nr-rule;
+      background: $nr-field-bg;
+      margin: 2px 0;
+      border-radius: 2px;
+    }
+
+    .linked-doc-img {
+      width: 20px;
+      height: 20px;
+      object-fit: cover;
+      border: 1px solid $nr-rule-light;
+      flex-shrink: 0;
+    }
+
+    .linked-doc-name {
+      flex: 1;
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      cursor: pointer;
+      text-decoration: none;
+      color: $nr-ink;
+
+      &:hover {
+        text-decoration: underline;
+        color: $nr-green-stamp;
+      }
+    }
+
+    .linked-doc-remove {
+      background: transparent;
+      border: none;
+      color: $nr-red-stamp;
+      cursor: pointer;
+      font-size: 10pt;
+      padding: 0 4px;
+      line-height: 1;
+
+      &:hover {
+        color: darken($nr-red-stamp, 10%);
+      }
+    }
   }
 }
