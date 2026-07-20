@@ -213,10 +213,6 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         system.regionalContacts ?? '',
         { async: true, relativeTo: item },
       );
-      context.enrichedAgentNotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-        system.agentNotes ?? '',
-        { async: true, relativeTo: item },
-      );
     }
     if (item.type === 'daCaseBrief') {
       context.enrichedMysteryStatement = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
@@ -257,10 +253,6 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       );
       context.enrichedWorstCaseResolution = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
         system.worstCaseResolution ?? '',
-        { async: true, relativeTo: item },
-      );
-      context.enrichedDANotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-        system.daNotes ?? '',
         { async: true, relativeTo: item },
       );
     }

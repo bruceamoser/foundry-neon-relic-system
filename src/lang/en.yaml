@@ -1249,8 +1249,7 @@ NEONRELIC:
     Tab4: 'IV — Contacts'
     Tab5: 'V — Leads'
     Tab6: 'VI — Parameters'
-    Tab7: 'VII — Region'
-    Tab8: 'VIII — Notes'
+    Tab7: 'VII — Regional Contacts'
     FooterLeft: 'VC-18 • The Verdant Covenant • Agent Briefing'
     FooterCenter: 'Neon Relic © 2025'
     FooterRight: 'Case Brief — Player'
@@ -1272,7 +1271,6 @@ NEONRELIC:
     TabV: 'V — Key Actors'
     TabVI: 'VI — Resolution'
     TabVII: 'VII — Milestones'
-    TabVIII: 'VIII — DA Notes'
     SectionI: I — Mystery Statement
     SectionII: II — The Real Situation
     SectionIII: III — Agent Objectives

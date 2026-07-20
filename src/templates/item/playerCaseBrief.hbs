@@ -79,9 +79,6 @@
     <a class='item' data-tab='section-7' data-group='pcb-primary'>
       {{localize 'NEONRELIC.PlayerCaseBrief.Tab7'}}
     </a>
-    <a class='item' data-tab='section-8' data-group='pcb-primary'>
-      {{localize 'NEONRELIC.PlayerCaseBrief.Tab8'}}
-    </a>
   </nav>
 
   {{! Tab Content }}
@@ -260,24 +257,6 @@
           ></prose-mirror>
         {{else}}
           {{{enrichedRegionalContacts}}}
-        {{/if}}
-      </div>
-    </div>
-
-    {{! Section 8 — Agent Notes }}
-    <div class='tab' data-tab='section-8' data-group='pcb-primary'>
-      <div class='pcb-section-title'>{{localize 'NEONRELIC.PlayerCaseBrief.Section8'}}</div>
-      <div>
-        <span class='pcb-field-label'>{{localize 'NEONRELIC.PlayerCaseBrief.AgentNotesHint'}}</span>
-        {{#if isEditable}}
-          <prose-mirror
-            name='system.agentNotes'
-            value='{{system.agentNotes}}'
-            data-document-uuid='{{document.uuid}}'
-            relative
-          ></prose-mirror>
-        {{else}}
-          {{{enrichedAgentNotes}}}
         {{/if}}
       </div>
     </div>
