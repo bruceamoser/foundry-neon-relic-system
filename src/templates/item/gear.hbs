@@ -3,9 +3,21 @@
   <div class='stat-block'>
     <span class='stat-label'>{{localize 'NEONRELIC.Gear.GearBonus'}}</span>
     <span class='stat-value'>
-      <input type='number' name='system.gearBonus.value' value='{{system.gearBonus.value}}' min='0' {{disabled (not isEditable)}} />
+      <input
+        type='number'
+        name='system.gearBonus.value'
+        value='{{system.gearBonus.value}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
       <span class='stat-sep'>/</span>
-      <input type='number' name='system.gearBonus.max' value='{{system.gearBonus.max}}' min='0' {{disabled (not isEditable)}} />
+      <input
+        type='number'
+        name='system.gearBonus.max'
+        value='{{system.gearBonus.max}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
     </span>
   </div>
   <div class='stat-block'>
@@ -22,7 +34,13 @@
   <div class='stat-block'>
     <span class='stat-label'>{{localize 'NEONRELIC.Encumbrance'}}</span>
     <span class='stat-value'>
-      <input type='number' name='system.encumbrance' value='{{system.encumbrance}}' min='0' {{disabled (not isEditable)}} />
+      <input
+        type='number'
+        name='system.encumbrance'
+        value='{{system.encumbrance}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
     </span>
   </div>
   <div class='stat-block'>
@@ -34,7 +52,7 @@
 </div>
 
 <div class='trait-chips'>
-  <label class='trait-chip {{#if system.isBroken}}active{{/if}}'>
+  <label class='{{brokenClass}}'>
     <input type='checkbox' name='system.isBroken' {{checked system.isBroken}} {{disabled (not isEditable)}} />
     {{localize 'NEONRELIC.Gear.Broken'}}
   </label>
@@ -51,11 +69,14 @@
 
 {{#if hasLinkedConsumables}}
   <div class='ammo-die-display'>
-    <span class='die-label'>{{localize 'NEONRELIC.Consumable.Battery'}} / {{localize 'NEONRELIC.Consumable.Supply'}}</span>
+    <span class='die-label'>{{localize 'NEONRELIC.Consumable.Battery'}}
+      /
+      {{localize 'NEONRELIC.Consumable.Supply'}}</span>
     <select name='system.linkedConsumableId' {{disabled (not isEditable)}}>
       <option value=''>— None —</option>
       {{#each linkedConsumables}}
-        <option value='{{this.id}}' {{selected this.id @root.system.linkedConsumableId}}>{{this.name}} ({{this.die}})</option>
+        <option value='{{this.id}}' {{selected this.id @root.system.linkedConsumableId}}>{{this.name}}
+          ({{this.die}})</option>
       {{/each}}
     </select>
   </div>

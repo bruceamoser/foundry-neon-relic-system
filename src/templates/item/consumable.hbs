@@ -13,11 +13,17 @@
     <span class='stat-label'>{{localize 'NEONRELIC.Consumable.Type'}}</span>
     <span class='stat-value'>
       <select name='system.consumableType' {{disabled (not isEditable)}}>
-        <option value='supply' {{selected system.consumableType 'supply'}}>{{localize 'NEONRELIC.Consumable.Supply'}}</option>
-        <option value='medical' {{selected system.consumableType 'medical'}}>{{localize 'NEONRELIC.Consumable.Medical'}}</option>
+        <option value='supply' {{selected system.consumableType 'supply'}}>{{localize
+            'NEONRELIC.Consumable.Supply'
+          }}</option>
+        <option value='medical' {{selected system.consumableType 'medical'}}>{{localize
+            'NEONRELIC.Consumable.Medical'
+          }}</option>
         <option value='ammo' {{selected system.consumableType 'ammo'}}>{{localize 'NEONRELIC.Consumable.Ammo'}}</option>
         <option value='fuel' {{selected system.consumableType 'fuel'}}>{{localize 'NEONRELIC.Consumable.Fuel'}}</option>
-        <option value='battery' {{selected system.consumableType 'battery'}}>{{localize 'NEONRELIC.Consumable.Battery'}}</option>
+        <option value='battery' {{selected system.consumableType 'battery'}}>{{localize
+            'NEONRELIC.Consumable.Battery'
+          }}</option>
       </select>
     </span>
   </div>
@@ -43,17 +49,18 @@
 
 <div class='ammo-die-display'>
   <span class='die-label'>{{localize 'NEONRELIC.Consumable.CurrentDie'}}</span>
-  <span class='die-value {{#if system.isDepleted}}depleted{{/if}}'>{{system.currentDie}}</span>
+  <span class='{{dieValueClass}}'>{{system.currentDie}}</span>
   {{#if isEditable}}
     <button type='button' data-action='useConsumable' {{disabled system.isDepleted}}>
-      <i class='fa-solid fa-dice'></i> Use
+      <i class='fa-solid fa-dice'></i>
+      Use
     </button>
     <button type='button' data-action='stepDown' {{disabled system.isDepleted}}>
       <i class='fa-solid fa-arrow-down'></i>
     </button>
     <button type='button' data-action='replenishConsumable' {{disabled (eq system.currentDie 'd12')}}>
-      <i class='fa-solid fa-arrow-up'></i> Replenish
+      <i class='fa-solid fa-arrow-up'></i>
+      Replenish
     </button>
   {{/if}}
-</div>
 </div>

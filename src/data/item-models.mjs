@@ -409,9 +409,122 @@ export class InformationCardDataModel extends foundry.abstract.TypeDataModel {
       foundAt: new StringField({ blank: true }),
       knownBy: new StringField({ blank: true }),
       hqFallback: new NumberField({ initial: 0, integer: true, min: 0 }),
+      daNotes: new HTMLField({ blank: true }),
       revealed: new BooleanField({ initial: false }),
       description: new HTMLField({ blank: true }),
     };
+  }
+}
+
+/* ------------------------------------------ */
+/*  PlayerCaseBriefDataModel                  */
+/* ------------------------------------------ */
+
+/**
+ * TypeDataModel for Player Case Brief items — VC-18 Agent Briefing
+ * with sections I–VIII and initial contacts NPC table.
+ * @extends foundry.abstract.TypeDataModel
+ */
+export class PlayerCaseBriefDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      caseId: new StringField({ blank: true }),
+      caseName: new StringField({ blank: true }),
+      region: new StringField({ blank: true }),
+      classification: new StringField({ initial: 'CLASSIFIED', blank: false }),
+      situationSummary: new HTMLField({ blank: true }),
+      primaryObjective: new HTMLField({ blank: true }),
+      secondaryObjective: new HTMLField({ blank: true }),
+      knownOrganizations: new HTMLField({ blank: true }),
+      initialContacts: new ArrayField(
+        new SchemaField({
+          name: new StringField({ blank: true }),
+          role: new StringField({ blank: true }),
+          knownInfo: new StringField({ blank: true }),
+        }),
+      ),
+      startingLeads: new HTMLField({ blank: true }),
+      timelinePressure: new HTMLField({ blank: true }),
+      constraints: new HTMLField({ blank: true }),
+      regionalContacts: new HTMLField({ blank: true }),
+      agentNotes: new HTMLField({ blank: true }),
+      description: new HTMLField({ blank: true }),
+    };
+  }
+
+  /** @override */
+  prepareDerivedData() {
+    if (!this.initialContacts || this.initialContacts.length < 6) {
+      this.initialContacts = this.initialContacts ?? [];
+      while (this.initialContacts.length < 6) {
+        this.initialContacts.push({ name: '', role: '', knownInfo: '' });
+      }
+    }
+  }
+}
+
+/* ------------------------------------------ */
+/*  DACaseBriefDataModel                      */
+/* ------------------------------------------ */
+
+/**
+ * TypeDataModel for DA Case Brief items — Director Agent master reference
+ * document (VC-17) with spoiler-filled sections I–VIII matching the form layout.
+ * @extends foundry.abstract.TypeDataModel
+ */
+export class DACaseBriefDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      caseId: new StringField({ blank: true }),
+      caseName: new StringField({ blank: true }),
+      relicTier: new NumberField({ required: true, integer: true, min: 1, max: 4, initial: 1 }),
+      region: new StringField({ blank: true }),
+
+      // I — Mystery Statement
+      mysteryStatement: new HTMLField({ blank: true }),
+
+      // II — The Real Situation
+      realSituation: new HTMLField({ blank: true }),
+
+      // III — Agent Objectives
+      primaryObjective: new HTMLField({ blank: true }),
+      secondaryObjective: new HTMLField({ blank: true }),
+
+      // IV — Containment Truths Summary
+      containmentTrigger: new HTMLField({ blank: true }),
+      containmentAppetite: new HTMLField({ blank: true }),
+      containmentQuiescence: new HTMLField({ blank: true }),
+
+      // V — Key Actors & Factions
+      keyActors: new HTMLField({ blank: true }),
+
+      // VI — Resolution & Endgame
+      bestCaseResolution: new HTMLField({ blank: true }),
+      worstCaseResolution: new HTMLField({ blank: true }),
+
+      // VII — Relic Milestones
+      relicMilestones: new ArrayField(
+        new SchemaField({
+          day: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+          description: new StringField({ blank: true }),
+        }),
+      ),
+
+      // VIII — DA Notes
+      daNotes: new HTMLField({ blank: true }),
+
+      description: new HTMLField({ blank: true }),
+    };
+  }
+
+  /** @override */
+  prepareDerivedData() {
+    if (!this.relicMilestones || this.relicMilestones.length < 6) {
+      this.relicMilestones = this.relicMilestones ?? [];
+      while (this.relicMilestones.length < 6) {
+        this.relicMilestones.push({ day: 0, description: '' });
+      }
+    }
   }
 }
 

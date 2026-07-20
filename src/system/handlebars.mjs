@@ -18,6 +18,12 @@ export function registerHandlebarsHelpers() {
   Handlebars.registerHelper('lt', (a, b) => a < b);
   Handlebars.registerHelper('lte', (a, b) => a <= b);
 
+  // Conditional value helper (Prettier-compatible — avoids {{#if}} in attributes)
+  Handlebars.registerHelper('ternary', (cond, trueVal, falseVal) => (cond ? trueVal : falseVal));
+
+  // CSS class helpers for templates
+  Handlebars.registerHelper('dieClass', (base, success) => (success ? `${base} nr-die--success` : base));
+
   // Logical helpers
   Handlebars.registerHelper('or', (...args) => {
     // Remove the Handlebars options object (last argument)
@@ -105,6 +111,10 @@ export async function preloadHandlebarsTemplates() {
     'systems/neon-relic/templates/item/darkSecret.hbs',
     'systems/neon-relic/templates/item/upgrade.hbs',
     'systems/neon-relic/templates/item/location.hbs',
+    'systems/neon-relic/templates/item/informationCard.hbs',
+    'systems/neon-relic/templates/item/playerCaseBrief.hbs',
+    'systems/neon-relic/templates/item/daCaseBrief.hbs',
+    'systems/neon-relic/templates/item/subdivision.hbs',
     'systems/neon-relic/templates/actor/agent/agent-header.hbs',
     'systems/neon-relic/templates/actor/agent/agent-summary.hbs',
     'systems/neon-relic/templates/actor/agent/agent-attributes.hbs',

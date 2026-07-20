@@ -19,6 +19,8 @@ TYPES:
     upgrade: Upgrade
     location: Location
     informationCard: Information Card
+    playerCaseBrief: Player Case Brief
+    daCaseBrief: DA Case Brief
     subdivision: Subdivision
     organization: Organization Reference
     relicSheet: Relic Sheet
@@ -125,6 +127,8 @@ NEONRELIC:
     location: Location
     informationCard: Information Card
     organization: Organization
+    playerCaseBrief: Player Case Brief
+    daCaseBrief: DA Case Brief
 
   # Item shared
   Item:
@@ -806,16 +810,26 @@ NEONRELIC:
   # Information Cards
   InfoCard:
     Label: Information Card
+    CardLabel: Information Card
     CardId: Card ID
+    CardIdHint: I-# format (e.g., I-1, I-2)
     CardType: Card Type
     Content: Content
     FoundAt: Found At
+    FoundAtHint: Enter Location ID (L#)
     KnownBy: Known By
+    KnownByHint: Enter NPC name
     HQFallback: HQ Fallback (Day)
+    HQFallbackHint: Day number for HQ fallback
     ContainmentTruth: Containment Truth
     SupportingIntel: Supporting Intel
     DAReference: DA Reference
+    DAEyesOnly: DA Eyes Only
+    DANotes: DA Notes
+    DANotesHint: Reference notes for the Director
     Revealed: Revealed
+    RevealedHint: Content hidden until revealed
+    Footer: Neon Relic • The Verdant Covenant
 
   # Scene Resolution
   Scene:
@@ -1268,6 +1282,88 @@ NEONRELIC:
     Classified: Classified
     ShowPlayer: Show Player View
     ShowDA: Show DA View
+
+  # Player Case Brief (VC-18)
+  PlayerCaseBrief:
+    HeaderTitle: Agent Briefing
+    HeaderSubtitle: 'Neon Relic — The Verdant Covenant'
+    Classified: CLASSIFIED
+    FormRef: 'VC-18 • Rev. 1987'
+    CaseId: 'Case ID:'
+    CaseIdPlaceholder: CASE-000
+    CaseName: Case Name
+    Region: Region
+    Classification: Classification
+    Section1: 'I — Situation Summary'
+    SituationSummaryHint: What the Covenant knows. Brief the agents on the operational situation.
+    Section2: 'II — Agent Objectives'
+    PrimaryObjectiveHint: 'Primary Objective — What must the agents accomplish?'
+    SecondaryObjectiveHint: 'Secondary Objective — Bonus or optional goals'
+    Section3: 'III — Known Organizations'
+    KnownOrganizationsHint: Organizations the Covenant has identified as active or potentially involved.
+    Section4: 'IV — Initial Contacts'
+    InitialContactsHint: 'NPCs the agents are aware of at case start — names, roles, and what the Covenant knows about each.'
+    ContactName: Name
+    ContactRole: Role / Affiliation
+    ContactKnownInfo: Known Information
+    Section5: 'V — Starting Leads'
+    StartingLeadsHint: 'Available locations, lines of inquiry, or contacts the agents can pursue immediately.'
+    Section6: 'VI — Operational Parameters'
+    TimelinePressureHint: 'Timeline Pressure — How urgent is the situation?'
+    ConstraintsHint: 'Constraints — Rules of engagement, cover identities, secrecy requirements'
+    Section7: 'VII — Regional Contacts'
+    RegionalContactsHint: 'Covenant assets, safe houses, supply caches, or local contacts in the operational area.'
+    Section8: 'VIII — Agent Notes'
+    AgentNotesHint: Space for player notes during play.
+    Tab1: 'I — Situation'
+    Tab2: 'II — Objectives'
+    Tab3: 'III — Organizations'
+    Tab4: 'IV — Contacts'
+    Tab5: 'V — Leads'
+    Tab6: 'VI — Parameters'
+    Tab7: 'VII — Regional Contacts'
+    FooterLeft: 'VC-18 • The Verdant Covenant • Agent Briefing'
+    FooterCenter: 'Neon Relic © 2025'
+    FooterRight: 'Case Brief — Player'
+
+  # DA Case Brief (VC-17)
+  DACaseBrief:
+    Title: Case Brief
+    Subtitle: Neon Relic — The Verdant Covenant
+    DAOnly: DA EYES ONLY
+    FormRef: VC-17 • Rev. 1987
+    CaseId: Case ID
+    CaseName: Case Name
+    RelicTier: Relic Tier
+    Region: Region
+    TabI: 'I — Mystery'
+    TabII: 'II — Real Situation'
+    TabIII: 'III — Objectives'
+    TabIV: 'IV — Containment'
+    TabV: 'V — Key Actors'
+    TabVI: 'VI — Resolution'
+    TabVII: 'VII — Milestones'
+    SectionI: I — Mystery Statement
+    SectionII: II — The Real Situation
+    SectionIII: III — Agent Objectives
+    SectionIV: IV — Containment Truths Summary
+    SectionV: V — Key Actors & Factions
+    SectionVI: VI — Resolution & Endgame
+    SectionVII: VII — Relic Milestones
+    SectionVIII: VIII — DA Notes
+    MysteryHint: Summarize the entire case in one sentence. If it takes more than one sentence, the case is too diffuse.
+    RealSituationHint: What is actually happening? Who is really involved? How does the case resolve?
+    PrimaryObjective: Primary Objective — What must the agents accomplish?
+    SecondaryObjective: Secondary Objective — Optional or bonus goals
+    ContainmentTrigger: Trigger — What makes the artifact more active or dangerous?
+    ContainmentAppetite: Appetite — What does the artifact feed on, amplify, or attract?
+    ContainmentQuiescence: Quiescence — What conditions make it safe to handle or contain?
+    KeyActorsHint: Who are the principal NPCs and organizations? What do they want? How do they interact with the relic?
+    BestCase: Best Case — What happens if the agents succeed?
+    WorstCase: Worst Case — What happens if the agents fail or do nothing?
+    MilestonesHint: Keyed to days on the Operations Board. When a shift crosses a milestone day, the artifact event triggers.
+    DANotesHint: Pacing cues, tone reminders, red herrings, things to watch for during play
+    Footer: VC-17 • The Verdant Covenant • DA Use Only
 
   # Session
   Session:
