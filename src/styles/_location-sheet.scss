@@ -284,6 +284,11 @@
       margin-bottom: 5px;
     }
 
+    .loc-textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
     .field-label {
       font-family: $nr-font-main;
       font-size: 5.5pt;
