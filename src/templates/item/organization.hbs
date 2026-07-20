@@ -76,35 +76,6 @@
         </div>
       </div>
 
-      <div class='org-details'>
-        <div class='org-detail-row'>
-          <div class='org-detail'>
-            <span class='field-label'>{{localize 'NEONRELIC.OrgRef.ActivationCondition'}}</span>
-            <div class='field-value editor'>{{{enrichedActivationCondition}}}</div>
-            {{#if isEditable}}
-              <textarea
-                name='system.activationCondition'
-                style='display:none;'
-              >{{system.activationCondition}}</textarea>
-            {{/if}}
-          </div>
-          <div class='org-detail'>
-            <span class='field-label'>{{localize 'NEONRELIC.OrgRef.LinkedEffects'}}</span>
-            <div class='field-value editor'>{{{enrichedLinkedEffects}}}</div>
-            {{#if isEditable}}
-              <textarea name='system.linkedEffects' style='display:none;'>{{system.linkedEffects}}</textarea>
-            {{/if}}
-          </div>
-          <div class='org-detail'>
-            <span class='field-label'>{{localize 'NEONRELIC.OrgRef.PlayerFacingSigns'}}</span>
-            <div class='field-value editor'>{{{enrichedPlayerFacingSigns}}}</div>
-            {{#if isEditable}}
-              <textarea name='system.playerFacingSigns' style='display:none;'>{{system.playerFacingSigns}}</textarea>
-            {{/if}}
-          </div>
-        </div>
-      </div>
-
       <div class='org-description'>
         <span class='field-label'>{{localize 'NEONRELIC.Description'}}</span>
         <div class='field-value editor'>{{{enrichedDescription}}}</div>

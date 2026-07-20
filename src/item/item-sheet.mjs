@@ -168,28 +168,6 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       );
     }
     if (item.type === 'organization') {
-      context.enrichedActivationCondition = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-        system.activationCondition ?? '',
-        {
-          async: true,
-          relativeTo: item,
-        },
-      );
-      context.enrichedLinkedEffects = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-        system.linkedEffects ?? '',
-        {
-          async: true,
-          relativeTo: item,
-        },
-      );
-      context.enrichedPlayerFacingSigns = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
-        system.playerFacingSigns ?? '',
-        {
-          async: true,
-          relativeTo: item,
-        },
-      );
-
       // Resolve linked NPCs from UUIDs
       context.linkedNpcs = [];
       if (system.npcUuids?.length) {

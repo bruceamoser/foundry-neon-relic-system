@@ -806,12 +806,6 @@ NEONRELIC:
     OrganizationName: Organization Name
     Active: Active
     Dormant: Dormant
-    ActivationCondition: Activation Condition
-    ActivationConditionHint: What triggers dormant → active
-    LinkedEffects: Linked Effects
-    LinkedEffectsHint: What happens when milestones trigger
-    PlayerFacingSigns: Player-Facing Signs
-    PlayerFacingSignsHint: What agents observe as the org progresses
     TabDetails: Details
     TabNpcs: NPCs
     DropNpcHint: Drop NPC actors here to link them to this organization
