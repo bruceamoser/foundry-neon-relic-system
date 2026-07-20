@@ -657,7 +657,6 @@ export class OrganizationDataModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
       organizationId: new StringField({ initial: '', blank: true }),
-      organizationName: new StringField({ initial: '', blank: true }),
       caseId: new StringField({ blank: true }),
       isActive: new BooleanField({ initial: true }),
       isDormant: new BooleanField({ initial: false }),

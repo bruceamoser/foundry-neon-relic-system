@@ -1,14 +1,8 @@
 // Neon Relic — Organization Reference Styles
-// DA-only faction tracker with milestone countdowns
+// DA-only faction tracker
 
-.neon-relic.org-reference {
+.neon-relic.item-sheet .org-reference {
   background: $nr-paper;
-
-  .org-reference-inner {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
 
   // ── Header ──────────────────────────────────────────
   .org-ref-header {
@@ -101,8 +95,21 @@
     flex-shrink: 0;
   }
 
-  .org-name-field {
+  .org-desc-field {
     flex: 1;
+
+    prose-mirror {
+      min-height: 60px;
+    }
+
+    .field-value.editor {
+      min-height: 40px;
+      padding: 4px 6px;
+      border: 1px solid $nr-rule;
+      font-family: $nr-font-fill;
+      font-size: 7.5pt;
+      line-height: 1.4;
+    }
   }
 
   .org-status-row {
@@ -133,39 +140,39 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0;
-    border-bottom: 2px solid $nr-ink;
-    margin: 0 0 6px;
+    border-bottom: 3px solid $nr-red-stamp;
+    margin: 0 0 8px;
 
     .item {
       flex: 1 1 auto;
       text-align: center;
-      padding: 5px 8px;
+      padding: 6px 12px;
       font-family: $nr-font-main;
-      font-size: 8pt;
-      font-weight: 600;
+      font-size: 9pt;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: $nr-ink;
-      background: darken($nr-paper, 8%);
-      border: 1px solid $nr-rule;
+      letter-spacing: 2px;
+      color: $nr-paper;
+      background: $nr-red-stamp;
+      border: 2px solid $nr-red-stamp;
       border-bottom: none;
+      border-radius: 3px 3px 0 0;
       cursor: pointer;
       transition:
         background 0.15s,
         color 0.15s;
 
       &:hover {
-        background: darken($nr-paper, 14%);
-        color: $nr-ink;
+        background: darken($nr-red-stamp, 8%);
+        color: $nr-paper;
       }
 
       &.active {
         background: $nr-paper;
-        color: $nr-ink;
+        color: $nr-red-stamp;
         font-weight: 700;
-        border-bottom: 2px solid $nr-paper;
-        margin-bottom: -2px;
-        box-shadow: 0 -2px 0 $nr-red-stamp;
+        border-bottom: 3px solid $nr-paper;
+        margin-bottom: -3px;
       }
     }
   }

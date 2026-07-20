@@ -51,15 +51,18 @@
               {{disabled (not isEditable)}}
             />
           </div>
-          <div class='org-name-field'>
-            <span class='field-label'>{{localize 'NEONRELIC.OrgRef.OrganizationName'}}</span>
-            <input
-              class='field-value'
-              type='text'
-              name='system.organizationName'
-              value='{{system.organizationName}}'
-              {{disabled (not isEditable)}}
-            />
+          <div class='org-desc-field'>
+            <span class='field-label'>{{localize 'NEONRELIC.Description'}}</span>
+            {{#if isEditable}}
+              <prose-mirror
+                name='system.description'
+                value='{{system.description}}'
+                data-document-uuid='{{document.uuid}}'
+                relative
+              ></prose-mirror>
+            {{else}}
+              <div class='field-value editor'>{{{enrichedDescription}}}</div>
+            {{/if}}
           </div>
         </div>
 
@@ -74,14 +77,6 @@
             <span>{{localize 'NEONRELIC.OrgRef.Dormant'}}</span>
           </label>
         </div>
-      </div>
-
-      <div class='org-description'>
-        <span class='field-label'>{{localize 'NEONRELIC.Description'}}</span>
-        <div class='field-value editor'>{{{enrichedDescription}}}</div>
-        {{#if isEditable}}
-          <textarea name='system.description' style='display:none;'>{{system.description}}</textarea>
-        {{/if}}
       </div>
     </div>
 

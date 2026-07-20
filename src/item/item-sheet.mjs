@@ -414,6 +414,13 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         initial: 'section-1',
         group: 'pcb-primary',
       }).bind(this.element);
+    } else if (itemType === 'organization') {
+      new foundry.applications.ux.Tabs({
+        navSelector: '.org-tabs',
+        contentSelector: '.org-tab-content',
+        initial: 'details',
+        group: 'org-primary',
+      }).bind(this.element);
     }
   }
 

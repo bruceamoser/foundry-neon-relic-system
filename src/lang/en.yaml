@@ -803,7 +803,6 @@ NEONRELIC:
     Classification: DA EYES ONLY
     CaseId: Case ID
     OrganizationId: Organization ID
-    OrganizationName: Organization Name
     Active: Active
     Dormant: Dormant
     TabDetails: Details
