@@ -1,5 +1,6 @@
 {{! Location item type template — matches location-page.html (VC-14) }}
 <div class='location-sheet'>
+
   {{! Header — VC-14 }}
   <div class='loc-header'>
     <div class='loc-header-left'>
@@ -48,132 +49,236 @@
     </div>
   </div>
 
-  {{! Location Image }}
-  <div class='loc-image' data-action='openImage' data-tooltip='{{localize "NEONRELIC.Location.LocationImageHint"}}'>
-    <img src='{{system.image}}' alt='{{localize "NEONRELIC.Location.LocationImage"}}' />
-    <span class='loc-image-placeholder'>{{localize 'NEONRELIC.Location.LocationImagePlaceholder'}}</span>
-  </div>
+  {{! Tab Navigation }}
+  <nav class='loc-tabs tabs' data-group='loc-primary'>
+    <a class='item active' data-tab='details' data-group='loc-primary'>
+      {{localize 'NEONRELIC.Location.TabDetails'}}
+    </a>
+    <a class='item' data-tab='npcs' data-group='loc-primary'>
+      {{localize 'NEONRELIC.Location.TabNpcs'}}
+    </a>
+    <a class='item' data-tab='info' data-group='loc-primary'>
+      {{localize 'NEONRELIC.Location.TabInfo'}}
+    </a>
+    <a class='item' data-tab='orgs' data-group='loc-primary'>
+      {{localize 'NEONRELIC.Location.TabOrgs'}}
+    </a>
+  </nav>
 
-  {{! Description — what agents see when they arrive }}
-  <div class='field'>
-    <span class='field-label'>
-      {{localize 'NEONRELIC.Location.DescriptionHint'}}
-    </span>
-    <div class='field-value xl editor'>{{{enrichedDescription}}}</div>
-  </div>
+  {{! Tab Content }}
+  <section class='loc-tab-content'>
+    {{! ── Details Tab ── }}
+    <div class='tab active' data-tab='details' data-group='loc-primary'>
+      {{! Description — what agents see when they arrive }}
+      <div class='field'>
+        <span class='field-label'>
+          {{localize 'NEONRELIC.Location.DescriptionHint'}}
+        </span>
+        {{#if isEditable}}
+          <prose-mirror
+            name='system.description'
+            value='{{system.description}}'
+            data-document-uuid='{{document.uuid}}'
+            relative
+          ></prose-mirror>
+        {{else}}
+          <div class='field-value xl'>{{{enrichedDescription}}}</div>
+        {{/if}}
+      </div>
 
-  {{! Availability }}
-  <div class='section-title green'>
-    {{localize 'NEONRELIC.Location.Availability'}}
-  </div>
-  <div class='avail-row'>
-    <select name='system.availability' class='avail-select' {{disabled (not isEditable)}}>
-      <option value='open' {{selected system.availability 'open'}}>
-        {{localize 'NEONRELIC.Location.Open'}}
-      </option>
-      <option value='clue' {{selected system.availability 'clue'}}>
-        {{localize 'NEONRELIC.Location.Clue'}}
-      </option>
-      <option value='contact' {{selected system.availability 'contact'}}>
-        {{localize 'NEONRELIC.Location.Contact'}}
-      </option>
-      <option value='time' {{selected system.availability 'time'}}>
-        {{localize 'NEONRELIC.Location.Time'}}
-      </option>
-      <option value='packet' {{selected system.availability 'packet'}}>
-        {{localize 'NEONRELIC.Location.Packet'}}
-      </option>
-    </select>
-  </div>
-  <div class='field'>
-    <span class='field-label'>
-      {{localize 'NEONRELIC.Location.AvailabilityCondition'}}
-    </span>
-    <input
-      class='field-value'
-      type='text'
-      name='system.availabilityCondition'
-      value='{{system.availabilityCondition}}'
-      {{disabled (not isEditable)}}
-    />
-  </div>
+      {{! Availability }}
+      <div class='section-title green'>
+        {{localize 'NEONRELIC.Location.Availability'}}
+      </div>
+      <div class='avail-row'>
+        <select name='system.availability' class='avail-select' {{disabled (not isEditable)}}>
+          <option value='open' {{selected system.availability 'open'}}>
+            {{localize 'NEONRELIC.Location.Open'}}
+          </option>
+          <option value='clue' {{selected system.availability 'clue'}}>
+            {{localize 'NEONRELIC.Location.Clue'}}
+          </option>
+          <option value='contact' {{selected system.availability 'contact'}}>
+            {{localize 'NEONRELIC.Location.Contact'}}
+          </option>
+          <option value='time' {{selected system.availability 'time'}}>
+            {{localize 'NEONRELIC.Location.Time'}}
+          </option>
+          <option value='packet' {{selected system.availability 'packet'}}>
+            {{localize 'NEONRELIC.Location.Packet'}}
+          </option>
+        </select>
+      </div>
+      <div class='field'>
+        <span class='field-label'>
+          {{localize 'NEONRELIC.Location.AvailabilityCondition'}}
+        </span>
+        <input
+          class='field-value'
+          type='text'
+          name='system.availabilityCondition'
+          value='{{system.availabilityCondition}}'
+          {{disabled (not isEditable)}}
+        />
+      </div>
 
-  {{! NPCs Present }}
-  <div class='section-title'>
-    {{localize 'NEONRELIC.Location.NPCsPresent'}}
-  </div>
-  <div class='field'>
-    <span class='field-label'>
-      {{localize 'NEONRELIC.Location.NPCsPresentHint'}}
-    </span>
-    <div class='field-value med editor'>{{{enrichedNpcsPresent}}}</div>
-  </div>
+      {{! Engagement Results }}
+      <div class='section-title red'>
+        {{localize 'NEONRELIC.Location.EngagementResults'}}
+      </div>
+      <div class='result-grid'>
+        <div class='result-col'>
+          <span class='field-label'>
+            {{localize 'NEONRELIC.Location.PositiveResult'}}
+          </span>
+          {{#if isEditable}}
+            <prose-mirror
+              name='system.positiveResult'
+              value='{{system.positiveResult}}'
+              data-document-uuid='{{document.uuid}}'
+              relative
+            ></prose-mirror>
+          {{else}}
+            <div class='field-value tall'>{{{enrichedPositiveResult}}}</div>
+          {{/if}}
+        </div>
+        <div class='result-col'>
+          <span class='field-label'>
+            {{localize 'NEONRELIC.Location.NegativeResult'}}
+          </span>
+          {{#if isEditable}}
+            <prose-mirror
+              name='system.negativeResult'
+              value='{{system.negativeResult}}'
+              data-document-uuid='{{document.uuid}}'
+              relative
+            ></prose-mirror>
+          {{else}}
+            <div class='field-value tall'>{{{enrichedNegativeResult}}}</div>
+          {{/if}}
+        </div>
+      </div>
 
-  {{! Information Available }}
-  <div class='section-title green'>
-    {{localize 'NEONRELIC.Location.InformationAvailable'}}
-  </div>
-  <div class='field'>
-    <span class='field-label'>
-      {{localize 'NEONRELIC.Location.InformationHint'}}
-    </span>
-    <div class='field-value med editor'>{{{enrichedInformationAvailable}}}</div>
-  </div>
-
-  {{! Organizations Present }}
-  <div class='section-title'>
-    {{localize 'NEONRELIC.Location.OrganizationsPresent'}}
-  </div>
-  <div class='field'>
-    <span class='field-label'>
-      {{localize 'NEONRELIC.Location.OrganizationsHint'}}
-    </span>
-    <div class='field-value editor'>{{{enrichedOrganizationsPresent}}}</div>
-  </div>
-
-  {{! Engagement Results }}
-  <div class='section-title red'>
-    {{localize 'NEONRELIC.Location.EngagementResults'}}
-  </div>
-  <div class='result-grid'>
-    <div class='result-col'>
-      <span class='field-label'>
-        {{localize 'NEONRELIC.Location.PositiveResult'}}
-      </span>
-      <div class='field-value tall editor'>
-        {{{enrichedPositiveResult}}}
+      {{! Milestone Changes }}
+      <div class='section-title'>
+        {{localize 'NEONRELIC.Location.MilestoneChanges'}}
+      </div>
+      <div class='field'>
+        <span class='field-label'>
+          {{localize 'NEONRELIC.Location.MilestoneHint'}}
+        </span>
+        {{#if isEditable}}
+          <prose-mirror
+            name='system.milestoneChanges'
+            value='{{system.milestoneChanges}}'
+            data-document-uuid='{{document.uuid}}'
+            relative
+          ></prose-mirror>
+        {{else}}
+          <div class='field-value tall'>{{{enrichedMilestoneChanges}}}</div>
+        {{/if}}
       </div>
     </div>
-    <div class='result-col'>
-      <span class='field-label'>
-        {{localize 'NEONRELIC.Location.NegativeResult'}}
-      </span>
-      <div class='field-value tall editor'>
-        {{{enrichedNegativeResult}}}
+
+    {{! ── NPCs Tab ── }}
+    <div class='tab' data-tab='npcs' data-group='loc-primary'>
+      <div class='loc-linked-list'>
+        {{#if linkedNpcs.length}}
+          <ul class='loc-linked-items'>
+            {{#each linkedNpcs}}
+              <li class='loc-linked-item' data-uuid='{{this.uuid}}'>
+                <img class='loc-linked-img' src='{{this.img}}' alt='{{this.name}}' />
+                <a class='loc-linked-name' data-action='openLinkedDoc' data-uuid='{{this.uuid}}'>{{this.name}}</a>
+                <button
+                  type='button'
+                  class='loc-linked-remove'
+                  data-action='removeLinkedDoc'
+                  data-uuid='{{this.uuid}}'
+                  data-tooltip='{{localize "NEONRELIC.Location.RemoveHint"}}'
+                  {{disabled (not @root.isEditable)}}
+                >&times;</button>
+              </li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <div class='loc-linked-empty'>
+            <p>{{localize 'NEONRELIC.Location.NoNpcs'}}</p>
+          </div>
+        {{/if}}
+        {{#if isEditable}}
+          <div class='loc-dropzone'>
+            <span>{{localize 'NEONRELIC.Location.DropNpcHint'}}</span>
+          </div>
+        {{/if}}
       </div>
     </div>
-  </div>
 
-  {{! Milestone Changes }}
-  <div class='section-title'>
-    {{localize 'NEONRELIC.Location.MilestoneChanges'}}
-  </div>
-  <div class='field'>
-    <span class='field-label'>
-      {{localize 'NEONRELIC.Location.MilestoneHint'}}
-    </span>
-    <div class='field-value tall editor'>
-      {{{enrichedMilestoneChanges}}}
+    {{! ── Information Tab ── }}
+    <div class='tab' data-tab='info' data-group='loc-primary'>
+      <div class='loc-linked-list'>
+        {{#if linkedInfoCards.length}}
+          <ul class='loc-linked-items'>
+            {{#each linkedInfoCards}}
+              <li class='loc-linked-item' data-uuid='{{this.uuid}}'>
+                <img class='loc-linked-img' src='{{this.img}}' alt='{{this.name}}' />
+                <a class='loc-linked-name' data-action='openLinkedDoc' data-uuid='{{this.uuid}}'>{{this.name}}</a>
+                <button
+                  type='button'
+                  class='loc-linked-remove'
+                  data-action='removeLinkedDoc'
+                  data-uuid='{{this.uuid}}'
+                  data-tooltip='{{localize "NEONRELIC.Location.RemoveHint"}}'
+                  {{disabled (not @root.isEditable)}}
+                >&times;</button>
+              </li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <div class='loc-linked-empty'>
+            <p>{{localize 'NEONRELIC.Location.NoInfoCards'}}</p>
+          </div>
+        {{/if}}
+        {{#if isEditable}}
+          <div class='loc-dropzone'>
+            <span>{{localize 'NEONRELIC.Location.DropInfoCardHint'}}</span>
+          </div>
+        {{/if}}
+      </div>
     </div>
-  </div>
 
-  {{! DA Notes }}
-  <div class='section-title muted'>
-    {{localize 'NEONRELIC.Location.DANotes'}}
-  </div>
-  <div>
-    <div class='field-value xl editor'>{{{enrichedDaNotes}}}</div>
-  </div>
+    {{! ── Organizations Tab ── }}
+    <div class='tab' data-tab='orgs' data-group='loc-primary'>
+      <div class='loc-linked-list'>
+        {{#if linkedOrgs.length}}
+          <ul class='loc-linked-items'>
+            {{#each linkedOrgs}}
+              <li class='loc-linked-item' data-uuid='{{this.uuid}}'>
+                <img class='loc-linked-img' src='{{this.img}}' alt='{{this.name}}' />
+                <a class='loc-linked-name' data-action='openLinkedDoc' data-uuid='{{this.uuid}}'>{{this.name}}</a>
+                <button
+                  type='button'
+                  class='loc-linked-remove'
+                  data-action='removeLinkedDoc'
+                  data-uuid='{{this.uuid}}'
+                  data-tooltip='{{localize "NEONRELIC.Location.RemoveHint"}}'
+                  {{disabled (not @root.isEditable)}}
+                >&times;</button>
+              </li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <div class='loc-linked-empty'>
+            <p>{{localize 'NEONRELIC.Location.NoOrgs'}}</p>
+          </div>
+        {{/if}}
+        {{#if isEditable}}
+          <div class='loc-dropzone'>
+            <span>{{localize 'NEONRELIC.Location.DropOrgHint'}}</span>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  </section>
 
   {{! Footer }}
   <div class='loc-footer'>

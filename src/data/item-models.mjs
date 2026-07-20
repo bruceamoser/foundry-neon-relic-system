@@ -382,14 +382,12 @@ export class LocationDataModel extends foundry.abstract.TypeDataModel {
       caseId: new StringField({ blank: true }),
       availability: new StringField({ initial: 'open', blank: false }),
       availabilityCondition: new StringField({ blank: true }),
-      npcsPresent: new HTMLField({ blank: true }),
-      informationAvailable: new HTMLField({ blank: true }),
-      organizationsPresent: new HTMLField({ blank: true }),
       positiveResult: new HTMLField({ blank: true }),
       negativeResult: new HTMLField({ blank: true }),
       milestoneChanges: new HTMLField({ blank: true }),
-      daNotes: new HTMLField({ blank: true }),
-      image: new StringField({ blank: true }),
+      npcUuids: new ArrayField(new StringField({ blank: true })),
+      informationCardUuids: new ArrayField(new StringField({ blank: true })),
+      organizationUuids: new ArrayField(new StringField({ blank: true })),
       description: new HTMLField({ blank: true }),
     };
   }
