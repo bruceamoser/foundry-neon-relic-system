@@ -724,9 +724,10 @@ NEONRELIC:
     PositiveResult: Positive Result
     NegativeResult: Negative Result
     Locations: Locations
-    TabCaseCard: Case Card
+    TabCaseCard: Information
     TabStatBlock: Stat Block
     TabEntity: Entity
+    TabLocations: Locations
     RemoveLinked: Remove link
     DropOrgHint: Drop organization here
     DropKnowledgeHint: Drop information card here
