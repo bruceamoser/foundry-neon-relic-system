@@ -167,7 +167,14 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
           relativeTo: item,
         },
       );
-      // Precompute card type display class and select state
+      context.enrichedDANotes = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.daNotes ?? '',
+        {
+          async: true,
+          relativeTo: item,
+        },
+      );
+      // Precompute card type display class
       const typeClassMap = {
         containmentTruth: 'truth',
         supportingIntel: 'intel',
@@ -175,10 +182,6 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       context.cardTypeClass = typeClassMap[system.cardType] ?? 'intel';
       context.isTruth = system.cardType === 'containmentTruth';
       context.isIntel = system.cardType === 'supportingIntel';
-      context.cardTypeChoices = {
-        supportingIntel: game.i18n.localize('NEONRELIC.InfoCard.SupportingIntel'),
-        containmentTruth: game.i18n.localize('NEONRELIC.InfoCard.ContainmentTruth'),
-      };
     }
     if (item.type === 'playerCaseBrief') {
       context.enrichedSituationSummary = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
