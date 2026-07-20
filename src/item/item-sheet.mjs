@@ -544,8 +544,19 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   /** @override */
   async _onDrop(event) {
     if (this.document.type !== 'organization') return;
-    const data = TextEditor.getDragEventData(event);
-    if (!data?.uuid) return;
+
+    // Extract drag data — Foundry stores document UUIDs as JSON in text/plain
+    let data;
+    try {
+      const raw = event.dataTransfer.getData('text/plain');
+      if (!raw) return;
+      data = JSON.parse(raw);
+    } catch {
+      return;
+    }
+
+    // Only accept NPC actors
+    if (!data?.uuid || data.type !== 'Actor') return;
     const doc = await fromUuid(data.uuid);
     if (!doc || doc.type !== 'npc') return;
 
