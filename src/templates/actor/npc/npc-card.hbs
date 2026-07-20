@@ -1,67 +1,89 @@
-{{#if showBack}}
-  <section class='npc-back'>
+{{#unless showBack}}
+  <section class='npc-front'>
+    {{! Secret and Goal }}
+    <div class='field-row'>
+      <div class='field-col'>
+        <span class='field-label'>{{localize 'NEONRELIC.NPC.Secret'}}</span>
+        <input
+          class='field-value med'
+          name='system.secret'
+          type='text'
+          value='{{system.secret}}'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+      <div class='field-col'>
+        <span class='field-label'>{{localize 'NEONRELIC.NPC.Goal'}}</span>
+        <input
+          class='field-value med'
+          name='system.goal'
+          type='text'
+          value='{{system.goal}}'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+    </div>
+
+    {{! Knowledge }}
     <div class='section-label'>{{localize 'NEONRELIC.NPC.Knowledge'}}</div>
     <div class='field-row'>
       <div class='field-col'>
-        <span class='field-label'>
-          {{localize 'NEONRELIC.NPC.StartingKnowledge'}}
-        </span>
+        <span class='field-label'>{{localize 'NEONRELIC.NPC.StartingKnowledge'}} (I#)</span>
         <input
           class='field-value'
-          type='text'
           name='system.startingKnowledge'
+          type='text'
           value='{{system.startingKnowledge}}'
           {{disabled (not isEditable)}}
         />
       </div>
       <div class='field-col'>
-        <span class='field-label'>
-          {{localize 'NEONRELIC.NPC.GainedKnowledge'}}
-        </span>
+        <span class='field-label'>{{localize 'NEONRELIC.NPC.GainedKnowledge'}}</span>
         <input
           class='field-value'
-          type='text'
           name='system.gainedKnowledge'
+          type='text'
           value='{{system.gainedKnowledge}}'
           {{disabled (not isEditable)}}
         />
       </div>
     </div>
 
-    <div class='section-label red'>
-      {{localize 'NEONRELIC.NPC.EngagementResults'}}
+    {{! Locations }}
+    <div>
+      <span class='field-label'>{{localize 'NEONRELIC.NPC.Locations'}} (L#)</span>
+      <input
+        class='field-value'
+        name='system.locations'
+        type='text'
+        value='{{locationsString}}'
+        {{disabled (not isEditable)}}
+      />
     </div>
+
+    {{! Engagement Results }}
+    <div class='section-label red'>{{localize 'NEONRELIC.NPC.EngagementResults'}}</div>
     <div class='field-row'>
       <div class='field-col'>
-        <span class='field-label'>
-          {{localize 'NEONRELIC.NPC.PositiveResult'}}
-        </span>
+        <span class='field-label'>{{localize 'NEONRELIC.NPC.PositiveResult'}}</span>
         <input
           class='field-value med'
-          type='text'
           name='system.positiveResult'
+          type='text'
           value='{{system.positiveResult}}'
           {{disabled (not isEditable)}}
         />
       </div>
       <div class='field-col'>
-        <span class='field-label'>
-          {{localize 'NEONRELIC.NPC.NegativeResult'}}
-        </span>
+        <span class='field-label'>{{localize 'NEONRELIC.NPC.NegativeResult'}}</span>
         <input
           class='field-value med'
-          type='text'
           name='system.negativeResult'
+          type='text'
           value='{{system.negativeResult}}'
           {{disabled (not isEditable)}}
         />
       </div>
     </div>
-
-    {{! DA Description/Notes }}
-    <div class='section-label'>{{localize 'NEONRELIC.NPC.DANotes'}}</div>
-    <div class='npc-description'>
-      <div class='editor'>{{{enrichedDescription}}}</div>
-    </div>
   </section>
-{{/if}}
+{{/unless}}

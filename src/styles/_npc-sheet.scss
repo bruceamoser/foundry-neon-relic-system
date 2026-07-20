@@ -496,8 +496,33 @@
 
   // ── Back card styling ───────────────────────────
   .npc-back {
+    padding-top: 2px;
+
+    .npc-badges {
+      margin-bottom: 6px;
+      padding-bottom: 4px;
+      border-bottom: 1px dotted $nr-rule;
+    }
+
     .npc-description {
       min-height: 100px;
+    }
+
+    .npc-entity {
+      margin-top: 4px;
+      padding-top: 4px;
+      border-top: 1px solid $nr-rule-light;
+    }
+  }
+
+  // ── Flip button label ───────────────────────────
+  .flip-btn {
+    .flip-label {
+      margin-left: 4px;
+      font-family: $nr-font-main;
+      font-size: 6pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
   }
 }

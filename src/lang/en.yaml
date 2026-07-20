@@ -723,6 +723,9 @@ NEONRELIC:
     GainedKnowledge: Gained Knowledge
     PositiveResult: Positive Result
     NegativeResult: Negative Result
+    Locations: Locations
+    Front: Front (Case Card)
+    Back: Back (Stat Block)
 
   # Mob
   Mob:
