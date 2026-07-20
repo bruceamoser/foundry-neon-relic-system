@@ -804,7 +804,6 @@ NEONRELIC:
     CaseId: Case ID
     OrganizationId: Organization ID
     OrganizationName: Organization Name
-    Value: Value
     Active: Active
     Dormant: Dormant
     ActivationCondition: Activation Condition

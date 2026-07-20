@@ -61,17 +61,6 @@
               {{disabled (not isEditable)}}
             />
           </div>
-          <div class='org-value-field'>
-            <span class='field-label'>{{localize 'NEONRELIC.OrgRef.Value'}}</span>
-            <input
-              class='field-value'
-              type='number'
-              name='system.value'
-              value='{{system.value}}'
-              min='0'
-              {{disabled (not isEditable)}}
-            />
-          </div>
         </div>
 
         {{! Status Checkboxes }}
@@ -114,6 +103,14 @@
             {{/if}}
           </div>
         </div>
+      </div>
+
+      <div class='org-description'>
+        <span class='field-label'>{{localize 'NEONRELIC.Description'}}</span>
+        <div class='field-value editor'>{{{enrichedDescription}}}</div>
+        {{#if isEditable}}
+          <textarea name='system.description' style='display:none;'>{{system.description}}</textarea>
+        {{/if}}
       </div>
     </div>
 

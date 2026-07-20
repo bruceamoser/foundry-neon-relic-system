@@ -659,13 +659,13 @@ export class OrganizationDataModel extends foundry.abstract.TypeDataModel {
       organizationId: new StringField({ initial: '', blank: true }),
       organizationName: new StringField({ initial: '', blank: true }),
       caseId: new StringField({ blank: true }),
-      value: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
       isActive: new BooleanField({ initial: true }),
       isDormant: new BooleanField({ initial: false }),
       activationCondition: new HTMLField({ blank: true }),
       linkedEffects: new HTMLField({ blank: true }),
       playerFacingSigns: new HTMLField({ blank: true }),
       npcUuids: new ArrayField(new StringField({ blank: true })),
+      description: new HTMLField({ blank: true }),
     };
   }
 }
