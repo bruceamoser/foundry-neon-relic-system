@@ -839,6 +839,8 @@ NEONRELIC:
     DAEyesOnly: DA Eyes Only
     DANotes: DA Notes
     DANotesHint: Reference notes for the Director
+    DropLocationHint: Drop location here
+    DropNpcHint: Drop NPC here
     Revealed: Revealed
     RevealedHint: Content hidden until revealed
     Footer: Neon Relic • The Verdant Covenant

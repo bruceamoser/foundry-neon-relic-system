@@ -39,3 +39,13 @@
 
 // Print support
 @import 'styles/print';
+
+// ── Hide ProseMirror Editor Toolbars ─────────────────
+// Foundry V14 ProseMirror editors render a menubar by default.
+// This project uses minimal editing UX; toolbars are hidden system-wide.
+prose-mirror .ProseMirror-menubar,
+.prose-mirror .ProseMirror-menubar,
+.editor-menu,
+.prosemirror-menu {
+  display: none !important;
+}

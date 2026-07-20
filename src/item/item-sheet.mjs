@@ -204,6 +204,41 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       context.cardTypeClass = typeClassMap[system.cardType] ?? 'intel';
       context.isTruth = system.cardType === 'containmentTruth';
       context.isIntel = system.cardType === 'supportingIntel';
+
+      // Resolve linked documents
+      context.linkedFoundAt = null;
+      if (system.foundAtUuid) {
+        try {
+          const doc = await fromUuid(system.foundAtUuid);
+          if (doc) context.linkedFoundAt = { uuid: system.foundAtUuid, name: doc.name, img: doc.img, type: doc.type };
+        } catch {
+          /* skip */
+        }
+      }
+
+      context.linkedKnownBy = null;
+      if (system.knownByUuid) {
+        try {
+          const doc = await fromUuid(system.knownByUuid);
+          if (doc) context.linkedKnownBy = { uuid: system.knownByUuid, name: doc.name, img: doc.img, type: doc.type };
+        } catch {
+          /* skip */
+        }
+      }
+
+      // Resolve linked NPCs
+      context.linkedNpcs = [];
+      if (system.npcUuids?.length) {
+        for (const uuid of system.npcUuids) {
+          if (!uuid) continue;
+          try {
+            const doc = await fromUuid(uuid);
+            if (doc) context.linkedNpcs.push({ uuid, name: doc.name, img: doc.img, type: doc.type });
+          } catch {
+            /* skip */
+          }
+        }
+      }
     }
     if (item.type === 'playerCaseBrief') {
       context.enrichedSituationSummary = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
@@ -578,9 +613,23 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       if (data.type !== 'Actor' || doc.type !== 'npc') return;
       uuidField = 'system.npcUuids';
     } else if (docType === 'informationCard') {
-      // Information Card: only accept NPC actors
-      if (data.type !== 'Actor' || doc.type !== 'npc') return;
-      uuidField = 'system.npcUuids';
+      // Information Card: accept Locations (foundAt) and NPC Actors (knownBy or linked NPCs)
+      const dropKey = event.target.closest('[data-drop-key]')?.dataset?.dropKey;
+      if (data.type === 'Item' && doc.type === 'location' && dropKey === 'foundAt') {
+        if (system.foundAtUuid === data.uuid) return;
+        await this.document.update({ 'system.foundAtUuid': data.uuid });
+        return;
+      } else if (data.type === 'Actor' && doc.type === 'npc') {
+        if (dropKey === 'knownBy') {
+          if (system.knownByUuid === data.uuid) return;
+          await this.document.update({ 'system.knownByUuid': data.uuid });
+          return;
+        }
+        // Default: add to linked NPCs
+        uuidField = 'system.npcUuids';
+      } else {
+        return;
+      }
     } else {
       // Location: accept NPCs, Information Cards, and Organizations
       if (data.type === 'Actor' && doc.type === 'npc') {
@@ -609,6 +658,17 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     if (!uuid) return;
     const system = this.document.system;
 
+    // Handle single-UUID fields (foundAt, knownBy on info cards)
+    if (system.foundAtUuid === uuid) {
+      await this.document.update({ 'system.foundAtUuid': '' });
+      return;
+    }
+    if (system.knownByUuid === uuid) {
+      await this.document.update({ 'system.knownByUuid': '' });
+      return;
+    }
+
+    // Handle array-UUID fields
     const collections = [
       ['system.npcUuids', system.npcUuids],
       ['system.informationCardUuids', system.informationCardUuids],
