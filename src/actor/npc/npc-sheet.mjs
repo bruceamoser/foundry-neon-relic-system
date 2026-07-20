@@ -2,6 +2,7 @@
  * NPC (and entity) sheet using ApplicationV2 with tabbed layout.
  * Tab 1: Case Card — DA case-file management with drag-drop linking.
  * Tab 2: Stat Block — combat stats, attributes, entity fields.
+ * Tab 3: Entity — supernatural entity configuration.
  * @module actor/npc/npc-sheet
  */
 
@@ -12,11 +13,6 @@ const { ActorSheetV2 } = foundry.applications.sheets;
 
 const SYSTEM_ID = 'neon-relic';
 
-/**
- * Resolve an array of UUIDs to document summaries.
- * @param {string[]} uuids
- * @param {object[]} target
- */
 async function resolveDocs(uuids, target) {
   if (!uuids?.length) return;
   for (const uuid of uuids) {
@@ -33,7 +29,7 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   /** @override */
   static DEFAULT_OPTIONS = {
     classes: [SYSTEM_ID, 'npc-sheet'],
-    position: { width: 480, height: 'auto' },
+    position: { width: 720, height: 'auto' },
     actions: {
       rollAttribute: NPCSheet.#onRollAttribute,
       adjustDisposition: NPCSheet.#onAdjustDisposition,
@@ -46,26 +42,11 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
   /** @override */
   static PARTS = {
-    header: { template: 'systems/neon-relic/templates/actor/npc/npc-header.hbs' },
-    tabs: { template: 'systems/neon-relic/templates/generic/tab-navigation.hbs' },
-    card: { template: 'systems/neon-relic/templates/actor/npc/npc-card.hbs', scrollable: [''] },
-    stats: { template: 'systems/neon-relic/templates/actor/npc/npc-stats.hbs', scrollable: [''] },
-    entity: { template: 'systems/neon-relic/templates/actor/npc/npc-entity.hbs', scrollable: [''] },
-  };
-
-  /** @override */
-  static TABS = {
-    primary: {
-      tabs: [
-        { id: 'card', group: 'primary', icon: 'fa-solid fa-id-card', label: 'NEONRELIC.NPC.TabCaseCard' },
-        { id: 'stats', group: 'primary', icon: 'fa-solid fa-shield-halved', label: 'NEONRELIC.NPC.TabStatBlock' },
-        { id: 'entity', group: 'primary', icon: 'fa-solid fa-ghost', label: 'NEONRELIC.NPC.TabEntity' },
-      ],
-      initial: 'card',
+    content: {
+      template: 'systems/neon-relic/templates/actor/npc/npc-sheet.hbs',
+      scrollable: [''],
     },
   };
-
-  /* ------------------------------------------ */
 
   /** @override */
   async _prepareContext(options) {
@@ -79,14 +60,10 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     context.actor = actor;
     context.isSimplified = system.useSimplifiedView;
 
-    // Corruption stage label
     const stages = ['clean', 'touched', 'marked', 'consumed'];
     context.corruptionStageLabel = stages[system.corruptionStage] ?? 'clean';
-
-    // Tier badge class
     context.tierClass = 'tier-' + system.tier;
 
-    // Disposition pips (1-5)
     context.dispositionPips = [];
     for (let i = 1; i <= 5; i++) {
       context.dispositionPips.push({
@@ -96,25 +73,21 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       });
     }
 
-    // Attribute entries
     context.attrEntries = [];
     for (const [key, label] of Object.entries(CONFIG.NEON_RELIC.attributes)) {
       context.attrEntries.push({ key, label, value: system.attributes[key] ?? 0 });
     }
 
-    // Broken state class
     context.brokenClass = system.isBroken ? 'broken-badge active' : 'broken-badge';
 
-    // Enriched description
     context.enrichedDescription = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
       system.description ?? '',
       { async: true, relativeTo: actor },
     );
 
-    // Items
     context.abilities = actor.items.filter(i => i.type === 'talent');
 
-    // Resolve linked organization
+    // Resolve linked documents
     context.linkedOrg = null;
     if (system.organizationUuid) {
       try {
@@ -125,34 +98,43 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       }
     }
 
-    // Resolve linked knowledge cards
     context.linkedStartingKnowledge = [];
     await resolveDocs(system.startingKnowledgeUuids, context.linkedStartingKnowledge);
-
     context.linkedGainedKnowledge = [];
     await resolveDocs(system.gainedKnowledgeUuids, context.linkedGainedKnowledge);
-
-    // Resolve linked locations
     context.linkedLocations = [];
     await resolveDocs(system.locationUuids, context.linkedLocations);
 
     return context;
   }
 
+  /** @override */
+  async _onRender(context, options) {
+    await super._onRender(context, options);
+    new foundry.applications.ux.Tabs({
+      navSelector: '.npc-tabs',
+      contentSelector: '.npc-tab-content',
+      initial: this._npcActiveTab || 'card',
+      group: 'npc-primary',
+      callback: (_event, _tabs, tab) => {
+        this._npcActiveTab = tab.dataset.tab;
+      },
+    }).bind(this.element);
+  }
+
+  _npcActiveTab = null;
+
   /* ------------------------------------------ */
   /*  Drag-and-Drop                              */
   /* ------------------------------------------ */
 
-  /** @override */
   _canDragDrop(_event) {
     return this.isEditable;
   }
 
-  /** @override */
   async _onDrop(event) {
     const data = TextEditor.getDragEventData(event);
     if (!data?.uuid) return;
-
     const doc = await fromUuid(data.uuid);
     if (!doc) return;
 
@@ -165,7 +147,6 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       updateData['system.organizationUuid'] = data.uuid;
       linkBack = { doc, field: 'system.npcUuids' };
     } else if (data.type === 'Item' && doc.type === 'informationCard') {
-      // Determine which knowledge list: startingKnowledge or gainedKnowledge
       const dropKey = event.target.closest('[data-drop-key]')?.dataset?.dropKey;
       const field = dropKey === 'gainedKnowledge' ? 'system.gainedKnowledgeUuids' : 'system.startingKnowledgeUuids';
       const currentField = dropKey === 'gainedKnowledge' ? system.gainedKnowledgeUuids : system.startingKnowledgeUuids;
@@ -198,8 +179,6 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   /* ------------------------------------------ */
-  /*  Action Handlers                            */
-  /* ------------------------------------------ */
 
   static async #onRollAttribute(_event, target) {
     const attrKey = target.dataset.attribute;
@@ -221,7 +200,6 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   static async #onRemoveLinkedDoc(_event, target) {
     const uuid = target.dataset.uuid;
     if (!uuid) return;
-
     const system = this.document.system;
     const doc = await fromUuid(uuid);
     let unlinkBack = null;
