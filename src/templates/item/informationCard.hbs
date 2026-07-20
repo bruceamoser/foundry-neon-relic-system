@@ -14,7 +14,16 @@
     {{/if}}
     <div class='content-area'>
       {{#if system.revealed}}
-        {{{enrichedContent}}}
+        {{#if isEditable}}
+          <prose-mirror
+            name='system.content'
+            value='{{system.content}}'
+            data-document-uuid='{{document.uuid}}'
+            relative
+          ></prose-mirror>
+        {{else}}
+          {{{enrichedContent}}}
+        {{/if}}
       {{else}}
         <div class='content-hidden'><em>{{localize 'NEONRELIC.InfoCard.RevealedHint'}}</em></div>
       {{/if}}
@@ -22,104 +31,112 @@
     <div class='card-footer'>{{localize 'NEONRELIC.InfoCard.Footer'}}</div>
   </div>
 
-  {{! ── Card Back (DA-Facing) ── }}
-  <div class='card-back'>
-    <div class='back-header'>
-      <span class='back-title'>{{localize 'NEONRELIC.InfoCard.DAReference'}}</span>
-      <span class='back-stamp'>{{localize 'NEONRELIC.InfoCard.DAEyesOnly'}}</span>
-    </div>
-
-    {{! Card ID on back }}
-    <div class='back-field'>
-      <label class='field-label'>{{localize 'NEONRELIC.InfoCard.CardId'}}</label>
-      <input
-        type='text'
-        name='system.cardId'
-        value='{{system.cardId}}'
-        placeholder='{{localize "NEONRELIC.InfoCard.CardIdHint"}}'
-        {{disabled (not isEditable)}}
-      />
-    </div>
-
-    {{! Card Type — Radio buttons matching reference template }}
-    <div class='back-field card-type-field'>
-      <label class='field-label'>{{localize 'NEONRELIC.InfoCard.CardType'}}</label>
-      <div class='radio-group'>
-        <label class='radio-label'>
-          <input
-            type='radio'
-            name='system.cardType'
-            value='supportingIntel'
-            {{checked (eq system.cardType 'supportingIntel')}}
-            {{disabled (not isEditable)}}
-          />
-          {{localize 'NEONRELIC.InfoCard.SupportingIntel'}}
-        </label>
-        <label class='radio-label'>
-          <input
-            type='radio'
-            name='system.cardType'
-            value='containmentTruth'
-            {{checked (eq system.cardType 'containmentTruth')}}
-            {{disabled (not isEditable)}}
-          />
-          {{localize 'NEONRELIC.InfoCard.ContainmentTruth'}}
-        </label>
+  {{! ── Card Back (DA-Facing) — GM only ── }}
+  {{#if user.isGM}}
+    <div class='card-back'>
+      <div class='back-header'>
+        <span class='back-title'>{{localize 'NEONRELIC.InfoCard.DAReference'}}</span>
+        <span class='back-stamp'>{{localize 'NEONRELIC.InfoCard.DAEyesOnly'}}</span>
       </div>
-    </div>
 
-    {{! Back fields grid }}
-    <div class='back-fields'>
+      {{! Card ID on back }}
       <div class='back-field'>
-        <label class='field-label'>{{localize 'NEONRELIC.InfoCard.FoundAt'}}</label>
+        <label class='field-label'>{{localize 'NEONRELIC.InfoCard.CardId'}}</label>
         <input
           type='text'
-          name='system.foundAt'
-          value='{{system.foundAt}}'
-          placeholder='{{localize "NEONRELIC.InfoCard.FoundAtHint"}}'
+          name='system.cardId'
+          value='{{system.cardId}}'
+          placeholder='{{localize "NEONRELIC.InfoCard.CardIdHint"}}'
           {{disabled (not isEditable)}}
         />
       </div>
+
+      {{! Card Type — Radio buttons matching reference template }}
+      <div class='back-field card-type-field'>
+        <label class='field-label'>{{localize 'NEONRELIC.InfoCard.CardType'}}</label>
+        <div class='radio-group'>
+          <label class='radio-label'>
+            <input
+              type='radio'
+              name='system.cardType'
+              value='supportingIntel'
+              {{checked (eq system.cardType 'supportingIntel')}}
+              {{disabled (not isEditable)}}
+            />
+            {{localize 'NEONRELIC.InfoCard.SupportingIntel'}}
+          </label>
+          <label class='radio-label'>
+            <input
+              type='radio'
+              name='system.cardType'
+              value='containmentTruth'
+              {{checked (eq system.cardType 'containmentTruth')}}
+              {{disabled (not isEditable)}}
+            />
+            {{localize 'NEONRELIC.InfoCard.ContainmentTruth'}}
+          </label>
+        </div>
+      </div>
+
+      {{! Back fields grid }}
+      <div class='back-fields'>
+        <div class='back-field'>
+          <label class='field-label'>{{localize 'NEONRELIC.InfoCard.FoundAt'}}</label>
+          <input
+            type='text'
+            name='system.foundAt'
+            value='{{system.foundAt}}'
+            placeholder='{{localize "NEONRELIC.InfoCard.FoundAtHint"}}'
+            {{disabled (not isEditable)}}
+          />
+        </div>
+        <div class='back-field'>
+          <label class='field-label'>{{localize 'NEONRELIC.InfoCard.KnownBy'}}</label>
+          <input
+            type='text'
+            name='system.knownBy'
+            value='{{system.knownBy}}'
+            placeholder='{{localize "NEONRELIC.InfoCard.KnownByHint"}}'
+            {{disabled (not isEditable)}}
+          />
+        </div>
+      </div>
+
       <div class='back-field'>
-        <label class='field-label'>{{localize 'NEONRELIC.InfoCard.KnownBy'}}</label>
+        <label class='field-label'>{{localize 'NEONRELIC.InfoCard.HQFallback'}}</label>
         <input
-          type='text'
-          name='system.knownBy'
-          value='{{system.knownBy}}'
-          placeholder='{{localize "NEONRELIC.InfoCard.KnownByHint"}}'
+          type='number'
+          name='system.hqFallback'
+          value='{{system.hqFallback}}'
+          min='0'
+          placeholder='{{localize "NEONRELIC.InfoCard.HQFallbackHint"}}'
           {{disabled (not isEditable)}}
         />
       </div>
-    </div>
 
-    <div class='back-field'>
-      <label class='field-label'>{{localize 'NEONRELIC.InfoCard.HQFallback'}}</label>
-      <input
-        type='number'
-        name='system.hqFallback'
-        value='{{system.hqFallback}}'
-        min='0'
-        placeholder='{{localize "NEONRELIC.InfoCard.HQFallbackHint"}}'
-        {{disabled (not isEditable)}}
-      />
-    </div>
+      {{! DA Notes }}
+      <div class='back-content'>
+        <label class='field-label'>{{localize 'NEONRELIC.InfoCard.DANotes'}}</label>
+        <span class='field-hint'>{{localize 'NEONRELIC.InfoCard.DANotesHint'}}</span>
+        {{#if isEditable}}
+          <prose-mirror
+            name='system.daNotes'
+            value='{{system.daNotes}}'
+            data-document-uuid='{{document.uuid}}'
+            relative
+          ></prose-mirror>
+        {{else}}
+          {{{enrichedDANotes}}}
+        {{/if}}
+      </div>
 
-    {{! DA Notes }}
-    <div class='back-content'>
-      <label class='field-label'>{{localize 'NEONRELIC.InfoCard.DANotes'}}</label>
-      <span class='field-hint'>{{localize 'NEONRELIC.InfoCard.DANotesHint'}}</span>
-      {{{enrichedDANotes}}}
-      {{#if isEditable}}
-        <textarea name='system.daNotes' style='display:none;'>{{system.daNotes}}</textarea>
-      {{/if}}
+      {{! Revealed Toggle }}
+      <div class='back-field revealed-row'>
+        <label class='radio-label'>
+          <input type='checkbox' name='system.revealed' {{checked system.revealed}} {{disabled (not isEditable)}} />
+          {{localize 'NEONRELIC.InfoCard.Revealed'}}
+        </label>
+      </div>
     </div>
-
-    {{! Revealed Toggle }}
-    <div class='back-field revealed-row'>
-      <label class='radio-label'>
-        <input type='checkbox' name='system.revealed' {{checked system.revealed}} {{disabled (not isEditable)}} />
-        {{localize 'NEONRELIC.InfoCard.Revealed'}}
-      </label>
-    </div>
-  </div>
+  {{/if}}
 </div>
