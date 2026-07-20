@@ -102,6 +102,7 @@ async function buildPacks() {
     'playerCaseBrief',
     'daCaseBrief',
     'subdivision',
+    'organization',
   ]);
   const ACTOR_TYPES = new Set(['agent', 'npc', 'mob', 'vehicle', 'headquarters']);
 

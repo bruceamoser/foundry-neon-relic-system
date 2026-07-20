@@ -32,6 +32,7 @@ import {
   PlayerCaseBriefDataModel,
   DACaseBriefDataModel,
   SubdivisionDataModel,
+  OrganizationDataModel,
 } from './data/item-models.mjs';
 import { NRItemSheet } from './item/item-sheet.mjs';
 import { AgentSheet } from './actor/agent/agent-sheet.mjs';
@@ -94,6 +95,7 @@ Hooks.once('init', () => {
   CONFIG.Item.dataModels.playerCaseBrief = PlayerCaseBriefDataModel;
   CONFIG.Item.dataModels.daCaseBrief = DACaseBriefDataModel;
   CONFIG.Item.dataModels.subdivision = SubdivisionDataModel;
+  CONFIG.Item.dataModels.organization = OrganizationDataModel;
 
   // Register custom Handlebars helpers
   registerHandlebarsHelpers();

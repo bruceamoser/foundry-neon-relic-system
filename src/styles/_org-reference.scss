@@ -46,6 +46,27 @@
 
   .header-right {
     text-align: right;
+    font-size: 6.5pt;
+    color: $nr-ink-faded;
+    line-height: 1.6;
+  }
+
+  .org-ref-formref {
+    font-size: 5.5pt;
+    letter-spacing: 1px;
+  }
+
+  .org-ref-caseid {
+    margin-top: 4px;
+  }
+
+  .case-id-input {
+    font-family: $nr-font-fill;
+    font-size: 7pt;
+    border-bottom: 1px solid $nr-rule;
+    background: $nr-field-bg;
+    width: 100px;
+    padding: 1px 3px;
   }
 
   .classification {
@@ -58,6 +79,69 @@
     padding: 2px 8px;
     transform: rotate(-2deg);
     text-transform: uppercase;
+  }
+
+  // ── Organization Identity Block ────────────────────
+  .org-id-block {
+    border: 1.5px solid $nr-rule;
+    padding: 6px 8px 5px;
+    background: $nr-field-bg;
+    margin-bottom: 8px;
+  }
+
+  .org-id-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+    margin-bottom: 5px;
+  }
+
+  .org-id-field {
+    width: 60px;
+    flex-shrink: 0;
+  }
+
+  .org-name-field {
+    flex: 1;
+  }
+
+  .org-value-field {
+    width: 50px;
+    flex-shrink: 0;
+  }
+
+  .org-status-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  .status-check {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: $nr-font-main;
+    font-size: 6pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $nr-ink-faded;
+    cursor: pointer;
+
+    input[type='checkbox'] {
+      width: 10px;
+      height: 10px;
+      cursor: pointer;
+    }
+  }
+
+  // ── Section Label ───────────────────────────────────
+  .section-label {
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: $nr-green-stamp;
+    display: block;
+    margin-bottom: 4px;
   }
 
   // ── Organization Blocks ─────────────────────────────
@@ -187,16 +271,22 @@
     }
   }
 
-  .milestone-val {
-    width: 20px;
-    height: 14px;
+  .milestone-day {
+    width: 24px;
+    height: 18px;
     border: 1px solid $nr-rule;
     background: $nr-field-bg;
     text-align: center;
     font-family: $nr-font-fill;
-    font-size: 7.5pt;
+    font-size: 8pt;
     flex-shrink: 0;
-    line-height: 14px;
+    padding: 0 2px;
+
+    &.zero-milestone {
+      border-color: $nr-red-stamp;
+      border-width: 1.5px;
+      color: $nr-red-stamp;
+    }
   }
 
   .milestone-desc {
@@ -205,6 +295,21 @@
     font-size: 7pt;
     border-bottom: 1px dotted rgba($nr-rule, 0.5);
     min-height: 13px;
+  }
+
+  // ── Field Components ────────────────────────────────
+  .org-details {
+    margin-top: 6px;
+  }
+
+  .org-detail-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 2px;
+
+    .org-detail {
+      flex: 1;
+    }
   }
 
   // ── Field Components ────────────────────────────────
@@ -225,6 +330,30 @@
     background: $nr-field-bg;
     font-family: $nr-font-fill;
     font-size: 7pt;
+
+    &.editor {
+      border: 1px solid $nr-rule;
+      min-height: 48px;
+      padding: 4px 6px;
+      background: $nr-field-bg;
+      font-family: $nr-font-fill;
+      font-size: 7.5pt;
+      line-height: 1.4;
+
+      .editor-content {
+        min-height: 40px;
+      }
+
+      .ProseMirror,
+      .editor-container {
+        min-height: 40px;
+        outline: none;
+
+        p {
+          margin: 0 0 3px;
+        }
+      }
+    }
   }
 
   .org-detail-row {

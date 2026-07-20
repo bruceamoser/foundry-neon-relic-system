@@ -115,6 +115,7 @@ export async function preloadHandlebarsTemplates() {
     'systems/neon-relic/templates/item/playerCaseBrief.hbs',
     'systems/neon-relic/templates/item/daCaseBrief.hbs',
     'systems/neon-relic/templates/item/subdivision.hbs',
+    'systems/neon-relic/templates/item/organization.hbs',
     'systems/neon-relic/templates/actor/agent/agent-header.hbs',
     'systems/neon-relic/templates/actor/agent/agent-summary.hbs',
     'systems/neon-relic/templates/actor/agent/agent-attributes.hbs',
