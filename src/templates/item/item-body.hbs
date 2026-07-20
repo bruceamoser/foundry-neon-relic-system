@@ -1,7 +1,7 @@
 <section class='item-body'>
   {{{typeContent}}}
 
-  {{#unless (or (eq itemType 'daCaseBrief') (eq itemType 'playerCaseBrief'))}}
+  {{#unless (or (eq itemType 'daCaseBrief') (eq itemType 'playerCaseBrief') (eq itemType 'informationCard'))}}
     <div class='form-group description'>
       <label>{{localize 'NEONRELIC.Description'}}</label>
       <div class='editor'>{{{enrichedDescription}}}</div>
