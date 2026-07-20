@@ -729,7 +729,7 @@ NEONRELIC:
     TabEntity: Entity
     TabLocations: Locations
     TabDetails: Details
-    TabInformation: Intel
+    TabInformation: Information
     RemoveLinked: Remove link
     DropOrgHint: Drop organization here
     DropKnowledgeHint: Drop information card here

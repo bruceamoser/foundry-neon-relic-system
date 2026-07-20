@@ -98,10 +98,9 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       }
     }
 
-    context.linkedStartingKnowledge = [];
-    await resolveDocs(system.startingKnowledgeUuids, context.linkedStartingKnowledge);
-    context.linkedGainedKnowledge = [];
-    await resolveDocs(system.gainedKnowledgeUuids, context.linkedGainedKnowledge);
+    context.linkedInformationCards = [];
+    await resolveDocs(system.startingKnowledgeUuids, context.linkedInformationCards);
+    await resolveDocs(system.gainedKnowledgeUuids, context.linkedInformationCards);
     context.linkedLocations = [];
     await resolveDocs(system.locationUuids, context.linkedLocations);
 
@@ -147,13 +146,10 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       updateData['system.organizationUuid'] = data.uuid;
       linkBack = { doc, field: 'system.npcUuids' };
     } else if (data.type === 'Item' && doc.type === 'informationCard') {
-      const dropKey = event.target.closest('[data-drop-key]')?.dataset?.dropKey;
-      const field = dropKey === 'gainedKnowledge' ? 'system.gainedKnowledgeUuids' : 'system.startingKnowledgeUuids';
-      const currentField = dropKey === 'gainedKnowledge' ? system.gainedKnowledgeUuids : system.startingKnowledgeUuids;
-      const uuids = [...(currentField ?? [])];
+      const uuids = [...(system.startingKnowledgeUuids ?? [])];
       if (uuids.includes(data.uuid)) return;
       uuids.push(data.uuid);
-      updateData[field] = uuids;
+      updateData['system.startingKnowledgeUuids'] = uuids;
       linkBack = { doc, field: 'system.npcUuids' };
     } else if (data.type === 'Item' && doc.type === 'location') {
       const uuids = [...(system.locationUuids ?? [])];

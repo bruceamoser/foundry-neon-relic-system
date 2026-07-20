@@ -6,26 +6,24 @@
       <div class='card-stamp'>{{localize 'NEONRELIC.NPC.DAEyesOnly'}}</div>
     </div>
     <div class='npc-identity-row'>
-      <div class='npc-portrait'>
-        <img src='{{actor.img}}' data-edit='img' title='{{actor.name}}' class='profile-img' />
-      </div>
+      <div class='npc-portrait'><img
+          src='{{actor.img}}'
+          data-edit='img'
+          title='{{actor.name}}'
+          class='profile-img'
+        /></div>
       <div class='npc-identity-fields'>
         <div class='name-row'>
-          <div class='name-col'>
-            <span class='field-label'>{{localize 'NEONRELIC.NPC.Name'}}</span>
-            <input
+          <div class='name-col'><span class='field-label'>{{localize 'NEONRELIC.NPC.Name'}}</span><input
               class='npc-name'
               name='name'
               type='text'
               value='{{actor.name}}'
               placeholder='{{localize "NEONRELIC.NPC.Name"}}'
               {{disabled (not isEditable)}}
-            />
-          </div>
-          <div class='org-col'>
-            <span class='field-label'>{{localize 'NEONRELIC.NPC.Organization'}} (O#)</span>
-            {{#if linkedOrg}}
-              <div class='linked-doc-row'><img
+            /></div>
+          <div class='org-col'><span class='field-label'>{{localize 'NEONRELIC.NPC.Organization'}} (O#)</span>
+            {{#if linkedOrg}}<div class='linked-doc-row'><img
                   class='linked-doc-img'
                   src='{{linkedOrg.img}}'
                   alt='{{linkedOrg.name}}'
@@ -40,10 +38,9 @@
                     data-uuid='{{linkedOrg.uuid}}'
                     data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
                   >&times;</button>{{/if}}</div>
-            {{else}}<div class='dropzone dropzone-org' data-drop-key='org'><span class='dropzone-hint'>{{localize
+            {{else}}<div class='dropzone dropzone-org'><span class='dropzone-hint'>{{localize
                     'NEONRELIC.NPC.DropOrgHint'
-                  }}</span></div>{{/if}}
-          </div>
+                  }}</span></div>{{/if}}</div>
         </div>
         <div><span class='field-label'>{{localize 'NEONRELIC.NPC.ArtifactConnection'}}</span><input
             class='field-value'
@@ -59,7 +56,6 @@
           ></i></button></div>{{/if}}
   </header>
 
-  {{! Tab Navigation }}
   <nav class='npc-tabs tabs' data-group='npc-primary'>
     <a class='item active' data-tab='details' data-group='npc-primary'><i class='fa-solid fa-file-lines' inert></i><span
       >{{localize 'NEONRELIC.NPC.TabDetails'}}</span></a>
@@ -72,57 +68,51 @@
   </nav>
 
   <div class='npc-tab-content'>
-    {{! ── DETAILS TAB ── }}
-    <div class='tab active' data-tab='details' data-group='npc-primary'>
-      <section class='npc-card-tab'>
-        <div class='field-row'>
-          <div class='field-col'><span class='field-label'>{{localize 'NEONRELIC.NPC.Secret'}}</span><input
+    {{! Details }}
+    <div class='tab active' data-tab='details' data-group='npc-primary'><section class='npc-card-tab'>
+        <div class='field-row'><div class='field-col'><span class='field-label'>{{localize
+                'NEONRELIC.NPC.Secret'
+              }}</span><input
               class='field-value med'
               name='system.secret'
               type='text'
               value='{{system.secret}}'
               {{disabled (not isEditable)}}
-            /></div>
-          <div class='field-col'><span class='field-label'>{{localize 'NEONRELIC.NPC.Goal'}}</span><input
+            /></div><div class='field-col'><span class='field-label'>{{localize 'NEONRELIC.NPC.Goal'}}</span><input
               class='field-value med'
               name='system.goal'
               type='text'
               value='{{system.goal}}'
               {{disabled (not isEditable)}}
-            /></div>
-        </div>
+            /></div></div>
         <div class='section-label red'>{{localize 'NEONRELIC.NPC.EngagementResults'}}</div>
-        <div class='field-row'>
-          <div class='field-col'><span class='field-label'>{{localize 'NEONRELIC.NPC.PositiveResult'}}</span><input
+        <div class='field-row'><div class='field-col'><span class='field-label'>{{localize
+                'NEONRELIC.NPC.PositiveResult'
+              }}</span><input
               class='field-value med'
               name='system.positiveResult'
               type='text'
               value='{{system.positiveResult}}'
               {{disabled (not isEditable)}}
-            /></div>
-          <div class='field-col'><span class='field-label'>{{localize 'NEONRELIC.NPC.NegativeResult'}}</span><input
+            /></div><div class='field-col'><span class='field-label'>{{localize
+                'NEONRELIC.NPC.NegativeResult'
+              }}</span><input
               class='field-value med'
               name='system.negativeResult'
               type='text'
               value='{{system.negativeResult}}'
               {{disabled (not isEditable)}}
-            /></div>
-        </div>
-      </section>
-    </div>
+            /></div></div>
+      </section></div>
 
-    {{! ── STAT BLOCK TAB ── }}
-    <div class='tab' data-tab='stats' data-group='npc-primary'>
-      <section class='npc-stats-tab'>
-        <div class='npc-badges'>
-          <span class='tier-badge {{tierClass}}'>T{{system.tier}}</span>
-          <span class='fear-badge'>{{localize 'NEONRELIC.NPC.FR'}}
-            {{system.fearRating}}{{#if system.escalatedFearRating}}/{{system.escalatedFearRating}}{{/if}}</span>
-          <span class='corruption-stage-badge stage-{{corruptionStageLabel}}'>{{localize
-              'NEONRELIC.NPC.CorruptionStage'
-            }}:
-            {{corruptionStageLabel}}</span>
-        </div>
+    {{! Stat Block }}
+    <div class='tab' data-tab='stats' data-group='npc-primary'><section class='npc-stats-tab'>
+        <div class='npc-badges'><span class='tier-badge {{tierClass}}'>T{{system.tier}}</span><span
+            class='fear-badge'
+          >{{localize 'NEONRELIC.NPC.FR'}}
+            {{system.fearRating}}{{#if system.escalatedFearRating}}/{{system.escalatedFearRating}}{{/if}}</span><span
+            class='corruption-stage-badge stage-{{corruptionStageLabel}}'
+          >{{localize 'NEONRELIC.NPC.CorruptionStage'}}: {{corruptionStageLabel}}</span></div>
         <div class='section-label'>{{localize 'NEONRELIC.Tab.Attributes'}}</div>
         <div class='npc-attributes'>{{#each attrEntries}}<div class='npc-attr-box'><button
                 type='button'
@@ -269,14 +259,13 @@
               {{checked system.zoneLocked}}
               {{disabled (not isEditable)}}
             />{{localize 'NEONRELIC.NPC.ZoneLocked'}}</label></div>
-        <div class='section-label'>{{localize 'NEONRELIC.NPC.DANotes'}}</div>
-        <div class='npc-description'><div class='editor'>{{{enrichedDescription}}}</div></div>
-      </section>
-    </div>
+        <div class='section-label'>{{localize 'NEONRELIC.NPC.DANotes'}}</div><div class='npc-description'><div
+            class='editor'
+          >{{{enrichedDescription}}}</div></div>
+      </section></div>
 
-    {{! ── LOCATIONS TAB ── }}
-    <div class='tab' data-tab='locations' data-group='npc-primary'>
-      <section class='npc-card-tab'>
+    {{! Locations }}
+    <div class='tab' data-tab='locations' data-group='npc-primary'><section class='npc-card-tab'>
         <div class='section-label'>{{localize 'NEONRELIC.NPC.Locations'}} (L#)</div>
         {{#if linkedLocations.length}}<ul class='linked-doc-list'>{{#each linkedLocations}}<li
                 class='linked-doc-row'
@@ -294,52 +283,27 @@
         {{#if isEditable}}<div class='dropzone' data-drop-key='locations'><span class='dropzone-hint'>{{localize
                 'NEONRELIC.NPC.DropLocationHint'
               }}</span></div>{{/if}}
-      </section>
-    </div>
+      </section></div>
 
-    {{! ── INFORMATION TAB ── }}
-    <div class='tab' data-tab='information' data-group='npc-primary'>
-      <section class='npc-card-tab'>
-        <div class='section-label'>{{localize 'NEONRELIC.NPC.Knowledge'}}</div>
-        <div class='knowledge-block'>
-          <span class='field-label'>{{localize 'NEONRELIC.NPC.StartingKnowledge'}} (I#)</span>
-          {{#if linkedStartingKnowledge.length}}<ul class='linked-doc-list'>{{#each linkedStartingKnowledge}}<li
-                  class='linked-doc-row'
-                ><img class='linked-doc-img' src='{{this.img}}' alt='{{this.name}}' /><a
-                    class='linked-doc-name'
-                    data-action='openLinkedDoc'
+    {{! Information }}
+    <div class='tab' data-tab='information' data-group='npc-primary'><section class='npc-card-tab'>
+        <div class='section-label'>{{localize 'NEONRELIC.NPC.Knowledge'}} (I#)</div>
+        {{#if linkedInformationCards.length}}<ul class='linked-doc-list'>{{#each linkedInformationCards}}<li
+                class='linked-doc-row'
+              ><img class='linked-doc-img' src='{{this.img}}' alt='{{this.name}}' /><a
+                  class='linked-doc-name'
+                  data-action='openLinkedDoc'
+                  data-uuid='{{this.uuid}}'
+                >{{this.name}}</a>{{#if @root.isEditable}}<button
+                    type='button'
+                    class='linked-doc-remove'
+                    data-action='removeLinkedDoc'
                     data-uuid='{{this.uuid}}'
-                  >{{this.name}}</a>{{#if @root.isEditable}}<button
-                      type='button'
-                      class='linked-doc-remove'
-                      data-action='removeLinkedDoc'
-                      data-uuid='{{this.uuid}}'
-                      data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
-                    >&times;</button>{{/if}}</li>{{/each}}</ul>{{/if}}
-          {{#if isEditable}}<div class='dropzone' data-drop-key='startingKnowledge'><span
-                class='dropzone-hint'
-              >{{localize 'NEONRELIC.NPC.DropKnowledgeHint'}}</span></div>{{/if}}
-        </div>
-        <div class='knowledge-block'>
-          <span class='field-label'>{{localize 'NEONRELIC.NPC.GainedKnowledge'}}</span>
-          {{#if linkedGainedKnowledge.length}}<ul class='linked-doc-list'>{{#each linkedGainedKnowledge}}<li
-                  class='linked-doc-row'
-                ><img class='linked-doc-img' src='{{this.img}}' alt='{{this.name}}' /><a
-                    class='linked-doc-name'
-                    data-action='openLinkedDoc'
-                    data-uuid='{{this.uuid}}'
-                  >{{this.name}}</a>{{#if @root.isEditable}}<button
-                      type='button'
-                      class='linked-doc-remove'
-                      data-action='removeLinkedDoc'
-                      data-uuid='{{this.uuid}}'
-                      data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
-                    >&times;</button>{{/if}}</li>{{/each}}</ul>{{/if}}
-          {{#if isEditable}}<div class='dropzone' data-drop-key='gainedKnowledge'><span class='dropzone-hint'>{{localize
-                  'NEONRELIC.NPC.DropKnowledgeHint'
-                }}</span></div>{{/if}}
-        </div>
-      </section>
-    </div>
+                    data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
+                  >&times;</button>{{/if}}</li>{{/each}}</ul>{{/if}}
+        {{#if isEditable}}<div class='dropzone' data-drop-key='information'><span class='dropzone-hint'>{{localize
+                'NEONRELIC.NPC.DropKnowledgeHint'
+              }}</span></div>{{/if}}
+      </section></div>
   </div>
 </div>
