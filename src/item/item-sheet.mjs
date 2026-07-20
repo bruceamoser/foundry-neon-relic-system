@@ -473,7 +473,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         initial: this._orgActiveTab || 'details',
         group: 'org-primary',
         callback: (_event, _tabs, tab) => {
-          if (tab) this._orgActiveTab = tab.dataset.tab;
+          if (tab?.dataset?.tab) this._orgActiveTab = tab.dataset.tab;
         },
       }).bind(this.element);
     } else if (itemType === 'location') {
@@ -483,7 +483,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         initial: this._locActiveTab || 'details',
         group: 'loc-primary',
         callback: (_event, _tabs, tab) => {
-          if (tab) this._locActiveTab = tab.dataset.tab;
+          if (tab?.dataset?.tab) this._locActiveTab = tab.dataset.tab;
         },
       }).bind(this.element);
     } else if (itemType === 'informationCard') {
@@ -493,7 +493,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         initial: this._infoActiveTab || 'details',
         group: 'info-primary',
         callback: (_event, _tabs, tab) => {
-          if (tab) this._infoActiveTab = tab.dataset.tab;
+          if (tab?.dataset?.tab) this._infoActiveTab = tab.dataset.tab;
         },
       }).bind(this.element);
     }
