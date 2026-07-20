@@ -86,7 +86,7 @@
             {{#each linkedNpcs}}
               <li class='org-npc-item' data-uuid='{{this.uuid}}'>
                 <img class='org-npc-img' src='{{this.img}}' alt='{{this.name}}' />
-                <span class='org-npc-name'>{{this.name}}</span>
+                <a class='org-npc-name' data-action='openNpcSheet' data-uuid='{{this.uuid}}'>{{this.name}}</a>
                 <button
                   type='button'
                   class='org-npc-remove'

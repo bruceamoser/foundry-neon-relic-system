@@ -26,6 +26,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       replenishConsumable: NRItemSheet.#onReplenishConsumable,
       fixItem: NRItemSheet.#onFixItem,
       removeNpc: NRItemSheet.#onRemoveNpc,
+      openNpcSheet: NRItemSheet.#onOpenNpcSheet,
     },
     form: {
       submitOnChange: true,
@@ -418,8 +419,11 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       new foundry.applications.ux.Tabs({
         navSelector: '.org-tabs',
         contentSelector: '.org-tab-content',
-        initial: 'details',
+        initial: this._orgActiveTab || 'details',
         group: 'org-primary',
+        callback: (_event, _tabs, tab) => {
+          this._orgActiveTab = tab.dataset.tab;
+        },
       }).bind(this.element);
     }
   }
@@ -517,6 +521,16 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       npcUuids.splice(idx, 1);
       await this.document.update({ 'system.npcUuids': npcUuids });
     }
+  }
+
+  /**
+   * Open an NPC actor sheet from a linked organization NPC.
+   */
+  static async #onOpenNpcSheet(_event, target) {
+    const uuid = target.dataset.uuid;
+    if (!uuid) return;
+    const doc = await fromUuid(uuid);
+    if (doc) doc.sheet.render(true);
   }
 
   /* ------------------------------------------ */

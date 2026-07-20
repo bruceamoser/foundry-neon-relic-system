@@ -228,6 +228,13 @@
     font-family: $nr-font-fill;
     font-size: 8pt;
     color: $nr-ink;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+      color: $nr-red-stamp;
+    }
   }
 
   .org-npc-remove {
