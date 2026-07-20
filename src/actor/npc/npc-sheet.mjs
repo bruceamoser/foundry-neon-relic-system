@@ -114,7 +114,7 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     new foundry.applications.ux.Tabs({
       navSelector: '.npc-tabs',
       contentSelector: '.npc-tab-content',
-      initial: this._npcActiveTab || 'information',
+      initial: this._npcActiveTab || 'details',
       group: 'npc-primary',
       callback: (_event, _tabs, tab) => {
         if (tab?.dataset?.tab) this._npcActiveTab = tab.dataset.tab;
