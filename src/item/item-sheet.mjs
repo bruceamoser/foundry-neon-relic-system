@@ -621,7 +621,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     const docType = this.document.type;
     if (docType !== 'organization' && docType !== 'location' && docType !== 'informationCard') return;
 
-    const data = TextEditor.getDragEventData(event);
+    const data = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
     if (!data?.uuid) return;
     const doc = await fromUuid(data.uuid);
     if (!doc) return;

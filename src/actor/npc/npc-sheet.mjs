@@ -132,7 +132,7 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   async _onDrop(event) {
-    const data = TextEditor.getDragEventData(event);
+    const data = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
     if (!data?.uuid) return;
     const doc = await fromUuid(data.uuid);
     if (!doc) return;
@@ -150,7 +150,7 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       if (uuids.includes(data.uuid)) return;
       uuids.push(data.uuid);
       updateData['system.startingKnowledgeUuids'] = uuids;
-      linkBack = { doc, field: 'system.npcUuids' };
+      linkBack = { doc, field: 'system.knownByUuids' };
     } else if (data.type === 'Item' && doc.type === 'location') {
       const uuids = [...(system.locationUuids ?? [])];
       if (uuids.includes(data.uuid)) return;
@@ -206,10 +206,10 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       if (doc) unlinkBack = { doc, field: 'system.npcUuids' };
     } else if (system.startingKnowledgeUuids?.includes(uuid)) {
       updateData = { 'system.startingKnowledgeUuids': system.startingKnowledgeUuids.filter(u => u !== uuid) };
-      if (doc) unlinkBack = { doc, field: 'system.npcUuids' };
+      if (doc) unlinkBack = { doc, field: 'system.knownByUuids' };
     } else if (system.gainedKnowledgeUuids?.includes(uuid)) {
       updateData = { 'system.gainedKnowledgeUuids': system.gainedKnowledgeUuids.filter(u => u !== uuid) };
-      if (doc) unlinkBack = { doc, field: 'system.npcUuids' };
+      if (doc) unlinkBack = { doc, field: 'system.knownByUuids' };
     } else if (system.locationUuids?.includes(uuid)) {
       updateData = { 'system.locationUuids': system.locationUuids.filter(u => u !== uuid) };
       if (doc) unlinkBack = { doc, field: 'system.npcUuids' };

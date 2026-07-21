@@ -661,6 +661,7 @@ export class OrganizationDataModel extends foundry.abstract.TypeDataModel {
       isActive: new BooleanField({ initial: true }),
       isDormant: new BooleanField({ initial: false }),
       npcUuids: new ArrayField(new StringField({ blank: true })),
+      locationUuids: new ArrayField(new StringField({ blank: true })),
       description: new HTMLField({ blank: true }),
     };
   }
