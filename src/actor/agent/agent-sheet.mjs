@@ -879,8 +879,9 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   /**
-   * Open a custom popup listing gear and consumables from compendiums,
-   * filtered to items at or below the agent's Clearance Level.
+   * Open a custom popup listing gear from compendiums, filtered to items at or
+   * below the agent's Clearance Level. Consumables (ammo, batteries, medical,
+   * etc.) are excluded — they are added via the Add Consumable flow.
    */
   static async #onAddGear(_event, _target) {
     const cl = this.document.system.clearanceLevel ?? 1;
@@ -893,6 +894,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       await pack.getIndex();
       const docs = await pack.getDocuments();
       for (const doc of docs) {
+        if (doc.type !== 'gear') continue;
         const itemCL = doc.system?.cl ?? doc.system?.clearanceLevel ?? 99;
         items.push({
           uuid: doc.uuid,
@@ -1162,10 +1164,10 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const rows = items
       .map(
         i => `
-        <li class="gear-popup-item" data-uuid="${i.uuid}"
-            title="${i.tooltip.replace(/&/g, '&amp;').replace(/"/g, '&quot;')}">
+        <li class="gear-popup-item" data-uuid="${i.uuid}">
           <img src="${i.img}" class="gear-popup-img" alt="${i.name}" />
-          <span class="gear-popup-name">${i.name}</span>
+          <span class="gear-popup-name"
+              title="${i.tooltip.replace(/&/g, '&amp;').replace(/"/g, '&quot;')}">${i.name}</span>
           <button type="button" class="gear-popup-add" data-uuid="${i.uuid}">+</button>
         </li>`,
       )
