@@ -1,4 +1,4 @@
-import { ITEM_DEFAULT_ICONS, GENERIC_ICONS } from './item-icons.mjs';
+import { ITEM_DEFAULT_ICONS, isGenericIcon } from './item-icons.mjs';
 
 /**
  * Data migration framework for Neon Relic.
@@ -21,7 +21,7 @@ const MIGRATIONS = [
       // Sidebar (world) items
       for (const item of game.items ?? []) {
         const def = ITEM_DEFAULT_ICONS[item.type];
-        if (def && GENERIC_ICONS.has(item.img)) {
+        if (def && isGenericIcon(item.img)) {
           await item.update({ img: def });
           updated++;
         }
@@ -31,7 +31,7 @@ const MIGRATIONS = [
       for (const actor of game.actors ?? []) {
         for (const item of actor.items) {
           const def = ITEM_DEFAULT_ICONS[item.type];
-          if (def && GENERIC_ICONS.has(item.img)) {
+          if (def && isGenericIcon(item.img)) {
             await item.update({ img: def });
             updated++;
           }
