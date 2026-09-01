@@ -1,3 +1,5 @@
+import { ITEM_DEFAULT_ICONS, GENERIC_ICONS } from '../system/item-icons.mjs';
+
 /**
  * Extended Item document class for Neon Relic.
  * @extends Item
@@ -10,33 +12,16 @@ export class NeonRelicItem extends Item {
   static ARTIFACT_DIE_CHAIN = ['d20', 'd12', 'd10', 'd8', 'd6', 'd4', 'fractured'];
 
   /** Default icon per item type — each type gets a unique system icon. */
-  static DEFAULT_ICONS = {
-    weapon: 'systems/neon-relic/assets/icons/weapon-default.svg',
-    armor: 'systems/neon-relic/assets/icons/armor-default.svg',
-    gear: 'systems/neon-relic/assets/icons/gear-default.svg',
-    talent: 'systems/neon-relic/assets/icons/talent-default.svg',
-    artifact: 'systems/neon-relic/assets/icons/artifact-default.svg',
-    upgrade: 'systems/neon-relic/assets/icons/facility-default.svg',
-    consumable: 'systems/neon-relic/assets/icons/consumable-default.svg',
-    criticalInjury: 'systems/neon-relic/assets/icons/critical-injury-default.svg',
-    anchor: 'systems/neon-relic/assets/icons/anchor-default.svg',
-    darkSecret: 'systems/neon-relic/assets/icons/dark-secret-default.svg',
-    location: 'systems/neon-relic/assets/icons/location-default.svg',
-    informationCard: 'systems/neon-relic/assets/icons/information-card-default.svg',
-    playerCaseBrief: 'systems/neon-relic/assets/icons/player-case-brief-default.svg',
-    daCaseBrief: 'systems/neon-relic/assets/icons/da-case-brief-default.svg',
-    subdivision: 'systems/neon-relic/assets/icons/subdivision-default.svg',
-    organization: 'systems/neon-relic/assets/icons/organization-default.svg',
-    relicSheet: 'systems/neon-relic/assets/icons/relic-sheet-default.svg',
-  };
+  static DEFAULT_ICONS = ITEM_DEFAULT_ICONS;
 
   /** @override */
   async _preCreate(data, options, user) {
-    await super._preCreate(data, options, user);
+    // Apply the per-type default icon BEFORE super so the base class honors it.
     const defaultIcon = NeonRelicItem.DEFAULT_ICONS[data.type] ?? 'icons/svg/mystery-man.svg';
-    if (!data.img || data.img === 'icons/svg/mystery-man.svg') {
+    if (!data.img || GENERIC_ICONS.has(data.img)) {
       data.img = defaultIcon;
     }
+    await super._preCreate(data, options, user);
   }
 
   /* ------------------------------------------ */

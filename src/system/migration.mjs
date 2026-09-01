@@ -1,15 +1,46 @@
+import { ITEM_DEFAULT_ICONS, GENERIC_ICONS } from './item-icons.mjs';
+
 /**
  * Data migration framework for Neon Relic.
  * Handles version upgrades and data schema changes.
  */
 
 /** Current system data version */
-const CURRENT_VERSION = '0.4.0';
+const CURRENT_VERSION = '0.4.1';
 
 /**
  * Migration registry — each entry runs once when upgrading past its version.
  */
 const MIGRATIONS = [
+  {
+    version: '0.4.1',
+    title: 'Apply per-type default icons to items using generic images',
+    migrate: async () => {
+      let updated = 0;
+
+      // Sidebar (world) items
+      for (const item of game.items ?? []) {
+        const def = ITEM_DEFAULT_ICONS[item.type];
+        if (def && GENERIC_ICONS.has(item.img)) {
+          await item.update({ img: def });
+          updated++;
+        }
+      }
+
+      // Actor-embedded items
+      for (const actor of game.actors ?? []) {
+        for (const item of actor.items) {
+          const def = ITEM_DEFAULT_ICONS[item.type];
+          if (def && GENERIC_ICONS.has(item.img)) {
+            await item.update({ img: def });
+            updated++;
+          }
+        }
+      }
+
+      console.log(`neon-relic | Applied per-type default icons to ${updated} items`);
+    },
+  },
   {
     version: '0.4.0',
     title: 'Add Total/Spent XP fields to agent experience',

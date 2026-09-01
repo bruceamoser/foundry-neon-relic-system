@@ -5,6 +5,7 @@ import YAML from 'js-yaml';
 import crypto from 'node:crypto';
 import { ClassicLevel } from 'classic-level';
 import esBuild from './esbuild.config.js';
+import { ITEM_DEFAULT_ICONS } from './src/system/item-icons.mjs';
 
 /* ------------------------------------------ */
 /*  Configuration                             */
@@ -183,7 +184,7 @@ function _transformDocument(doc, itemTypes, actorTypes) {
           _id: id,
           name: doc.name,
           type: doc.type,
-          img: doc.img || '',
+          img: doc.img || ITEM_DEFAULT_ICONS[doc.type] || '',
           system: doc.system || {},
           effects: doc.effects || [],
           flags: doc.flags || {},
