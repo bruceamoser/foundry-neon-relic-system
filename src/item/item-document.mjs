@@ -1,4 +1,4 @@
-import { ITEM_DEFAULT_ICONS, GENERIC_ICONS } from '../system/item-icons.mjs';
+import { ITEM_DEFAULT_ICONS, isGenericIcon } from '../system/item-icons.mjs';
 
 /**
  * Extended Item document class for Neon Relic.
@@ -16,12 +16,17 @@ export class NeonRelicItem extends Item {
 
   /** @override */
   async _preCreate(data, options, user) {
-    // Apply the per-type default icon BEFORE super so the base class honors it.
     const defaultIcon = NeonRelicItem.DEFAULT_ICONS[data.type] ?? 'icons/svg/mystery-man.svg';
-    if (!data.img || GENERIC_ICONS.has(data.img)) {
+    // Apply the per-type default icon.
+    if (isGenericIcon(data.img)) {
       data.img = defaultIcon;
     }
     await super._preCreate(data, options, user);
+    // Foundry may initialize the document from the pre-hook `data`, so mirror
+    // the icon onto the source to guarantee it persists.
+    if (isGenericIcon(this.img)) {
+      this.updateSource({ img: defaultIcon });
+    }
   }
 
   /* ------------------------------------------ */

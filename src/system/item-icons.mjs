@@ -29,3 +29,14 @@ export const ITEM_DEFAULT_ICONS = {
  * Used to detect items that should have a per-type icon applied.
  */
 export const GENERIC_ICONS = new Set(['', 'icons/svg/mystery-man.svg', 'icons/svg/item-bag.svg']);
+
+/**
+ * Determine whether an item image is a generic Foundry default (rather than a
+ * system asset or a deliberately chosen custom image). Any empty image or a
+ * core `icons/...` image is treated as generic.
+ * @param {string|null|undefined} img
+ * @returns {boolean}
+ */
+export function isGenericIcon(img) {
+  return !img || img.startsWith('icons/');
+}
