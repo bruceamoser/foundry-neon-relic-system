@@ -137,6 +137,23 @@
     }
   }
 
+  // ── Budget Bar ──────────────────────────────────────
+  .budget-bar {
+    font-family: $nr-font-main;
+    font-size: 6.5pt;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: $nr-ink-faded;
+
+    .budget-remaining {
+      color: $nr-ink;
+
+      &--xp {
+        color: $nr-green-stamp;
+      }
+    }
+  }
+
   // ── Collapsible Sections ────────────────────────────
   .collapsible-section {
     &.collapsed .collapsible-body {
