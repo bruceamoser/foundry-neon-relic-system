@@ -129,4 +129,5 @@ NEON_RELIC.itemTypes = [
   'upgrade',
   'location',
   'subdivision',
+  'relicSheet',
 ];

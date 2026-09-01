@@ -1,0 +1,290 @@
+{{! Relic Sheet item type template — VC-16, matches relic-sheet.html }}
+<div class='neon-relic relic-sheet-item'>
+
+  {{! Header — Red-Stamped }}
+  <header class='rs-header'>
+    <div class='rs-header-left'>
+      <h1 class='rs-header-title'>{{localize 'NEONRELIC.RelicSheet.Title'}}</h1>
+      <div class='rs-header-subtitle'>{{localize 'NEONRELIC.RelicSheet.Subtitle'}}</div>
+    </div>
+    <div class='rs-header-right'>
+      <div class='rs-classification'>{{localize 'NEONRELIC.RelicSheet.HazardousMaterial'}}</div>
+      <div class='rs-form-ref'>{{localize 'NEONRELIC.RelicSheet.FormId'}}</div>
+      <div class='rs-case-id-row'>
+        <span class='rs-field-label-inline'>{{localize 'NEONRELIC.RelicSheet.CaseId'}}:</span>
+        <input
+          type='text'
+          name='system.caseId'
+          value='{{system.caseId}}'
+          class='rs-case-id-input'
+          {{disabled (not isEditable)}}
+        />
+      </div>
+    </div>
+  </header>
+
+  {{! Relic Identity — two-row grid (4 + 4) }}
+  <div class='rs-id-row' style='grid-template-columns: 2fr 0.5fr 1fr 0.8fr;'>
+    <div class='rs-id-cell'>
+      <span class='rs-id-label'>{{localize 'NEONRELIC.RelicSheet.RelicName'}}</span>
+      <input
+        type='text'
+        name='system.relicName'
+        value='{{system.relicName}}'
+        class='rs-id-value'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='rs-id-cell'>
+      <span class='rs-id-label'>{{localize 'NEONRELIC.RelicSheet.Tier'}}</span>
+      <select name='system.tier' class='rs-id-value' {{disabled (not isEditable)}}>
+        <option value='1' {{selected system.tier 1}}>1</option>
+        <option value='2' {{selected system.tier 2}}>2</option>
+        <option value='3' {{selected system.tier 3}}>3</option>
+        <option value='4' {{selected system.tier 4}}>4</option>
+      </select>
+    </div>
+    <div class='rs-id-cell'>
+      <span class='rs-id-label'>{{localize 'NEONRELIC.RelicSheet.Category'}}</span>
+      <select name='system.category' class='rs-id-value' {{disabled (not isEditable)}}>
+        <option value='object' {{selected system.category 'object'}}>{{localize
+            'NEONRELIC.RelicSheet.CategoryObject'
+          }}</option>
+        <option value='text' {{selected system.category 'text'}}>{{localize
+            'NEONRELIC.RelicSheet.CategoryText'
+          }}</option>
+        <option value='location' {{selected system.category 'location'}}>{{localize
+            'NEONRELIC.RelicSheet.CategoryLocation'
+          }}</option>
+        <option value='entity' {{selected system.category 'entity'}}>{{localize
+            'NEONRELIC.RelicSheet.CategoryEntity'
+          }}</option>
+        <option value='phenomenon' {{selected system.category 'phenomenon'}}>{{localize
+            'NEONRELIC.RelicSheet.CategoryPhenomenon'
+          }}</option>
+      </select>
+    </div>
+    <div class='rs-id-cell'>
+      <span class='rs-id-label'>{{localize 'NEONRELIC.RelicSheet.RiskTag'}}</span>
+      <input
+        type='text'
+        name='system.riskTag'
+        value='{{system.riskTag}}'
+        class='rs-id-value'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+  </div>
+  <div class='rs-id-row' style='grid-template-columns: 0.8fr 0.8fr 0.8fr 1.6fr;'>
+    <div class='rs-id-cell'>
+      <span class='rs-id-label'>{{localize 'NEONRELIC.RelicSheet.CorruptionCost'}}</span>
+      <input
+        type='number'
+        name='system.corruptionCost'
+        value='{{system.corruptionCost}}'
+        min='0'
+        class='rs-id-value'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='rs-id-cell'>
+      <span class='rs-id-label'>{{localize 'NEONRELIC.RelicSheet.ArtifactDie'}}</span>
+      <select name='system.artifactDie' class='rs-id-value' {{disabled (not isEditable)}}>
+        <option value='d20' {{selected system.artifactDie 'd20'}}>d20</option>
+        <option value='d12' {{selected system.artifactDie 'd12'}}>d12</option>
+        <option value='d10' {{selected system.artifactDie 'd10'}}>d10</option>
+        <option value='d8' {{selected system.artifactDie 'd8'}}>d8</option>
+        <option value='d6' {{selected system.artifactDie 'd6'}}>d6</option>
+        <option value='d4' {{selected system.artifactDie 'd4'}}>d4</option>
+      </select>
+    </div>
+    <div class='rs-id-cell'>
+      <span class='rs-id-label'>{{localize 'NEONRELIC.RelicSheet.EmissionType'}}</span>
+      <input
+        type='text'
+        name='system.emissionType'
+        value='{{system.emissionType}}'
+        class='rs-id-value'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='rs-id-cell'>
+      <span class='rs-id-label'>{{localize 'NEONRELIC.RelicSheet.MundaneAppearance'}}</span>
+      <input
+        type='text'
+        name='system.mundaneAppearance'
+        value='{{system.mundaneAppearance}}'
+        class='rs-id-value'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+  </div>
+
+  {{! Intelligence Reads }}
+  <div class='rs-section-title'>{{localize 'NEONRELIC.RelicSheet.IntelligenceReads'}}</div>
+  <div class='rs-image-section'>
+    <div class='rs-image-frame'>
+      {{#if system.relicImage}}
+        <img src='{{system.relicImage}}' alt='{{localize "NEONRELIC.RelicSheet.RelicImage"}}' />
+      {{else}}
+        <span class='rs-image-placeholder'>{{localize 'NEONRELIC.RelicSheet.RelicImagePlaceholder'}}</span>
+      {{/if}}
+    </div>
+    <div class='rs-image-reads'>
+      <span class='rs-field-label'>{{localize 'NEONRELIC.RelicSheet.SurfaceReadLabel'}}</span>
+      {{#if isEditable}}
+        <textarea
+          class='rs-field'
+          name='system.surfaceRead'
+          rows='3'
+          {{disabled (not isEditable)}}
+        >{{system.surfaceRead}}</textarea>
+      {{else}}
+        <div class='rs-field-value'>{{{enrichedSurfaceRead}}}</div>
+      {{/if}}
+      <span class='rs-field-label'>{{localize 'NEONRELIC.RelicSheet.OperationalReadLabel'}}</span>
+      {{#if isEditable}}
+        <textarea
+          class='rs-field'
+          name='system.operationalRead'
+          rows='3'
+          {{disabled (not isEditable)}}
+        >{{system.operationalRead}}</textarea>
+      {{else}}
+        <div class='rs-field-value'>{{{enrichedOperationalRead}}}</div>
+      {{/if}}
+      <span class='rs-field-label'>{{localize 'NEONRELIC.RelicSheet.ColdArchiveReadLabel'}}</span>
+      {{#if isEditable}}
+        <textarea
+          class='rs-field'
+          name='system.coldArchiveRead'
+          rows='3'
+          {{disabled (not isEditable)}}
+        >{{system.coldArchiveRead}}</textarea>
+      {{else}}
+        <div class='rs-field-value'>{{{enrichedColdArchiveRead}}}</div>
+      {{/if}}
+      {{#if isEditable}}
+        <div class='rs-image-path-row'>
+          <span class='rs-field-label'>{{localize 'NEONRELIC.RelicSheet.RelicImagePath'}}</span>
+          <input
+            type='text'
+            name='system.relicImage'
+            value='{{system.relicImage}}'
+            class='rs-field'
+            {{disabled (not isEditable)}}
+          />
+        </div>
+      {{/if}}
+    </div>
+  </div>
+
+  {{! Activation & Effect }}
+  <div class='rs-section-title'>{{localize 'NEONRELIC.RelicSheet.ActivationAndEffect'}}</div>
+  <div class='rs-field-row'>
+    <div class='rs-field-col'>
+      <span class='rs-field-label'>{{localize 'NEONRELIC.RelicSheet.ActivationConditionLabel'}}</span>
+      {{#if isEditable}}
+        <textarea
+          class='rs-field'
+          name='system.activationCondition'
+          rows='4'
+          {{disabled (not isEditable)}}
+        >{{system.activationCondition}}</textarea>
+      {{else}}
+        <div class='rs-field-value'>{{{enrichedActivationCondition}}}</div>
+      {{/if}}
+    </div>
+    <div class='rs-field-col'>
+      <span class='rs-field-label'>{{localize 'NEONRELIC.RelicSheet.MechanicalEffectLabel'}}</span>
+      {{#if isEditable}}
+        <textarea
+          class='rs-field'
+          name='system.mechanicalEffect'
+          rows='4'
+          {{disabled (not isEditable)}}
+        >{{system.mechanicalEffect}}</textarea>
+      {{else}}
+        <div class='rs-field-value'>{{{enrichedMechanicalEffect}}}</div>
+      {{/if}}
+    </div>
+  </div>
+
+  {{! Fracture — red danger box }}
+  <div class='rs-danger-box'>
+    <span class='rs-field-label'>{{localize 'NEONRELIC.RelicSheet.FractureLabel'}}</span>
+    {{#if isEditable}}
+      <textarea
+        class='rs-field'
+        name='system.fractureCondition'
+        rows='3'
+        {{disabled (not isEditable)}}
+      >{{system.fractureCondition}}</textarea>
+    {{else}}
+      <div class='rs-field-value'>{{{enrichedFractureCondition}}}</div>
+    {{/if}}
+  </div>
+
+  {{! Containment Profile }}
+  <div class='rs-section-title red'>{{localize 'NEONRELIC.RelicSheet.ContainmentProfile'}}</div>
+  <span class='rs-field-label'>{{localize 'NEONRELIC.RelicSheet.ContainmentProfileLabel'}}</span>
+  {{#if isEditable}}
+    <textarea
+      class='rs-field'
+      name='system.containmentProfile'
+      rows='5'
+      {{disabled (not isEditable)}}
+    >{{system.containmentProfile}}</textarea>
+  {{else}}
+    <div class='rs-field-value'>{{{enrichedContainmentProfile}}}</div>
+  {{/if}}
+
+  {{! Containment Truth Checklist }}
+  <div class='rs-section-title red'>{{localize 'NEONRELIC.RelicSheet.ContainmentTruthChecklist'}}</div>
+  <div class='rs-truth-grid'>
+    {{#each system.containmentTruths}}
+      <div class='rs-truth-row'>
+        <input
+          type='checkbox'
+          name='system.containmentTruths.{{@index}}.checked'
+          {{checked this.checked}}
+          {{disabled (not @root.isEditable)}}
+        />
+        <input
+          type='text'
+          name='system.containmentTruths.{{@index}}.id'
+          value='{{this.id}}'
+          class='rs-truth-id'
+          {{disabled (not @root.isEditable)}}
+        />
+        <input
+          type='text'
+          name='system.containmentTruths.{{@index}}.description'
+          value='{{this.description}}'
+          class='rs-truth-desc'
+          {{disabled (not @root.isEditable)}}
+        />
+      </div>
+    {{/each}}
+  </div>
+
+  {{! DA Notes }}
+  <div class='rs-section-title green'>{{localize 'NEONRELIC.RelicSheet.DesignatedAgentNotes'}}</div>
+  {{#if isEditable}}
+    <textarea
+      class='rs-field'
+      name='system.daNotes'
+      rows='6'
+      {{disabled (not isEditable)}}
+    >{{system.daNotes}}</textarea>
+  {{else}}
+    <div class='rs-field-value'>{{{enrichedDaNotes}}}</div>
+  {{/if}}
+
+  {{! Footer }}
+  <footer class='rs-footer'>
+    <span>{{localize 'NEONRELIC.RelicSheet.FooterLeft'}}</span>
+    <span>{{localize 'NEONRELIC.RelicSheet.FooterCenter'}}</span>
+    <span>{{localize 'NEONRELIC.RelicSheet.FooterRight'}}</span>
+  </footer>
+</div>

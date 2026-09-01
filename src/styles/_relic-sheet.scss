@@ -1,2 +1,350 @@
 // Neon Relic — Relic Sheet Styles (VC-16)
-// Placeholder — full implementation in issue #367
+// Matches starter-kit/blank-templates/relic-sheet.html
+
+.neon-relic.item-sheet {
+  &:has(.relic-sheet-item) {
+    .item-header {
+      border-top: 3px solid $nr-red-stamp;
+      border-bottom: 2px solid $nr-red-stamp;
+
+      .item-type {
+        color: $nr-red-stamp;
+        letter-spacing: 3px;
+      }
+    }
+  }
+
+  .relic-sheet-item {
+    // ── Header (Red-Stamped) ─────────────────────────
+    .rs-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-top: 3px solid $nr-red-stamp;
+      border-bottom: 2px solid $nr-red-stamp;
+      padding: 6px 0 7px;
+      margin-bottom: 10px;
+    }
+
+    .rs-header-left {
+      flex: 1;
+    }
+
+    .rs-header-title {
+      font-family: $nr-font-main;
+      font-size: 22pt;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      color: $nr-red-stamp;
+      line-height: 1;
+      margin: 0;
+    }
+
+    .rs-header-subtitle {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: $nr-ink-faded;
+      margin-top: 4px;
+    }
+
+    .rs-header-right {
+      text-align: right;
+      font-family: $nr-font-main;
+      font-size: 6.5pt;
+      color: $nr-ink-faded;
+      line-height: 1.6;
+    }
+
+    .rs-classification {
+      display: inline-block;
+      border: 2.5px solid $nr-red-stamp;
+      color: $nr-red-stamp;
+      font-size: 10pt;
+      letter-spacing: 5px;
+      padding: 2px 10px;
+      transform: rotate(-2deg);
+      margin-bottom: 4px;
+    }
+
+    .rs-form-ref {
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .rs-case-id-row {
+      margin-top: 3px;
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      justify-content: flex-end;
+    }
+
+    .rs-case-id-input {
+      font-family: $nr-font-fill;
+      font-size: 7pt;
+      border: none;
+      border-bottom: 1px solid $nr-rule;
+      background: transparent;
+      padding: 1px 3px;
+      width: 130px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .rs-field-label-inline {
+      font-family: $nr-font-main;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    // ── Identity Grid ────────────────────────────────
+    .rs-id-row {
+      display: grid;
+      gap: 0;
+      border: 1.5px solid $nr-ink;
+      margin-bottom: 0;
+
+      & + .rs-id-row {
+        border-top: 1px solid $nr-rule;
+      }
+    }
+
+    .rs-id-cell {
+      padding: 3px 6px 4px;
+      border-right: 1px solid $nr-rule;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    .rs-id-label {
+      display: block;
+      font-family: $nr-font-main;
+      font-size: 5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+      margin-bottom: 2px;
+    }
+
+    .rs-id-value {
+      display: block;
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      min-height: 13px;
+      border: none;
+      border-bottom: 1px dotted $nr-rule;
+      background: transparent;
+      width: 100%;
+      padding: 0 2px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    select.rs-id-value {
+      appearance: auto;
+      border-radius: 0;
+      cursor: pointer;
+    }
+
+    // ── Section Titles ───────────────────────────────
+    .rs-section-title {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: $nr-ink;
+      border-bottom: 1.5px solid $nr-ink;
+      padding-bottom: 2px;
+      margin: 7px 0 4px;
+
+      &.red {
+        color: $nr-red-stamp;
+        border-color: $nr-red-stamp;
+      }
+
+      &.green {
+        color: $nr-green-stamp;
+        border-color: $nr-green-stamp;
+      }
+    }
+
+    // ── Relic Image + Reads ──────────────────────────
+    .rs-image-section {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+
+    .rs-image-frame {
+      width: 144px;
+      min-height: 144px;
+      border: 2px solid $nr-ink;
+      background: $nr-field-bg;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+
+      img {
+        max-width: 100%;
+        max-height: 144px;
+        object-fit: contain;
+      }
+    }
+
+    .rs-image-placeholder {
+      font-family: $nr-font-main;
+      font-size: 6pt;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: $nr-ink-light;
+      text-align: center;
+    }
+
+    .rs-image-reads {
+      flex: 1;
+    }
+
+    .rs-image-path-row {
+      margin-top: 4px;
+    }
+
+    // ── Field Components ─────────────────────────────
+    .rs-field-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .rs-field-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rs-field-label {
+      display: block;
+      font-family: $nr-font-main;
+      font-size: 5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+      margin-bottom: 1px;
+    }
+
+    .rs-field {
+      width: 100%;
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      min-height: 32px;
+      border: 1px solid $nr-rule;
+      border-bottom: 1.5px solid $nr-rule;
+      background: $nr-field-bg;
+      padding: 2px 4px;
+      resize: vertical;
+
+      &:focus {
+        outline: none;
+        border-color: $nr-red-stamp;
+      }
+    }
+
+    .rs-field-value {
+      width: 100%;
+      min-height: 32px;
+      border: 1px solid $nr-rule;
+      border-bottom: 1.5px solid $nr-rule;
+      background: $nr-field-bg;
+      padding: 2px 4px;
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+    }
+
+    // ── Danger Box (Fracture) ────────────────────────
+    .rs-danger-box {
+      border: 1.5px solid $nr-red-stamp;
+      padding: 4px 6px;
+      margin-bottom: 4px;
+
+      .rs-field,
+      .rs-field-value {
+        border-color: $nr-red-stamp;
+      }
+    }
+
+    // ── Containment Truths Checklist ─────────────────
+    .rs-truth-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px 8px;
+      margin-bottom: 4px;
+    }
+
+    .rs-truth-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      input[type='checkbox'] {
+        width: 12px;
+        height: 12px;
+        accent-color: $nr-red-stamp;
+        flex-shrink: 0;
+        margin: 0;
+      }
+    }
+
+    .rs-truth-id {
+      width: 28px;
+      font-family: $nr-font-fill;
+      font-size: 7pt;
+      border: none;
+      border-bottom: 1px dotted $nr-rule;
+      background: transparent;
+      padding: 0 2px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .rs-truth-desc {
+      flex: 1;
+      font-family: $nr-font-fill;
+      font-size: 7pt;
+      border: none;
+      border-bottom: 1px dotted $nr-rule;
+      background: transparent;
+      min-width: 0;
+      padding: 0 2px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    // ── Footer ───────────────────────────────────────
+    .rs-footer {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      font-family: $nr-font-main;
+      font-size: 5pt;
+      letter-spacing: 1.5px;
+      color: $nr-ink-light;
+      border-top: 1px solid $nr-rule-light;
+      padding-top: 4px;
+      text-transform: uppercase;
+    }
+  }
+}

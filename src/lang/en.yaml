@@ -313,6 +313,8 @@ NEONRELIC:
 
   # Relic Sheet (VC-16)
   RelicSheet:
+    Title: Relic Sheet
+    Subtitle: Neon Relic — The Verdant Covenant
     HazardousMaterial: HAZARDOUS MATERIAL
     FormId: 'Form VC-16 • Rev. 1987'
     CaseId: Case ID
