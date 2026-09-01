@@ -2,7 +2,7 @@
   <div class='section-title green'>{{localize 'NEONRELIC.Tab.Talents'}}</div>
   <div class='three-col talent-grid'>
     {{#each talents}}
-      <div class='talent-block' data-item-id='{{this.id}}'>
+      <div class='talent-block' data-item-id='{{this.id}}' title='{{this.tooltip}}'>
         <div class='talent-header'>
           <div class='talent-type'>{{this.system.talentType}}</div>
           {{#if @root.isEditable}}
