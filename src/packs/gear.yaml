@@ -347,7 +347,7 @@
 - _id: cons001
   name: Rations (1 day)
   type: consumable
-  img: systems/neon-relic/assets/icons/gear-default.svg
+  img: systems/neon-relic/assets/icons/consumable-default.svg
   system:
     description: One day's food and water supply.
     consumableType: supply
@@ -358,7 +358,7 @@
 - _id: cons002
   name: Bandages
   type: consumable
-  img: systems/neon-relic/assets/icons/gear-default.svg
+  img: systems/neon-relic/assets/icons/consumable-default.svg
   system:
     description: Sterile bandages. Heal 1 STR damage without a Heal roll.
     consumableType: medical
@@ -369,7 +369,7 @@
 - _id: cons003
   name: Painkillers
   type: consumable
-  img: systems/neon-relic/assets/icons/gear-default.svg
+  img: systems/neon-relic/assets/icons/consumable-default.svg
   system:
     description: Over-the-counter analgesics. Ignore Broken condition for 1 scene.
     consumableType: medical
@@ -380,7 +380,7 @@
 - _id: cons004
   name: Flare
   type: consumable
-  img: systems/neon-relic/assets/icons/gear-default.svg
+  img: systems/neon-relic/assets/icons/consumable-default.svg
   system:
     description: Emergency signal flare. Illuminates area, removes Dark for 1 round.
     consumableType: supply
@@ -391,7 +391,7 @@
 - _id: cons005
   name: Chalk
   type: consumable
-  img: systems/neon-relic/assets/icons/gear-default.svg
+  img: systems/neon-relic/assets/icons/consumable-default.svg
   system:
     description: Marking chalk. Leave signs, mark paths, draw containment circles.
     consumableType: supply
@@ -403,7 +403,7 @@
 - _id: ammo001
   name: 9mm Ammo
   type: consumable
-  img: systems/neon-relic/assets/icons/gear-default.svg
+  img: systems/neon-relic/assets/icons/consumable-default.svg
   system:
     description: Standard 9mm ammunition box. Compatible with 9mm pistols and SMGs.
     consumableType: ammo
@@ -414,7 +414,7 @@
 - _id: ammo002
   name: 5.56mm Ammo
   type: consumable
-  img: systems/neon-relic/assets/icons/gear-default.svg
+  img: systems/neon-relic/assets/icons/consumable-default.svg
   system:
     description: 5.56mm NATO rifle ammunition. Compatible with assault rifles.
     consumableType: ammo
@@ -425,7 +425,7 @@
 - _id: ammo003
   name: .45 ACP Ammo
   type: consumable
-  img: systems/neon-relic/assets/icons/gear-default.svg
+  img: systems/neon-relic/assets/icons/consumable-default.svg
   system:
     description: .45 caliber ammunition. Heavy pistol rounds.
     consumableType: ammo
@@ -436,7 +436,7 @@
 - _id: ammo004
   name: Shotgun Shells
   type: consumable
-  img: systems/neon-relic/assets/icons/gear-default.svg
+  img: systems/neon-relic/assets/icons/consumable-default.svg
   system:
     description: 12-gauge shotgun shells. Buckshot or slug.
     consumableType: ammo
@@ -448,7 +448,7 @@
 - _id: batt001
   name: Batteries (D-Cell)
   type: consumable
-  img: systems/neon-relic/assets/icons/gear-default.svg
+  img: systems/neon-relic/assets/icons/consumable-default.svg
   system:
     description: Standard D-cell batteries. Powers flashlights, radios, and portable electronics.
     consumableType: battery
@@ -459,10 +459,399 @@
 - _id: batt002
   name: Batteries (9V)
   type: consumable
-  img: systems/neon-relic/assets/icons/gear-default.svg
+  img: systems/neon-relic/assets/icons/consumable-default.svg
   system:
     description: 9-volt batteries. Powers small electronics, detectors, and surveillance gear.
     consumableType: battery
     currentDie: d6
     startingDie: d6
+    cl: 1
+
+# ── Tactical Gear ─────────────────────────────────
+- _id: gear020
+  name: Tactical Flashlight
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Rugged, high-output flashlight with mountable rail. Cuts through darkness.
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 1
+    skillBonus: investigate
+
+- _id: gear021
+  name: Night Vision Goggles
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Passive light-amplification goggles. See in darkness.
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 2
+    skillBonus: investigate
+
+- _id: gear022
+  name: Tactical Vest (Load-Bearing)
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: MOLLE load-bearing vest for carrying ammunition and equipment.
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 1
+
+- _id: gear023
+  name: Drop-Leg Holster
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Fast-draw thigh holster for a sidearm.
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 1
+
+- _id: gear024
+  name: Shoulder Holster
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Concealed underarm holster. Keeps a pistol hidden.
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 1
+
+- _id: gear025
+  name: Gas Mask
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Full-face respirator with filter canisters. Protects against airborne threats.
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 1
+    skillBonus: endure
+
+- _id: gear026
+  name: Encrypted Radio
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Military-grade VHF radio with encryption. Secure field communication.
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 2
+    skillBonus: command
+
+- _id: gear027
+  name: Tactical Gloves
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Protective shooting gloves with reinforced palms.
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 1
+    skillBonus: deftHands
+
+- _id: gear028
+  name: Ballistic Goggles
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Impact-resistant eye protection. Blocks debris and flash.
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 1
+    skillBonus: tech
+
+- _id: gear029
+  name: Ear Protection
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Electronic hearing protection. Preserves hearing in gunfire.
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 1
+    skillBonus: endure
+
+- _id: gear030
+  name: Rangefinder
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Laser rangefinder for precise shot placement.
+    gearBonus:
+      value: 2
+      max: 2
+    encumbrance: 1
+    skillBonus: firearms
+
+- _id: gear031
+  name: Laser Aiming Module
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Aiming laser mounted under a weapon barrel.
+    gearBonus:
+      value: 2
+      max: 2
+    encumbrance: 1
+    skillBonus: firearms
+
+- _id: gear032
+  name: Weapon Suppressor
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Sound suppressor for a firearm. Mutes the report.
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 1
+    skillBonus: firearms
+
+- _id: gear033
+  name: Ammunition Pouch
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Belt-mounted pouch for spare magazines and ammo.
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 1
+
+- _id: gear034
+  name: Weapon Cleaning Kit
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Solvent, brushes, and patches to maintain firearms.
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 1
+    skillBonus: tech
+
+- _id: gear035
+  name: Thermal Imager
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Handheld thermal imaging. Reveals heat signatures.
+    gearBonus:
+      value: 2
+      max: 2
+    encumbrance: 2
+    skillBonus: investigate
+
+- _id: gear036
+  name: Handcuffs
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Steel restraining cuffs. Secure a suspect.
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 1
+
+- _id: gear037
+  name: Tactical Sling
+  type: gear
+  img: systems/neon-relic/assets/icons/gear-default.svg
+  system:
+    description: Padded weapon sling for hands-free carrying.
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 1
+
+# ── Additional Ammunition ──────────────────────────
+- _id: ammo005
+  name: .22 LR Ammo
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: Rimfire .22 Long Rifle ammunition. Quiet and light.
+    consumableType: ammo
+    currentDie: d10
+    startingDie: d10
+    cl: 1
+
+- _id: ammo006
+  name: .357 Magnum Ammo
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: High-pressure .357 Magnum revolver rounds.
+    consumableType: ammo
+    currentDie: d6
+    startingDie: d6
+    cl: 1
+
+- _id: ammo007
+  name: .44 Magnum Ammo
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: Powerful .44 Magnum rounds. Heavy hitting.
+    consumableType: ammo
+    currentDie: d6
+    startingDie: d6
+    cl: 1
+
+- _id: ammo008
+  name: 7.62mm NATO Ammo
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: Full-power 7.62x51mm battle rifle ammunition.
+    consumableType: ammo
+    currentDie: d8
+    startingDie: d8
+    cl: 1
+
+- _id: ammo009
+  name: 7.62x39mm Ammo
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: Intermediate 7.62x39mm ammunition for AK-pattern rifles.
+    consumableType: ammo
+    currentDie: d8
+    startingDie: d8
+    cl: 1
+
+- _id: ammo010
+  name: 10mm Auto Ammo
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: 10mm Auto pistol ammunition. Heavy sidearm rounds.
+    consumableType: ammo
+    currentDie: d6
+    startingDie: d6
+    cl: 1
+
+- _id: ammo011
+  name: .308 Winchester Ammo
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: Precision .308 Winchester rounds for sniper rifles.
+    consumableType: ammo
+    currentDie: d6
+    startingDie: d6
+    cl: 1
+
+- _id: ammo012
+  name: .50 BMG Ammo
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: Heavy .50 BMG ammunition for anti-materiel rifles.
+    consumableType: ammo
+    currentDie: d4
+    startingDie: d4
+    cl: 2
+
+- _id: ammo013
+  name: 12-Gauge Slug
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: Single solid slug for 12-gauge shotguns. Hard-hitting.
+    consumableType: ammo
+    currentDie: d6
+    startingDie: d6
+    cl: 1
+
+- _id: ammo014
+  name: 40mm Grenade Rounds
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: 40mm grenade ammunition for launchers. Area effect.
+    consumableType: ammo
+    currentDie: d4
+    startingDie: d4
+    cl: 2
+
+- _id: ammo015
+  name: Flare Rounds
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: Illumination / signal flare cartridges.
+    consumableType: ammo
+    currentDie: d8
+    startingDie: d8
+    cl: 1
+
+# ── Additional Batteries ───────────────────────────
+- _id: batt003
+  name: Batteries (AA)
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: Standard AA batteries. Powers small devices.
+    consumableType: battery
+    currentDie: d10
+    startingDie: d10
+    cl: 1
+
+- _id: batt004
+  name: Batteries (C-Cell)
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: C-cell batteries. Powers flashlights and recorders.
+    consumableType: battery
+    currentDie: d8
+    startingDie: d8
+    cl: 1
+
+- _id: batt005
+  name: Batteries (6V Lantern)
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: 6-volt lantern batteries. Powers portable lamps.
+    consumableType: battery
+    currentDie: d6
+    startingDie: d6
+    cl: 1
+
+- _id: batt006
+  name: Camcorder Battery
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: Rechargeable battery pack for portable camcorders.
+    consumableType: battery
+    currentDie: d6
+    startingDie: d6
+    cl: 1
+
+- _id: batt007
+  name: Lithium Camera Battery
+  type: consumable
+  img: systems/neon-relic/assets/icons/consumable-default.svg
+  system:
+    description: High-density lithium cells for compact cameras.
+    consumableType: battery
+    currentDie: d8
+    startingDie: d8
     cl: 1

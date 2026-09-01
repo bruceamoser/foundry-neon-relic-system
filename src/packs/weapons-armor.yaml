@@ -171,6 +171,441 @@
       max: 0
     encumbrance: 1
 
+# ── Tactical Handguns ────────────────────────────
+- _id: wpn011
+  name: Revolver (.357 Magnum)
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Powerful six-shot magnum revolver. Hard-hitting sidearm.
+    damage: 3
+    range: short
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 2
+      max: 2
+    encumbrance: 1
+    ammoDie:
+      current: d6
+      starting: d6
+    traits:
+      reliable: true
+
+- _id: wpn012
+  name: Pistol (10mm Auto)
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: High-capacity semi-automatic pistol chambered in 10mm Auto.
+    damage: 3
+    range: short
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 2
+      max: 2
+    encumbrance: 1
+    ammoDie:
+      current: d6
+      starting: d6
+    traits:
+      highCapacity: true
+
+- _id: wpn013
+  name: Pistol (.22 LR)
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Low-recoil .22 target pistol. Quiet, easy to control.
+    damage: 1
+    range: short
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 1
+    ammoDie:
+      current: d10
+      starting: d10
+    traits:
+      reliable: true
+
+- _id: wpn014
+  name: Derringer
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Tiny two-shot pocket pistol. Easy to conceal.
+    damage: 2
+    range: engaged
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 1
+    ammoDie:
+      current: d4
+      starting: d4
+    traits:
+      reliable: true
+
+# ── Tactical Submachine Guns ──────────────────────
+- _id: wpn015
+  name: SMG (MP5)
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Precision submachine gun. Favored by tactical teams.
+    damage: 2
+    range: short
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 3
+      max: 3
+    encumbrance: 2
+    ammoDie:
+      current: d8
+      starting: d8
+    traits:
+      highCapacity: true
+      fullAuto: true
+
+- _id: wpn016
+  name: SMG (Uzi)
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Compact Israeli submachine gun. Dependable and compact.
+    damage: 2
+    range: short
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 2
+      max: 2
+    encumbrance: 2
+    ammoDie:
+      current: d8
+      starting: d8
+    traits:
+      fullAuto: true
+      highCapacity: true
+
+- _id: wpn017
+  name: SMG (MAC-10)
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Crude, highly concealable automatic. Roaring and uncontrollable.
+    damage: 2
+    range: short
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 2
+      max: 2
+    encumbrance: 2
+    ammoDie:
+      current: d6
+      starting: d6
+    traits:
+      fullAuto: true
+      highCapacity: true
+
+# ── Tactical Shotguns ─────────────────────────────
+- _id: wpn018
+  name: Combat Shotgun
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Pump-action combat shotgun with extended magazine.
+    damage: 3
+    range: short
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 3
+      max: 3
+    encumbrance: 3
+    ammoDie:
+      current: d6
+      starting: d6
+    traits:
+      highCapacity: true
+
+- _id: wpn019
+  name: Sawed-Off Shotgun
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Short-barreled shotgun. Devastating at point-blank, concealable.
+    damage: 4
+    range: engaged
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 3
+      max: 3
+    encumbrance: 2
+    ammoDie:
+      current: d4
+      starting: d4
+    traits:
+      reliable: true
+
+# ── Tactical Rifles ───────────────────────────────
+- _id: wpn020
+  name: Assault Rifle (M16)
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Standard-issue assault rifle. Select-fire and reliable.
+    damage: 3
+    range: medium
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 3
+      max: 3
+    encumbrance: 3
+    ammoDie:
+      current: d8
+      starting: d8
+    traits:
+      highCapacity: true
+      fullAuto: true
+
+- _id: wpn021
+  name: Assault Rifle (AK-47)
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Rugged, ubiquitous assault rifle. Performs in any conditions.
+    damage: 3
+    range: medium
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 3
+      max: 3
+    encumbrance: 3
+    ammoDie:
+      current: d8
+      starting: d8
+    traits:
+      fullAuto: true
+      reliable: true
+
+- _id: wpn022
+  name: Battle Rifle (FAL)
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Full-power battle rifle. Hard-hitting at range.
+    damage: 3
+    range: medium
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 3
+      max: 3
+    encumbrance: 3
+    ammoDie:
+      current: d8
+      starting: d8
+    traits:
+      fullAuto: true
+
+- _id: wpn023
+  name: Carbine (M1)
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Light, accurate carbine. Compact and easy to handle.
+    damage: 3
+    range: medium
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 2
+      max: 2
+    encumbrance: 2
+    ammoDie:
+      current: d8
+      starting: d8
+    traits:
+      reliable: true
+
+- _id: wpn024
+  name: Sniper Rifle (.308)
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Bolt-action precision rifle. One shot, one kill.
+    damage: 4
+    range: long
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 3
+      max: 3
+    encumbrance: 3
+    ammoDie:
+      current: d6
+      starting: d6
+    traits:
+      reliable: true
+
+- _id: wpn025
+  name: Sniper Rifle (.50)
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Heavy anti-materiel rifle. Cracks vehicles and fortifications.
+    damage: 5
+    range: long
+    skill: firearms
+    targetAttribute: agi
+    gearBonus:
+      value: 3
+      max: 3
+    encumbrance: 4
+    ammoDie:
+      current: d4
+      starting: d4
+    traits:
+      reliable: true
+
+# ── Tactical Melee ────────────────────────────────
+- _id: wpn026
+  name: Combat Knife
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Purpose-built fighting knife. Balanced and concealable.
+    damage: 2
+    range: engaged
+    skill: brawl
+    targetAttribute: str
+    gearBonus:
+      value: 2
+      max: 2
+    encumbrance: 1
+
+- _id: wpn027
+  name: Machete
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Long, heavy blade. Slashes through brush and flesh alike.
+    damage: 3
+    range: engaged
+    skill: brawl
+    targetAttribute: str
+    gearBonus:
+      value: 2
+      max: 2
+    encumbrance: 2
+
+- _id: wpn028
+  name: Tactical Baton
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Collapsible steel baton. Non-lethal crowd control.
+    damage: 2
+    range: engaged
+    skill: brawl
+    targetAttribute: str
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 1
+    traits:
+      stunned: true
+
+- _id: wpn029
+  name: Brass Knuckles
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Weighted metal knuckles. Hidden in a fistful of damage.
+    damage: 2
+    range: engaged
+    skill: brawl
+    targetAttribute: str
+    gearBonus:
+      value: 1
+      max: 1
+    encumbrance: 1
+
+# ── Tactical Explosives ───────────────────────────
+- _id: wpn030
+  name: Fragmentation Grenade
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Hand-thrown fragmentation grenade. Area effect.
+    damage: 4
+    range: short
+    skill: brawl
+    targetAttribute: str
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 1
+
+- _id: wpn031
+  name: Flashbang Grenade
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Non-lethal stun grenade. Blinds and disorients.
+    damage: 0
+    range: short
+    skill: brawl
+    targetAttribute: str
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 1
+    traits:
+      stunned: true
+
+- _id: wpn032
+  name: Smoke Grenade
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Thrown smoke canister. Provides concealment.
+    damage: 0
+    range: short
+    skill: brawl
+    targetAttribute: str
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 1
+
+- _id: wpn033
+  name: Demolition Charge (C4)
+  type: weapon
+  img: systems/neon-relic/assets/icons/weapon-default.svg
+  system:
+    description: Plastic explosive with detonator. Placed and triggered.
+    damage: 5
+    range: engaged
+    skill: brawl
+    targetAttribute: str
+    gearBonus:
+      value: 0
+      max: 0
+    encumbrance: 2
+
 # ── Armor ────────────────────────────────────
 - _id: arm001
   name: Leather Jacket
@@ -230,4 +665,101 @@
       value: 1
       max: 1
     encumbrance: 1
+    agilityPenalty: 0
+
+# ── Tactical Armor ────────────────────────────────
+- _id: arm006
+  name: Ballistic Helmet
+  type: armor
+  img: systems/neon-relic/assets/icons/armor-default.svg
+  system:
+    description: Frag-resistant combat helmet with chin strap.
+    ar:
+      value: 2
+      max: 2
+    encumbrance: 1
+    agilityPenalty: 0
+
+- _id: arm007
+  name: Tactical Armor Vest
+  type: armor
+  img: systems/neon-relic/assets/icons/armor-default.svg
+  system:
+    description: Heavy plate carrier with hard armor plates and MOLLE webbing.
+    ar:
+      value: 5
+      max: 5
+    encumbrance: 3
+    agilityPenalty: 1
+
+- _id: arm008
+  name: Concealable Body Armor
+  type: armor
+  img: systems/neon-relic/assets/icons/armor-default.svg
+  system:
+    description: Lightweight soft armor worn under civilian clothing.
+    ar:
+      value: 3
+      max: 3
+    encumbrance: 1
+    agilityPenalty: 1
+
+- _id: arm009
+  name: Bomb Disposal Suit
+  type: armor
+  img: systems/neon-relic/assets/icons/armor-default.svg
+  system:
+    description: Heavy EOD suit. Protects against blast and fragmentation.
+    ar:
+      value: 6
+      max: 6
+    encumbrance: 4
+    agilityPenalty: 2
+
+- _id: arm010
+  name: Riot Armor
+  type: armor
+  img: systems/neon-relic/assets/icons/armor-default.svg
+  system:
+    description: Hard-shell riot control armor with shin and shoulder guards.
+    ar:
+      value: 4
+      max: 4
+    encumbrance: 3
+    agilityPenalty: 1
+
+- _id: arm011
+  name: Ballistic Shield
+  type: armor
+  img: systems/neon-relic/assets/icons/armor-default.svg
+  system:
+    description: Full-body ballistic shield. Carry in front for cover.
+    ar:
+      value: 4
+      max: 4
+    encumbrance: 3
+    agilityPenalty: 1
+
+- _id: arm012
+  name: Aramid Long Coat
+  type: armor
+  img: systems/neon-relic/assets/icons/armor-default.svg
+  system:
+    description: Discreet ballistic-lined trench coat. Professional yet protected.
+    ar:
+      value: 2
+      max: 2
+    encumbrance: 1
+    agilityPenalty: 0
+
+- _id: arm013
+  name: Biker Leathers
+  type: armor
+  img: systems/neon-relic/assets/icons/armor-default.svg
+  system:
+    description: Heavy motorcycle leathers with reinforced padding.
+    ar:
+      value: 2
+      max: 2
+    encumbrance: 2
     agilityPenalty: 0
