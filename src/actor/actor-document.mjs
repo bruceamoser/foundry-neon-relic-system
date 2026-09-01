@@ -165,7 +165,8 @@ export class NeonRelicActor extends Actor {
   }
 
   /**
-   * Short rest — recover +1 per attribute per shift.
+   * Short rest — recover +1 per damaged attribute per shift,
+   * and heal 1 Corruption (respecting the session cap).
    * @returns {Promise<NeonRelicActor>}
    */
   async shortRest() {
@@ -179,6 +180,8 @@ export class NeonRelicActor extends Actor {
       }
     }
     if (Object.keys(updates).length > 0) await this.update(updates);
+    // Short rest also heals 1 Corruption (capped at 5 per session).
+    await this.healCorruption(1);
     return this;
   }
 
