@@ -105,6 +105,31 @@ export class NeonRelicActor extends Actor {
   }
 
   /**
+   * Restore attribute damage, respecting the attribute maximum.
+   * Also recovers an agent out of the Broken state if the healed attribute was
+   * the one that caused the break.
+   * @param {string} attr - Attribute key (str, agi, wit, emp).
+   * @param {number} [amount=1] - Amount to restore.
+   * @returns {Promise<NeonRelicActor>}
+   */
+  async healAttribute(attr, amount = 1) {
+    if (this.type !== 'agent') return this;
+    const current = this.system.attributes[attr]?.value ?? 0;
+    const max = this.system.attributes[attr]?.max ?? current;
+    const healed = Math.max(0, Math.min(amount, max - current));
+    if (healed <= 0) return this;
+
+    const updates = { [`system.attributes.${attr}.value`]: current + healed };
+    // If the agent was Broken on this attribute and it's now restored, recover.
+    if (this.system.conditions?.isBroken && this.system.conditions?.brokenAttribute === attr) {
+      updates['system.conditions.isBroken'] = false;
+      updates['system.conditions.brokenAttribute'] = '';
+    }
+    await this.update(updates);
+    return this;
+  }
+
+  /**
    * Check if the actor is in a dying state (Broken + lethal critical injury).
    * @returns {boolean}
    */
