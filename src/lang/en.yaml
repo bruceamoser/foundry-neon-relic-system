@@ -227,6 +227,19 @@ NEONRELIC:
     Stunned: Stunned
     AmmoDie: Ammo Die
 
+  # Heal
+  Heal:
+    Button: Heal
+    ButtonHint: Restore attribute damage or corruption.
+    Title: Heal
+    Choose: Choose what to heal
+    CorruptionOption: Corruption
+    AttributeOption: Attribute Damage
+    Attribute: Attribute
+    AttributeTitle: Heal Attribute Damage
+    Amount: Amount
+    AttributeHealed: 'Restored {amount} {attribute} damage.'
+
   # Armor
   Armor:
     AR: Armor Rating

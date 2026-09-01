@@ -101,6 +101,14 @@
           background: lighten($nr-red-stamp, 10%);
         }
       }
+
+      &--heal {
+        background: $nr-green-stamp;
+
+        &:hover {
+          background: lighten($nr-green-stamp, 10%);
+        }
+      }
     }
 
     &__right {

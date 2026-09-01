@@ -34,6 +34,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       launchWizard: AgentSheet.#onLaunchWizard,
       resetCreation: AgentSheet.#onResetCreation,
       healCorruption: AgentSheet.#onHealCorruption,
+      heal: AgentSheet.#onHeal,
       shortRest: AgentSheet.#onShortRest,
       takeDamage: AgentSheet.#onTakeDamage,
       removeItem: AgentSheet.#onRemoveItem,
@@ -640,10 +641,39 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   /**
+   * Heal via a unified dialog — choose to heal Corruption or Attribute damage.
+   */
+  static async #onHeal() {
+    const actor = this.document;
+    const heals = [
+      { value: 'corruption', label: game.i18n.localize('NEONRELIC.Heal.CorruptionOption') },
+      { value: 'attribute', label: game.i18n.localize('NEONRELIC.Heal.AttributeOption') },
+    ];
+    const optionsHtml = heals.map(h => `<option value="${h.value}">${h.label}</option>`).join('');
+    const content = `<div class="form-group"><label>${game.i18n.localize('NEONRELIC.Heal.Choose')}</label><select name="healType">${optionsHtml}</select></div>`;
+    const healType = await foundry.applications.api.DialogV2.prompt({
+      window: { title: game.i18n.localize('NEONRELIC.Heal.Title') },
+      content,
+      ok: {
+        callback: (event, button) => button.form.elements.healType.value,
+      },
+    });
+    if (healType === 'corruption') return AgentSheet.#promptHealCorruption(actor);
+    if (healType === 'attribute') return AgentSheet.#promptHealAttribute(actor);
+  }
+
+  /**
    * Heal corruption via a dialog prompt.
    */
   static async #onHealCorruption() {
-    const actor = this.document;
+    return AgentSheet.#promptHealCorruption(this.document);
+  }
+
+  /**
+   * Prompt to heal corruption, respecting the session cap.
+   * @param {Actor} actor
+   */
+  static async #promptHealCorruption(actor) {
     const sys = actor.system.corruption;
     const maxSession = 5;
     const available = Math.max(0, maxSession - sys.sessionHealing);
@@ -666,6 +696,40 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     if (amount > 0) {
       await actor.healCorruption(amount);
       ui.notifications.info(game.i18n.format('NEONRELIC.Corruption.Healed', { amount }));
+    }
+  }
+
+  /**
+   * Prompt to heal a specific attribute's damage.
+   * @param {Actor} actor
+   */
+  static async #promptHealAttribute(actor) {
+    const attrs = { str: 'STR', agi: 'AGI', wit: 'WIT', emp: 'EMP' };
+    const options = Object.entries(attrs)
+      .map(
+        ([k, v]) => `<option value="${k}">${v} — ${game.i18n.localize(CONFIG.NEON_RELIC.attributes[k] ?? k)}</option>`,
+      )
+      .join('');
+    const content = `<div class="form-group"><label>${game.i18n.localize('NEONRELIC.Heal.Attribute')}</label><select name="attribute">${options}</select></div>
+      <div class="form-group"><label>${game.i18n.localize('NEONRELIC.Heal.Amount')}</label><input type="number" name="amount" value="1" min="1" max="10" autofocus /></div>`;
+    const result = await foundry.applications.api.DialogV2.prompt({
+      window: { title: game.i18n.localize('NEONRELIC.Heal.AttributeTitle') },
+      content,
+      ok: {
+        callback: (event, button) => ({
+          attribute: button.form.elements.attribute.value,
+          amount: Number(button.form.elements.amount.value) || 0,
+        }),
+      },
+    });
+    if (result?.amount > 0) {
+      await actor.healAttribute(result.attribute, result.amount);
+      ui.notifications.info(
+        game.i18n.format('NEONRELIC.Heal.AttributeHealed', {
+          amount: result.amount,
+          attribute: game.i18n.localize(CONFIG.NEON_RELIC.attributes[result.attribute] ?? result.attribute),
+        }),
+      );
     }
   }
 
