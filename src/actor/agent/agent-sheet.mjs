@@ -1144,17 +1144,26 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
     await pack.getIndex();
     const docs = await pack.getDocuments();
-    const items = docs.map(doc => ({
-      uuid: doc.uuid,
-      name: doc.name,
-      img: doc.img,
-    }));
+    const items = docs.map(doc => {
+      const text = doc.system?.description || doc.system?.effect || '';
+      const tooltip = text
+        .replace(/<[^>]*>/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      return {
+        uuid: doc.uuid,
+        name: doc.name,
+        img: doc.img,
+        tooltip,
+      };
+    });
     items.sort((a, b) => a.name.localeCompare(b.name));
 
     const rows = items
       .map(
         i => `
-        <li class="gear-popup-item" data-uuid="${i.uuid}">
+        <li class="gear-popup-item" data-uuid="${i.uuid}"
+            title="${i.tooltip.replace(/&/g, '&amp;').replace(/"/g, '&quot;')}">
           <img src="${i.img}" class="gear-popup-img" alt="${i.name}" />
           <span class="gear-popup-name">${i.name}</span>
           <button type="button" class="gear-popup-add" data-uuid="${i.uuid}">+</button>
