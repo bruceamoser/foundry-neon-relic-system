@@ -160,7 +160,17 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     context.consumables = actor.items.filter(i => i.type === 'consumable');
     context.artifacts = actor.items.filter(i => i.type === 'artifact');
     context.divisionItems = actor.items.filter(i => i.type === 'divisionItem');
-    context.talents = actor.items.filter(i => i.type === 'talent');
+    // Talents with a pre-computed plain-text tooltip for hover.
+    context.talents = actor.items
+      .filter(i => i.type === 'talent')
+      .map(i => {
+        const text = i.system.description || i.system.effect || '';
+        const tooltip = text
+          .replace(/<[^>]*>/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+        return { id: i.id, name: i.name, img: i.img, system: i.system, tooltip };
+      });
 
     // Talent XP gating
     const talentCount = context.talents.length;
