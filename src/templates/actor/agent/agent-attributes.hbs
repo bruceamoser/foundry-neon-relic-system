@@ -17,7 +17,10 @@
       {{system.budget.skillSpent}}
       /
       {{system.budget.skillTotal}}
-      {{#if (ne system.budget.skillRemaining 0)}}
+      {{#if (gt system.budget.skillXpFunded 0)}}
+        <span class='budget-remaining budget-remaining--xp'>+{{system.budget.skillXpFunded}}
+          {{localize 'NEONRELIC.Budget.XpFunded'}}</span>
+      {{else if (ne system.budget.skillRemaining 0)}}
         <span class='budget-remaining'>({{system.budget.skillRemaining}})</span>
       {{/if}}
     </span>

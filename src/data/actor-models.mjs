@@ -185,6 +185,8 @@ export class AgentDataModel extends foundry.abstract.TypeDataModel {
       skillTotal: group.skill,
       skillSpent,
       skillRemaining: group.skill - skillSpent,
+      // Skill points purchased with XP beyond the creation budget.
+      skillXpFunded: Math.max(0, skillSpent - group.skill),
     };
 
     // Recalculate spent XP from current skills and talents.
