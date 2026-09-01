@@ -89,6 +89,7 @@ NEON_RELIC.damageTypes = {
   hobbling: { label: 'NEONRELIC.DamageType.Hobbling', attribute: 'agi' },
   horror: { label: 'NEONRELIC.DamageType.Horror', attribute: 'wit' },
   trauma: { label: 'NEONRELIC.DamageType.Trauma', attribute: 'emp' },
+  corruption: { label: 'NEONRELIC.DamageType.Corruption', attribute: 'corruption' },
 };
 
 /**
