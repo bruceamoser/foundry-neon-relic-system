@@ -521,8 +521,8 @@ NEONRELIC:
     QuickStats: Quick Stats
     PsychProfile: Psychological Profile
     ShortRest: Short Rest
-    ShortRestHint: Recover 1 point per damaged attribute.
-    ShortRestApplied: Short rest applied. +1 recovered per damaged attribute.
+    ShortRestHint: Recover 1 point per damaged attribute and 1 corruption.
+    ShortRestApplied: Short rest applied. +1 recovered per damaged attribute and 1 corruption.
     AddWeapon: Add Weapon
     AddArmor: Add Armor
     AddTalent: Add Talent
@@ -1439,7 +1439,7 @@ NEONRELIC:
     OpenSheetHint: Open the sheet for the selected or assigned character.
     ShortRest: Short Rest
     ShortRestHint: Perform a short rest for the selected character.
-    ShortRestApplied: Short rest applied. +1 recovered per damaged attribute.
+    ShortRestApplied: Short rest applied. +1 recovered per damaged attribute and 1 corruption.
 
   # Drag and Drop
   Drop:
