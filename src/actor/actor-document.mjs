@@ -82,12 +82,17 @@ export class NeonRelicActor extends Actor {
   /**
    * Apply damage to the correct attribute based on damage type.
    * Physical→STR, Hobbling→AGI, Horror→WIT, Trauma→EMP.
+   * Supports the special 'corruption' type which adds to Corruption instead.
    * @param {number} amount - Damage amount.
-   * @param {string} type - Damage type key (physical, hobbling, horror, trauma).
+   * @param {string} type - Damage type key (physical, hobbling, horror, trauma, corruption).
    * @returns {Promise<NeonRelicActor>}
    */
   async applyDamage(amount, type = 'physical') {
     if (this.type !== 'agent') return this;
+    // Corruption damage adds directly to the Corruption track.
+    if (type === 'corruption') {
+      return this.gainCorruption(amount);
+    }
     const mapping = { physical: 'str', hobbling: 'agi', horror: 'wit', trauma: 'emp' };
     const attr = mapping[type] ?? 'str';
     const current = this.system.attributes[attr].value;

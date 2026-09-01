@@ -96,6 +96,7 @@ NEONRELIC:
     Hobbling: Hobbling
     Horror: Horror
     Trauma: Trauma
+    Corruption: Corruption
 
   # Corruption Stages
   CorruptionStage:
@@ -224,6 +225,7 @@ NEONRELIC:
     TakeDamage: Take Damage
     TakeDamageHint: Apply damage to the agent.
     Applied: '{amount} {type} damage applied.'
+    CorruptionApplied: '{amount} corruption gained.'
     Stunned: Stunned
     AmmoDie: Ammo Die
 

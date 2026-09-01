@@ -744,10 +744,11 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
   /**
    * Take damage — prompt for type and amount.
+   * Damage types map to attributes; 'corruption' adds to the Corruption track.
    */
   static async #onTakeDamage() {
     const actor = this.document;
-    const types = { physical: 'STR', hobbling: 'AGI', horror: 'WIT', trauma: 'EMP' };
+    const types = { physical: 'STR', hobbling: 'AGI', horror: 'WIT', trauma: 'EMP', corruption: 'COR' };
     const options = Object.entries(types)
       .map(
         ([k, v]) =>
@@ -768,9 +769,13 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     });
     if (result?.amount > 0) {
       await actor.applyDamage(result.amount, result.type);
-      ui.notifications.info(
-        game.i18n.format('NEONRELIC.Damage.Applied', { amount: result.amount, type: types[result.type] }),
-      );
+      if (result.type === 'corruption') {
+        ui.notifications.info(game.i18n.format('NEONRELIC.Damage.CorruptionApplied', { amount: result.amount }));
+      } else {
+        ui.notifications.info(
+          game.i18n.format('NEONRELIC.Damage.Applied', { amount: result.amount, type: types[result.type] }),
+        );
+      }
     }
   }
 
