@@ -569,19 +569,29 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       return;
     }
 
-    // Resolve the combat. Prefer the active combat, but also fall back to any
-    // combat on this scene that already contains the actor's token — even if
-    // the combat hasn't been started yet.
-    const tokenIds = new Set(tokens.map(t => t.id));
-    const hasCombatantIn = c => c.combatants.some(cb => tokenIds.has(cb.tokenId));
+    // Resolve which combat this actor participates in. Use the documented
+    // Combat#getCombatantsByActor API so both token-linked and actor-linked
+    // combatants are found, and so it works even if the combat isn't active
+    // (started) yet.
+    const combatantsFor = c => c.getCombatantsByActor(actor).map(cb => cb.id);
 
-    let combat = game.combat && game.combat.sceneId === scene.id ? game.combat : null;
-    let ids = combat ? combat.combatants.filter(c => tokenIds.has(c.tokenId)).map(c => c.id) : [];
+    let combat = null;
+    let ids = [];
 
+    // Prefer the active combat on the current scene.
+    if (game.combat && game.combat.sceneId === scene.id) {
+      ids = combatantsFor(game.combat);
+      if (ids.length) combat = game.combat;
+    }
+
+    // Fall back to any combat containing this actor.
     if (!ids.length) {
-      combat = game.combats.find(c => c.sceneId === scene.id && hasCombatantIn(c)) ?? null;
-      if (combat) {
-        ids = combat.combatants.filter(c => tokenIds.has(c.tokenId)).map(c => c.id);
+      for (const c of game.combats) {
+        ids = combatantsFor(c);
+        if (ids.length) {
+          combat = c;
+          break;
+        }
       }
     }
 
