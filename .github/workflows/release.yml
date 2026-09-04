@@ -14,6 +14,9 @@ on:
 env:
   TYPE: system
 
+permissions:
+  contents: write
+
 jobs:
   release:
     name: Build & Attach Release Artifacts
