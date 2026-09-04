@@ -49,6 +49,8 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       useAnchor: AgentSheet.#onUseAnchor,
       toggleWorn: AgentSheet.#onToggleWorn,
       toggleSection: AgentSheet.#onToggleSection,
+      resetSession: AgentSheet.#onResetSession,
+      rollInitiative: AgentSheet.#onRollInitiative,
     },
     form: {
       submitOnChange: true,
@@ -524,6 +526,80 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     });
 
     ui.notifications.info(game.i18n.localize('NEONRELIC.Wizard.Reset.Success'));
+  }
+
+  /**
+   * Reset the session (GM only) — clears the per-session corruption healing
+   * cap, healing-tag uses, talent uses, and conditions for all agents.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} _target
+   */
+  static async #onResetSession(_event, _target) {
+    if (!game.user.isGM) return;
+    const confirmed = await foundry.applications.api.DialogV2.confirm({
+      window: { title: game.i18n.localize('NEONRELIC.Session.ResetTitle') },
+      content: `<p>${game.i18n.localize('NEONRELIC.Session.ResetConfirm')}</p>`,
+    });
+    if (!confirmed) return;
+
+    const { performSessionReset } = await import('../../system/session-tracker.mjs');
+    await performSessionReset({ force: true });
+  }
+
+  /**
+   * Roll card-draw initiative for this agent.
+   * Only works if the agent is already a participant in the active combat on
+   * the current scene; otherwise it tells the user they are not in combat.
+   * Initiative follows the card-draw rule (draw a card from a virtual deck,
+   * Ace=1 through 10, higher acts first).
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} _target
+   */
+  static async #onRollInitiative(_event, _target) {
+    const actor = this.document;
+    const scene = canvas.scene;
+    if (!scene) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Combat.NoScene'));
+      return;
+    }
+
+    const tokens = scene.tokens.filter(t => t.actorId === actor.id);
+    if (!tokens.length) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Combat.NoToken'));
+      return;
+    }
+
+    // Only roll within an existing active combat on the current scene.
+    const combat = game.combat;
+    if (!combat || combat.sceneId !== scene.id) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Combat.NotInCombat'));
+      return;
+    }
+
+    // Find this actor's combatants already in the combat.
+    const tokenIds = new Set(tokens.map(t => t.id));
+    const ids = combat.combatants.filter(c => tokenIds.has(c.tokenId)).map(c => c.id);
+    if (!ids.length) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Combat.NotInCombat'));
+      return;
+    }
+
+    // Roll card-draw initiative for this actor's combatants.
+    if (ids.length) await combat.rollInitiative(ids);
+
+    // Start the combat if it has not already begun.
+    if (combat && !combat.started) await combat.startCombat();
+
+    // Reflect the drawn card on the sheet and announce the card in chat.
+    const firstCombatant = combat.combatants.get(ids[0]);
+    const card = firstCombatant?.cardValue ?? null;
+    if (card != null) {
+      await actor.update({ 'system.initiative.cardValue': card });
+      const label = card === 1 ? game.i18n.localize('NEONRELIC.Combat.CardAce') : String(card);
+      await ChatMessage.create({
+        content: game.i18n.format('NEONRELIC.Combat.InitiativeDrawn', { name: actor.name, card: label }),
+      });
+    }
   }
 
   /**

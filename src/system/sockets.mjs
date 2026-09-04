@@ -97,6 +97,10 @@ function _onThreatAdvanced(_data) {
  */
 function _onSessionReset(_data) {
   ui.notifications.info(game.i18n.localize('NEONRELIC.Session.ResetComplete'));
+  // Re-render open agent sheets so the cleared session values are reflected.
+  for (const actor of game.actors) {
+    if (actor.type === 'agent' && actor.sheet?.rendered) actor.sheet.render();
+  }
 }
 
 /**

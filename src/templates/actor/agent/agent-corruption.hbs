@@ -60,4 +60,12 @@
       </button>
     </div>
   {{/if}}
+  {{#if isGM}}
+    <div class='heal-button-row'>
+      <button type='button' data-action='resetSession' class='heal-btn'>
+        <i class='fa-solid fa-rotate-left'></i>
+        {{localize 'NEONRELIC.Session.ResetButton'}}
+      </button>
+    </div>
+  {{/if}}
 </section>

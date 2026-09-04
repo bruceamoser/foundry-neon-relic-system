@@ -227,6 +227,27 @@
     appearance: auto;
   }
 
+  .roll-init-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 3px 6px;
+    border: 1px solid $nr-green-stamp;
+    background: $nr-green-stamp;
+    color: $nr-paper;
+    cursor: pointer;
+
+    &:hover {
+      filter: brightness(1.2);
+    }
+  }
+
   .division-item-toggle {
     display: flex;
     align-items: center;

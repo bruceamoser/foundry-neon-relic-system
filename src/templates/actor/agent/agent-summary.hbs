@@ -97,7 +97,20 @@
             {{disabled (not isEditable)}}
           />
         </div>
-        <div class='id-cell'></div>
+        <div class='id-cell'>
+          {{#if isEditable}}
+            <span class='id-label'>{{localize 'NEONRELIC.Combat.Initiative'}}</span>
+            <button
+              type='button'
+              class='roll-init-btn'
+              data-action='rollInitiative'
+              title='{{localize "NEONRELIC.Combat.RollInitiativeHint"}}'
+            >
+              <i class='fa-solid fa-dice'></i>
+              {{localize 'NEONRELIC.Combat.RollInitiative'}}
+            </button>
+          {{/if}}
+        </div>
       </div>
     </div>
   </div>

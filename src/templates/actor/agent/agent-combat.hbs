@@ -36,6 +36,14 @@
       </label>
     </div>
   </div>
+  {{#if isEditable}}
+    <div class='heal-button-row'>
+      <button type='button' data-action='rollInitiative' class='heal-btn'>
+        <i class='fa-solid fa-dice'></i>
+        {{localize 'NEONRELIC.Combat.RollInitiative'}}
+      </button>
+    </div>
+  {{/if}}
 
   {{! Conditions }}
   <div class='combat-conditions'>

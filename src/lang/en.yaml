@@ -620,6 +620,12 @@ NEONRELIC:
   # Combat
   Combat:
     Initiative: Initiative
+    RollInitiative: Roll Initiative
+    RollInitiativeHint: Roll initiative for this agent in the current combat.
+    NoScene: No active scene. Open a scene before rolling initiative.
+    NoToken: Place a token for this agent on the active scene before rolling initiative.
+    NotInCombat: You are not currently in a combat.
+    InitiativeDrawn: '{name} draws an Initiative Card: {card}'
     SlowAction: Slow Action
     FastAction: Fast Action
     Conditions: Conditions
@@ -1410,6 +1416,9 @@ NEONRELIC:
     CaseFileResetComplete: Case file reset complete
     GMOnly: Only the GM can reset the session
     AlreadyReset: Session already reset
+    ResetButton: Reset Session
+    ResetTitle: Reset Session
+    ResetConfirm: Reset the session? This clears per-session corruption healing, healing-tag uses, talent uses, and conditions for all agents.
 
   # Tour
   Tour:

@@ -8,14 +8,15 @@
  * clears temporary effects, and advances session counter.
  * @returns {Promise<void>}
  */
-export async function performSessionReset() {
+export async function performSessionReset(options = {}) {
+  const { force = false } = options;
   if (!game.user.isGM) {
     ui.notifications.warn(game.i18n.localize('NEONRELIC.Session.GMOnly'));
     return;
   }
 
   const alreadyReset = game.settings.get('neon-relic', 'sessionResetDone');
-  if (alreadyReset) {
+  if (!force && alreadyReset) {
     ui.notifications.info(game.i18n.localize('NEONRELIC.Session.AlreadyReset'));
     return;
   }
