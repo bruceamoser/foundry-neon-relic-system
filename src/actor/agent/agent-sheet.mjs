@@ -569,17 +569,23 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       return;
     }
 
-    // Only roll within an existing active combat on the current scene.
-    const combat = game.combat;
-    if (!combat || combat.sceneId !== scene.id) {
-      ui.notifications.warn(game.i18n.localize('NEONRELIC.Combat.NotInCombat'));
-      return;
+    // Resolve the combat. Prefer the active combat, but also fall back to any
+    // combat on this scene that already contains the actor's token — even if
+    // the combat hasn't been started yet.
+    const tokenIds = new Set(tokens.map(t => t.id));
+    const hasCombatantIn = c => c.combatants.some(cb => tokenIds.has(cb.tokenId));
+
+    let combat = game.combat && game.combat.sceneId === scene.id ? game.combat : null;
+    let ids = combat ? combat.combatants.filter(c => tokenIds.has(c.tokenId)).map(c => c.id) : [];
+
+    if (!ids.length) {
+      combat = game.combats.find(c => c.sceneId === scene.id && hasCombatantIn(c)) ?? null;
+      if (combat) {
+        ids = combat.combatants.filter(c => tokenIds.has(c.tokenId)).map(c => c.id);
+      }
     }
 
-    // Find this actor's combatants already in the combat.
-    const tokenIds = new Set(tokens.map(t => t.id));
-    const ids = combat.combatants.filter(c => tokenIds.has(c.tokenId)).map(c => c.id);
-    if (!ids.length) {
+    if (!combat || !ids.length) {
       ui.notifications.warn(game.i18n.localize('NEONRELIC.Combat.NotInCombat'));
       return;
     }
