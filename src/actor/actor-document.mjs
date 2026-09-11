@@ -167,23 +167,28 @@ export class NeonRelicActor extends Actor {
 
   /**
    * Short rest — recover +1 per damaged attribute per shift,
-   * and heal 1 Corruption (respecting the session cap).
-   * @returns {Promise<NeonRelicActor>}
+   * and heal 1 Corruption. Corruption always heals down to 0; session
+   * usage is tracked but never blocks the healing.
+   * @returns {Promise<{attributes: string[], corruption: {before: number, after: number, healed: number}}>}
    */
   async shortRest() {
-    if (this.type !== 'agent') return this;
+    if (this.type !== 'agent') return { attributes: [], corruption: { before: 0, after: 0, healed: 0 } };
     const updates = {};
+    const healedAttributes = [];
     for (const attr of ['str', 'agi', 'wit', 'emp']) {
       const current = this.system.attributes[attr].value;
       const max = this.system.attributes[attr].max;
       if (current < max) {
         updates[`system.attributes.${attr}.value`] = Math.min(current + 1, max);
+        healedAttributes.push(attr);
       }
     }
     if (Object.keys(updates).length > 0) await this.update(updates);
-    // Short rest also heals 1 Corruption (capped at 5 per session).
+    // Short rest also heals 1 Corruption — reaching 0 is always allowed.
+    const before = this.system.corruption.value;
     await this.healCorruption(1);
-    return this;
+    const after = this.system.corruption.value;
+    return { attributes: healedAttributes, corruption: { before, after, healed: before - after } };
   }
 
   /**
