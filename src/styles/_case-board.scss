@@ -33,7 +33,7 @@
 
     .cb-field-label {
       font-family: $nr-font-main;
-      font-size: 5.5pt;
+      font-size: 6.5pt;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: $nr-ink-faded;
@@ -41,7 +41,7 @@
 
     input {
       font-family: $nr-font-fill;
-      font-size: 8pt;
+      font-size: 9.5pt;
       background: $nr-field-bg;
       border: 1px solid $nr-rule;
       padding: 2px 4px;
@@ -51,7 +51,7 @@
 
   .cb-advance {
     font-family: $nr-font-main;
-    font-size: 7pt;
+    font-size: 8.5pt;
     text-transform: uppercase;
     letter-spacing: 1px;
     border: 1px solid $nr-rule;
@@ -73,6 +73,7 @@
 
   .cb-table {
     width: 100%;
+    min-width: 1080px;
     border-collapse: collapse;
     table-layout: fixed;
 
@@ -84,10 +85,10 @@
   }
 
   .cb-label-col {
-    width: 150px;
-    min-width: 150px;
+    width: 190px;
+    min-width: 190px;
     font-family: $nr-font-main;
-    font-size: 5.5pt;
+    font-size: 6.5pt;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: $nr-ink-faded;
@@ -98,8 +99,8 @@
 
   .cb-day-head {
     font-family: $nr-font-main;
-    font-size: 7pt;
-    padding: 2px 0;
+    font-size: 10pt;
+    padding: 4px 0;
     text-align: center;
     background: rgba(0, 0, 0, 0.03);
 
@@ -126,17 +127,19 @@
 
   .cb-quad {
     font-family: $nr-font-main;
-    font-size: 4.5pt;
+    font-size: 6.5pt;
     text-align: center;
-    line-height: 1.4;
+    line-height: 1.5;
     border: 1px solid $nr-rule-light;
     color: $nr-ink-faded;
     cursor: pointer;
     user-select: none;
 
     &.filled {
-      background: $nr-ink;
-      color: $nr-paper;
+      background: $nr-paper;
+      color: $nr-ink;
+      border: 2px solid $nr-ink;
+      font-weight: bold;
     }
 
     &:hover {
@@ -146,10 +149,10 @@
 
   // Relic milestone row
   .cb-relic-cell {
-    height: 22px;
+    height: 32px;
     text-align: center;
     font-family: $nr-font-main;
-    font-size: 5.5pt;
+    font-size: 7.5pt;
     color: $nr-ink-faded;
     cursor: pointer;
 
@@ -182,9 +185,9 @@
     }
 
     .cb-org-id {
-      width: 34px;
+      width: 44px;
       font-family: $nr-font-main;
-      font-size: 7pt;
+      font-size: 8.5pt;
       text-transform: uppercase;
       border: 1px solid $nr-rule;
       background: $nr-field-bg;
@@ -197,7 +200,7 @@
       flex: 1;
       min-width: 0;
       font-family: $nr-font-fill;
-      font-size: 7pt;
+      font-size: 8.5pt;
       border: 1px solid $nr-rule;
       background: $nr-field-bg;
       padding: 1px 3px;
@@ -230,15 +233,15 @@
 
     .cb-val-label {
       font-family: $nr-font-main;
-      font-size: 5pt;
+      font-size: 6.5pt;
       text-transform: uppercase;
       color: $nr-ink-faded;
     }
 
     .cb-org-val {
-      width: 32px;
+      width: 38px;
       font-family: $nr-font-fill;
-      font-size: 7pt;
+      font-size: 8.5pt;
       border: 1px solid $nr-rule;
       background: $nr-field-bg;
       padding: 1px 2px;
@@ -251,7 +254,7 @@
       align-items: center;
       gap: 2px;
       font-family: $nr-font-main;
-      font-size: 5pt;
+      font-size: 6.5pt;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: $nr-ink-faded;
@@ -264,15 +267,21 @@
 
   // Escalation cells
   .cb-cell {
-    height: 26px;
+    height: 38px;
     text-align: center;
     font-family: $nr-font-main;
-    font-size: 5pt;
+    font-size: 7.5pt;
     cursor: pointer;
 
     &.consumed {
-      background: $nr-ink;
-      color: $nr-paper;
+      color: $nr-ink;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.14) 0,
+        rgba(0, 0, 0, 0.14) 4px,
+        transparent 4px,
+        transparent 9px
+      );
     }
 
     &.has-ms {
@@ -283,8 +292,8 @@
     }
 
     &.has-ms.triggered {
-      background: rgba($nr-red-stamp, 0.35);
-      color: $nr-paper;
+      color: darken($nr-red-stamp, 10%);
+      background: rgba($nr-red-stamp, 0.22);
     }
 
     &:hover {
@@ -298,7 +307,7 @@
 
     button {
       font-family: $nr-font-main;
-      font-size: 7pt;
+      font-size: 8.5pt;
       text-transform: uppercase;
       letter-spacing: 1px;
       border: 1px solid $nr-rule;
@@ -319,7 +328,7 @@
     padding: 8px;
     text-align: center;
     font-family: $nr-font-main;
-    font-size: 6.5pt;
+    font-size: 7.5pt;
     color: $nr-ink-faded;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -335,53 +344,39 @@
     pointer-events: none;
   }
 
-  // ── Information cards ───────────────────────────────
-  .cb-cards {
-    margin-top: 8px;
-    border-top: 2px solid $nr-rule;
-    padding-top: 6px;
-
-    h3 {
-      font-family: $nr-font-main;
-      font-size: 7pt;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: $nr-ink-faded;
-      margin: 0 0 4px;
-      border-bottom: 1px solid $nr-rule;
-      padding-bottom: 2px;
+  // ── Information card links (in-board row) ───────────
+  .cb-card-row {
+    .cb-card-cell {
+      padding: 4px 6px;
+      vertical-align: top;
     }
+  }
 
-    .linked-doc-list {
-      list-style: none;
-      margin: 0 0 6px;
-      padding: 0;
-    }
+  .cb-card-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    min-height: 24px;
+  }
 
-    .linked-doc-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 3px 5px;
-      border: 1px solid $nr-rule;
-      background: $nr-field-bg;
-      margin-bottom: 3px;
-    }
+  .cb-card-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 1px 4px;
+    border: 1px solid $nr-rule;
+    background: $nr-field-bg;
+    max-width: 240px;
 
-    .linked-doc-img {
-      width: 24px;
-      height: 24px;
-      object-fit: cover;
-      border: 1px solid $nr-rule;
-      flex-shrink: 0;
-    }
-
-    .linked-doc-name {
-      flex: 1;
+    .cb-card-link {
       font-family: $nr-font-fill;
       font-size: 8pt;
       color: $nr-ink;
       cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       &:hover {
         text-decoration: underline;
@@ -389,44 +384,33 @@
       }
     }
 
-    .cb-card-reveal {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      font-family: $nr-font-main;
-      font-size: 5.5pt;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: $nr-ink-faded;
-
-      input {
-        margin: 0;
-      }
+    .cb-card-dot {
+      margin: 0;
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
     }
 
-    .linked-doc-remove {
-      width: 18px;
-      height: 18px;
-      border: 1px solid $nr-rule;
+    .cb-card-remove {
+      border: none;
       background: transparent;
       color: $nr-red-stamp;
-      font-size: 11pt;
+      font-size: 10pt;
       line-height: 1;
       cursor: pointer;
-      padding: 0;
+      padding: 0 2px;
 
       &:hover {
-        background: $nr-red-stamp;
-        color: $nr-paper;
+        color: darken($nr-red-stamp, 10%);
       }
     }
   }
 
-  .cb-cards-empty {
-    text-align: center;
-    padding: 8px;
+  .cb-card-empty {
     font-family: $nr-font-main;
     font-size: 7pt;
     color: $nr-ink-faded;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 }

@@ -143,6 +143,43 @@
             {{/each}}
           </tr>
         {{/each}}
+        {{! Information card links — rendered as a row inside the board }}
+        <tr class='cb-card-row'>
+          <td class='cb-label-col'>{{localize 'NEONRELIC.CaseBoard.InfoCards'}}</td>
+          <td class='cb-card-cell' colspan='14'>
+            <div class='cb-card-links' data-drop-key='caseBoardCards'>
+              {{#each board.cards}}
+                <span class='cb-card-chip'>
+                  <a
+                    class='cb-card-link'
+                    data-action='openLinkedDoc'
+                    data-uuid='{{this.uuid}}'
+                    title='{{this.name}}'
+                  >{{this.name}}</a>
+                  <input
+                    type='checkbox'
+                    class='cb-card-dot'
+                    data-action='toggleCardReveal'
+                    data-uuid='{{this.uuid}}'
+                    title='{{localize "NEONRELIC.CaseBoard.Revealed"}}'
+                    {{checked this.revealed}}
+                    {{disabled (not @root.isEditable)}}
+                  />
+                  {{#if @root.isEditable}}
+                    <button
+                      type='button'
+                      class='cb-card-remove'
+                      data-action='removeCard'
+                      data-uuid='{{this.uuid}}'
+                    >&times;</button>
+                  {{/if}}
+                </span>
+              {{else}}
+                <span class='cb-card-empty'>{{localize 'NEONRELIC.CaseBoard.DropCards'}}</span>
+              {{/each}}
+            </div>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -155,44 +192,4 @@
       <span class='dropzone-hint'>{{localize 'NEONRELIC.CaseBoard.DropOrg'}}</span>
     </div>
   {{/if}}
-
-  {{! Information cards }}
-  <section class='cb-cards'>
-    <h3>{{localize 'NEONRELIC.CaseBoard.InfoCards'}}</h3>
-    {{#if board.cards.length}}
-      <ul class='linked-doc-list'>
-        {{#each board.cards}}
-          <li class='linked-doc-row'>
-            <img class='linked-doc-img' src='{{this.img}}' alt='{{this.name}}' />
-            <a class='linked-doc-name' data-action='openLinkedDoc' data-uuid='{{this.uuid}}'>{{this.name}}</a>
-            <label class='cb-card-reveal'>
-              <input
-                type='checkbox'
-                data-action='toggleCardReveal'
-                data-uuid='{{this.uuid}}'
-                {{checked this.revealed}}
-                {{disabled (not @root.isEditable)}}
-              />
-              {{localize 'NEONRELIC.CaseBoard.Revealed'}}
-            </label>
-            {{#if @root.isEditable}}
-              <button
-                type='button'
-                class='linked-doc-remove'
-                data-action='removeCard'
-                data-uuid='{{this.uuid}}'
-              >&times;</button>
-            {{/if}}
-          </li>
-        {{/each}}
-      </ul>
-    {{else}}
-      <div class='cb-cards-empty'><p>No information cards linked.</p></div>
-    {{/if}}
-    {{#if isEditable}}
-      <div class='dropzone' data-drop-key='caseBoardCards'>
-        <span class='dropzone-hint'>{{localize 'NEONRELIC.CaseBoard.DropCards'}}</span>
-      </div>
-    {{/if}}
-  </section>
 </div>
