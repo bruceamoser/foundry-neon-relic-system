@@ -583,6 +583,10 @@ NEONRELIC:
     HealHint: 'Session healing tracked: {used} of 5 used (enforced by the table, not the system).'
     SessionCapReached: Session healing cap of 5 already reached.
     NoneToHeal: No corruption to heal.
+    ContaminationTitle: 'Corruption Event — Reality Distortion'
+    ContaminationText: '{name} has crossed 10 Corruption. The distortion leaks outward — everyone in the scene gains 1 Corruption.'
+    ContaminationAffected: 'Contaminated: {names}.'
+    ContaminationNone: 'No other agents in the scene.'
 
   # Corruption Sources
   CorruptionSource:

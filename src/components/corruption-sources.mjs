@@ -126,12 +126,82 @@ export async function processSceneStartCorruption(actors) {
 }
 
 /**
+ * Get all other agent actors present in the current scene (by token).
+ * Falls back to all world agents when the scene has no agent tokens.
+ * @param {Actor} sourceActor - Actor to exclude.
+ * @returns {Actor[]}
+ */
+function agentsInScene(sourceActor) {
+  const scene = game.scenes?.current ?? canvas?.scene ?? null;
+  const found = new Map();
+  for (const token of scene?.tokens ?? []) {
+    const actor = token.actor;
+    if (actor && actor.type === 'agent' && actor.id !== sourceActor.id) {
+      found.set(actor.id, actor);
+    }
+  }
+  if (found.size === 0) {
+    for (const actor of game.actors ?? []) {
+      if (actor.type === 'agent' && actor.id !== sourceActor.id) found.set(actor.id, actor);
+    }
+  }
+  return [...found.values()];
+}
+
+/**
+ * Announce a contamination event — an agent crossed into the Reality
+ * Distortion stage (10+ Corruption). Posts a system chat card and applies
+ * +1 Corruption to every other agent in the current scene.
+ * @param {Actor} sourceActor - The agent whose Corruption just crossed 10.
+ * @returns {Promise<void>}
+ */
+export async function announceSceneContamination(sourceActor) {
+  if (sourceActor?.type !== 'agent') return;
+
+  const affected = agentsInScene(sourceActor);
+  for (const actor of affected) {
+    const current = actor.system?.corruption?.value ?? 0;
+    await actor.update({ 'system.corruption.value': current + 1 }, { _nrSkipContaminationAnnounce: true });
+  }
+
+  const names = affected.map(a => a.name);
+  const affectedLine = names.length
+    ? game.i18n.format('NEONRELIC.Corruption.ContaminationAffected', { names: names.join(', ') })
+    : game.i18n.localize('NEONRELIC.Corruption.ContaminationNone');
+
+  await ChatMessage.create({
+    content: `<div class="corruption-contamination">
+      <strong>${game.i18n.localize('NEONRELIC.Corruption.ContaminationTitle')}</strong>
+      <p>${game.i18n.format('NEONRELIC.Corruption.ContaminationText', { name: sourceActor.name })}</p>
+      <p><em>${affectedLine}</em></p>
+    </div>`,
+  });
+}
+
+/**
  * Register hooks for corruption source automation.
  * Call once during system init.
  */
 export function registerCorruptionHooks() {
-  // Scene-start corruption processing would be triggered by combat round advance
-  // or DA-triggered scene transition — these are integrated via the combat system
-  // and scene management rather than a global Hooks.on('sceneStart')
-  console.log('neon-relic | Corruption source automation registered');
+  // Detect crossing into the Reality Distortion stage (10+ Corruption)
+  Hooks.on('preUpdateActor', (actor, changes, options) => {
+    if (actor.type !== 'agent' || !options || options._nrSkipContaminationAnnounce) return;
+    const newValue = foundry.utils.getProperty(changes, 'system.corruption.value');
+    if (typeof newValue !== 'number') return;
+    const oldValue = actor.system?.corruption?.value ?? 0;
+    options._nrContaminationCrossed = oldValue < 10 && newValue >= 10;
+  });
+
+  Hooks.on('updateActor', async (actor, _changes, options, userId) => {
+    if (!options?._nrContaminationCrossed || options._nrSkipContaminationAnnounce) return;
+    // Run the event on the client that initiated the update when it is a GM,
+    // otherwise on the primary active GM (contaminating others needs permissions).
+    const initiator = game.users?.get(userId);
+    if (initiator?.isGM) {
+      if (userId !== game.user.id) return;
+    } else if (game.users?.activeGM?.id !== game.user.id) {
+      return;
+    }
+    await announceSceneContamination(actor);
+  });
 }

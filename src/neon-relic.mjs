@@ -55,6 +55,7 @@ import { registerTours } from './system/tours.mjs';
 import { registerTextEnrichers } from './system/enrichers.mjs';
 import { registerMigrationSetting, migrateWorld } from './system/migration.mjs';
 import { registerWorldSetupSettings, checkWorldSetup } from './system/world-setup.mjs';
+import { registerCorruptionHooks } from './components/corruption-sources.mjs';
 
 Hooks.once('init', () => {
   console.log('neon-relic | Initializing Neon Relic system');
@@ -147,6 +148,9 @@ Hooks.once('init', () => {
   registerDiceSoNice();
   registerYZECombat();
   registerItemPiles();
+
+  // Register corruption source automation (contamination events at 10+)
+  registerCorruptionHooks();
 
   // Register keybindings and text enrichers
   registerKeybindings();
