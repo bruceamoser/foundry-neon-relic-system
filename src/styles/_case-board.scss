@@ -360,22 +360,22 @@
   }
 
   .cb-card-links {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+    align-items: stretch;
     gap: 5px;
     min-height: 30px;
   }
 
   .cb-card-chip {
-    display: inline-flex;
+    display: flex;
     align-items: flex-start;
     gap: 4px;
     padding: 3px 6px;
     border: 1px solid rgba(26, 26, 24, 0.5);
     border-left: 4px solid $nr-red-stamp;
     background: rgba(255, 255, 255, 0.35);
-    max-width: 320px;
+    min-width: 0;
 
     &.revealed {
       border-left-color: $nr-green-stamp;
@@ -407,7 +407,7 @@
       }
     }
 
-    .cb-card-links {
+    .cb-card-linkline {
       font-family: $nr-font-main;
       font-size: 6.5pt;
       color: $nr-ink-faded;
@@ -439,6 +439,7 @@
   }
 
   .cb-card-empty {
+    grid-column: 1 / -1;
     font-family: $nr-font-main;
     font-size: 8pt;
     color: $nr-ink-faded;

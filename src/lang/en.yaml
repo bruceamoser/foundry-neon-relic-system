@@ -1602,7 +1602,7 @@ NEONRELIC:
     KeyActorsHint: Who are the principal NPCs and organizations? What do they want? How do they interact with the relic?
     BestCase: Best Case — What happens if the agents succeed?
     WorstCase: Worst Case — What happens if the agents fail or do nothing?
-    MilestonesHint: Keyed to days on the Operations Board. When a shift crosses a milestone day, the artifact event triggers.
+    MilestonesHint: Keyed to days on the Operations Board. When the final shift of a milestone day is filled, the milestone fires immediately — the next beat in the relic's story of who holds it, where it moves, and how containment breaks.
     DANotesHint: Pacing cues, tone reminders, red herrings, things to watch for during play
     Footer: VC-17 • The Verdant Covenant • DA Use Only
 
