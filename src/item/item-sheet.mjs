@@ -24,6 +24,143 @@ function showImageToPlayers(item) {
   if (game.user.isGM) popout.shareImage();
 }
 
+/**
+ * Build the case board view model: day columns, organization rows, and the
+ * resolved list of linked information cards.
+ * @param {object} system - The case board system data.
+ * @returns {Promise<object>}
+ */
+async function buildBoardContext(system) {
+  const shifts = system.shiftsFilled ?? [];
+  const days = [];
+  for (let day = 14; day >= 1; day--) {
+    const filled = shifts.filter(s => s.day === day).length;
+    const relic = (system.relicMilestones ?? []).find(m => m.day === day);
+    days.push({
+      day,
+      isCurrentDay: day === (system.currentDay ?? 14),
+      complete: filled >= 4,
+      headClass:
+        'cb-day-head' +
+        (day === (system.currentDay ?? 14) ? ' current-day' : '') +
+        (filled >= 4 ? ' day-complete' : ''),
+      relicClass: 'cb-relic-cell' + (relic ? ' has-ms' : ''),
+      quads: ['N', 'M', 'D', 'E'].map(shift => {
+        const quadFilled = shifts.some(s => s.day === day && s.shift === shift);
+        return { day, shift, filled: quadFilled, quadClass: 'cb-quad' + (quadFilled ? ' filled' : '') };
+      }),
+      relicLabel: relic ? `D.${day}` : '',
+      relicDescription: relic?.description ?? '',
+    });
+  }
+
+  const orgs = (system.organizations ?? []).map((org, idx) => ({
+    idx,
+    id: org.id,
+    name: org.name,
+    orgUuid: org.orgUuid ?? '',
+    value: org.value,
+    active: org.active,
+    dormant: org.dormant,
+    cells: days.map(d => {
+      const ms = (org.milestones ?? []).find(m => m.day === d.day);
+      const consumed = (org.squaresConsumed ?? []).includes(d.day);
+      return {
+        day: d.day,
+        orgIdx: idx,
+        consumed,
+        milestoneLabel: ms ? ms.label || `D.${d.day}` : '',
+        triggered: ms?.triggered ?? false,
+        cellClass:
+          'cb-cell' + (consumed ? ' consumed' : '') + (ms ? ' has-ms' : '') + (ms?.triggered ? ' triggered' : ''),
+        title: ms ? `${ms.label}: ${ms.description}` : `Day ${d.day} — click to consume, right-click to edit milestone`,
+      };
+    }),
+  }));
+
+  const cards = [];
+  for (const uuid of system.infoCardUuids ?? []) {
+    const doc = await fromUuid(uuid).catch(() => null);
+    cards.push({
+      uuid,
+      name: doc?.name ?? '(missing card)',
+      img: doc?.img ?? 'icons/svg/mystery-man.svg',
+      revealed: doc?.system?.revealed ?? false,
+    });
+  }
+
+  return { days, orgs, cards };
+}
+
+/**
+ * Compute the update patch and chat messages for a completed day: fire the
+ * relic milestone keyed to that day plus any organization milestones.
+ * @param {object} system
+ * @param {object[]} shifts
+ * @param {number} day
+ * @returns {{patch: object, messages: string[]}}
+ */
+function dayCompletePatch(system, shifts, day) {
+  const patch = {};
+  const messages = [];
+  if (shifts.filter(s => s.day === day).length < 4) return { patch, messages };
+
+  const relic = (system.relicMilestones ?? []).find(m => m.day === day && !m.triggered);
+  if (relic) {
+    const milestones = foundry.utils.deepClone(system.relicMilestones ?? []);
+    milestones.find(m => m.day === day).triggered = true;
+    patch['system.relicMilestones'] = milestones;
+    messages.push(`<p><strong>Relic Milestone — Day ${day}.</strong><br>${relic.description}</p>`);
+  }
+
+  const orgs = foundry.utils.deepClone(system.organizations ?? []);
+  let orgFired = false;
+  for (const org of orgs) {
+    const ms = (org.milestones ?? []).find(m => m.day === day && !m.triggered);
+    if (ms) {
+      ms.triggered = true;
+      orgFired = true;
+      messages.push(`<p><strong>${org.name || org.id} — ${ms.label}</strong><br>${ms.description}</p>`);
+    }
+  }
+  if (orgFired) patch['system.organizations'] = orgs;
+  return { patch, messages };
+}
+
+/**
+ * Post milestone announcements to chat.
+ * @param {string[]} messages
+ */
+async function announceMilestones(messages) {
+  for (const content of messages) {
+    await ChatMessage.create({ content: `<div class="neon-relic ops-milestone">${content}</div>` });
+  }
+}
+
+/**
+ * Prompt for a milestone label + description.
+ * @param {string} title
+ * @param {{label?: string, description?: string}} [existing]
+ * @returns {Promise<{label: string, description: string}|null>}
+ */
+async function promptMilestone(title, existing = {}) {
+  const label = foundry.utils.escapeHTML(existing?.label ?? '');
+  const description = foundry.utils.escapeHTML(existing?.description ?? '');
+  return foundry.applications.api.DialogV2.prompt({
+    window: { title },
+    content: `<div class="form-group"><label>Label</label><input type="text" name="label" value="${label}"></div>
+      <div class="form-group"><label>Description</label><textarea name="description" rows="3">${description}</textarea></div>
+      <p style="font-size:11px;opacity:.7">Leave both empty to clear this milestone.</p>`,
+    ok: {
+      callback: (_event, button) => ({
+        label: button.form.elements.label.value.trim(),
+        description: button.form.elements.description.value.trim(),
+      }),
+    },
+    rejectClose: false,
+  });
+}
+
 export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   /** @override */
   static DEFAULT_OPTIONS = {
@@ -45,6 +182,14 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       openNpcSheet: NRItemSheet.#onOpenNpcSheet,
       removeLinkedDoc: NRItemSheet.#onRemoveLinkedDoc,
       openLinkedDoc: NRItemSheet.#onOpenLinkedDoc,
+      advanceDay: NRItemSheet.#onAdvanceDay,
+      toggleShift: NRItemSheet.#onToggleShift,
+      orgCell: { handler: NRItemSheet.#onOrgCell, buttons: [0, 2] },
+      editRelicMilestone: NRItemSheet.#onEditRelicMilestone,
+      addOrg: NRItemSheet.#onAddOrg,
+      removeOrg: NRItemSheet.#onRemoveOrg,
+      toggleCardReveal: NRItemSheet.#onToggleCardReveal,
+      removeCard: NRItemSheet.#onRemoveCard,
     },
     form: {
       submitOnChange: true,
@@ -75,6 +220,11 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     context.config = CONFIG.NEON_RELIC;
     context.isEditable = this.isEditable;
     context.itemType = item.type;
+
+    // Case Board — pre-compute the 14-day grid view model
+    if (item.type === 'caseBoard') {
+      context.board = await buildBoardContext(system);
+    }
 
     // Linked consumable options (only when item is on an actor)
     if (item.parent && (item.type === 'weapon' || item.type === 'gear')) {
@@ -667,6 +817,151 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     if (doc) doc.sheet.render(true);
   }
 
+  /* ── Case Board actions ─────────────────────── */
+
+  /**
+   * Toggle a shift quadrant; a completed day fires its milestones.
+   */
+  static async #onToggleShift(_event, target) {
+    const day = Number(target.dataset.day);
+    const shift = target.dataset.shift;
+    const system = this.document.system;
+    const shifts = foundry.utils.deepClone(system.shiftsFilled ?? []);
+    const idx = shifts.findIndex(s => s.day === day && s.shift === shift);
+    if (idx !== -1) shifts.splice(idx, 1);
+    else shifts.push({ day, shift, filled: true });
+
+    const { patch, messages } = dayCompletePatch(system, shifts, day);
+    await this.document.update({ 'system.shiftsFilled': shifts, ...patch });
+    await announceMilestones(messages);
+  }
+
+  /**
+   * Fill the next incomplete day (14 → 1) and fire its milestones.
+   */
+  static async #onAdvanceDay() {
+    const system = this.document.system;
+    const shifts = foundry.utils.deepClone(system.shiftsFilled ?? []);
+    let target = null;
+    for (let day = 14; day >= 1; day--) {
+      if (shifts.filter(s => s.day === day).length < 4) {
+        target = day;
+        break;
+      }
+    }
+    if (target === null) return;
+    for (const shift of ['N', 'M', 'D', 'E']) {
+      if (!shifts.some(s => s.day === target && s.shift === shift)) {
+        shifts.push({ day: target, shift, filled: true });
+      }
+    }
+    const { patch, messages } = dayCompletePatch(system, shifts, target);
+    await this.document.update({ 'system.shiftsFilled': shifts, ...patch });
+    await announceMilestones(messages);
+  }
+
+  /**
+   * Left-click an organization cell to consume the square or fire its
+   * milestone; right-click opens the milestone editor for that day.
+   */
+  static async #onOrgCell(event, target) {
+    if (!this.isEditable) return;
+    const idx = Number(target.dataset.orgIdx);
+    const day = Number(target.dataset.day);
+    const orgs = foundry.utils.deepClone(this.document.system.organizations ?? []);
+    const org = orgs[idx];
+    if (!org) return;
+
+    if (event.button === 2) {
+      const existing = (org.milestones ?? []).find(m => m.day === day);
+      const result = await promptMilestone(`Day ${day} — ${org.name || org.id}`, existing);
+      if (!result) return;
+      org.milestones = (org.milestones ?? []).filter(m => m.day !== day);
+      if (result.label || result.description) {
+        org.milestones.push({ day, label: result.label, description: result.description, triggered: false });
+      }
+      await this.document.update({ 'system.organizations': orgs });
+      return;
+    }
+
+    const ms = (org.milestones ?? []).find(m => m.day === day);
+    if (ms) {
+      if (ms.triggered) return;
+      ms.triggered = true;
+      await this.document.update({ 'system.organizations': orgs });
+      await announceMilestones([`<p><strong>${org.name || org.id} — ${ms.label}</strong><br>${ms.description}</p>`]);
+      return;
+    }
+
+    const consumed = new Set(org.squaresConsumed ?? []);
+    if (consumed.has(day)) consumed.delete(day);
+    else consumed.add(day);
+    org.squaresConsumed = [...consumed].sort((a, b) => a - b);
+    await this.document.update({ 'system.organizations': orgs });
+  }
+
+  /**
+   * Edit (or clear) the relic milestone keyed to a day.
+   */
+  static async #onEditRelicMilestone(_event, target) {
+    if (!this.isEditable) return;
+    const day = Number(target.dataset.day);
+    const system = this.document.system;
+    const existing = (system.relicMilestones ?? []).find(m => m.day === day);
+    const result = await promptMilestone(`Relic Milestone — Day ${day}`, existing);
+    if (!result) return;
+    const milestones = (system.relicMilestones ?? []).filter(m => m.day !== day);
+    if (result.description) milestones.push({ day, description: result.description, triggered: false });
+    await this.document.update({ 'system.relicMilestones': milestones });
+  }
+
+  /**
+   * Add a blank organization row.
+   */
+  static async #onAddOrg() {
+    const orgs = foundry.utils.deepClone(this.document.system.organizations ?? []);
+    orgs.push({
+      id: `O${orgs.length + 1}`,
+      name: '',
+      orgUuid: '',
+      value: Math.min(14, orgs.length + 1),
+      active: true,
+      dormant: false,
+      squaresConsumed: [],
+      milestones: [],
+    });
+    await this.document.update({ 'system.organizations': orgs });
+  }
+
+  /**
+   * Remove an organization row.
+   */
+  static async #onRemoveOrg(_event, target) {
+    const idx = Number(target.dataset.idx);
+    const orgs = foundry.utils.deepClone(this.document.system.organizations ?? []);
+    orgs.splice(idx, 1);
+    await this.document.update({ 'system.organizations': orgs });
+  }
+
+  /**
+   * Toggle an information card's revealed state from the board.
+   */
+  static async #onToggleCardReveal(_event, target) {
+    if (!this.isEditable) return;
+    const card = await fromUuid(target.dataset.uuid);
+    if (!card) return;
+    await card.update({ 'system.revealed': !card.system.revealed });
+  }
+
+  /**
+   * Unlink an information card from the board.
+   */
+  static async #onRemoveCard(_event, target) {
+    const uuid = target.dataset.uuid;
+    const uuids = [...(this.document.system.infoCardUuids ?? [])].filter(u => u !== uuid);
+    await this.document.update({ 'system.infoCardUuids': uuids });
+  }
+
   /* ------------------------------------------ */
 
   /** @override */
@@ -674,7 +969,8 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     return (
       (this.document.type === 'organization' ||
         this.document.type === 'location' ||
-        this.document.type === 'informationCard') &&
+        this.document.type === 'informationCard' ||
+        this.document.type === 'caseBoard') &&
       this.isEditable
     );
   }
@@ -682,7 +978,13 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   /** @override */
   async _onDrop(event) {
     const docType = this.document.type;
-    if (docType !== 'organization' && docType !== 'location' && docType !== 'informationCard') return;
+    if (
+      docType !== 'organization' &&
+      docType !== 'location' &&
+      docType !== 'informationCard' &&
+      docType !== 'caseBoard'
+    )
+      return;
 
     const data = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
     if (!data?.uuid) return;
@@ -690,6 +992,31 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     if (!doc) return;
 
     const system = this.document.system;
+
+    // ── Case Board: accept organizations and information cards ──
+    if (docType === 'caseBoard') {
+      if (data.type === 'Item' && doc.type === 'organization') {
+        const orgs = [...(system.organizations ?? [])];
+        if (orgs.some(o => o.orgUuid === data.uuid)) return;
+        orgs.push({
+          id: `O${orgs.length + 1}`,
+          name: doc.name,
+          orgUuid: data.uuid,
+          value: Math.min(14, orgs.length + 1),
+          active: true,
+          dormant: false,
+          squaresConsumed: [],
+          milestones: [],
+        });
+        await this.document.update({ 'system.organizations': orgs });
+      } else if (data.type === 'Item' && doc.type === 'informationCard') {
+        const uuids = [...(system.infoCardUuids ?? [])];
+        if (uuids.includes(data.uuid)) return;
+        uuids.push(data.uuid);
+        await this.document.update({ 'system.infoCardUuids': uuids });
+      }
+      return;
+    }
     let uuidField;
     let reverseField; // field on the dropped document to update for bidirectional linking
 

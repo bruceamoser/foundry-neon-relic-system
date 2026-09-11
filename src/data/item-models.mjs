@@ -653,6 +653,51 @@ export class RelicSheetDataModel extends foundry.abstract.TypeDataModel {
  * sheets, and DA Case Brief via O#.
  * @extends foundry.abstract.TypeDataModel
  */
+export class CaseBoardDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      caseId: new StringField({ blank: true }),
+      caseName: new StringField({ blank: true }),
+      region: new StringField({ blank: true }),
+      currentDay: new NumberField({ initial: 14, integer: true, min: 1, max: 14 }),
+      shiftsFilled: new ArrayField(
+        new SchemaField({
+          day: new NumberField({ integer: true, min: 1, max: 14 }),
+          shift: new StringField({ blank: true }),
+          filled: new BooleanField({ initial: true }),
+        }),
+      ),
+      relicMilestones: new ArrayField(
+        new SchemaField({
+          day: new NumberField({ integer: true, min: 1, max: 14 }),
+          description: new StringField({ blank: true }),
+          triggered: new BooleanField({ initial: false }),
+        }),
+      ),
+      organizations: new ArrayField(
+        new SchemaField({
+          id: new StringField({ blank: true }),
+          name: new StringField({ blank: true }),
+          orgUuid: new StringField({ blank: true }),
+          value: new NumberField({ initial: 1, integer: true, min: 0, max: 14 }),
+          active: new BooleanField({ initial: true }),
+          dormant: new BooleanField({ initial: false }),
+          squaresConsumed: new ArrayField(new NumberField({ integer: true, min: 1, max: 14 })),
+          milestones: new ArrayField(
+            new SchemaField({
+              day: new NumberField({ integer: true, min: 1, max: 14 }),
+              label: new StringField({ blank: true }),
+              description: new StringField({ blank: true }),
+              triggered: new BooleanField({ initial: false }),
+            }),
+          ),
+        }),
+      ),
+      infoCardUuids: new ArrayField(new StringField({ blank: true })),
+    };
+  }
+}
+
 export class OrganizationDataModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {

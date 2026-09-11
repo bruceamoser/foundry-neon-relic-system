@@ -126,6 +126,7 @@ NEONRELIC:
     weapon: Weapon
     armor: Armor
     gear: Gear
+    caseBoard: Case Board
     consumable: Consumable
     artifact: Artifact
     talent: Talent
@@ -140,6 +141,25 @@ NEONRELIC:
     daCaseBrief: DA Case Brief
 
   # Item shared
+  CaseBoard:
+    Title: Operations Board
+    CaseId: Case ID
+    CaseName: Case Name
+    Region: Region
+    CurrentDay: 'Current Day'
+    DaysUntilCatastrophe: Days Until Catastrophe
+    Shifts: Shifts
+    ShiftHint: N / M / D / E
+    RelicMilestones: Relic Milestones
+    InfoCards: Information Cards
+    AddOrg: Add Organization
+    AdvanceDay: Fill Next Day
+    Active: Active
+    Dormant: Dormant
+    DropCards: Drop information cards here
+    DropOrg: Drop organization items here
+    Revealed: Revealed
+
   Item:
     Name: Item Name
     ImageHint: 'Left-click: edit image • Right-click: show to players'
