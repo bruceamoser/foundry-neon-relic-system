@@ -22,6 +22,7 @@ export const ITEM_DEFAULT_ICONS = {
   subdivision: 'systems/neon-relic/assets/icons/subdivision-default.svg',
   organization: 'systems/neon-relic/assets/icons/organization-default.svg',
   relicSheet: 'systems/neon-relic/assets/icons/relic-sheet-default.svg',
+  caseBoard: 'systems/neon-relic/assets/icons/case-board-default.svg',
 };
 
 /**

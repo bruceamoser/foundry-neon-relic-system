@@ -1,0 +1,198 @@
+{{! Case Board item template — Operations Board (VC-19) }}
+<div class='case-board'>
+
+  {{! Board header }}
+  <header class='cb-header'>
+    <div class='cb-header-fields'>
+      <label class='cb-field'>
+        <span class='cb-field-label'>{{localize 'NEONRELIC.CaseBoard.CaseId'}}</span>
+        <input type='text' name='system.caseId' value='{{system.caseId}}' {{disabled (not isEditable)}} />
+      </label>
+      <label class='cb-field cb-field-wide'>
+        <span class='cb-field-label'>{{localize 'NEONRELIC.CaseBoard.CaseName'}}</span>
+        <input type='text' name='system.caseName' value='{{system.caseName}}' {{disabled (not isEditable)}} />
+      </label>
+      <label class='cb-field cb-field-wide'>
+        <span class='cb-field-label'>{{localize 'NEONRELIC.CaseBoard.Region'}}</span>
+        <input type='text' name='system.region' value='{{system.region}}' {{disabled (not isEditable)}} />
+      </label>
+    </div>
+    {{#if isEditable}}
+      <button type='button' class='cb-advance' data-action='advanceDay'>
+        {{localize 'NEONRELIC.CaseBoard.AdvanceDay'}}
+      </button>
+    {{/if}}
+  </header>
+
+  {{! Board grid }}
+  <div class='cb-table-wrap'>
+    <table class='cb-table'>
+      <thead>
+        <tr>
+          <th class='cb-label-col'>{{localize 'NEONRELIC.CaseBoard.DaysUntilCatastrophe'}}</th>
+          {{#each board.days}}
+            <th class='{{this.headClass}}'>{{this.day}}</th>
+          {{/each}}
+        </tr>
+      </thead>
+      <tbody>
+        <tr class='cb-shift-row'>
+          <td class='cb-label-col'>
+            {{localize 'NEONRELIC.CaseBoard.Shifts'}}
+            <small>{{localize 'NEONRELIC.CaseBoard.ShiftHint'}}</small>
+          </td>
+          {{#each board.days}}
+            <td class='cb-shift-cell'>
+              <div class='cb-quads'>
+                {{#each this.quads}}
+                  <div
+                    class='{{this.quadClass}}'
+                    data-action='toggleShift'
+                    data-day='{{this.day}}'
+                    data-shift='{{this.shift}}'
+                    title='{{this.shift}} — Day {{this.day}}'
+                  >{{this.shift}}</div>
+                {{/each}}
+              </div>
+            </td>
+          {{/each}}
+        </tr>
+        <tr class='cb-ms-row'>
+          <td class='cb-label-col'>{{localize 'NEONRELIC.CaseBoard.RelicMilestones'}}</td>
+          {{#each board.days}}
+            <td
+              class='{{this.relicClass}}'
+              data-action='editRelicMilestone'
+              data-day='{{this.day}}'
+              title='{{this.relicDescription}}'
+            >{{this.relicLabel}}</td>
+          {{/each}}
+        </tr>
+        {{#each board.orgs}}
+          <tr class='cb-org-row'>
+            <td class='cb-label-col cb-org-label'>
+              <div class='cb-org-line'>
+                <input
+                  class='cb-org-id'
+                  type='text'
+                  name='system.organizations.{{this.idx}}.id'
+                  value='{{this.id}}'
+                  {{disabled (not @root.isEditable)}}
+                />
+                <input
+                  class='cb-org-name'
+                  type='text'
+                  name='system.organizations.{{this.idx}}.name'
+                  value='{{this.name}}'
+                  placeholder='Organization'
+                  {{disabled (not @root.isEditable)}}
+                />
+                {{#if this.orgUuid}}
+                  <a
+                    class='cb-org-open'
+                    data-action='openLinkedDoc'
+                    data-uuid='{{this.orgUuid}}'
+                    title='Open organization item'
+                  ><i class='fa-solid fa-up-right-from-square'></i></a>
+                {{/if}}
+                {{#if @root.isEditable}}
+                  <button
+                    type='button'
+                    class='cb-org-remove'
+                    data-action='removeOrg'
+                    data-idx='{{this.idx}}'
+                    title='Remove row'
+                  >&times;</button>
+                {{/if}}
+              </div>
+              <div class='cb-org-line'>
+                <span class='cb-val-label'>Val</span>
+                <input
+                  class='cb-org-val'
+                  type='number'
+                  min='0'
+                  max='14'
+                  name='system.organizations.{{this.idx}}.value'
+                  value='{{this.value}}'
+                  {{disabled (not @root.isEditable)}}
+                />
+                <label class='cb-status'><input
+                    type='checkbox'
+                    name='system.organizations.{{this.idx}}.active'
+                    {{checked this.active}}
+                    {{disabled (not @root.isEditable)}}
+                  />
+                  {{localize 'NEONRELIC.CaseBoard.Active'}}</label>
+                <label class='cb-status'><input
+                    type='checkbox'
+                    name='system.organizations.{{this.idx}}.dormant'
+                    {{checked this.dormant}}
+                    {{disabled (not @root.isEditable)}}
+                  />
+                  {{localize 'NEONRELIC.CaseBoard.Dormant'}}</label>
+              </div>
+            </td>
+            {{#each this.cells}}
+              <td
+                class='{{this.cellClass}}'
+                data-action='orgCell'
+                data-org-idx='{{this.orgIdx}}'
+                data-day='{{this.day}}'
+                title='{{this.title}}'
+              >{{this.milestoneLabel}}</td>
+            {{/each}}
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  {{#if isEditable}}
+    <div class='cb-toolbar'>
+      <button type='button' data-action='addOrg'>+ {{localize 'NEONRELIC.CaseBoard.AddOrg'}}</button>
+    </div>
+    <div class='dropzone' data-drop-key='caseBoardOrgs'>
+      <span class='dropzone-hint'>{{localize 'NEONRELIC.CaseBoard.DropOrg'}}</span>
+    </div>
+  {{/if}}
+
+  {{! Information cards }}
+  <section class='cb-cards'>
+    <h3>{{localize 'NEONRELIC.CaseBoard.InfoCards'}}</h3>
+    {{#if board.cards.length}}
+      <ul class='linked-doc-list'>
+        {{#each board.cards}}
+          <li class='linked-doc-row'>
+            <img class='linked-doc-img' src='{{this.img}}' alt='{{this.name}}' />
+            <a class='linked-doc-name' data-action='openLinkedDoc' data-uuid='{{this.uuid}}'>{{this.name}}</a>
+            <label class='cb-card-reveal'>
+              <input
+                type='checkbox'
+                data-action='toggleCardReveal'
+                data-uuid='{{this.uuid}}'
+                {{checked this.revealed}}
+                {{disabled (not @root.isEditable)}}
+              />
+              {{localize 'NEONRELIC.CaseBoard.Revealed'}}
+            </label>
+            {{#if @root.isEditable}}
+              <button
+                type='button'
+                class='linked-doc-remove'
+                data-action='removeCard'
+                data-uuid='{{this.uuid}}'
+              >&times;</button>
+            {{/if}}
+          </li>
+        {{/each}}
+      </ul>
+    {{else}}
+      <div class='cb-cards-empty'><p>No information cards linked.</p></div>
+    {{/if}}
+    {{#if isEditable}}
+      <div class='dropzone' data-drop-key='caseBoardCards'>
+        <span class='dropzone-hint'>{{localize 'NEONRELIC.CaseBoard.DropCards'}}</span>
+      </div>
+    {{/if}}
+  </section>
+</div>

@@ -1,0 +1,432 @@
+// Neon Relic — Case Board Styles (VC-19 Operations Board)
+// 14-day grid: shifts row, relic milestones row, one row per organization.
+
+.neon-relic.item-sheet .case-board {
+  padding: 0 6px 8px;
+
+  // ── Header ──────────────────────────────────────────
+  .cb-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 8px;
+    border-top: 3px solid $nr-red-stamp;
+    padding: 6px 0 4px;
+    margin-bottom: 6px;
+  }
+
+  .cb-header-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    flex: 1;
+  }
+
+  .cb-field {
+    display: flex;
+    flex-direction: column;
+
+    &.cb-field-wide {
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .cb-field-label {
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: $nr-ink-faded;
+    }
+
+    input {
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      background: $nr-field-bg;
+      border: 1px solid $nr-rule;
+      padding: 2px 4px;
+      color: $nr-ink;
+    }
+  }
+
+  .cb-advance {
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid $nr-rule;
+    background: $nr-field-bg;
+    color: $nr-ink;
+    padding: 4px 8px;
+    cursor: pointer;
+
+    &:hover {
+      background: $nr-ink;
+      color: $nr-paper;
+    }
+  }
+
+  // ── Board table ─────────────────────────────────────
+  .cb-table-wrap {
+    overflow-x: auto;
+  }
+
+  .cb-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    th,
+    td {
+      border: 1px solid $nr-rule;
+      vertical-align: middle;
+    }
+  }
+
+  .cb-label-col {
+    width: 150px;
+    min-width: 150px;
+    font-family: $nr-font-main;
+    font-size: 5.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: $nr-ink-faded;
+    padding: 2px 4px;
+    text-align: left;
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  .cb-day-head {
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    padding: 2px 0;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.03);
+
+    &.current-day {
+      background: rgba($nr-green-stamp, 0.25);
+    }
+
+    &.day-complete {
+      color: $nr-ink-faded;
+      background: rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  // Shift quads
+  .cb-shift-cell {
+    padding: 2px;
+  }
+
+  .cb-quads {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+  }
+
+  .cb-quad {
+    font-family: $nr-font-main;
+    font-size: 4.5pt;
+    text-align: center;
+    line-height: 1.4;
+    border: 1px solid $nr-rule-light;
+    color: $nr-ink-faded;
+    cursor: pointer;
+    user-select: none;
+
+    &.filled {
+      background: $nr-ink;
+      color: $nr-paper;
+    }
+
+    &:hover {
+      border-color: $nr-ink;
+    }
+  }
+
+  // Relic milestone row
+  .cb-relic-cell {
+    height: 22px;
+    text-align: center;
+    font-family: $nr-font-main;
+    font-size: 5.5pt;
+    color: $nr-ink-faded;
+    cursor: pointer;
+
+    &.has-ms {
+      background: rgba($nr-red-stamp, 0.15);
+      color: $nr-red-stamp;
+      font-weight: bold;
+      border-color: $nr-red-stamp;
+    }
+
+    &:hover {
+      border-color: $nr-ink;
+    }
+  }
+
+  // Organization rows
+  .cb-org-row {
+    .cb-org-label {
+      padding: 3px 4px;
+    }
+
+    .cb-org-line {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+
+      & + .cb-org-line {
+        margin-top: 2px;
+      }
+    }
+
+    .cb-org-id {
+      width: 34px;
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      text-transform: uppercase;
+      border: 1px solid $nr-rule;
+      background: $nr-field-bg;
+      padding: 1px 2px;
+      color: $nr-red-stamp;
+      text-align: center;
+    }
+
+    .cb-org-name {
+      flex: 1;
+      min-width: 0;
+      font-family: $nr-font-fill;
+      font-size: 7pt;
+      border: 1px solid $nr-rule;
+      background: $nr-field-bg;
+      padding: 1px 3px;
+      color: $nr-ink;
+    }
+
+    .cb-org-open {
+      color: $nr-ink-faded;
+      font-size: 7pt;
+
+      &:hover {
+        color: $nr-green-stamp;
+      }
+    }
+
+    .cb-org-remove {
+      border: 1px solid $nr-rule;
+      background: transparent;
+      color: $nr-red-stamp;
+      cursor: pointer;
+      font-size: 9pt;
+      line-height: 1;
+      padding: 0 3px;
+
+      &:hover {
+        background: $nr-red-stamp;
+        color: $nr-paper;
+      }
+    }
+
+    .cb-val-label {
+      font-family: $nr-font-main;
+      font-size: 5pt;
+      text-transform: uppercase;
+      color: $nr-ink-faded;
+    }
+
+    .cb-org-val {
+      width: 32px;
+      font-family: $nr-font-fill;
+      font-size: 7pt;
+      border: 1px solid $nr-rule;
+      background: $nr-field-bg;
+      padding: 1px 2px;
+      color: $nr-ink;
+      text-align: center;
+    }
+
+    .cb-status {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      font-family: $nr-font-main;
+      font-size: 5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: $nr-ink-faded;
+
+      input {
+        margin: 0;
+      }
+    }
+  }
+
+  // Escalation cells
+  .cb-cell {
+    height: 26px;
+    text-align: center;
+    font-family: $nr-font-main;
+    font-size: 5pt;
+    cursor: pointer;
+
+    &.consumed {
+      background: $nr-ink;
+      color: $nr-paper;
+    }
+
+    &.has-ms {
+      border-color: $nr-red-stamp;
+      background: rgba($nr-red-stamp, 0.12);
+      color: $nr-red-stamp;
+      font-weight: bold;
+    }
+
+    &.has-ms.triggered {
+      background: rgba($nr-red-stamp, 0.35);
+      color: $nr-paper;
+    }
+
+    &:hover {
+      border-color: $nr-ink;
+    }
+  }
+
+  // ── Toolbar / drop zones ────────────────────────────
+  .cb-toolbar {
+    margin: 6px 0 4px;
+
+    button {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid $nr-rule;
+      background: $nr-field-bg;
+      color: $nr-ink;
+      padding: 3px 8px;
+      cursor: pointer;
+
+      &:hover {
+        background: $nr-ink;
+        color: $nr-paper;
+      }
+    }
+  }
+
+  .dropzone {
+    border: 2px dashed $nr-rule;
+    padding: 8px;
+    text-align: center;
+    font-family: $nr-font-main;
+    font-size: 6.5pt;
+    color: $nr-ink-faded;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $nr-ink;
+      background: rgba($nr-ink, 0.03);
+    }
+  }
+
+  .dropzone-hint {
+    pointer-events: none;
+  }
+
+  // ── Information cards ───────────────────────────────
+  .cb-cards {
+    margin-top: 8px;
+    border-top: 2px solid $nr-rule;
+    padding-top: 6px;
+
+    h3 {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+      margin: 0 0 4px;
+      border-bottom: 1px solid $nr-rule;
+      padding-bottom: 2px;
+    }
+
+    .linked-doc-list {
+      list-style: none;
+      margin: 0 0 6px;
+      padding: 0;
+    }
+
+    .linked-doc-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 5px;
+      border: 1px solid $nr-rule;
+      background: $nr-field-bg;
+      margin-bottom: 3px;
+    }
+
+    .linked-doc-img {
+      width: 24px;
+      height: 24px;
+      object-fit: cover;
+      border: 1px solid $nr-rule;
+      flex-shrink: 0;
+    }
+
+    .linked-doc-name {
+      flex: 1;
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      color: $nr-ink;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+        color: $nr-red-stamp;
+      }
+    }
+
+    .cb-card-reveal {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: $nr-ink-faded;
+
+      input {
+        margin: 0;
+      }
+    }
+
+    .linked-doc-remove {
+      width: 18px;
+      height: 18px;
+      border: 1px solid $nr-rule;
+      background: transparent;
+      color: $nr-red-stamp;
+      font-size: 11pt;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+
+      &:hover {
+        background: $nr-red-stamp;
+        color: $nr-paper;
+      }
+    }
+  }
+
+  .cb-cards-empty {
+    text-align: center;
+    padding: 8px;
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    color: $nr-ink-faded;
+  }
+}
