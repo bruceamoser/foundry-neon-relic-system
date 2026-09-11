@@ -61,9 +61,25 @@
     }
   }
 
-  .hq-body {
+  // ── Tab Layout (ApplicationV2) ──────────────────────
+  .window-content {
+    overflow: hidden;
+  }
+
+  form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .tab {
+    flex: 1 1 0;
+    min-height: 0;
     overflow-y: auto;
     padding: 0 2px;
+    scrollbar-width: thin;
+    scrollbar-color: $nr-rule $nr-paper;
   }
 
   // ── Section Titles ──────────────────────────────────
@@ -202,13 +218,6 @@
     margin-bottom: 6px;
   }
 
-  .vault-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 4px;
-  }
-
   .field-label {
     font-family: $nr-font-main;
     font-size: 5.5pt;
@@ -226,6 +235,331 @@
     background: $nr-field-bg;
   }
 
+  // ── Description ─────────────────────────────────────
+  .description {
+    .editor {
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      min-height: 40px;
+      border: 1px solid $nr-rule;
+      padding: 4px;
+      background: $nr-field-bg;
+    }
+
+    prose-mirror {
+      display: block;
+      width: 100%;
+      min-height: 240px;
+    }
+
+    .editor-content,
+    .ProseMirror {
+      min-height: 240px;
+      font-family: $nr-font-fill;
+      font-size: 10pt;
+      line-height: 1.6;
+      color: $nr-ink;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  // ── Shared Small Elements ───────────────────────────
+  .subsection-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: $nr-font-main;
+    font-size: 6pt;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: $nr-ink-faded;
+    margin: 8px 0 4px;
+  }
+
+  .inline-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: $nr-font-main;
+    font-size: 6pt;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: $nr-green-stamp;
+    background: transparent;
+    border: 1.5px solid $nr-green-stamp;
+    padding: 2px 8px;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      background: rgba(45, 90, 39, 0.12);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+  }
+
+  .row-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    font-size: 8px;
+    background: transparent;
+    border: 1px solid $nr-rule;
+    color: $nr-ink-faded;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $nr-ink;
+      color: $nr-ink;
+    }
+
+    &.danger:hover {
+      border-color: $nr-red-stamp;
+      color: $nr-red-stamp;
+    }
+  }
+
+  .hint {
+    font-family: $nr-font-fill;
+    font-size: 7.5pt;
+    font-style: italic;
+    color: $nr-ink-faded;
+    margin: 4px 0;
+  }
+
+  .empty-hint {
+    font-family: $nr-font-fill;
+    font-size: 8pt;
+    font-style: italic;
+    color: $nr-ink-light;
+    border: 1px dashed $nr-rule-light;
+    padding: 8px;
+    text-align: center;
+    margin: 4px 0;
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: $nr-font-main;
+    font-size: 5.5pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 1px 6px;
+    border: 1px solid $nr-rule;
+    color: $nr-ink-faded;
+
+    &.cost {
+      border-color: $nr-green-stamp;
+      color: $nr-green-stamp;
+    }
+
+    &.standing {
+      border-color: #b8860b;
+      color: #8b6508;
+    }
+
+    &.category {
+      border-color: $nr-ink-light;
+    }
+
+    &.recruited {
+      border-color: $nr-green-stamp;
+      color: $nr-green-stamp;
+    }
+
+    &.used {
+      border-color: #b8860b;
+      color: #8b6508;
+    }
+
+    &.compromised {
+      border-color: $nr-red-stamp;
+      color: $nr-red-stamp;
+    }
+
+    &.type {
+      border-color: $nr-ink-light;
+    }
+  }
+
+  // ── City Network ────────────────────────────────────
+  .hq-network-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 12px;
+  }
+
+  .network-field {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    label {
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+    }
+
+    input,
+    select {
+      font-family: $nr-font-fill;
+      font-size: 9pt;
+      border: 1px solid $nr-rule;
+      background: $nr-field-bg;
+      padding: 2px 4px;
+    }
+  }
+
+  .cover-identity-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cover-identity-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 0;
+    border-bottom: 1px dotted $nr-rule-light;
+
+    .identity-value {
+      flex: 1;
+      font-family: $nr-font-fill;
+      font-size: 8.5pt;
+    }
+  }
+
+  // ── Upgrade Tree ────────────────────────────────────
+  .upgrade-summary-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 6px 0;
+  }
+
+  .summary-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: $nr-font-fill;
+    font-size: 8pt;
+    border: 1px solid $nr-rule;
+    background: $nr-field-bg;
+    padding: 2px 8px;
+
+    i {
+      color: $nr-green-stamp;
+    }
+  }
+
+  .upgrade-tier {
+    margin-bottom: 10px;
+  }
+
+  .tier-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    border-bottom: 1.5px solid $nr-ink;
+    padding-bottom: 2px;
+    margin: 8px 0 5px;
+
+    .tier-label {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: $nr-ink;
+    }
+
+    .tier-meta {
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      color: $nr-green-stamp;
+    }
+
+    .tier-gate {
+      margin-left: auto;
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #8b6508;
+      border: 1px solid #b8860b;
+      padding: 1px 6px;
+    }
+  }
+
+  .upgrade-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .upgrade-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $nr-rule;
+    background: $nr-field-bg;
+    padding: 6px;
+
+    &.established {
+      border-left: 3px solid $nr-green-stamp;
+    }
+
+    &.available {
+      border-left: 3px solid #b8860b;
+    }
+
+    &.locked {
+      opacity: 0.6;
+      border-left: 3px solid $nr-rule-light;
+    }
+  }
+
+  .upgrade-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .upgrade-img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border: 1px solid $nr-rule-light;
+  }
+
+  .upgrade-title-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .upgrade-name {
+    font-family: $nr-font-main;
+    font-size: 8pt;
+    letter-spacing: 1px;
+    color: $nr-ink;
+  }
+
+  .upgrade-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
   .status-badge {
     display: inline-block;
     font-family: $nr-font-main;
@@ -239,17 +573,362 @@
       border: 1.5px solid $nr-red-stamp;
       font-weight: bold;
     }
+
+    &.established {
+      color: $nr-green-stamp;
+      border: 1.5px solid $nr-green-stamp;
+      font-size: 5.5pt;
+      padding: 1px 6px;
+      white-space: nowrap;
+    }
   }
 
-  // ── Description ─────────────────────────────────────
-  .description {
-    .editor {
-      font-family: $nr-font-fill;
-      font-size: 8pt;
-      min-height: 40px;
-      border: 1px solid $nr-rule;
-      padding: 4px;
-      background: $nr-field-bg;
+  .upgrade-description {
+    font-family: $nr-font-fill;
+    font-size: 7.5pt;
+    font-style: italic;
+    color: $nr-ink-faded;
+    margin: 4px 0 2px;
+  }
+
+  .upgrade-effect {
+    font-family: $nr-font-fill;
+    font-size: 8pt;
+    color: $nr-ink;
+    border-left: 2px solid $nr-green-stamp;
+    padding-left: 6px;
+    margin: 4px 0;
+
+    i {
+      color: $nr-green-stamp;
+      font-size: 7px;
+    }
+  }
+
+  .upgrade-prereqs {
+    font-family: $nr-font-fill;
+    font-size: 7pt;
+    color: $nr-ink-faded;
+    margin-top: 2px;
+  }
+
+  .upgrade-card-footer {
+    margin-top: auto;
+    padding-top: 4px;
+  }
+
+  .establish-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: $nr-font-main;
+    font-size: 6pt;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: $nr-green-stamp;
+    background: transparent;
+    border: 1.5px solid $nr-green-stamp;
+    padding: 3px 10px;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(45, 90, 39, 0.12);
+    }
+  }
+
+  .lock-note {
+    font-family: $nr-font-fill;
+    font-size: 7pt;
+    font-style: italic;
+    color: $nr-red-stamp;
+
+    i {
+      font-size: 7px;
+    }
+  }
+
+  .footer-note {
+    font-family: $nr-font-fill;
+    font-size: 7pt;
+    font-style: italic;
+    color: $nr-green-stamp;
+  }
+
+  // ── Personnel ───────────────────────────────────────
+  .personnel-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .personnel-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $nr-rule;
+    background: $nr-field-bg;
+    padding: 6px;
+
+    &.recruited {
+      border-left: 3px solid $nr-green-stamp;
+    }
+
+    &.compromised {
+      border-left: 3px solid $nr-red-stamp;
+    }
+  }
+
+  .personnel-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .personnel-img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border: 1px solid $nr-rule-light;
+  }
+
+  .personnel-title-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .personnel-name {
+    font-family: $nr-font-main;
+    font-size: 8pt;
+    letter-spacing: 1px;
+    color: $nr-ink;
+  }
+
+  .personnel-description {
+    font-family: $nr-font-fill;
+    font-size: 7.5pt;
+    font-style: italic;
+    color: $nr-ink-faded;
+    margin: 4px 0 2px;
+  }
+
+  .personnel-bonus {
+    font-family: $nr-font-fill;
+    font-size: 8pt;
+    border-left: 2px solid $nr-green-stamp;
+    padding-left: 6px;
+    margin: 4px 0;
+
+    i {
+      color: $nr-green-stamp;
+      font-size: 7px;
+    }
+  }
+
+  .personnel-footer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: auto;
+    padding-top: 4px;
+    flex-wrap: wrap;
+  }
+
+  .toggle-btn {
+    font-family: $nr-font-main;
+    font-size: 5.5pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $nr-ink-faded;
+    background: transparent;
+    border: 1px solid $nr-rule;
+    padding: 2px 6px;
+    cursor: pointer;
+
+    &.active {
+      color: #8b6508;
+      border-color: #b8860b;
+      background: rgba(184, 134, 11, 0.12);
+    }
+
+    &.danger.active {
+      color: $nr-red-stamp;
+      border-color: $nr-red-stamp;
+      background: rgba(139, 26, 26, 0.08);
+    }
+  }
+
+  .recruit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: $nr-font-main;
+    font-size: 6pt;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: $nr-green-stamp;
+    background: transparent;
+    border: 1.5px solid $nr-green-stamp;
+    padding: 3px 10px;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(45, 90, 39, 0.12);
+    }
+  }
+
+  // ── Cell Roster ─────────────────────────────────────
+  .members-toolbar,
+  .log-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 6px 0 2px;
+
+    .toolbar-title {
+      font-family: $nr-font-main;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: $nr-ink;
+    }
+  }
+
+  .member-list {
+    list-style: none;
+    margin: 4px 0;
+    padding: 0;
+  }
+
+  .member-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid $nr-rule;
+    background: $nr-field-bg;
+    padding: 4px 6px;
+    margin-bottom: 4px;
+
+    &.missing {
+      opacity: 0.6;
+      border-style: dashed;
+    }
+  }
+
+  .member-img {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    border: 1px solid $nr-rule-light;
+    border-radius: 50%;
+  }
+
+  .member-name {
+    flex: 1;
+    font-family: $nr-font-fill;
+    font-size: 9pt;
+    color: $nr-ink;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+      color: $nr-green-stamp;
+      text-decoration: underline;
+    }
+  }
+
+  // ── Vault ───────────────────────────────────────────
+  .vault-status-row {
+    margin: 6px 0;
+  }
+
+  .vault-list {
+    list-style: none;
+    margin: 4px 0;
+    padding: 0;
+  }
+
+  .vault-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid $nr-rule;
+    background: $nr-field-bg;
+    padding: 4px 6px;
+    margin-bottom: 4px;
+
+    &.missing {
+      opacity: 0.6;
+      border-style: dashed;
+    }
+  }
+
+  .vault-img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    border: 1px solid $nr-rule-light;
+  }
+
+  .vault-name {
+    flex: 1;
+    font-family: $nr-font-fill;
+    font-size: 9pt;
+    color: $nr-ink;
+  }
+
+  .vault-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0;
+  }
+
+  .drop-hint {
+    font-family: $nr-font-fill;
+    font-size: 7.5pt;
+    font-style: italic;
+    color: $nr-ink-light;
+  }
+
+  .consecration-row {
+    .inline-btn {
+      margin-left: auto;
+    }
+  }
+
+  // ── Compromise Log ──────────────────────────────────
+  .compromise-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: $nr-font-fill;
+    font-size: 8pt;
+
+    th {
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-faded;
+      text-align: left;
+      border-bottom: 1.5px solid $nr-ink;
+      padding: 3px 4px;
+    }
+
+    td {
+      border-bottom: 1px dotted $nr-rule-light;
+      padding: 3px 4px;
+      vertical-align: top;
+    }
+
+    .col-case {
+      width: 48px;
+      text-align: center;
+    }
+
+    .col-actions {
+      width: 24px;
+      text-align: center;
     }
   }
 }

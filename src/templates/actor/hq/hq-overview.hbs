@@ -1,0 +1,145 @@
+<section class='tab overview {{tab.cssClass}}' data-group='primary' data-tab='overview'>
+  {{! Standing Track }}
+  <div class='section-title green'>{{localize 'NEONRELIC.HQ.Standing'}}</div>
+  <div class='track-row'>
+    <div class='track-pips standing-pips'>
+      {{#each standingPips}}
+        <span class='{{this.cssClass}}'></span>
+      {{/each}}
+    </div>
+    <div class='track-input'>
+      <input
+        type='number'
+        name='system.standing'
+        value='{{system.standing}}'
+        min='0'
+        max='20'
+        {{disabled (not isEditable)}}
+      />
+      <span class='track-max'>/ 20</span>
+    </div>
+  </div>
+
+  {{! Threat Level }}
+  <div class='section-title red'>{{localize 'NEONRELIC.HQ.Threat'}}</div>
+  <div class='track-row'>
+    <div class='track-pips threat-pips'>
+      {{#each threatPips}}
+        <span class='{{this.cssClass}}'></span>
+      {{/each}}
+    </div>
+    <div class='track-input'>
+      <input
+        type='number'
+        name='system.threat'
+        value='{{system.threat}}'
+        min='0'
+        max='6'
+        {{disabled (not isEditable)}}
+      />
+      <span class='track-max'>/ 6</span>
+    </div>
+  </div>
+
+  {{! Stats Row }}
+  <div class='hq-stats-row'>
+    <div class='stat-cell'>
+      <span class='stat-label'>{{localize 'NEONRELIC.HQ.DP'}}</span>
+      <input
+        class='stat-value'
+        type='number'
+        name='system.dp'
+        value='{{system.dp}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='stat-cell'>
+      <span class='stat-label'>{{localize 'NEONRELIC.HQ.CellWideCL'}}</span>
+      <span class='stat-value derived'>{{system.cellWideCL}}</span>
+    </div>
+  </div>
+
+  {{! City Network }}
+  <div class='section-title'>{{localize 'NEONRELIC.HQ.Network.Title'}}</div>
+  <div class='hq-network-grid'>
+    <div class='network-field'>
+      <label>{{localize 'NEONRELIC.HQ.Network.HomeCity'}}</label>
+      <input
+        type='text'
+        name='system.homeCity'
+        value='{{system.homeCity}}'
+        placeholder='{{localize "NEONRELIC.HQ.Network.HomeCityHint"}}'
+        {{disabled (not isEditable)}}
+      />
+    </div>
+    <div class='network-field'>
+      <label>{{localize 'NEONRELIC.HQ.Network.CitySize'}}</label>
+      <select name='system.citySize' {{disabled (not isEditable)}}>
+        {{#each citySizeOptions}}
+          <option value='{{this.value}}' {{selected this.value @root.system.citySize}}>
+            {{localize this.label}}
+          </option>
+        {{/each}}
+      </select>
+    </div>
+    <div class='network-field'>
+      <label>{{localize 'NEONRELIC.HQ.Network.SafeHouse'}}</label>
+      <input type='text' name='system.safeHouse' value='{{system.safeHouse}}' {{disabled (not isEditable)}} />
+    </div>
+    <div class='network-field'>
+      <label>{{localize 'NEONRELIC.HQ.Network.DeadDrop'}}</label>
+      <input type='text' name='system.deadDrop' value='{{system.deadDrop}}' {{disabled (not isEditable)}} />
+    </div>
+  </div>
+
+  {{! Cover Identities }}
+  <div class='subsection-title'>
+    {{localize 'NEONRELIC.HQ.Network.CoverIdentities'}}
+    {{#if isEditable}}
+      <button type='button' class='inline-btn' data-action='addCoverIdentity'>
+        <i class='fa-solid fa-plus' inert></i>
+        {{localize 'NEONRELIC.HQ.Network.AddIdentity'}}
+      </button>
+    {{/if}}
+  </div>
+  {{#if coverIdentities.length}}
+    <ul class='cover-identity-list'>
+      {{#each coverIdentities}}
+        <li class='cover-identity-row'>
+          <span class='identity-value'>{{this.value}}</span>
+          {{#if @root.isEditable}}
+            <button
+              type='button'
+              class='row-btn danger'
+              data-action='removeCoverIdentity'
+              data-index='{{this.index}}'
+              data-tooltip='{{localize "NEONRELIC.HQ.Remove"}}'
+            >
+              <i class='fa-solid fa-trash' inert></i>
+            </button>
+          {{/if}}
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p class='empty-hint'>{{localize 'NEONRELIC.HQ.Network.NoIdentities'}}</p>
+  {{/if}}
+
+  {{! Description }}
+  <div class='section-title'>{{localize 'NEONRELIC.Description'}}</div>
+  <div class='description'>
+    {{#if isEditable}}
+      <prose-mirror
+        name='system.description'
+        value='{{system.description}}'
+        data-document-uuid='{{document.uuid}}'
+        toggled
+        relative
+      >
+      </prose-mirror>
+    {{else}}
+      <div class='editor-content'>{{{enrichedDescription}}}</div>
+    {{/if}}
+  </div>
+</section>

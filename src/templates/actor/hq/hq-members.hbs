@@ -1,0 +1,43 @@
+<section class='tab members {{tab.cssClass}}' data-group='primary' data-tab='members'>
+  <div class='members-toolbar'>
+    <span class='toolbar-title'>{{localize 'NEONRELIC.HQ.Members.Title'}}</span>
+    {{#if isEditable}}
+      <button type='button' class='inline-btn' data-action='addMember'>
+        <i class='fa-solid fa-user-plus' inert></i>
+        {{localize 'NEONRELIC.HQ.Members.Manage'}}
+      </button>
+    {{/if}}
+  </div>
+
+  <p class='hint'>{{localize 'NEONRELIC.HQ.Members.Hint'}}</p>
+
+  {{#if cellMembers.length}}
+    <ul class='member-list'>
+      {{#each cellMembers}}
+        <li class='{{this.rowClass}}'>
+          <img class='member-img' src='{{this.img}}' alt='{{this.name}}' />
+          <a
+            class='member-name'
+            data-action='openMember'
+            data-member-uuid='{{this.uuid}}'
+            data-tooltip='{{localize "NEONRELIC.HQ.Members.OpenHint"}}'
+          >{{this.name}}</a>
+          <span class='badge type'>{{localize this.typeLabel}}</span>
+          {{#if @root.isEditable}}
+            <button
+              type='button'
+              class='row-btn danger'
+              data-action='removeMember'
+              data-member-uuid='{{this.uuid}}'
+              data-tooltip='{{localize "NEONRELIC.HQ.Members.RemoveHint"}}'
+            >
+              <i class='fa-solid fa-user-minus' inert></i>
+            </button>
+          {{/if}}
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p class='empty-hint'>{{localize 'NEONRELIC.HQ.Members.Empty'}}</p>
+  {{/if}}
+</section>

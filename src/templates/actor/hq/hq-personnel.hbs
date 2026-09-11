@@ -1,0 +1,88 @@
+<section class='tab personnel {{tab.cssClass}}' data-group='primary' data-tab='personnel'>
+  <p class='hint'>{{localize 'NEONRELIC.HQ.Personnel.Hint'}}</p>
+
+  <div class='personnel-cards'>
+    {{#each personnelRoster}}
+      <div class='{{this.cardClass}}'>
+        <div class='personnel-header'>
+          <img class='personnel-img' src='{{this.img}}' alt='{{this.name}}' />
+          <div class='personnel-title-block'>
+            <span class='personnel-name'>{{this.name}}</span>
+            {{#if this.recruited}}
+              <span class='badge recruited'>{{localize 'NEONRELIC.HQ.Personnel.Recruited'}}</span>
+            {{else}}
+              <span class='badge cost'>{{this.dpCost}} {{localize 'NEONRELIC.HQ.DP'}}</span>
+            {{/if}}
+          </div>
+        </div>
+
+        {{#if this.description}}
+          <p class='personnel-description'>{{this.description}}</p>
+        {{/if}}
+        {{#if this.hqBonus}}
+          <div class='personnel-bonus'>
+            <i class='fa-solid fa-bolt' inert></i>
+            {{this.hqBonus}}
+          </div>
+        {{/if}}
+
+        <div class='personnel-footer'>
+          {{#if this.recruited}}
+            {{#if @root.isEditable}}
+              <button
+                type='button'
+                class='{{this.usedBtnClass}}'
+                data-action='togglePersonnelUsed'
+                data-personnel-uuid='{{this.uuid}}'
+                data-tooltip='{{localize "NEONRELIC.HQ.Personnel.UsedHint"}}'
+              >
+                {{localize 'NEONRELIC.HQ.Personnel.Used'}}
+              </button>
+              <button
+                type='button'
+                class='{{this.compBtnClass}}'
+                data-action='togglePersonnelCompromised'
+                data-personnel-uuid='{{this.uuid}}'
+                data-tooltip='{{localize "NEONRELIC.HQ.Personnel.CompromisedHint"}}'
+              >
+                {{localize 'NEONRELIC.HQ.Personnel.Compromised'}}
+              </button>
+              <button
+                type='button'
+                class='row-btn danger'
+                data-action='removePersonnel'
+                data-personnel-uuid='{{this.uuid}}'
+                data-personnel-name='{{this.name}}'
+                data-tooltip='{{localize "NEONRELIC.HQ.Personnel.RemoveHint"}}'
+              >
+                <i class='fa-solid fa-user-minus' inert></i>
+              </button>
+            {{else}}
+              {{#if this.usedThisCase}}
+                <span class='badge used'>{{localize 'NEONRELIC.HQ.Personnel.Used'}}</span>
+              {{/if}}
+              {{#if this.isCompromised}}
+                <span class='badge compromised'>{{localize 'NEONRELIC.HQ.Personnel.Compromised'}}</span>
+              {{/if}}
+            {{/if}}
+          {{else}}
+            {{#if @root.isEditable}}
+              <button
+                type='button'
+                class='recruit-btn'
+                data-action='recruitPersonnel'
+                data-personnel-uuid='{{this.uuid}}'
+                data-personnel-name='{{this.name}}'
+              >
+                <i class='fa-solid fa-user-plus' inert></i>
+                {{localize 'NEONRELIC.HQ.Personnel.RecruitAction'}}
+              </button>
+            {{/if}}
+          {{/if}}
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+  <p class='hint'>{{localize 'NEONRELIC.HQ.Personnel.DropHint'}}</p>
+</section>

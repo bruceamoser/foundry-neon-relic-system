@@ -1,0 +1,18 @@
+<header class='hq-header'>
+  <img class='profile-img' src='{{actor.img}}' data-edit='img' title='{{actor.name}}' />
+  <div class='header-fields'>
+    <h1>
+      <input
+        name='name'
+        type='text'
+        value='{{actor.name}}'
+        placeholder='{{localize "NEONRELIC.HQ.Name"}}'
+        {{disabled (not isEditable)}}
+      />
+    </h1>
+    <span class='sheet-type'>{{localize 'NEONRELIC.HQ.SheetType'}}</span>
+  </div>
+  <div class='standing-badge'>
+    <span class='rank-label'>{{standingRankLabel}}</span>
+  </div>
+</header>

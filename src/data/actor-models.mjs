@@ -280,6 +280,11 @@ export class NPCDataModel extends foundry.abstract.TypeDataModel {
       // Tags
       tags: new ArrayField(new StringField()),
 
+      // HQ personnel (non-combatant contacts recruited via the Headquarters sheet)
+      personnelType: new StringField({ blank: true }),
+      hqBonus: new HTMLField({ blank: true }),
+      dpCost: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
+
       // Shared initiative
       sharedInitiative: new BooleanField({ initial: false }),
 

@@ -1,15 +1,41 @@
 # HQ Personnel Compendium Pack
-# Neon Relic — 5 recruitable personnel types
+# Neon Relic — Personnel Recruitment (Ch 12: Headquarters Management)
+# 5 recruitables contacts and specialists. Non-combatants: if a cell location
+# is attacked they flee or hide. See docs/chapters/12-headquarters.adoc.
 ---
 - _id: pers001
-  name: Field Medic
+  name: Station Dispatcher (Police)
   type: npc
   system:
-    tier: 2
-    personnelType: medic
+    tier: 1
+    personnelType: dispatcher
+    dpCost: 2
+    hqBonus: 'Once per Case File: request police incident records, scanner traffic intercepts, or a 10-minute window of police non-response in one location.'
     description: >
-      A trained medical professional assigned to HQ. Provides
-      healing support and can treat critical injuries between missions.
+      A civilian 911 dispatcher who owes the Covenant a significant debt.
+      Passes case-relevant police radio traffic when it crosses their desk.
+    attributes:
+      str: 2
+      agi: 2
+      wit: 3
+      emp: 3
+    skills:
+      investigate: 2
+      persuade: 2
+    armorRating: 0
+    fearRating: 0
+
+- _id: pers002
+  name: Underground Field Medic
+  type: npc
+  system:
+    tier: 1
+    personnelType: medic
+    dpCost: 2
+    hqBonus: 'During downtime, one character may be treated for a non-lethal Critical Injury (Heal (EMP) Difficulty 2 removes the injury without Attribute loss). Does not replace the Basic Medical Bay; stacks with it.'
+    description: >
+      A struck-off physician — too many questions asked, too many bullet
+      wounds treated no-questions-asked. Brilliant in a crisis.
     attributes:
       str: 2
       agi: 2
@@ -18,42 +44,42 @@
     skills:
       healPhysical: 4
       psychoanalyze: 2
-      investigate: 1
     armorRating: 0
     fearRating: 0
-    hqBonus: '+1 to Heal rolls at HQ. Can treat 1 lethal crit per session.'
-
-- _id: pers002
-  name: Quartermaster
-  type: npc
-  system:
-    tier: 2
-    personnelType: quartermaster
-    description: >
-      Manages supply chains and equipment inventory. Ensures agents
-      have what they need before deployment.
-    attributes:
-      str: 3
-      agi: 2
-      wit: 3
-      emp: 2
-    skills:
-      tinker: 3
-      investigate: 2
-      persuade: 2
-    armorRating: 0
-    fearRating: 0
-    hqBonus: '+1 to requisition rolls. Auto-restocks 1 consumable per session.'
 
 - _id: pers003
-  name: Archivist
+  name: Black-Market Fence
   type: npc
   system:
-    tier: 2
-    personnelType: archivist
+    tier: 1
+    personnelType: fence
+    dpCost: 3
+    hqBonus: 'Once per Case File: requisition one item of any CL without spending from your CL Pool and without an above-CL roll. Takes 48 hours in-game; the item arrives at a designated dead drop. In addition to your normal CL-pool allocation.'
     description: >
-      A scholar of the occult who catalogs artifacts, cross-references
-      historical records, and assists with research.
+      A procurement specialist with connections to military surplus, private
+      security disposals, and the occasional Consortium dropout.
+    attributes:
+      str: 2
+      agi: 3
+      wit: 3
+      emp: 3
+    skills:
+      investigate: 2
+      persuade: 3
+    armorRating: 0
+    fearRating: 0
+
+- _id: pers004
+  name: Covenant Scholar
+  type: npc
+  system:
+    tier: 1
+    personnelType: scholar
+    dpCost: 3
+    hqBonus: '+1 die on pre-mission Lore (WIT) rolls when consulted (same city or via correspondence). Can translate dead languages overnight — removes the "ancient language" investigation obstacle without a roll.'
+    description: >
+      A former academic — history, linguistics, or theology — recruited (or
+      blackmailed) into the Covenant's extended network. Corresponds by mail only.
     attributes:
       str: 1
       agi: 2
@@ -61,53 +87,28 @@
       emp: 3
     skills:
       lore: 4
-      investigate: 3
-      psychoanalyze: 1
+      investigate: 2
     armorRating: 0
     fearRating: 0
-    hqBonus: '+1 to Lore rolls at HQ. Can identify 1 unknown artifact per session.'
 
-- _id: pers004
-  name: Mechanic
+- _id: pers005
+  name: Signals Technician
   type: npc
   system:
-    tier: 2
-    personnelType: mechanic
+    tier: 1
+    personnelType: signalsTech
+    dpCost: 4
+    hqBonus: "Once per Case File: plant a real-time audio tap on a rival faction's communication line (Investigate (WIT) Difficulty 2; success = one scene of intercepted intel). Also +1 die on all Tech (WIT) rolls at the Secure Communications Room."
     description: >
-      A skilled technician who repairs and maintains vehicles
-      and equipment. Can modify gear between missions.
+      An ex-NSA field tech — burned, paranoid, and very good at making
+      equipment do things it shouldn't.
     attributes:
-      str: 3
+      str: 1
       agi: 3
-      wit: 3
+      wit: 5
       emp: 2
     skills:
       tinker: 4
-      drive: 2
-      investigate: 1
-    armorRating: 0
-    fearRating: 0
-    hqBonus: '+1 to Tinker rolls for repairs. Auto-repairs 1 gear die step per session.'
-
-- _id: pers005
-  name: Handler
-  type: npc
-  system:
-    tier: 3
-    personnelType: handler
-    description: >
-      A former intelligence officer who manages agent deployments,
-      coordinates field operations, and maintains cover identities.
-    attributes:
-      str: 2
-      agi: 3
-      wit: 4
-      emp: 4
-    skills:
-      persuade: 4
       investigate: 3
-      stealth: 2
-      lore: 2
     armorRating: 0
     fearRating: 0
-    hqBonus: '+1 to social rolls during operations. Can create 1 cover identity per case.'

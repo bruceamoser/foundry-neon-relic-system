@@ -1,0 +1,81 @@
+<section class='tab vault {{tab.cssClass}}' data-group='primary' data-tab='vault'>
+  <div class='vault-status-row'>
+    <span class='{{vaultStatusClass}}'>
+      {{#if vaultDampeningEstablished}}
+        <i class='fa-solid fa-shield-halved' inert></i>
+        {{localize 'NEONRELIC.HQ.Vault.DampeningEstablished'}}
+      {{else}}
+        <i class='fa-solid fa-triangle-exclamation' inert></i>
+        {{localize 'NEONRELIC.HQ.Vault.DampeningMissing'}}
+      {{/if}}
+    </span>
+  </div>
+
+  <div class='section-title'>{{localize 'NEONRELIC.HQ.Vault.Stored'}}</div>
+  <p class='hint'>{{localize 'NEONRELIC.HQ.Vault.Rules'}}</p>
+
+  {{#if vaultArtifacts.length}}
+    <ul class='vault-list'>
+      {{#each vaultArtifacts}}
+        <li class='{{this.rowClass}}'>
+          <img class='vault-img' src='{{this.img}}' alt='{{this.name}}' />
+          <span class='vault-name'>{{this.name}}</span>
+          {{#if @root.isEditable}}
+            <button
+              type='button'
+              class='row-btn danger'
+              data-action='removeArtifact'
+              data-artifact-uuid='{{this.uuid}}'
+              data-tooltip='{{localize "NEONRELIC.HQ.Vault.RemoveHint"}}'
+            >
+              <i class='fa-solid fa-box-archive' inert></i>
+            </button>
+          {{/if}}
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p class='empty-hint'>{{localize 'NEONRELIC.HQ.Vault.Empty'}}</p>
+  {{/if}}
+
+  {{#if isEditable}}
+    <div class='vault-actions'>
+      <button type='button' class='inline-btn' data-action='addArtifact'>
+        <i class='fa-solid fa-plus' inert></i>
+        {{localize 'NEONRELIC.HQ.Vault.Add'}}
+      </button>
+      <span class='drop-hint'>{{localize 'NEONRELIC.HQ.Vault.DropHint'}}</span>
+    </div>
+  {{/if}}
+
+  {{! Re-consecration }}
+  <div class='section-title'>{{localize 'NEONRELIC.HQ.Vault.Consecration'}}</div>
+  <div class='vault-section'>
+    <div class='vault-row consecration-row'>
+      <span class='field-label'>{{localize 'NEONRELIC.HQ.CasesSinceConsecration'}}</span>
+      <input
+        class='vault-input'
+        type='number'
+        name='system.vault.casesSinceConsecration'
+        value='{{system.vault.casesSinceConsecration}}'
+        min='0'
+        {{disabled (not isEditable)}}
+      />
+      {{#if isEditable}}
+        <button
+          type='button'
+          class='inline-btn'
+          data-action='consecrateVault'
+          {{disabled (eq system.vault.casesSinceConsecration 0)}}
+        >
+          <i class='fa-solid fa-droplet' inert></i>
+          {{localize 'NEONRELIC.HQ.Consecrate.Action'}}
+        </button>
+      {{/if}}
+    </div>
+    {{#if system.needsReconsecration}}
+      <div class='status-badge critical'>{{localize 'NEONRELIC.HQ.NeedsReconsecration'}}</div>
+    {{/if}}
+    <p class='hint'>{{localize 'NEONRELIC.HQ.Consecrate.Hint'}}</p>
+  </div>
+</section>
