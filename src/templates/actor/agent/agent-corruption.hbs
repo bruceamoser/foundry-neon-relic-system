@@ -40,16 +40,22 @@
     </div>
   </div>
 
-  {{! Session Healing }}
+  {{! Session Healing (tracked for the table — not enforced by the system) }}
   <div class='section-title green'>{{localize 'NEONRELIC.Corruption.SessionHealing'}}</div>
   <div class='two-col'>
     <div class='form-field'>
       <span class='id-label'>{{localize 'NEONRELIC.Corruption.HealedThisSession'}}</span>
-      <span class='field-value'>{{system.corruption.sessionHealing}} / 5</span>
+      <span
+        class='field-value'
+        title='{{localize "NEONRELIC.Corruption.SessionHealingHint"}}'
+      >{{system.corruption.sessionHealing}} / 5</span>
     </div>
     <div class='form-field'>
       <span class='id-label'>{{localize 'NEONRELIC.Corruption.HealingTagUsed'}}</span>
-      <span class='field-value'>{{system.corruption.healingTagUsed}} / 3</span>
+      <span
+        class='field-value'
+        title='{{localize "NEONRELIC.Corruption.HealingTagHint"}}'
+      >{{system.corruption.healingTagUsed}} / 3</span>
     </div>
   </div>
   {{#if isEditable}}
