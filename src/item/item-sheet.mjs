@@ -78,14 +78,41 @@ async function buildBoardContext(system) {
     }),
   }));
 
+  const nameCache = new Map();
+  const resolveLinkLabel = async uuid => {
+    if (nameCache.has(uuid)) return nameCache.get(uuid);
+    const doc = await fromUuid(uuid).catch(() => null);
+    const label = doc?.system?.locationId || doc?.system?.npcId || doc?.name || '';
+    nameCache.set(uuid, label);
+    return label;
+  };
+
   const cards = [];
   for (const uuid of system.informationCardUuids ?? []) {
     const doc = await fromUuid(uuid).catch(() => null);
+    if (!doc) {
+      cards.push({
+        uuid,
+        name: '(missing card)',
+        displayName: '(missing card)',
+        cardId: '',
+        links: '',
+        revealed: false,
+        chipClass: 'cb-card-chip',
+      });
+      continue;
+    }
+    const links = [];
+    for (const linkUuid of doc.system?.foundAtUuids ?? []) links.push(await resolveLinkLabel(linkUuid));
+    for (const linkUuid of doc.system?.knownByUuids ?? []) links.push(await resolveLinkLabel(linkUuid));
     cards.push({
       uuid,
-      name: doc?.name ?? '(missing card)',
-      img: doc?.img ?? 'icons/svg/mystery-man.svg',
-      revealed: doc?.system?.revealed ?? false,
+      name: doc.name,
+      displayName: doc.name.replace(/^I\d+\s*—\s*/, ''),
+      cardId: doc.system?.cardId ?? '',
+      links: links.filter(Boolean).join(' · '),
+      revealed: doc.system?.revealed ?? false,
+      chipClass: 'cb-card-chip' + (doc.system?.revealed ? ' revealed' : ''),
     });
   }
 
@@ -216,7 +243,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   _initializeApplicationOptions(options) {
     const initialized = super._initializeApplicationOptions(options);
     if (options.document?.type === 'caseBoard') {
-      initialized.position = { ...initialized.position, width: 1180, height: 840 };
+      initialized.position = { ...initialized.position, width: 1320, height: 900 };
     }
     return initialized;
   }

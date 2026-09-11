@@ -149,13 +149,18 @@
           <td class='cb-card-cell' colspan='14'>
             <div class='cb-card-links' data-drop-key='caseBoardCards'>
               {{#each board.cards}}
-                <span class='cb-card-chip'>
-                  <a
-                    class='cb-card-link'
-                    data-action='openLinkedDoc'
-                    data-uuid='{{this.uuid}}'
-                    title='{{this.name}}'
-                  >{{this.name}}</a>
+                <span class='{{this.chipClass}}'>
+                  <span class='cb-card-body'>
+                    <a
+                      class='cb-card-link'
+                      data-action='openLinkedDoc'
+                      data-uuid='{{this.uuid}}'
+                      title='{{this.name}}'
+                    ><span class='cb-card-id'>[{{this.cardId}}]</span> {{this.displayName}}</a>
+                    {{#if this.links}}
+                      <span class='cb-card-links'>Links: {{this.links}}</span>
+                    {{/if}}
+                  </span>
                   <input
                     type='checkbox'
                     class='cb-card-dot'

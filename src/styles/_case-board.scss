@@ -73,9 +73,10 @@
 
   .cb-table {
     width: 100%;
-    min-width: 1080px;
+    min-width: 1240px;
     border-collapse: collapse;
     table-layout: fixed;
+    background: $nr-paper;
 
     th,
     td {
@@ -85,32 +86,35 @@
   }
 
   .cb-label-col {
-    width: 190px;
-    min-width: 190px;
+    width: 210px;
+    min-width: 210px;
     font-family: $nr-font-main;
-    font-size: 6.5pt;
+    font-size: 10.5pt;
+    font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: $nr-ink-faded;
-    padding: 2px 4px;
+    color: $nr-red-stamp;
+    padding: 4px 6px;
     text-align: left;
-    background: rgba(0, 0, 0, 0.03);
+    background: rgba(255, 255, 255, 0.35);
   }
 
   .cb-day-head {
     font-family: $nr-font-main;
-    font-size: 10pt;
-    padding: 4px 0;
+    font-size: 13pt;
+    font-weight: bold;
+    color: $nr-red-stamp;
+    padding: 6px 0;
     text-align: center;
-    background: rgba(0, 0, 0, 0.03);
+    background: rgba(255, 255, 255, 0.35);
 
     &.current-day {
-      background: rgba($nr-green-stamp, 0.25);
+      background: rgba($nr-red-stamp, 0.18);
+      text-decoration: underline;
     }
 
     &.day-complete {
       color: $nr-ink-faded;
-      background: rgba(0, 0, 0, 0.08);
     }
   }
 
@@ -127,7 +131,7 @@
 
   .cb-quad {
     font-family: $nr-font-main;
-    font-size: 6.5pt;
+    font-size: 9pt;
     text-align: center;
     line-height: 1.5;
     border: 1px solid $nr-rule-light;
@@ -136,9 +140,9 @@
     user-select: none;
 
     &.filled {
-      background: $nr-paper;
+      background: rgba($nr-red-stamp, 0.15);
       color: $nr-ink;
-      border: 2px solid $nr-ink;
+      border: 2px solid $nr-red-stamp;
       font-weight: bold;
     }
 
@@ -149,10 +153,10 @@
 
   // Relic milestone row
   .cb-relic-cell {
-    height: 32px;
+    height: 40px;
     text-align: center;
     font-family: $nr-font-main;
-    font-size: 7.5pt;
+    font-size: 10pt;
     color: $nr-ink-faded;
     cursor: pointer;
 
@@ -161,6 +165,7 @@
       color: $nr-red-stamp;
       font-weight: bold;
       border-color: $nr-red-stamp;
+      text-decoration: underline;
     }
 
     &:hover {
@@ -185,9 +190,9 @@
     }
 
     .cb-org-id {
-      width: 44px;
+      width: 48px;
       font-family: $nr-font-main;
-      font-size: 8.5pt;
+      font-size: 11pt;
       text-transform: uppercase;
       border: 1px solid $nr-rule;
       background: $nr-field-bg;
@@ -200,7 +205,7 @@
       flex: 1;
       min-width: 0;
       font-family: $nr-font-fill;
-      font-size: 8.5pt;
+      font-size: 10.5pt;
       border: 1px solid $nr-rule;
       background: $nr-field-bg;
       padding: 1px 3px;
@@ -233,15 +238,15 @@
 
     .cb-val-label {
       font-family: $nr-font-main;
-      font-size: 6.5pt;
+      font-size: 8pt;
       text-transform: uppercase;
       color: $nr-ink-faded;
     }
 
     .cb-org-val {
-      width: 38px;
+      width: 44px;
       font-family: $nr-font-fill;
-      font-size: 8.5pt;
+      font-size: 10.5pt;
       border: 1px solid $nr-rule;
       background: $nr-field-bg;
       padding: 1px 2px;
@@ -254,7 +259,7 @@
       align-items: center;
       gap: 2px;
       font-family: $nr-font-main;
-      font-size: 6.5pt;
+      font-size: 8pt;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: $nr-ink-faded;
@@ -267,20 +272,22 @@
 
   // Escalation cells
   .cb-cell {
-    height: 38px;
+    height: 58px;
     text-align: center;
     font-family: $nr-font-main;
-    font-size: 7.5pt;
+    font-size: 10pt;
+    font-weight: bold;
     cursor: pointer;
+    background: rgba(139, 26, 26, 0.07);
+    color: $nr-ink;
 
     &.consumed {
-      color: $nr-ink;
-      background: repeating-linear-gradient(
-        45deg,
-        rgba(0, 0, 0, 0.14) 0,
-        rgba(0, 0, 0, 0.14) 4px,
-        transparent 4px,
-        transparent 9px
+      background-image: linear-gradient(
+        to top right,
+        transparent calc(50% - 1px),
+        $nr-ink calc(50% - 1px),
+        $nr-ink calc(50% + 1px),
+        transparent calc(50% + 1px)
       );
     }
 
@@ -288,12 +295,12 @@
       border-color: $nr-red-stamp;
       background: rgba($nr-red-stamp, 0.12);
       color: $nr-red-stamp;
-      font-weight: bold;
+      text-decoration: underline;
     }
 
     &.has-ms.triggered {
-      color: darken($nr-red-stamp, 10%);
-      background: rgba($nr-red-stamp, 0.22);
+      color: $nr-ink;
+      background: rgba($nr-red-stamp, 0.32);
     }
 
     &:hover {
@@ -355,28 +362,44 @@
   .cb-card-links {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 4px;
-    min-height: 24px;
+    align-items: flex-start;
+    gap: 5px;
+    min-height: 30px;
   }
 
   .cb-card-chip {
     display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    padding: 1px 4px;
-    border: 1px solid $nr-rule;
-    background: $nr-field-bg;
-    max-width: 240px;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 3px 6px;
+    border: 1px solid rgba(26, 26, 24, 0.5);
+    border-left: 4px solid $nr-red-stamp;
+    background: rgba(255, 255, 255, 0.35);
+    max-width: 320px;
+
+    &.revealed {
+      border-left-color: $nr-green-stamp;
+    }
+
+    .cb-card-body {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
 
     .cb-card-link {
       font-family: $nr-font-fill;
-      font-size: 8pt;
+      font-size: 9pt;
       color: $nr-ink;
       cursor: pointer;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+
+      .cb-card-id {
+        color: $nr-red-stamp;
+        font-weight: bold;
+      }
 
       &:hover {
         text-decoration: underline;
@@ -384,10 +407,19 @@
       }
     }
 
+    .cb-card-links {
+      font-family: $nr-font-main;
+      font-size: 6.5pt;
+      color: $nr-ink-faded;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     .cb-card-dot {
-      margin: 0;
-      width: 12px;
-      height: 12px;
+      margin: 3px 0 0;
+      width: 13px;
+      height: 13px;
       flex-shrink: 0;
     }
 
@@ -408,7 +440,7 @@
 
   .cb-card-empty {
     font-family: $nr-font-main;
-    font-size: 7pt;
+    font-size: 8pt;
     color: $nr-ink-faded;
     text-transform: uppercase;
     letter-spacing: 0.5px;
