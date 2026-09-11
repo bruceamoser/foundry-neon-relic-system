@@ -386,6 +386,7 @@ NEONRELIC:
     CorruptionCostChat: 'Corruption +{cost}'
     UsesRemaining: '{value}/{max} session uses remaining'
     UsesRemainingCaseFile: '{value}/{max} case file uses remaining'
+    UsesTrackedExhausted: Tracked uses exhausted — usage continues (table-enforced).
 
   # Critical Injury
   CriticalInjury:
