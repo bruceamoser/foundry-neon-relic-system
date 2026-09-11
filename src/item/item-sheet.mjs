@@ -79,7 +79,7 @@ async function buildBoardContext(system) {
   }));
 
   const cards = [];
-  for (const uuid of system.infoCardUuids ?? []) {
+  for (const uuid of system.informationCardUuids ?? []) {
     const doc = await fromUuid(uuid).catch(() => null);
     cards.push({
       uuid,
@@ -206,6 +206,20 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       scrollable: [''],
     },
   };
+
+  /* ------------------------------------------ */
+
+  /**
+   * Give the case board a large default window — it renders a 14-column grid.
+   * @override
+   */
+  _initializeApplicationOptions(options) {
+    const initialized = super._initializeApplicationOptions(options);
+    if (options.document?.type === 'caseBoard') {
+      initialized.position = { ...initialized.position, width: 1180, height: 840 };
+    }
+    return initialized;
+  }
 
   /* ------------------------------------------ */
 
@@ -958,8 +972,8 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
    */
   static async #onRemoveCard(_event, target) {
     const uuid = target.dataset.uuid;
-    const uuids = [...(this.document.system.infoCardUuids ?? [])].filter(u => u !== uuid);
-    await this.document.update({ 'system.infoCardUuids': uuids });
+    const uuids = [...(this.document.system.informationCardUuids ?? [])].filter(u => u !== uuid);
+    await this.document.update({ 'system.informationCardUuids': uuids });
   }
 
   /* ------------------------------------------ */
@@ -1010,10 +1024,10 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         });
         await this.document.update({ 'system.organizations': orgs });
       } else if (data.type === 'Item' && doc.type === 'informationCard') {
-        const uuids = [...(system.infoCardUuids ?? [])];
+        const uuids = [...(system.informationCardUuids ?? [])];
         if (uuids.includes(data.uuid)) return;
         uuids.push(data.uuid);
-        await this.document.update({ 'system.infoCardUuids': uuids });
+        await this.document.update({ 'system.informationCardUuids': uuids });
       }
       return;
     }

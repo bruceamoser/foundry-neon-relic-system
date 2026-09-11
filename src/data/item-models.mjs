@@ -693,7 +693,7 @@ export class CaseBoardDataModel extends foundry.abstract.TypeDataModel {
           ),
         }),
       ),
-      infoCardUuids: new ArrayField(new StringField({ blank: true })),
+      informationCardUuids: new ArrayField(new StringField({ blank: true })),
     };
   }
 }
