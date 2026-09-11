@@ -54,7 +54,11 @@ export class NeonRelicActor extends Actor {
   }
 
   /**
-   * Heal corruption, respecting the session cap of 5.
+   * Heal corruption, always applying the requested healing.
+   * Session healing is tracked for the table (the rules cap in-session healing
+   * at 5), but it is not enforced as a hard system gate — the system cannot
+   * detect session boundaries, so every call applies its healing and the
+   * player/DA decide when the cap applies. Corruption never heals below 0.
    * @param {number} amount - Amount to heal.
    * @param {string} [method] - Healing method identifier.
    * @returns {Promise<NeonRelicActor>}
@@ -62,15 +66,12 @@ export class NeonRelicActor extends Actor {
   async healCorruption(amount, method = '') {
     if (this.type !== 'agent') return this;
     const sys = this.system.corruption;
-    const healed = sys.sessionHealing;
-    const maxSessionHealing = 5;
-    const available = Math.max(0, maxSessionHealing - healed);
-    const actual = Math.min(amount, available, sys.value);
+    const actual = Math.min(amount, sys.value);
     if (actual <= 0) return this;
 
     await this.update({
       'system.corruption.value': sys.value - actual,
-      'system.corruption.sessionHealing': healed + actual,
+      'system.corruption.sessionHealing': sys.sessionHealing + actual,
     });
     return this;
   }
