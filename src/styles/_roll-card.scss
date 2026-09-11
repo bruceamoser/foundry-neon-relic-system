@@ -112,6 +112,12 @@
       color: #2a2a28;
       border: 1px solid rgba(42, 42, 40, 0.25);
     }
+
+    &--extra {
+      background: rgba(58, 90, 150, 0.15);
+      color: #2c4a7a;
+      border: 1px solid rgba(58, 90, 150, 0.3);
+    }
   }
 
   // ── Dice Groups ───────────────────────────────────────
@@ -479,6 +485,15 @@
 
     &.nr-die--success {
       background: linear-gradient(180deg, #4a4a46 0%, #2a2a28 100%);
+    }
+  }
+
+  // Extra dice (modifiers) — blue
+  &--extra {
+    background: linear-gradient(180deg, #3a6ea5 0%, #2a4d75 100%);
+
+    &.nr-die--success {
+      background: linear-gradient(180deg, #4a7eb5 0%, #3a5d85 100%);
     }
   }
 

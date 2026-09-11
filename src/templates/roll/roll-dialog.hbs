@@ -95,15 +95,16 @@
       <span class='nr-roll-dialog__pool-value'>{{totalPool}}</span>
     </div>
     <div class='nr-roll-dialog__pool-detail'>
-      <span class='nr-pool-chip nr-pool-chip--base'>{{localize 'NEONRELIC.Roll.BaseDice'}}: {{attributeValue}}</span>
+      <span class='nr-pool-chip nr-pool-chip--base'>{{localize 'NEONRELIC.Roll.BaseDice'}}: {{poolBase}}</span>
       <span class='nr-pool-plus'>+</span>
-      <span class='nr-pool-chip nr-pool-chip--skill'>{{localize 'NEONRELIC.Roll.SkillDice'}}: {{skillValue}}</span>
-      {{#if gearBonus}}
+      <span class='nr-pool-chip nr-pool-chip--skill'>{{localize 'NEONRELIC.Roll.SkillDice'}}: {{poolSkill}}</span>
+      {{#if poolExtra}}
         <span class='nr-pool-plus'>+</span>
-        <span class='nr-pool-chip nr-pool-chip--gear'>{{localize 'NEONRELIC.Roll.GearDice'}}: {{gearBonus}}</span>
+        <span class='nr-pool-chip nr-pool-chip--extra'>{{localize 'NEONRELIC.Roll.ExtraDice'}}: {{poolExtra}}</span>
       {{/if}}
-      {{#if modifier}}
-        <span class='nr-pool-mod'>{{modifier}}</span>
+      {{#if poolGear}}
+        <span class='nr-pool-plus'>+</span>
+        <span class='nr-pool-chip nr-pool-chip--gear'>{{localize 'NEONRELIC.Roll.GearDice'}}: {{poolGear}}</span>
       {{/if}}
     </div>
   </div>
