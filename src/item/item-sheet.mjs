@@ -88,6 +88,19 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     );
 
     // Type-specific enrichments
+    if (item.type === 'anchor') {
+      context.enrichedRelationship = await foundry.applications.ux.TextEditor.implementation.enrichHTML(
+        system.relationship ?? '',
+        {
+          async: true,
+          relativeTo: item,
+        },
+      );
+      context.enrichedMemory = await foundry.applications.ux.TextEditor.implementation.enrichHTML(system.memory ?? '', {
+        async: true,
+        relativeTo: item,
+      });
+    }
     if (item.type === 'artifact') {
       context.enrichedEffect = await foundry.applications.ux.TextEditor.implementation.enrichHTML(system.effect ?? '', {
         async: true,
