@@ -161,6 +161,17 @@
             </td>
             <td class='center'>
               {{#if @root.isEditable}}
+                {{#if this.system.worn}}
+                  <button
+                    type='button'
+                    class='remove-btn'
+                    data-action='rollArmor'
+                    data-item-id='{{this.id}}'
+                    title='{{localize "NEONRELIC.Combat.ArmorCheckHint"}}'
+                  >
+                    <i class='fa-solid fa-shield-halved'></i>
+                  </button>
+                {{/if}}
                 <button
                   type='button'
                   class='remove-btn'
