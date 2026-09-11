@@ -47,15 +47,17 @@ export async function gainCorruption(actor, amount, source) {
 }
 
 /**
- * Heal corruption from an actor, enforcing session caps.
+ * Heal corruption from an actor.
+ * Session usage (5/session) and healing-tag usage (3/session) are TRACKED for
+ * the table but never enforced — the system cannot detect session boundaries,
+ * so the player/DA decide when the cap applies. Every call applies its healing.
  * @param {Actor} actor
  * @param {number} amount
  * @param {string} method - Healing method identifier.
  * @param {object} [options]
- * @param {boolean} [options.isFullRest=false] - Full Rest is exempt from session cap.
- * @param {boolean} [options.isHealingTag=false] - General healing-tagged talent (subject to 3/session cap).
- * @param {boolean} [options.isDivisionHealing=false] - Division healing talent (exempt from healing tag cap).
- * @returns {Promise<{healed: number, newValue: number, cappedBy: string|null}>}
+ * @param {boolean} [options.isFullRest=false] - Full Rest is exempt from session tracking.
+ * @param {boolean} [options.isHealingTag=false] - General healing-tagged talent (tracked separately).
+ * @returns {Promise<{healed: number, newValue: number, cappedBy: null}>}
  */
 export async function healCorruption(actor, amount, method, options = {}) {
   const { isFullRest = false, isHealingTag = false } = options;
@@ -64,33 +66,10 @@ export async function healCorruption(actor, amount, method, options = {}) {
     return { healed: 0, newValue: actor.system.corruption?.value ?? 0, cappedBy: null };
 
   const current = actor.system.corruption?.value ?? 0;
-  let effectiveAmount = amount;
-  let cappedBy = null;
-
-  // Session cap enforcement (5 total from in-session sources)
-  if (!isFullRest) {
-    const sessionHealing = actor.system.corruption?.sessionHealing ?? 0;
-    const remaining = Math.max(0, 5 - sessionHealing);
-    if (remaining <= 0) {
-      return { healed: 0, newValue: current, cappedBy: 'session' };
-    }
-    effectiveAmount = Math.min(effectiveAmount, remaining);
-    if (effectiveAmount < amount) cappedBy = 'session';
-  }
-
-  // Healing tag cap enforcement (3/session for general healing talents)
-  if (isHealingTag) {
-    const tagUsed = actor.system.corruption?.healingTagUsed ?? 0;
-    const tagRemaining = Math.max(0, 3 - tagUsed);
-    if (tagRemaining <= 0) {
-      return { healed: 0, newValue: current, cappedBy: 'healingTag' };
-    }
-    effectiveAmount = Math.min(effectiveAmount, tagRemaining);
-    if (effectiveAmount < amount && !cappedBy) cappedBy = 'healingTag';
-  }
-
-  const healed = Math.min(effectiveAmount, current);
+  const healed = Math.min(amount, current);
   const newValue = current - healed;
+
+  if (healed <= 0) return { healed: 0, newValue: current, cappedBy: null };
 
   const updates = { 'system.corruption.value': newValue };
   if (!isFullRest) {
@@ -109,11 +88,10 @@ export async function healCorruption(actor, amount, method, options = {}) {
       <strong>${game.i18n.localize('NEONRELIC.Corruption.Healed')}</strong>:
       −${healed} (${method})
       <br>${game.i18n.localize('NEONRELIC.Corruption.Total')}: ${newValue}
-      ${cappedBy ? `<br><em>${game.i18n.localize('NEONRELIC.Corruption.CapReached')}</em>` : ''}
     </div>`,
   });
 
-  return { healed, newValue, cappedBy };
+  return { healed, newValue, cappedBy: null };
 }
 
 /**

@@ -565,7 +565,9 @@ NEONRELIC:
     MaxThreshold: Max Threshold
     MarkLeftToRight: Current Corruption — mark left to right
     Catatonic: Catatonic Revelation
-    SessionHealing: Session Healing
+    SessionHealing: Session Healing (Tracked)
+    SessionHealingHint: Tracked only — the 5/session cap is a player/DA agreement, never blocked by the system.
+    HealingTagHint: Tracked only — the 3/session healing-tag cap is enforced by the table, not blocked by the system.
     HealedThisSession: Healed This Session
     HealingTagUsed: Healing Tag Uses
     Gained: Corruption Gained
