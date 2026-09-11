@@ -56,10 +56,18 @@
     z-index: 2;
   }
 
-  // Ensure content sits above texture layers
-  > * {
+  // Ensure content sits above texture layers.
+  // NOTE: never touch the frame chrome — the core stylesheet absolutely
+  // positions .window-resize-handle, and a blanket `> *` here breaks the
+  // window resize affordance on every sheet.
+  > *:not(.window-resize-handle) {
     position: relative;
     z-index: 1;
+  }
+
+  // The corner resize handle overlaps the content, so it must out-stack it.
+  > .window-resize-handle {
+    z-index: 3;
   }
 }
 

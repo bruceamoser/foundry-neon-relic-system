@@ -46,22 +46,22 @@
   }
 
   .iw-grid {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    align-items: stretch;
     gap: 6px;
     min-height: 40px;
   }
 
   .iw-tile {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     gap: 2px;
     padding: 4px 8px;
     border: 1px solid rgba(26, 26, 24, 0.5);
     border-left: 5px solid $nr-red-stamp;
     background: rgba(255, 255, 255, 0.35);
-    max-width: 300px;
+    min-width: 0;
 
     &.iw-card.revealed {
       border-left-color: $nr-green-stamp;
@@ -129,10 +129,23 @@
   }
 
   .iw-empty {
+    grid-column: 1 / -1;
     font-family: $nr-font-main;
     font-size: 8pt;
     color: $nr-ink-faded;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
+}
+
+// The web flows and fills the sheet: the body becomes a column and the card
+// grids re-flow their columns as the (resizable) window changes size.
+.neon-relic.item-sheet .item-body:has(.info-web) {
+  display: flex;
+  flex-direction: column;
+}
+
+.neon-relic.item-sheet .info-web {
+  flex: 1 1 auto;
+  min-height: 0;
 }
