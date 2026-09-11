@@ -215,3 +215,161 @@
         result: A battered tin flask containing ash instead of liquor.
       - range: [66, 66]
         result: A pristine, sealed action figure in its original 1980s blister pack.
+
+- _id: rtbl009
+  name: Physical Critical Injuries (D66)
+  type: rollTable
+  system:
+    formula: (1d6 * 10) + 1d6
+    entries:
+      - range: [11, 11]
+        result: 'Wind Knocked Out — No actions next turn; Strength returns to 1. Recovers automatically at end of scene.'
+      - range: [12, 12]
+        result: 'Bad Fall — Agility reduced by 1 permanently. Requires Keep medical facility (downtime).'
+      - range: [13, 13]
+        result: 'Bloody Nose — −1 die on Investigate rolls until treated. Heal (Difficulty 1) with First Aid Kit.'
+      - range: [14, 14]
+        result: 'Cracked Ribs — −1 die on all Force rolls; any violent action costs 1 additional Strength. Bed rest (1 downtime phase).'
+      - range: [15, 15]
+        result: 'Sprained Wrist — Cannot use two-handed weapons; −1 die on all AGI rolls. Splint + 1 downtime phase.'
+      - range: [16, 16]
+        result: 'Grazed — Strength returns to 1. Scar remains (cosmetic). No treatment needed.'
+      - range: [21, 21]
+        result: 'Concussion — Wits reduced by 1 until treated; Wits roll (Difficulty 1) needed to use Slow Actions. Heal (Difficulty 2) + 24 hours rest.'
+      - range: [22, 22]
+        result: 'Shoulder Dislocation — Dominant arm useless; −2 dice on all STR rolls. Heal (Difficulty 2); 1 downtime phase.'
+      - range: [23, 23]
+        result: 'Torn Knee — Movement costs double (2 Fast Actions per zone). Surgery (Keep facility) + 1 downtime phase.'
+      - range: [24, 24]
+        result: 'Ringing Ears — −1 die on all WIT-based rolls for the rest of the session. Fades by next session.'
+      - range: [25, 25]
+        result: 'Fractured Hand — −2 dice on all AGI rolls; cannot wield weapons requiring grip. Splint + 2 downtime phases.'
+      - range: [26, 26]
+        result: 'Severe Bruising — −1 Strength maximum until healed (cannot be healed above 3). Heal (Difficulty 2) + 1 downtime phase.'
+      - range: [31, 31]
+        result: 'Deep Laceration — Bleeds 1 Strength per round until treated (First Aid, Difficulty 1). Bandaging stops the bleed; full recovery = 1 downtime.'
+      - range: [32, 32]
+        result: 'Fractured Arm — Non-dominant arm useless; dominant arm −2 dice STR. Cast + 2 downtime phases.'
+      - range: [33, 33]
+        result: 'Broken Nose (Insight) — +1 die on Command rolls made through threat or intimidation forever. Cosmetic disfiguration; no mechanical healing needed.'
+      - range: [34, 34]
+        result: 'Shattered Kneecap — Movement speed halved permanently (1 zone costs a Slow Action); surgery can restore. Keep surgical facility + 2 downtime phases.'
+      - range: [35, 35]
+        result: 'Punctured Lung — −2 dice on all STR and AGI rolls; strenuous action triggers Endure roll (Difficulty 2) or collapse. Heal (Difficulty 3) + 2 downtime phases.'
+      - range: [36, 36]
+        result: 'Blinding Strike — One eye damaged: −1 die on ranged attack and Investigate rolls permanently. Insight: +1 die on Empathy rolls. Cannot fully heal; monocle/patch (CL 1).'
+      - range: [41, 41]
+        result: 'Severed Tendon — Permanently −1 Agility. Keep surgical facility restores 1 point only.'
+      - range: [42, 42]
+        result: 'Trauma Shock — Frozen for 1d6 rounds, no actions possible. Strength returns to 1 after unfreezing; stimulants (Fast Action) end it immediately.'
+      - range: [43, 43]
+        result: 'Broken Vertebra — Agility reduced by 2. Any further STR/AGI damage to 0 triggers a death check without rolling. Keep surgical facility (Difficulty 3 Heal, 2 downtime phases).'
+      - range: [44, 44]
+        result: 'Organ Damage — Strength maximum reduced by 2 permanently. Keep surgical facility can restore 1 point.'
+      - range: [45, 45]
+        result: 'Severed Ear — Permanent −1 die on Investigate rolls. Insight: +1 die on Empathy rolls. Cosmetic only; scar remains.'
+      - range: [46, 46]
+        result: 'Gutted † — Bleeding: lose 1 Strength per round; death check after 3 rounds if untreated. Heal (Difficulty 3) stops bleeding; emergency surgery required (2 downtime phases).'
+      - range: [51, 51]
+        result: 'Broken Jaw — Cannot speak coherently; cannot use Manipulate or Command skills until treated. Surgical wire (Keep) + 1 downtime phase.'
+      - range: [52, 52]
+        result: 'Nerve Damage — Permanently −1 Agility; on any die roll of all 1s, drop what you are holding. Cannot be healed.'
+      - range: [53, 53]
+        result: 'Severe Burns — −2 dice on all STR/AGI actions; unbandaged burns lose 1 Strength per scene from infection. Keep medical facility; 2 downtime phases.'
+      - range: [54, 54]
+        result: 'Spinal Injury — Agility reduced to 1 until treated; cannot run (2 zones). Keep surgical facility (Difficulty 4); 3 downtime phases.'
+      - range: [55, 55]
+        result: 'Arm Blown Off † — Dominant arm severed; death check. Surviving: permanently one-armed. Prosthetic possible (Equipment → Prosthetics, CL 5).'
+      - range: [56, 56]
+        result: 'Skull Fracture † — Death check. Surviving: Wits permanently reduced by 1; −1 die on Investigate for 1 month. Keep facility; 1 downtime phase after survival.'
+      - range: [61, 61]
+        result: 'Chest Shot † — Death check. Surviving: Strength maximum reduced by 1 permanently. Emergency surgery (Keep facility) required immediately.'
+      - range: [62, 62]
+        result: 'Leg Blown Off † — Death check. Surviving: movement reduced to 1 zone per Slow Action, permanently. Prosthetic possible (CL 5).'
+      - range: [63, 63]
+        result: 'Multiple Wounds † — Death check. Surviving: roll twice more on this table (ignoring further †).'
+      - range: [64, 64]
+        result: 'Arterial Strike † — Bleeding 2 Strength per round; death check within 2 rounds or automatic death. Tourniquet (Fast Action, CL 1) buys 1 extra round; Heal (Difficulty 4) fully stabilizes.'
+      - range: [65, 65]
+        result: 'Head Shot † — Death check. Surviving: permanently remove 1 from Wits AND Empathy. Insight: +2 dice on Psychoanalyze forever. Cannot be healed; persistent migraines.'
+      - range: [66, 66]
+        result: 'DOA † — No automatic Death Check: an ally must succeed at Heal (WIT, Difficulty 4) the same round. If successful: Death Check at no bonus. Surviving: clinically dead for 1d6 rounds then revives; all Attributes return to 1, +3 Corruption, Empathy −1 permanently.'
+
+- _id: rtbl010
+  name: Mental Critical Injuries (D66)
+  type: rollTable
+  system:
+    formula: (1d6 * 10) + 1d6
+    entries:
+      - range: [11, 11]
+        result: 'Shaken — −1 die on all WIT and EMP rolls until end of scene; Wits or Empathy returns to 1. Rest or reassurance (Empathy roll, Difficulty 1).'
+      - range: [12, 12]
+        result: 'Distracted — Cannot push rolls until the end of the scene. Ends automatically with a scene change.'
+      - range: [13, 13]
+        result: 'Tremors — Fine motor control impaired: −1 die on Deft Hands and Firearms this session. Fades by next session.'
+      - range: [14, 14]
+        result: 'Dissociation — Character acts on autopilot; DA narrates their next turn. Psychoanalyze (Difficulty 1) by an ally ends it early.'
+      - range: [15, 15]
+        result: 'Paranoid Flash — Acts immediately on the nearest perceived threat (DA chooses target — may be an ally). Psychoanalyze (Difficulty 1) ends it; 1 Empathy cost to the treater.'
+      - range: [16, 16]
+        result: 'Acute Anxiety — All Difficulty ratings increase by 1 for the rest of the scene. Scene change ends it automatically.'
+      - range: [21, 21]
+        result: 'Night Terrors — No benefit from sleep-based recovery between sessions; Agility Broken recovery halved. Psychoanalyze session (downtime, Difficulty 2) clears it.'
+      - range: [22, 22]
+        result: 'Intrusive Visions — −1 die on Investigate whenever concentration is needed (DA discretion). Psychoanalyze session (downtime, Difficulty 2).'
+      - range: [23, 23]
+        result: 'Fugue State — Miss one scene entirely; an ally must spend a Slow Action per round to keep them moving. Psychoanalyze (Difficulty 2) restores presence.'
+      - range: [24, 24]
+        result: 'Emotional Numbing — Empathy reduced by 1 until treated; cannot Manipulate others. Downtime roleplay connection + Psychoanalyze (Difficulty 2).'
+      - range: [25, 25]
+        result: 'Hypervigilance (Insight) — Permanently +1 die on Investigate; −1 die on Empathy-based social rolls. Rewired — no recovery needed.'
+      - range: [26, 26]
+        result: 'Compulsion — Specific compulsion (DA and player define); each scene must pass Wits (Difficulty 1) or act on it. Psychoanalyze campaign (3 downtime phases, Difficulty 3) suppresses.'
+      - range: [31, 31]
+        result: 'Sensory Flashback — Triggered by a DA-defined stimulus; lose Fast Action that round as the flashback fires. Psychoanalyze campaign (2 downtime phases, Difficulty 2).'
+      - range: [32, 32]
+        result: 'Social Withdrawal — −2 dice on all Empathy-based rolls. Downtime social scene (roleplay) + Psychoanalyze (Difficulty 2).'
+      - range: [33, 33]
+        result: 'Survivor Guilt — If any ally takes damage within the scene, suffer 1 Empathy damage (involuntary). Psychoanalyze (Difficulty 2) + meaningful roleplay scene.'
+      - range: [34, 34]
+        result: 'Paranoid Ideation — Believes a specific NPC or faction surveils them; +1 die on Sneak actions, −1 die on Empathy rolls involving the believed threat. Psychoanalyze campaign (2 downtime phases).'
+      - range: [35, 35]
+        result: 'Dissociative Identity Trigger — +1 Corruption (additional). Twice per session, at dramatic moments, roll d6: 1–2 = alternate state this scene. Psychoanalyze campaign (3 downtime phases, Difficulty 3).'
+      - range: [36, 36]
+        result: 'Rage Episodes — When Empathy falls below 2, must succeed on Wits (Difficulty 2) or attack the nearest person (ally or foe). Psychoanalyze campaign (2 downtime phases, Difficulty 3).'
+      - range: [41, 41]
+        result: "Artifact Corruption (Insight) — +2 Corruption (additional). Permanently +1 die on all artifact interaction rolls; −1 Empathy. Cannot be recovered — this is the artifact's mark."
+      - range: [42, 42]
+        result: 'Phobia — New phobia defined (DA and player): when triggered, automatic Corruption Burst at Burst Rating 3. Psychoanalyze campaign (3 downtime phases, Difficulty 3) reduces to Burst Rating 1.'
+      - range: [43, 43]
+        result: 'Waking Hallucinations — Wits reduced by 1 permanently; once per session perceives a supernatural intrusion that may or may not be real (DA only knows). Wits loss is permanent.'
+      - range: [44, 44]
+        result: 'Emotional Bleed — Permanently −1 Empathy; −1 die on all social skill rolls for the remainder of the campaign. Cannot be healed.'
+      - range: [45, 45]
+        result: 'Fracture Point — Corruption threshold reduced by 2 permanently (max Corruption = 8 + Empathy). Cannot be reversed.'
+      - range: [46, 46]
+        result: 'Catatonic Episode † — Death check (mind; failure = permanent catatonia, retirement). Surviving: Wits and Empathy each reduced by 1; +2 Corruption. Intensive Psychoanalyze (Difficulty 4, Keep facility, 2 downtime phases).'
+      - range: [51, 51]
+        result: 'Obsessive Documentation — Must document everything (Insight: +2 dice on Investigate when reviewing notes); −1 die on social rolls (distracted). Psychoanalyze campaign (3 downtime phases) reduces the compulsion; Insight remains.'
+      - range: [52, 52]
+        result: 'Broken Empathy — Permanently −2 Empathy; all social skills lose 2 dice. Cannot be healed — the connection is severed.'
+      - range: [53, 53]
+        result: 'Artifact Imprint — +3 Corruption (additional); begins hearing the artifact that Broke them (DA plot hook). Shielding ritual (Containment Rituals) can suppress the call but not remove the imprint.'
+      - range: [54, 54]
+        result: 'Veil Burn — +2 Corruption; Wits permanently −1. Insight: +1 die on all artifact detection rolls. Cannot be healed — the Veil has scorched your perception.'
+      - range: [55, 55]
+        result: 'Shattered Will † — Death check (mind). Surviving: Wits and Empathy maximums permanently −1 each; +2 Corruption; cannot push rolls until a psychological breakthrough (DA milestone). Keep Psychoanalyze program (4 downtime phases, Difficulty 4).'
+      - range: [56, 56]
+        result: 'Cosmic Revelation † — Death check (mind). Surviving: learns a terrible truth about the Covenant or artifacts; +3 Corruption, −2 Empathy permanently. Insight: +2 dice on all Lore-type rolls forever. DA defines the revelation.'
+      - range: [61, 61]
+        result: 'Memory Dissolution — Permanently −1 Wits; lose one specific skill memory (DA chooses a skill at rank 1–2; it drops to 0). Retraining during downtime can restore the skill.'
+      - range: [62, 62]
+        result: 'Identity Crisis — Cannot use Corruption-costing Division Talents for the remainder of the current Case File (foundational healing talent remains). Roleplay scene with a superior + Psychoanalyze (Difficulty 3).'
+      - range: [63, 63]
+        result: 'Veil Madness — +4 Corruption immediately; roll again on this table (ignore result 63 on the reroll).'
+      - range: [64, 64]
+        result: "Prophetic Fugue † — Death check (mind). Surviving: +3 Corruption; enters a trance broadcasting the Covenant's location to hostile artifact entities until a Shielding ritual is performed."
+      - range: [65, 65]
+        result: 'Ego Death † — Death check (mind). Surviving: personality fundamentally alters; rewrite one Drive and one biography aspect; +3 Corruption. Insight: +2 dice on all Empathy rolls. Cannot be undone.'
+      - range: [66, 66]
+        result: 'Unraveling † — Automatic mind death check (no bonus). Surviving: +4 Corruption, −1 to every Attribute permanently; retires at the end of the current mission (play the final scene).'
