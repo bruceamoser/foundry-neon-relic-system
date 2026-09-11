@@ -69,12 +69,13 @@
       <div class='org-field org-desc'>
         <span class='field-label'>{{localize 'NEONRELIC.Description'}}</span>
         {{#if isEditable}}
-          <textarea
+          <prose-mirror
             class='field-value org-textarea'
             name='system.description'
-            rows='6'
-            {{disabled (not isEditable)}}
-          >{{system.description}}</textarea>
+            value='{{system.description}}'
+            data-document-uuid='{{document.uuid}}'
+            relative
+          ></prose-mirror>
         {{else}}
           <div class='field-value org-desc-readonly'>{{{enrichedDescription}}}</div>
         {{/if}}

@@ -89,12 +89,13 @@
         <h2 class='dcb-section-title red'>{{localize 'NEONRELIC.DACaseBrief.SectionI'}}</h2>
         <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.MysteryHint'}}</span>
         {{#if isEditable}}
-          <textarea
+          <prose-mirror
             class='dcb-textarea'
             name='system.mysteryStatement'
-            rows='4'
-            {{disabled (not isEditable)}}
-          >{{system.mysteryStatement}}</textarea>
+            value='{{system.mysteryStatement}}'
+            data-document-uuid='{{document.uuid}}'
+            relative
+          ></prose-mirror>
         {{else}}
           <div class='dcb-field-value med'>
             {{{enrichedMysteryStatement}}}
@@ -109,12 +110,13 @@
         <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionII'}}</h2>
         <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.RealSituationHint'}}</span>
         {{#if isEditable}}
-          <textarea
+          <prose-mirror
             class='dcb-textarea'
             name='system.realSituation'
-            rows='6'
-            {{disabled (not isEditable)}}
-          >{{system.realSituation}}</textarea>
+            value='{{system.realSituation}}'
+            data-document-uuid='{{document.uuid}}'
+            relative
+          ></prose-mirror>
         {{else}}
           <div class='dcb-field-value xl'>
             {{{enrichedRealSituation}}}
@@ -131,12 +133,13 @@
           <div class='dcb-col'>
             <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.PrimaryObjective'}}</span>
             {{#if isEditable}}
-              <textarea
+              <prose-mirror
                 class='dcb-textarea'
                 name='system.primaryObjective'
-                rows='4'
-                {{disabled (not isEditable)}}
-              >{{system.primaryObjective}}</textarea>
+                value='{{system.primaryObjective}}'
+                data-document-uuid='{{document.uuid}}'
+                relative
+              ></prose-mirror>
             {{else}}
               <div class='dcb-field-value med'>
                 {{{enrichedPrimaryObjective}}}
@@ -146,12 +149,13 @@
           <div class='dcb-col'>
             <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.SecondaryObjective'}}</span>
             {{#if isEditable}}
-              <textarea
+              <prose-mirror
                 class='dcb-textarea'
                 name='system.secondaryObjective'
-                rows='4'
-                {{disabled (not isEditable)}}
-              >{{system.secondaryObjective}}</textarea>
+                value='{{system.secondaryObjective}}'
+                data-document-uuid='{{document.uuid}}'
+                relative
+              ></prose-mirror>
             {{else}}
               <div class='dcb-field-value med'>
                 {{{enrichedSecondaryObjective}}}
@@ -169,12 +173,13 @@
         <div class='dcb-danger-box'>
           <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentTrigger'}}</span>
           {{#if isEditable}}
-            <textarea
+            <prose-mirror
               class='dcb-textarea'
               name='system.containmentTrigger'
-              rows='4'
-              {{disabled (not isEditable)}}
-            >{{system.containmentTrigger}}</textarea>
+              value='{{system.containmentTrigger}}'
+              data-document-uuid='{{document.uuid}}'
+              relative
+            ></prose-mirror>
           {{else}}
             <div class='dcb-field-value'>
               {{{enrichedContainmentTrigger}}}
@@ -184,12 +189,13 @@
         <div class='dcb-danger-box'>
           <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentAppetite'}}</span>
           {{#if isEditable}}
-            <textarea
+            <prose-mirror
               class='dcb-textarea'
               name='system.containmentAppetite'
-              rows='4'
-              {{disabled (not isEditable)}}
-            >{{system.containmentAppetite}}</textarea>
+              value='{{system.containmentAppetite}}'
+              data-document-uuid='{{document.uuid}}'
+              relative
+            ></prose-mirror>
           {{else}}
             <div class='dcb-field-value'>
               {{{enrichedContainmentAppetite}}}
@@ -199,12 +205,13 @@
         <div class='dcb-danger-box'>
           <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.ContainmentQuiescence'}}</span>
           {{#if isEditable}}
-            <textarea
+            <prose-mirror
               class='dcb-textarea'
               name='system.containmentQuiescence'
-              rows='4'
-              {{disabled (not isEditable)}}
-            >{{system.containmentQuiescence}}</textarea>
+              value='{{system.containmentQuiescence}}'
+              data-document-uuid='{{document.uuid}}'
+              relative
+            ></prose-mirror>
           {{else}}
             <div class='dcb-field-value'>
               {{{enrichedContainmentQuiescence}}}
@@ -220,12 +227,13 @@
         <h2 class='dcb-section-title'>{{localize 'NEONRELIC.DACaseBrief.SectionV'}}</h2>
         <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.KeyActorsHint'}}</span>
         {{#if isEditable}}
-          <textarea
+          <prose-mirror
             class='dcb-textarea'
             name='system.keyActors'
-            rows='6'
-            {{disabled (not isEditable)}}
-          >{{system.keyActors}}</textarea>
+            value='{{system.keyActors}}'
+            data-document-uuid='{{document.uuid}}'
+            relative
+          ></prose-mirror>
         {{else}}
           <div class='dcb-field-value xl'>
             {{{enrichedKeyActors}}}
@@ -242,12 +250,13 @@
           <div class='dcb-col'>
             <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.BestCase'}}</span>
             {{#if isEditable}}
-              <textarea
+              <prose-mirror
                 class='dcb-textarea'
                 name='system.bestCaseResolution'
-                rows='4'
-                {{disabled (not isEditable)}}
-              >{{system.bestCaseResolution}}</textarea>
+                value='{{system.bestCaseResolution}}'
+                data-document-uuid='{{document.uuid}}'
+                relative
+              ></prose-mirror>
             {{else}}
               <div class='dcb-field-value med'>
                 {{{enrichedBestCaseResolution}}}
@@ -257,12 +266,13 @@
           <div class='dcb-col'>
             <span class='dcb-field-label'>{{localize 'NEONRELIC.DACaseBrief.WorstCase'}}</span>
             {{#if isEditable}}
-              <textarea
+              <prose-mirror
                 class='dcb-textarea'
                 name='system.worstCaseResolution'
-                rows='4'
-                {{disabled (not isEditable)}}
-              >{{system.worstCaseResolution}}</textarea>
+                value='{{system.worstCaseResolution}}'
+                data-document-uuid='{{document.uuid}}'
+                relative
+              ></prose-mirror>
             {{else}}
               <div class='dcb-field-value med'>
                 {{{enrichedWorstCaseResolution}}}

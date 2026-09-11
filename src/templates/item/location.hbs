@@ -71,12 +71,13 @@
           {{localize 'NEONRELIC.Location.DescriptionHint'}}
         </span>
         {{#if isEditable}}
-          <textarea
+          <prose-mirror
             class='field-value loc-textarea'
             name='system.description'
-            rows='6'
-            {{disabled (not isEditable)}}
-          >{{system.description}}</textarea>
+            value='{{system.description}}'
+            data-document-uuid='{{document.uuid}}'
+            relative
+          ></prose-mirror>
         {{else}}
           <div class='field-value xl'>{{{enrichedDescription}}}</div>
         {{/if}}
@@ -128,12 +129,13 @@
             {{localize 'NEONRELIC.Location.PositiveResult'}}
           </span>
           {{#if isEditable}}
-            <textarea
+            <prose-mirror
               class='field-value loc-textarea'
               name='system.positiveResult'
-              rows='6'
-              {{disabled (not isEditable)}}
-            >{{system.positiveResult}}</textarea>
+              value='{{system.positiveResult}}'
+              data-document-uuid='{{document.uuid}}'
+              relative
+            ></prose-mirror>
           {{else}}
             <div class='field-value tall'>{{{enrichedPositiveResult}}}</div>
           {{/if}}
@@ -143,12 +145,13 @@
             {{localize 'NEONRELIC.Location.NegativeResult'}}
           </span>
           {{#if isEditable}}
-            <textarea
+            <prose-mirror
               class='field-value loc-textarea'
               name='system.negativeResult'
-              rows='6'
-              {{disabled (not isEditable)}}
-            >{{system.negativeResult}}</textarea>
+              value='{{system.negativeResult}}'
+              data-document-uuid='{{document.uuid}}'
+              relative
+            ></prose-mirror>
           {{else}}
             <div class='field-value tall'>{{{enrichedNegativeResult}}}</div>
           {{/if}}
@@ -164,12 +167,13 @@
           {{localize 'NEONRELIC.Location.MilestoneHint'}}
         </span>
         {{#if isEditable}}
-          <textarea
+          <prose-mirror
             class='field-value loc-textarea'
             name='system.milestoneChanges'
-            rows='6'
-            {{disabled (not isEditable)}}
-          >{{system.milestoneChanges}}</textarea>
+            value='{{system.milestoneChanges}}'
+            data-document-uuid='{{document.uuid}}'
+            relative
+          ></prose-mirror>
         {{else}}
           <div class='field-value tall'>{{{enrichedMilestoneChanges}}}</div>
         {{/if}}

@@ -13,9 +13,15 @@
   }}
     <div class='form-group description'>
       <label>{{localize 'NEONRELIC.Description'}}</label>
-      <div class='editor'>{{{enrichedDescription}}}</div>
       {{#if isEditable}}
-        <textarea name='system.description' style='display:none;'>{{system.description}}</textarea>
+        <prose-mirror
+          name='system.description'
+          value='{{system.description}}'
+          data-document-uuid='{{document.uuid}}'
+          relative
+        ></prose-mirror>
+      {{else}}
+        <div class='editor'>{{{enrichedDescription}}}</div>
       {{/if}}
     </div>
   {{/unless}}

@@ -36,22 +36,32 @@
   {{! Relationship }}
   <div class='anchor-section'>
     <div class='section-label'>{{localize 'NEONRELIC.Anchor.Relationship'}}</div>
-    <textarea
-      name='system.relationship'
-      class='anchor-textarea'
-      rows='3'
-      {{disabled (not isEditable)}}
-    >{{system.relationship}}</textarea>
+    {{#if isEditable}}
+      <prose-mirror
+        class='anchor-textarea'
+        name='system.relationship'
+        value='{{system.relationship}}'
+        data-document-uuid='{{document.uuid}}'
+        relative
+      ></prose-mirror>
+    {{else}}
+      <div class='anchor-textarea'>{{{enrichedRelationship}}}</div>
+    {{/if}}
   </div>
 
   {{! Memory }}
   <div class='anchor-section'>
     <div class='section-label'>{{localize 'NEONRELIC.Anchor.Memory'}}</div>
-    <textarea
-      name='system.memory'
-      class='anchor-textarea'
-      rows='3'
-      {{disabled (not isEditable)}}
-    >{{system.memory}}</textarea>
+    {{#if isEditable}}
+      <prose-mirror
+        class='anchor-textarea'
+        name='system.memory'
+        value='{{system.memory}}'
+        data-document-uuid='{{document.uuid}}'
+        relative
+      ></prose-mirror>
+    {{else}}
+      <div class='anchor-textarea'>{{{enrichedMemory}}}</div>
+    {{/if}}
   </div>
 </div>

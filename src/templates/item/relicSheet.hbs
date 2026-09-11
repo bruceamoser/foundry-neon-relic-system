@@ -133,34 +133,37 @@
     <div class='rs-image-reads'>
       <span class='rs-field-label'>{{localize 'NEONRELIC.RelicSheet.SurfaceReadLabel'}}</span>
       {{#if isEditable}}
-        <textarea
+        <prose-mirror
           class='rs-field'
           name='system.surfaceRead'
-          rows='3'
-          {{disabled (not isEditable)}}
-        >{{system.surfaceRead}}</textarea>
+          value='{{system.surfaceRead}}'
+          data-document-uuid='{{document.uuid}}'
+          relative
+        ></prose-mirror>
       {{else}}
         <div class='rs-field-value'>{{{enrichedSurfaceRead}}}</div>
       {{/if}}
       <span class='rs-field-label'>{{localize 'NEONRELIC.RelicSheet.OperationalReadLabel'}}</span>
       {{#if isEditable}}
-        <textarea
+        <prose-mirror
           class='rs-field'
           name='system.operationalRead'
-          rows='3'
-          {{disabled (not isEditable)}}
-        >{{system.operationalRead}}</textarea>
+          value='{{system.operationalRead}}'
+          data-document-uuid='{{document.uuid}}'
+          relative
+        ></prose-mirror>
       {{else}}
         <div class='rs-field-value'>{{{enrichedOperationalRead}}}</div>
       {{/if}}
       <span class='rs-field-label'>{{localize 'NEONRELIC.RelicSheet.ColdArchiveReadLabel'}}</span>
       {{#if isEditable}}
-        <textarea
+        <prose-mirror
           class='rs-field'
           name='system.coldArchiveRead'
-          rows='3'
-          {{disabled (not isEditable)}}
-        >{{system.coldArchiveRead}}</textarea>
+          value='{{system.coldArchiveRead}}'
+          data-document-uuid='{{document.uuid}}'
+          relative
+        ></prose-mirror>
       {{else}}
         <div class='rs-field-value'>{{{enrichedColdArchiveRead}}}</div>
       {{/if}}
@@ -185,12 +188,13 @@
     <div class='rs-field-col'>
       <span class='rs-field-label'>{{localize 'NEONRELIC.RelicSheet.ActivationConditionLabel'}}</span>
       {{#if isEditable}}
-        <textarea
+        <prose-mirror
           class='rs-field'
           name='system.activationCondition'
-          rows='4'
-          {{disabled (not isEditable)}}
-        >{{system.activationCondition}}</textarea>
+          value='{{system.activationCondition}}'
+          data-document-uuid='{{document.uuid}}'
+          relative
+        ></prose-mirror>
       {{else}}
         <div class='rs-field-value'>{{{enrichedActivationCondition}}}</div>
       {{/if}}
@@ -198,12 +202,13 @@
     <div class='rs-field-col'>
       <span class='rs-field-label'>{{localize 'NEONRELIC.RelicSheet.MechanicalEffectLabel'}}</span>
       {{#if isEditable}}
-        <textarea
+        <prose-mirror
           class='rs-field'
           name='system.mechanicalEffect'
-          rows='4'
-          {{disabled (not isEditable)}}
-        >{{system.mechanicalEffect}}</textarea>
+          value='{{system.mechanicalEffect}}'
+          data-document-uuid='{{document.uuid}}'
+          relative
+        ></prose-mirror>
       {{else}}
         <div class='rs-field-value'>{{{enrichedMechanicalEffect}}}</div>
       {{/if}}
@@ -214,12 +219,13 @@
   <div class='rs-danger-box'>
     <span class='rs-field-label'>{{localize 'NEONRELIC.RelicSheet.FractureLabel'}}</span>
     {{#if isEditable}}
-      <textarea
+      <prose-mirror
         class='rs-field'
         name='system.fractureCondition'
-        rows='3'
-        {{disabled (not isEditable)}}
-      >{{system.fractureCondition}}</textarea>
+        value='{{system.fractureCondition}}'
+        data-document-uuid='{{document.uuid}}'
+        relative
+      ></prose-mirror>
     {{else}}
       <div class='rs-field-value'>{{{enrichedFractureCondition}}}</div>
     {{/if}}
@@ -229,12 +235,13 @@
   <div class='rs-section-title red'>{{localize 'NEONRELIC.RelicSheet.ContainmentProfile'}}</div>
   <span class='rs-field-label'>{{localize 'NEONRELIC.RelicSheet.ContainmentProfileLabel'}}</span>
   {{#if isEditable}}
-    <textarea
+    <prose-mirror
       class='rs-field'
       name='system.containmentProfile'
-      rows='5'
-      {{disabled (not isEditable)}}
-    >{{system.containmentProfile}}</textarea>
+      value='{{system.containmentProfile}}'
+      data-document-uuid='{{document.uuid}}'
+      relative
+    ></prose-mirror>
   {{else}}
     <div class='rs-field-value'>{{{enrichedContainmentProfile}}}</div>
   {{/if}}
@@ -271,12 +278,13 @@
   {{! DA Notes }}
   <div class='rs-section-title green'>{{localize 'NEONRELIC.RelicSheet.DesignatedAgentNotes'}}</div>
   {{#if isEditable}}
-    <textarea
+    <prose-mirror
       class='rs-field'
       name='system.daNotes'
-      rows='6'
-      {{disabled (not isEditable)}}
-    >{{system.daNotes}}</textarea>
+      value='{{system.daNotes}}'
+      data-document-uuid='{{document.uuid}}'
+      relative
+    ></prose-mirror>
   {{else}}
     <div class='rs-field-value'>{{{enrichedDaNotes}}}</div>
   {{/if}}
