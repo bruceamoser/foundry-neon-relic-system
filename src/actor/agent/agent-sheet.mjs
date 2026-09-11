@@ -6,6 +6,7 @@
 import { NRRollDialog } from '../../components/roll/roll-dialog.mjs';
 import { CreationWizard } from './creation-wizard.mjs';
 import { applyDebriefXP } from '../../components/game-systems.mjs';
+import { performDodge } from '../../components/combat-mechanics.mjs';
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -53,6 +54,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       toggleSection: AgentSheet.#onToggleSection,
       resetSession: AgentSheet.#onResetSession,
       rollInitiative: AgentSheet.#onRollInitiative,
+      dodge: AgentSheet.#onDodge,
     },
     form: {
       submitOnChange: true,
@@ -617,6 +619,29 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       await ChatMessage.create({
         content: game.i18n.format('NEONRELIC.Combat.InitiativeDrawn', { name: actor.name, card: label }),
       });
+    }
+  }
+
+  /**
+   * Perform a Dodge (Reactive Action) — prompt for the attacker's successes,
+   * roll AGI, and post the outcome. Defender wins ties.
+   */
+  static async #onDodge() {
+    const actor = this.document;
+    const attackSuccesses = await foundry.applications.api.DialogV2.prompt({
+      window: { title: game.i18n.localize('NEONRELIC.Combat.Dodge') },
+      content: `<div class="form-group"><label>${game.i18n.localize('NEONRELIC.Combat.DodgePrompt')}</label><input type="number" name="successes" value="1" min="0" autofocus /></div>`,
+      ok: {
+        callback: (event, button) => Math.max(0, Number(button.form.elements.successes.value) || 0),
+      },
+    });
+    if (attackSuccesses === null || attackSuccesses === undefined) return;
+
+    const result = await performDodge(actor, attackSuccesses);
+    if (result.dodged) {
+      ui.notifications.info(game.i18n.localize('NEONRELIC.Combat.DodgeSuccess'));
+    } else {
+      ui.notifications.warn(game.i18n.format('NEONRELIC.Combat.DodgeRemaining', { amount: result.remainingDamage }));
     }
   }
 

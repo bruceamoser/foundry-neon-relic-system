@@ -681,8 +681,11 @@ NEONRELIC:
       Extreme: Extreme
     # Dodge
     Dodge: Dodge
+    DodgeHint: Reactive Fast Action — roll AGI to negate incoming attack successes (defender wins ties).
+    DodgePrompt: Attacker's successes
     DodgeSuccess: Attack dodged
     DodgeFail: Dodge failed
+    DodgeRemaining: '{amount} damage gets through'
     # Vehicle
     VehicleDamage: takes damage
     BreakdownCheck: Breakdown Check

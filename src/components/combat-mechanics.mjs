@@ -217,12 +217,15 @@ export async function performDodge(defender, attackSuccesses) {
   const remainingDamage = dodged ? 0 : Math.max(0, attackSuccesses - dodgeSuccesses);
 
   const speaker = ChatMessage.getSpeaker({ actor: defender });
+  const outcomeLine = dodged
+    ? `<em>${game.i18n.localize('NEONRELIC.Combat.DodgeSuccess')}</em>`
+    : `${game.i18n.localize('NEONRELIC.Combat.DodgeFail')} — ${game.i18n.format('NEONRELIC.Combat.DodgeRemaining', { amount: remainingDamage })}`;
   await ChatMessage.create({
     speaker,
     content: `<div class="dodge-result">
       <strong>${game.i18n.localize('NEONRELIC.Combat.Dodge')}</strong>:
       [${results.join(', ')}] = ${dodgeSuccesses} ${game.i18n.localize('NEONRELIC.Roll.Successes')}
-      ${dodged ? `<br><em>${game.i18n.localize('NEONRELIC.Combat.DodgeSuccess')}</em>` : `<br>${game.i18n.localize('NEONRELIC.Combat.DodgeFail')}`}
+      <br>${outcomeLine}
     </div>`,
   });
 
