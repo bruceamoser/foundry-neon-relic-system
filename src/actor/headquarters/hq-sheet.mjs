@@ -548,22 +548,16 @@ export class HeadquartersSheet extends HandlebarsApplicationMixin(ActorSheetV2) 
   /*  Drag & drop                               */
   /* ------------------------------------------ */
 
-  /** @override */
-  async _onDrop(event, data) {
-    if (data?.type === 'Actor') return this.#onDropActor(event, data);
-    if (data?.type === 'Item') return this.#onDropItem(event, data);
-    return super._onDrop(event, data);
-  }
-
   /**
-   * Route a dropped Actor: personnel → recruitment; everyone else → cell roster.
-   * @param {PointerEvent} event
-   * @param {object} data  Drop data
+   * Route a dropped Actor: personnel becomes recruited staff; any other actor
+   * joins the cell roster. Foundry v14 resolves the document before invoking
+   * this hook (the base `_onDrop(event)` dispatches `_onDropDocument`).
+   * @param {DragEvent} _event
+   * @param {Actor} actor     The dropped (resolved) Actor document
+   * @returns {Promise<null>}
+   * @override
    */
-  async #onDropActor(event, data) {
-    const actor = await Actor.implementation.fromDropData(data);
-    if (!actor) return;
-
+  async _onDropActor(_event, actor) {
     const isPersonnel = Boolean(actor.system?.personnelType);
     if (isPersonnel) {
       const result = await this.#recruitPersonnelByUuid(actor.uuid, {
@@ -573,21 +567,23 @@ export class HeadquartersSheet extends HandlebarsApplicationMixin(ActorSheetV2) 
       if (!result.ok && !result.message.endsWith('.Cancelled')) {
         ui.notifications.warn(game.i18n.format(result.message, { name: actor.name }));
       }
-      return;
+      return null;
     }
 
     await this.#addCellMember(actor.uuid, actor.name);
+    return null;
   }
 
   /**
-   * Route a dropped Item: upgrades → purchase; artifacts → vault custody.
-   * @param {PointerEvent} event
-   * @param {object} data  Drop data
+   * Route a dropped Item: upgrades are purchased, artifacts enter vault
+   * custody. Other item types are ignored with a warning (the HQ holds no
+   * inventory of its own).
+   * @param {DragEvent} _event
+   * @param {Item} item       The dropped (resolved) Item document
+   * @returns {Promise<null>}
+   * @override
    */
-  async #onDropItem(event, data) {
-    const item = await Item.implementation.fromDropData(data);
-    if (!item) return super._onDrop(event, data);
-
+  async _onDropItem(_event, item) {
     if (item.type === 'upgrade') {
       const result = await this.#purchaseUpgradeById(item.id, {
         name: item.name,
@@ -599,15 +595,16 @@ export class HeadquartersSheet extends HandlebarsApplicationMixin(ActorSheetV2) 
       if (!result.ok && !result.message.endsWith('.Cancelled')) {
         ui.notifications.warn(game.i18n.format(result.message, { name: item.name }));
       }
-      return;
+      return null;
     }
 
     if (item.type === 'artifact') {
       await this.#addVaultArtifact(item.uuid, item.name);
-      return;
+      return null;
     }
 
-    return super._onDrop(event, data);
+    ui.notifications.warn(game.i18n.format('NEONRELIC.HQ.DropUnsupported', { name: item.name }));
+    return null;
   }
 
   /* ------------------------------------------ */
@@ -904,7 +901,9 @@ export class HeadquartersSheet extends HandlebarsApplicationMixin(ActorSheetV2) 
 
     const result = await foundry.applications.api.DialogV2.prompt({
       window: { title: game.i18n.localize('NEONRELIC.HQ.Members.Title') },
-      content: `<form class="hq-member-picker">${rows}</form>`,
+      // NOTE: DialogV2 wraps content in its own <form>; a nested <form> here would be
+      // dropped by the HTML parser (taking this class with it). Use a div.
+      content: `<div class="hq-member-picker">${rows}</div>`,
       ok: {
         label: game.i18n.localize('NEONRELIC.HQ.Members.Save'),
         callback: (event, button) => Array.from(new FormData(button.form).getAll('member')),
@@ -958,9 +957,14 @@ export class HeadquartersSheet extends HandlebarsApplicationMixin(ActorSheetV2) 
     }
 
     const worldItems = game.items.filter(i => i.type === 'artifact');
-    const carriedItems = game.actors
-      .flatMap(a => a.items.filter(i => i.type === 'artifact'))
-      .map(i => ({ uuid: i.uuid, name: `${i.name} — ${i.actor.name}` }));
+    // NOTE: Foundry's Collection has no flatMap — iterate world actors manually.
+    const carriedItems = [];
+    for (const owner of game.actors) {
+      for (const item of owner.items) {
+        if (item.type !== 'artifact') continue;
+        carriedItems.push({ uuid: item.uuid, name: `${item.name} — ${owner.name}` });
+      }
+    }
     const all = [...worldItems.map(i => ({ uuid: i.uuid, name: i.name })), ...carriedItems].filter(
       c => !stored.includes(c.uuid),
     );
@@ -973,7 +977,7 @@ export class HeadquartersSheet extends HandlebarsApplicationMixin(ActorSheetV2) 
     const options = all.map(c => `<option value="${c.uuid}">${foundry.utils.escapeHTML(c.name)}</option>`).join('');
     const result = await foundry.applications.api.DialogV2.prompt({
       window: { title: game.i18n.localize('NEONRELIC.HQ.Vault.AddTitle') },
-      content: `<form><div class="form-group"><label>${game.i18n.localize('NEONRELIC.HQ.Vault.Artifact')}</label><select name="artifact">${options}</select></div></form>`,
+      content: `<div class="form-group"><label>${game.i18n.localize('NEONRELIC.HQ.Vault.Artifact')}</label><select name="artifact">${options}</select></div>`,
       ok: {
         label: game.i18n.localize('NEONRELIC.HQ.Vault.Add'),
         callback: (event, button) => new FormData(button.form).get('artifact'),
@@ -1023,7 +1027,7 @@ export class HeadquartersSheet extends HandlebarsApplicationMixin(ActorSheetV2) 
     const system = this.document.system;
 
     const content = `
-      <form class="hq-compromise-form">
+      <div class="hq-compromise-form">
         <div class="form-group">
           <label>${game.i18n.localize('NEONRELIC.HQ.Log.CaseNumber')}</label>
           <input type="number" name="caseNumber" value="0" min="0" />
@@ -1040,7 +1044,7 @@ export class HeadquartersSheet extends HandlebarsApplicationMixin(ActorSheetV2) 
           <label>${game.i18n.localize('NEONRELIC.HQ.Log.ThreatAfter')}</label>
           <input type="number" name="threatAfter" value="${system.threat}" min="0" max="6" />
         </div>
-      </form>`;
+      </div>`;
 
     const result = await foundry.applications.api.DialogV2.prompt({
       window: { title: game.i18n.localize('NEONRELIC.HQ.Log.RecordTitle') },
@@ -1095,7 +1099,7 @@ export class HeadquartersSheet extends HandlebarsApplicationMixin(ActorSheetV2) 
     if (!this.isEditable) return;
     const result = await foundry.applications.api.DialogV2.prompt({
       window: { title: game.i18n.localize('NEONRELIC.HQ.CoverIdentity.AddTitle') },
-      content: `<form><div class="form-group"><label>${game.i18n.localize('NEONRELIC.HQ.CoverIdentity.Label')}</label><input type="text" name="identity" autofocus /></div></form>`,
+      content: `<div class="form-group"><label>${game.i18n.localize('NEONRELIC.HQ.CoverIdentity.Label')}</label><input type="text" name="identity" autofocus /></div>`,
       ok: {
         callback: (event, button) => String(new FormData(button.form).get('identity') ?? '').trim(),
       },

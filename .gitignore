@@ -20,3 +20,6 @@ pathconfig
 # Distribution Files
 /dist
 /local-release
+
+# Scratch pad — temporary working files (not source of truth)
+scratch-pad/
