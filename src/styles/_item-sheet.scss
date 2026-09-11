@@ -223,18 +223,12 @@
       margin-bottom: 2px;
     }
 
+    // Applies to the view-mode div and to the prose-mirror host (which
+    // always carries the `editor` class). Sizing is owned by the shared
+    // ProseMirror theme in _prosemirror-theme.scss.
     .editor {
       min-height: 60px;
       padding: 6px;
-      border: 1px solid $nr-rule;
-      background: $nr-field-bg;
-      font-family: $nr-font-fill;
-      font-size: 9pt;
-      line-height: 1.5;
-    }
-
-    prose-mirror {
-      min-height: 60px;
       border: 1px solid $nr-rule;
       background: $nr-field-bg;
       font-family: $nr-font-fill;
