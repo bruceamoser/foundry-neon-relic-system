@@ -213,6 +213,54 @@
     }
   }
 
+  // ── Reference Panel (DP earning / track calculations) ─
+  .hq-reference {
+    border: 1px dashed $nr-rule-light;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 6px 8px 4px;
+    margin: 8px 0;
+
+    .section-title {
+      margin-top: 4px;
+    }
+
+    .ref-list {
+      margin: 2px 0 6px;
+      padding-left: 16px;
+
+      li {
+        font-family: $nr-font-fill;
+        font-size: 8pt;
+        line-height: 1.45;
+        color: $nr-ink-faded;
+        margin-bottom: 2px;
+
+        b {
+          color: $nr-ink;
+        }
+      }
+    }
+
+    .ref-note {
+      font-family: $nr-font-fill;
+      font-size: 8pt;
+      font-style: italic;
+      color: $nr-ink-faded;
+      margin: 2px 0 6px;
+    }
+
+    .ref-source {
+      font-family: $nr-font-main;
+      font-size: 5.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: $nr-ink-light;
+      margin: 0;
+      padding-top: 2px;
+      border-top: 1px dotted $nr-rule-light;
+    }
+  }
+
   // ── Vault ───────────────────────────────────────────
   .vault-section {
     margin-bottom: 6px;

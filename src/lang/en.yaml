@@ -947,6 +947,24 @@ NEONRELIC:
       Hint: When the Threat Meter hits 6, trigger a Compromise Event before the next Case File (roll d6 on the Compromise table). Log the result here.
       Empty: No compromise events recorded.
       DeleteHint: Delete entry
+    Reference:
+      DPTitle: Development Points — Earned in the Aftermath
+      DP1: 'Case File fully resolved (mystery closed) — 3 DP'
+      DP2: 'Artifact securely contained and logged with the Covenant — 1 DP'
+      DP3: 'Named Threat neutralized (not just driven off) — 1 DP'
+      DP4: 'Primary objective completed under active case pressure — 1 DP'
+      DP5: 'Agent rescued from rival faction custody — 1 DP'
+      DPSpent: DP is spent during downtime or banked for future Case Files — no cap.
+      TrackTitle: How Standing & Threat Are Tracked
+      StandingLabel: Standing gains
+      StandingUp: 'artifact contained +2 · zero civilian exposure +1 · rival faction neutralized +2 · agent rescued +2 · cold case resolved +1 · no casualties +1 · Named Threat captured +3 · Tier 3 artifact +3 (max +6 per case)'
+      StandingDown: 'Losses — civilian casualty −2 each (−3 if public) · supernatural event in media −3 · artifact lost −3 · agent compromised −4 · cell location exposed −4 · cover story collapsed −3 · case abandoned −2'
+      StandingRanks: 'Ranks — 0–4 Unknown · 5–9 Acknowledged · 10–14 Trusted · 15–19 Honored · 20 Covenant Elite'
+      ThreatLabel: Threat gains
+      ThreatUp: "+1 for explosives or automatic weapons fire in a populated area · a rival agent escapes with knowledge of a cell location · an uncontained corruption leak · a deceased agent's identity linked by law enforcement · containment breaks at crisis"
+      ThreatDown: 'Losses — −1 at the end of a fully covert Case File (no witnesses, no law enforcement contact, no corruption incidents).'
+      ThreatCompromise: When the Threat Meter reaches 6, trigger a Compromise Event before the next Case File.
+      Source: See Ch 12 — Headquarters Management
 
   # Vehicle
   Vehicle:
