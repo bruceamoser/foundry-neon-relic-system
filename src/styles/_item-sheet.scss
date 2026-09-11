@@ -12,11 +12,16 @@
     margin-bottom: $nr-spacing-sm;
 
     .item-img {
-      flex: 0 0 40px;
-      height: 40px;
+      flex: 0 0 64px;
+      height: 64px;
       border: 1px solid $nr-rule;
       border-radius: 2px;
       object-fit: cover;
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 0 0 0 1px $nr-ink;
+      }
     }
 
     .header-fields {

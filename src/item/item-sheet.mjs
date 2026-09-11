@@ -9,6 +9,21 @@ const { ItemSheetV2 } = foundry.applications.sheets;
 
 const SYSTEM_ID = 'neon-relic';
 
+/**
+ * Show an item's portrait to all connected players via an ImagePopout share.
+ * @param {Item} item
+ */
+function showImageToPlayers(item) {
+  const { img, name, uuid } = item;
+  const popout = new foundry.applications.apps.ImagePopout({
+    src: img,
+    uuid,
+    window: { title: name },
+  });
+  popout.render({ force: true });
+  if (game.user.isGM) popout.shareImage();
+}
+
 export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   /** @override */
   static DEFAULT_OPTIONS = {
@@ -463,6 +478,13 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   /** @override */
   async _onRender(context, options) {
     await super._onRender(context, options);
+
+    // Right-click the portrait to share it with players; left-click edits it
+    // via the core `editImage` action.
+    this.element.querySelector('.item-header .item-img')?.addEventListener('contextmenu', event => {
+      event.preventDefault();
+      showImageToPlayers(this.document);
+    });
 
     // Initialize tabs for case brief item types
     const itemType = this.document.type;
