@@ -213,7 +213,7 @@ export class OperationsBoard extends HandlebarsApplicationMixin(foundry.applicat
       knownBy,
       hqFallback,
       type,
-      revealed: false,
+      revealed: true,
     };
   }
 }

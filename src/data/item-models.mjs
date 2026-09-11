@@ -413,7 +413,7 @@ export class InformationCardDataModel extends foundry.abstract.TypeDataModel {
       knownByUuids: new ArrayField(new StringField({ blank: true })),
       hqFallback: new NumberField({ initial: 0, integer: true, min: 0 }),
       daNotes: new HTMLField({ blank: true }),
-      revealed: new BooleanField({ initial: false }),
+      revealed: new BooleanField({ initial: true }),
       description: new HTMLField({ blank: true }),
       npcUuids: new ArrayField(new StringField({ blank: true })),
     };

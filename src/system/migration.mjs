@@ -6,12 +6,31 @@ import { ITEM_DEFAULT_ICONS, isGenericIcon } from './item-icons.mjs';
  */
 
 /** Current system data version */
-const CURRENT_VERSION = '0.4.1';
+const CURRENT_VERSION = '0.9.4';
 
 /**
  * Migration registry — each entry runs once when upgrading past its version.
  */
 const MIGRATIONS = [
+  {
+    version: '0.9.4',
+    title: 'Reveal information cards by default',
+    migrate: async () => {
+      let updated = 0;
+      const reveal = async item => {
+        if (item.type !== 'informationCard') return;
+        if (item.system.revealed === false) {
+          await item.update({ 'system.revealed': true });
+          updated++;
+        }
+      };
+      for (const item of game.items ?? []) await reveal(item);
+      for (const actor of game.actors ?? []) {
+        for (const item of actor.items) await reveal(item);
+      }
+      console.log(`neon-relic | Revealed ${updated} information cards`);
+    },
+  },
   {
     version: '0.4.1',
     title: 'Apply per-type default icons to items using generic images',
