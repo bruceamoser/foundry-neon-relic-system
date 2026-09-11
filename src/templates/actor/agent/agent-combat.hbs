@@ -92,6 +92,19 @@
             </td>
             <td class='center'>
               {{#if @root.isEditable}}
+                {{#if this.system.ammoDie.current}}
+                  {{#unless (eq this.system.ammoDie.current 'depleted')}}
+                    <button
+                      type='button'
+                      class='remove-btn'
+                      data-action='rollAmmo'
+                      data-item-id='{{this.id}}'
+                      title='{{localize "NEONRELIC.Weapon.RollAmmo"}}'
+                    >
+                      <i class='fa-solid fa-dice'></i>
+                    </button>
+                  {{/unless}}
+                {{/if}}
                 <button
                   type='button'
                   class='remove-btn'

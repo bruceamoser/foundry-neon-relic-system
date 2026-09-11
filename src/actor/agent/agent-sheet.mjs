@@ -28,6 +28,8 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       rollSkill: AgentSheet.#onRollSkill,
       toggleCondition: AgentSheet.#onToggleCondition,
       useTalent: AgentSheet.#onUseTalent,
+      useConsumable: AgentSheet.#onUseConsumable,
+      rollAmmo: AgentSheet.#onRollAmmo,
       viewItem: AgentSheet.#onViewItem,
       adjustAttribute: AgentSheet.#onAdjustAttribute,
       adjustSkill: AgentSheet.#onAdjustSkill,
@@ -740,6 +742,69 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const itemId = target.closest('[data-item-id]')?.dataset.itemId;
     const item = this.document.items.get(itemId);
     if (item) await item.useTalent();
+  }
+
+  /**
+   * Use a consumable from the character sheet — rolls the resource die
+   * (1–2 steps the die down) and reports the result in chat.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   */
+  static async #onUseConsumable(_event, target) {
+    const itemId = target.closest('[data-item-id]')?.dataset.itemId;
+    const item = this.document.items.get(itemId);
+    if (!item || item.type !== 'consumable') return;
+    const result = await item.useConsumable();
+    if (result.depleted && result.rolled === 0) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Consumable.Depleted'));
+      return;
+    }
+    const msg = AgentSheet.#formatDieUseMessage(result);
+    await ChatMessage.create({
+      speaker: ChatMessage.getSpeaker({ actor: this.document }),
+      content: `<p><strong>${item.name}</strong>: ${msg}</p>`,
+    });
+  }
+
+  /**
+   * Roll a weapon's Ammo Die from the character sheet — on 1–2 the die
+   * steps down one size and the result is reported in chat.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} target
+   */
+  static async #onRollAmmo(_event, target) {
+    const itemId = target.closest('[data-item-id]')?.dataset.itemId;
+    const item = this.document.items.get(itemId);
+    if (!item || item.type !== 'weapon') return;
+    const result = await item.rollAmmoDie();
+    if (result.depleted && result.rolled === 0) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Weapon.AmmoDepleted'));
+      return;
+    }
+    const msg = AgentSheet.#formatDieUseMessage(result);
+    await ChatMessage.create({
+      speaker: ChatMessage.getSpeaker({ actor: this.document }),
+      content: `<p><strong>${item.name}</strong>: ${msg}</p>`,
+    });
+  }
+
+  /**
+   * Format the chat message for a resource/ammo die use result.
+   * @param {{die: string, rolled: number, stepped: boolean, newDie: string, depleted: boolean}} result
+   * @returns {string}
+   */
+  static #formatDieUseMessage(result) {
+    if (result.stepped && result.depleted) {
+      return game.i18n.format('NEONRELIC.Consumable.UseDepleted', { die: result.die, roll: result.rolled });
+    }
+    if (result.stepped) {
+      return game.i18n.format('NEONRELIC.Consumable.UseStepped', {
+        die: result.die,
+        roll: result.rolled,
+        newDie: result.newDie,
+      });
+    }
+    return game.i18n.format('NEONRELIC.Consumable.UseOk', { die: result.die, roll: result.rolled });
   }
 
   /**
