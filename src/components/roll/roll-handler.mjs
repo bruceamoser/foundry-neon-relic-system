@@ -9,19 +9,35 @@ const CHAT_TEMPLATE = 'systems/neon-relic/templates/roll/roll-chatcard.hbs';
 
 /**
  * Build a dice pool from an actor's stats.
+ * A positive modifier adds Extra Dice to the pool; a negative modifier
+ * removes dice — Skill dice first, then Attribute dice (per the core rules:
+ * "a modifier adds or removes dice from the pool before rolling").
  * @param {object} params
  * @param {number} params.attribute - Attribute value.
  * @param {number} params.skill - Skill value.
  * @param {number} [params.gearBonus=0] - Gear bonus dice.
- * @param {number} [params.modifier=0] - Flat modifier to total pool.
- * @returns {{baseDice: number, skillDice: number, gearDice: number, totalPool: number}}
+ * @param {number} [params.modifier=0] - Dice added (+) or removed (−).
+ * @returns {{baseDice: number, skillDice: number, extraDice: number, gearDice: number, totalPool: number}}
  */
 export function buildPool({ attribute = 0, skill = 0, gearBonus = 0, modifier = 0 } = {}) {
-  const baseDice = Math.max(0, attribute);
-  const skillDice = Math.max(0, skill);
+  let baseDice = Math.max(0, attribute);
+  let skillDice = Math.max(0, skill);
   const gearDice = Math.max(0, gearBonus);
-  const totalPool = Math.max(1, baseDice + skillDice + gearDice + modifier);
-  return { baseDice, skillDice, gearDice, totalPool };
+  let extraDice = 0;
+
+  if (modifier >= 0) {
+    extraDice = Math.floor(modifier);
+  } else {
+    let toRemove = Math.floor(-modifier);
+    const fromSkill = Math.min(skillDice, toRemove);
+    skillDice -= fromSkill;
+    toRemove -= fromSkill;
+    const fromBase = Math.min(baseDice, toRemove);
+    baseDice -= fromBase;
+  }
+
+  const totalPool = Math.max(1, baseDice + skillDice + extraDice + gearDice);
+  return { baseDice, skillDice, extraDice, gearDice, totalPool };
 }
 
 /**
@@ -38,13 +54,15 @@ export async function executeRoll(pool, options = {}) {
   const baseCount = pool.baseDice;
   const skillCount = pool.skillDice;
   const gearCount = pool.gearDice;
+  const extraCount = pool.extraDice ?? 0;
 
   const baseResults = [];
   const skillResults = [];
   const gearResults = [];
+  const extraResults = [];
 
   if (isPush && previousRolls.length > 0) {
-    // Push: re-roll non-6 base+skill dice, keep gear dice locked
+    // Push: re-roll non-6 base+skill+extra dice, keep gear dice locked
     let idx = 0;
     for (let i = 0; i < baseCount && idx < previousRolls.length; i++, idx++) {
       if (previousRolls[idx] === 6) {
@@ -65,6 +83,14 @@ export async function executeRoll(pool, options = {}) {
     for (let i = 0; i < gearCount && idx < previousRolls.length; i++, idx++) {
       gearResults.push(previousRolls[idx]);
     }
+    for (let i = 0; i < extraCount && idx < previousRolls.length; i++, idx++) {
+      if (previousRolls[idx] === 6) {
+        extraResults.push(6);
+      } else {
+        const r = await new Roll('1d6').evaluate();
+        extraResults.push(r.total);
+      }
+    }
   } else {
     // Fresh roll
     if (baseCount > 0) {
@@ -79,14 +105,18 @@ export async function executeRoll(pool, options = {}) {
       const r = await new Roll(`${gearCount}d6`).evaluate();
       gearResults.push(...r.dice[0].results.map(d => d.result));
     }
+    if (extraCount > 0) {
+      const r = await new Roll(`${extraCount}d6`).evaluate();
+      extraResults.push(...r.dice[0].results.map(d => d.result));
+    }
   }
 
-  const allRolls = [...baseResults, ...skillResults, ...gearResults];
+  const allRolls = [...baseResults, ...skillResults, ...gearResults, ...extraResults];
   const successes = allRolls.filter(r => r === 6).length;
   const ones = allRolls.filter(r => r === 1).length;
   const gearOnes = gearResults.filter(r => r === 1).length;
 
-  const baseSkillDice = [...baseResults, ...skillResults];
+  const baseSkillDice = [...baseResults, ...skillResults, ...extraResults];
   const canPush = !isPush && baseSkillDice.some(r => r !== 6);
 
   return {
@@ -97,6 +127,7 @@ export async function executeRoll(pool, options = {}) {
     baseResults,
     skillResults,
     gearResults,
+    extraResults,
     canPush,
     isPush,
     pool,
@@ -136,9 +167,11 @@ export async function sendRollToChat(result, context = {}) {
     baseDice: result.baseResults.map(v => ({ value: v, success: v === 6 })),
     skillDice: result.skillResults.map(v => ({ value: v, success: v === 6 })),
     gearDice: result.gearResults.map(v => ({ value: v, success: v === 6 })),
+    extraDice: (result.extraResults ?? []).map(v => ({ value: v, success: v === 6 })),
     baseCount: result.baseResults.length,
     skillCount: result.skillResults.length,
     gearCount: result.gearResults.length,
+    extraCount: (result.extraResults ?? []).length,
     totalPool: result.pool.totalPool,
     successes: result.successes,
     difficulty,
@@ -268,6 +301,7 @@ export function addHelpDice(helperActor, skill, pool) {
  * @property {number[]} baseResults - Base (attribute) die results.
  * @property {number[]} skillResults - Skill die results.
  * @property {number[]} gearResults - Gear die results.
+ * @property {number[]} extraResults - Extra (modifier) die results.
  * @property {boolean} canPush - Whether the roll can be pushed.
  * @property {boolean} isPush - Whether this was a pushed roll.
  * @property {object} pool - The dice pool used.

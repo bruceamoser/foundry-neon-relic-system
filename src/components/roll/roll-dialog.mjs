@@ -104,6 +104,10 @@ export class NRRollDialog extends HandlebarsApplicationMixin(ApplicationV2) {
     return {
       ...this.rollData,
       totalPool: pool.totalPool,
+      poolBase: pool.baseDice,
+      poolSkill: pool.skillDice,
+      poolExtra: pool.extraDice,
+      poolGear: pool.gearDice,
       isLocked,
       lockedAttrLabel,
       lockedSkillLabel,
@@ -139,20 +143,21 @@ export class NRRollDialog extends HandlebarsApplicationMixin(ApplicationV2) {
         gearVal = Number(selectedOption?.dataset?.bonus) || 0;
       }
       const modVal = Number(modifierInput?.value) || 0;
-      const total = Math.max(1, attrVal + skillVal + gearVal + modVal);
+      const pool = buildPool({ attribute: attrVal, skill: skillVal, gearBonus: gearVal, modifier: modVal });
 
-      poolValue.textContent = total;
+      poolValue.textContent = pool.totalPool;
 
-      // Rebuild chips
-      let chips = `<span class="nr-pool-chip nr-pool-chip--base">${game.i18n.localize('NEONRELIC.Roll.BaseDice')}: ${attrVal}</span>`;
+      // Rebuild chips from the actual dice groups the roll will use
+      let chips = `<span class="nr-pool-chip nr-pool-chip--base">${game.i18n.localize('NEONRELIC.Roll.BaseDice')}: ${pool.baseDice}</span>`;
       chips += `<span class="nr-pool-plus">+</span>`;
-      chips += `<span class="nr-pool-chip nr-pool-chip--skill">${game.i18n.localize('NEONRELIC.Roll.SkillDice')}: ${skillVal}</span>`;
-      if (gearVal > 0) {
+      chips += `<span class="nr-pool-chip nr-pool-chip--skill">${game.i18n.localize('NEONRELIC.Roll.SkillDice')}: ${pool.skillDice}</span>`;
+      if (pool.extraDice > 0) {
         chips += `<span class="nr-pool-plus">+</span>`;
-        chips += `<span class="nr-pool-chip nr-pool-chip--gear">${game.i18n.localize('NEONRELIC.Roll.GearDice')}: ${gearVal}</span>`;
+        chips += `<span class="nr-pool-chip nr-pool-chip--extra">${game.i18n.localize('NEONRELIC.Roll.ExtraDice')}: ${pool.extraDice}</span>`;
       }
-      if (modVal !== 0) {
-        chips += ` <span class="nr-pool-mod">${modVal > 0 ? '+' : ''}${modVal}</span>`;
+      if (pool.gearDice > 0) {
+        chips += `<span class="nr-pool-plus">+</span>`;
+        chips += `<span class="nr-pool-chip nr-pool-chip--gear">${game.i18n.localize('NEONRELIC.Roll.GearDice')}: ${pool.gearDice}</span>`;
       }
       poolDetail.innerHTML = chips;
     };

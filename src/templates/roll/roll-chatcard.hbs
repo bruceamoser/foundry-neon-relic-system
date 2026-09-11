@@ -24,6 +24,8 @@
           {{skillCount}}</span>{{/if}}
       {{#if gearCount}}<span class='nr-pool-chip nr-pool-chip--gear'>{{localize 'NEONRELIC.Roll.GearDice'}}:
           {{gearCount}}</span>{{/if}}
+      {{#if extraCount}}<span class='nr-pool-chip nr-pool-chip--extra'>{{localize 'NEONRELIC.Roll.ExtraDice'}}:
+          {{extraCount}}</span>{{/if}}
     </div>
   </div>
 
@@ -55,6 +57,16 @@
         <div class='nr-dice-group__dice'>
           {{#each gearDice}}
             <span class='{{dieClass "nr-die nr-die--gear" this.success}}'>{{this.value}}</span>
+          {{/each}}
+        </div>
+      </div>
+    {{/if}}
+    {{#if extraDice.length}}
+      <div class='nr-dice-group nr-dice-group--extra'>
+        <span class='nr-dice-group__label'>{{localize 'NEONRELIC.Roll.ExtraDice'}}</span>
+        <div class='nr-dice-group__dice'>
+          {{#each extraDice}}
+            <span class='{{dieClass "nr-die nr-die--extra" this.success}}'>{{this.value}}</span>
           {{/each}}
         </div>
       </div>

@@ -162,6 +162,7 @@ NEONRELIC:
     BaseDice: Base Dice
     SkillDice: Skill Dice
     GearDice: Gear Dice
+    ExtraDice: Extra Dice
     Notes: Notes
     NotesPlaceholder: Roll notes...
     None: None
