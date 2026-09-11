@@ -832,12 +832,22 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   /**
-   * Short rest — recover +1 per damaged attribute.
+   * Short rest — recover +1 per damaged attribute and 1 Corruption.
+   * Reports the actual recovery, including corruption reaching 0.
    */
   static async #onShortRest() {
     const actor = this.document;
-    await actor.shortRest();
-    ui.notifications.info(game.i18n.localize('NEONRELIC.Agent.ShortRestApplied'));
+    const result = await actor.shortRest();
+    const attributes = result.attributes.length
+      ? result.attributes.map(attr => game.i18n.localize(CONFIG.NEON_RELIC.attributes[attr] ?? attr)).join(', ')
+      : game.i18n.localize('NEONRELIC.Agent.ShortRestNoAttributes');
+    ui.notifications.info(
+      game.i18n.format('NEONRELIC.Agent.ShortRestApplied', {
+        attributes,
+        before: result.corruption.before,
+        after: result.corruption.after,
+      }),
+    );
   }
 
   /**
