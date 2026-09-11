@@ -280,6 +280,92 @@
     }
   }
 
+  // ── Locations Tab ───────────────────────────────────
+  // The locations tab uses the generic linked-doc-* classes (the NPC tab
+  // uses org-npc-*); style them here or rows render unstyled — giant
+  // intrinsic-size icons with bullet markers.
+  .org-locations-tab {
+    padding: 4px 0;
+  }
+
+  .linked-doc-list {
+    list-style: none;
+    margin: 0 0 8px;
+    padding: 0;
+  }
+
+  .linked-doc-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px;
+    border: 1px solid $nr-rule;
+    background: $nr-field-bg;
+    margin-bottom: 3px;
+  }
+
+  .linked-doc-img {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    border: 1px solid $nr-rule;
+    flex-shrink: 0;
+  }
+
+  .linked-doc-name {
+    flex: 1;
+    font-family: $nr-font-fill;
+    font-size: 8pt;
+    color: $nr-ink;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+      color: $nr-red-stamp;
+    }
+  }
+
+  .linked-doc-remove {
+    width: 20px;
+    height: 20px;
+    border: 1px solid $nr-rule;
+    background: transparent;
+    color: $nr-red-stamp;
+    font-size: 12pt;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+
+    &:hover {
+      background: $nr-red-stamp;
+      color: $nr-paper;
+    }
+  }
+
+  // Locations drop target — the template uses the generic .dropzone class
+  .dropzone {
+    border: 2px dashed $nr-rule;
+    padding: 12px;
+    text-align: center;
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    color: $nr-ink-faded;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $nr-ink;
+      background: rgba($nr-ink, 0.03);
+    }
+  }
+
+  .dropzone-hint {
+    pointer-events: none;
+  }
+
   // ── Footer ──────────────────────────────────────────
   .org-ref-footer {
     margin-top: auto;
