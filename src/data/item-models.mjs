@@ -653,6 +653,14 @@ export class RelicSheetDataModel extends foundry.abstract.TypeDataModel {
  * sheets, and DA Case Brief via O#.
  * @extends foundry.abstract.TypeDataModel
  */
+export class InformationWebDataModel extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      informationCardUuids: new ArrayField(new StringField({ blank: true })),
+    };
+  }
+}
+
 export class CaseBoardDataModel extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {

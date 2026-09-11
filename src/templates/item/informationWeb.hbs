@@ -1,0 +1,58 @@
+{{! Information Web item template — card tiles with their links (web-map view) }}
+<div class='info-web'>
+  <header class='iw-header'>
+    <h2>{{item.name}}</h2>
+    <span class='iw-count'>{{web.cards.length}} cards · {{web.nodes.length}} links</span>
+  </header>
+
+  <section class='iw-section'>
+    <h3>{{localize 'NEONRELIC.CaseBoard.InfoCards'}}</h3>
+    <div class='iw-grid' data-drop-key='webCards'>
+      {{#each web.cards}}
+        <div class='{{this.tileClass}}'>
+          <a class='iw-link' data-action='openLinkedDoc' data-uuid='{{this.uuid}}' title='{{this.name}}'><span
+              class='iw-ref'
+            >[{{this.cardId}}]</span>
+            {{this.displayName}}</a>
+          {{#if this.links}}
+            <span class='iw-links'>Links: {{this.links}}</span>
+          {{/if}}
+          <span class='iw-tile-actions'>
+            <input
+              type='checkbox'
+              data-action='toggleCardReveal'
+              data-uuid='{{this.uuid}}'
+              title='{{localize "NEONRELIC.CaseBoard.Revealed"}}'
+              {{checked this.revealed}}
+              {{disabled (not @root.isEditable)}}
+            />
+            {{#if @root.isEditable}}
+              <button type='button' data-action='removeWebCard' data-uuid='{{this.uuid}}'>&times;</button>
+            {{/if}}
+          </span>
+        </div>
+      {{else}}
+        <span class='iw-empty'>{{localize 'NEONRELIC.CaseBoard.DropCards'}}</span>
+      {{/each}}
+    </div>
+  </section>
+
+  <section class='iw-section'>
+    <h3>Locations &amp; Persons</h3>
+    <div class='iw-grid'>
+      {{#each web.nodes}}
+        <div class='{{this.tileClass}}'>
+          <a
+            class='iw-link'
+            data-action='openLinkedDoc'
+            data-uuid='{{this.uuid}}'
+            title='{{this.name}}'
+          >{{this.name}}</a>
+          <span class='iw-links'>Linked from: {{this.refs}}</span>
+        </div>
+      {{else}}
+        <span class='iw-empty'>Location and NPC links appear here automatically.</span>
+      {{/each}}
+    </div>
+  </section>
+</div>
