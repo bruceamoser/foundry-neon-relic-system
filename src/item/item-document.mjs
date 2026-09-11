@@ -227,12 +227,16 @@ export class NeonRelicItem extends Item {
   /* ------------------------------------------ */
 
   /**
-   * Use a talent — enforce frequency limits, apply corruption cost, track usage.
+   * Use a talent — apply corruption cost, track usage, and post to chat.
    *
    * Frequency rules:
    *   at-will       — always usable, costs corruption each activation
-   *   per-session   — limited uses per session (tracked on item)
-   *   per-case-file — limited uses per case file (tracked on actor)
+   *   per-session   — uses per session tracked on the item (never blocks)
+   *   per-case-file — uses per case file tracked on item + actor (never blocks)
+   *
+   * Per-session and per-case-file usage is TRACKED but never enforced — the
+   * system cannot detect session or case-file boundaries, so the table decides
+   * when the limit applies.
    *
    * @returns {Promise<{used: boolean, corruptionCost: number, frequency: string}>}
    */
@@ -240,44 +244,29 @@ export class NeonRelicItem extends Item {
     if (this.type !== 'talent') return { used: false, corruptionCost: 0, frequency: null };
 
     const freq = this.system.frequency || 'at-will';
+    let trackedExhausted = false;
 
-    // ── Per-session check ──────────────────────────────────────────
+    // ── Track usage (informational only — never blocks the activation) ──
     if (freq === 'per-session') {
       const uses = this.system.usesPerSession;
-      if (uses.max > 0 && uses.value <= 0) {
-        ui.notifications.warn(game.i18n.localize('NEONRELIC.Talent.AlreadyUsed'));
-        return { used: false, corruptionCost: 0, frequency: freq };
-      }
-    }
-
-    // ── Per-case-file check ────────────────────────────────────────
-    if (freq === 'per-case-file') {
-      const caseUses = this.system.usesPerCaseFile;
-      const talentKey = this.id || this.name;
-      if (caseUses.max > 0 && caseUses.value <= 0) {
-        ui.notifications.warn(game.i18n.localize('NEONRELIC.Talent.AlreadyUsedCaseFile'));
-        return { used: false, corruptionCost: 0, frequency: freq };
-      }
-      // Track on actor for cross-item lookup
-      if (this.actor && caseUses.max > 0) {
-        await this.actor.update({
-          'system.caseFileTalentsUsed': [...this.actor.system.caseFileTalentsUsed, talentKey],
-        });
-      }
-    }
-
-    // ── Decrement uses ─────────────────────────────────────────────
-    if (freq === 'per-session') {
-      const uses = this.system.usesPerSession;
-      if (uses.max > 0 && uses.value > 0) {
-        await this.update({ 'system.usesPerSession.value': uses.value - 1 });
+      if (uses.max > 0) {
+        trackedExhausted = uses.value <= 0;
+        await this.update({ 'system.usesPerSession.value': Math.max(0, uses.value - 1) });
       }
     }
 
     if (freq === 'per-case-file') {
       const caseUses = this.system.usesPerCaseFile;
-      if (caseUses.max > 0 && caseUses.value > 0) {
-        await this.update({ 'system.usesPerCaseFile.value': caseUses.value - 1 });
+      const talentKey = this.id || this.name;
+      if (caseUses.max > 0) {
+        trackedExhausted = caseUses.value <= 0;
+        await this.update({ 'system.usesPerCaseFile.value': Math.max(0, caseUses.value - 1) });
+        // Track on actor for cross-item lookup
+        if (this.actor) {
+          await this.actor.update({
+            'system.caseFileTalentsUsed': [...this.actor.system.caseFileTalentsUsed, talentKey],
+          });
+        }
       }
     }
 
@@ -292,7 +281,7 @@ export class NeonRelicItem extends Item {
     if (this.system.description) parts.push(this.system.description);
     if (cost > 0) parts.push(`<em>${game.i18n.format('NEONRELIC.Talent.CorruptionCostChat', { cost })}</em>`);
 
-    // Show remaining uses based on frequency
+    // Show tracked remaining uses based on frequency
     if (freq === 'per-session') {
       const max = this.system.usesPerSession?.max ?? 0;
       const left = this.system.usesPerSession?.value ?? 0;
@@ -302,6 +291,9 @@ export class NeonRelicItem extends Item {
       const left = this.system.usesPerCaseFile?.value ?? 0;
       if (max > 0)
         parts.push(`<em>${game.i18n.format('NEONRELIC.Talent.UsesRemainingCaseFile', { value: left, max })}</em>`);
+    }
+    if (trackedExhausted) {
+      parts.push(`<em>${game.i18n.localize('NEONRELIC.Talent.UsesTrackedExhausted')}</em>`);
     }
 
     await ChatMessage.create({
