@@ -41,42 +41,52 @@
     // `resize` (with the overflow core already applies) adds a drag handle
     // so a field can be clamped manually.
     //
-    // Rules are scoped to `prose-mirror.editor` (the host always carries the
-    // `editor` class) so this specificity beats the stale textarea-era
-    // min-height floors that previously landed on the host.
-    &.editor {
+    // Everything below is scoped to `.neon-relic.item-sheet` and to
+    // `prose-mirror.editor.prosemirror` (the host always carries the `editor`
+    // and `prosemirror` classes). That gives a 4-class + 1-type specificity
+    // so the cascade outranks the legacy textarea-era floors that landed on
+    // the host — e.g. `.item-sheet .description .editor`,
+    // `.player-case-brief .editor` and `.relic-sheet-item .rs-field` (all
+    // 4-class selectors). Actor-sheet editors (agent biography, HQ
+    // description) keep their own intentional floors.
+    .editor-content {
+      position: unset;
+    }
+  }
+
+  // Sizing, resizing & vertical flow for item-sheet editors; actor-sheet
+  // editors (agent biography, HQ description) keep their own intentional
+  // floors.
+  &.item-sheet {
+    prose-mirror.editor.prosemirror {
       --min-height: 130px; // default floor — roughly 130px of writing space
       min-height: var(--min-height);
       resize: vertical;
       overflow: auto;
     }
 
-    .editor-content {
-      position: unset;
-    }
-
     // Per-surface floors; content can always grow taller
-    &.editor.dcb-textarea {
+    prose-mirror.editor.prosemirror.dcb-textarea {
       --min-height: 180px; // DA case brief sections
     }
 
-    &.editor.pcb-textarea {
+    prose-mirror.editor.prosemirror.pcb-textarea {
       --min-height: 180px; // Player case brief sections
     }
 
-    &.editor.loc-textarea {
+    prose-mirror.editor.prosemirror.loc-textarea {
       --min-height: 150px; // Location page sections
     }
 
-    &.editor.org-textarea {
+    prose-mirror.editor.prosemirror.org-textarea {
       --min-height: 160px; // Organization reference
     }
 
-    &.editor.anchor-textarea {
+    prose-mirror.editor.prosemirror.anchor-textarea {
       --min-height: 120px; // Anchor relationship / memory notes
     }
 
-    &.editor.rs-field {
+    prose-mirror.editor.prosemirror.rs-field {
       --min-height: 110px; // Relic sheet reading blocks
     }
   }

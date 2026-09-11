@@ -126,20 +126,27 @@ but it is not applied by default.
 The system applies the equivalent centrally in `src/styles/_prosemirror-theme.scss`:
 
 ```scss
-.neon-relic prose-mirror.editor {
+.neon-relic prose-mirror .editor-content {
+  position: unset; // host grows with its content → vertical flow
+}
+
+// Item-sheet editors: floor + drag handle. Scoped to
+// `.neon-relic.item-sheet` + `prose-mirror.editor.prosemirror` (the host
+// always carries the `editor` and `prosemirror` classes).
+.neon-relic.item-sheet prose-mirror.editor.prosemirror {
   --min-height: 130px; // default floor
   min-height: var(--min-height);
   resize: vertical; // drag handle (requires non-visible overflow)
   overflow: auto;
 }
-
-.neon-relic prose-mirror .editor-content {
-  position: unset; // host grows with its content → vertical flow
-}
 ```
 
-Rules are scoped to `prose-mirror.editor` because the host always carries the `editor`
-class; this specificity beats any component-level `min-height` (e.g. `.description .editor`).
+The `.neon-relic.item-sheet` + `prose-mirror.editor.prosemirror` scoping gives a
+4-class + 1-type specificity so the cascade **outranks the legacy textarea-era floors** that
+landed on the host (4-class selectors such as `.item-sheet .description .editor`,
+`.player-case-brief .editor`, and `.relic-sheet-item .rs-field`). Actor-sheet editors (agent
+biography 320px, HQ description 240px) are not item-sheet scoped and keep their own floors.
+
 Per-surface floors are set as `--min-height` overrides on the host classes
 (`.dcb-textarea`, `.pcb-textarea`, `.loc-textarea`, `.org-textarea`, `.anchor-textarea`,
 `.rs-field`).
