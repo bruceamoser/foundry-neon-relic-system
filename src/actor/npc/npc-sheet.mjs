@@ -7,6 +7,7 @@
  */
 
 import { NRRollDialog } from '../../components/roll/roll-dialog.mjs';
+import { resolveLinkedDoc } from '../../system/document-links.mjs';
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -230,7 +231,7 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   static async #onOpenLinkedDoc(_event, target) {
     const uuid = target.dataset.uuid;
     if (!uuid) return;
-    const doc = await fromUuid(uuid);
+    const doc = await resolveLinkedDoc(uuid);
     if (doc) doc.sheet.render(true);
   }
 }

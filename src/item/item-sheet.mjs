@@ -4,6 +4,8 @@
  * @module item/item-sheet
  */
 
+import { resolveLinkedDoc } from '../system/document-links.mjs';
+
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ItemSheetV2 } = foundry.applications.sheets;
 
@@ -49,7 +51,7 @@ function showMilestonePopup(title, description, triggered = false) {
 async function buildWebContext(system) {
   const cache = new Map();
   const load = async uuid => {
-    if (!cache.has(uuid)) cache.set(uuid, await fromUuid(uuid).catch(() => null));
+    if (!cache.has(uuid)) cache.set(uuid, await resolveLinkedDoc(uuid));
     return cache.get(uuid);
   };
 
@@ -157,7 +159,7 @@ async function buildBoardContext(system) {
   const nameCache = new Map();
   const resolveLinkLabel = async uuid => {
     if (nameCache.has(uuid)) return nameCache.get(uuid);
-    const doc = await fromUuid(uuid).catch(() => null);
+    const doc = await resolveLinkedDoc(uuid);
     const label = doc?.system?.locationId || doc?.system?.npcId || doc?.name || '';
     nameCache.set(uuid, label);
     return label;
@@ -165,7 +167,7 @@ async function buildBoardContext(system) {
 
   const cards = [];
   for (const uuid of system.informationCardUuids ?? []) {
-    const doc = await fromUuid(uuid).catch(() => null);
+    const doc = await resolveLinkedDoc(uuid);
     if (!doc) {
       cards.push({
         uuid,
@@ -929,7 +931,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   static async #onOpenNpcSheet(_event, target) {
     const uuid = target.dataset.uuid;
     if (!uuid) return;
-    const doc = await fromUuid(uuid);
+    const doc = await resolveLinkedDoc(uuid);
     if (doc) doc.sheet.render(true);
   }
 
@@ -1076,7 +1078,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
    */
   static async #onToggleCardReveal(_event, target) {
     if (!this.isEditable) return;
-    const card = await fromUuid(target.dataset.uuid);
+    const card = await resolveLinkedDoc(target.dataset.uuid);
     if (!card) return;
     await card.update({ 'system.revealed': !card.system.revealed });
   }
@@ -1118,8 +1120,10 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 
     const data = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
     if (!data?.uuid) return;
-    const doc = await fromUuid(data.uuid);
+    // Prefer the imported world copy when the drag source is a compendium pack.
+    const doc = await resolveLinkedDoc(data.uuid);
     if (!doc) return;
+    const uuid = doc.uuid;
 
     const system = this.document.system;
 
@@ -1127,8 +1131,8 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     if (docType === 'informationWeb') {
       if (data.type === 'Item' && doc.type === 'informationCard') {
         const uuids = [...(system.informationCardUuids ?? [])];
-        if (uuids.includes(data.uuid)) return;
-        uuids.push(data.uuid);
+        if (uuids.includes(uuid)) return;
+        uuids.push(uuid);
         await this.document.update({ 'system.informationCardUuids': uuids });
       }
       return;
@@ -1138,11 +1142,11 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     if (docType === 'caseBoard') {
       if (data.type === 'Item' && doc.type === 'organization') {
         const orgs = [...(system.organizations ?? [])];
-        if (orgs.some(o => o.orgUuid === data.uuid)) return;
+        if (orgs.some(o => o.orgUuid === uuid)) return;
         orgs.push({
           id: `O${orgs.length + 1}`,
           name: doc.name,
-          orgUuid: data.uuid,
+          orgUuid: uuid,
           value: Math.min(14, orgs.length + 1),
           active: true,
           dormant: false,
@@ -1152,8 +1156,8 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         await this.document.update({ 'system.organizations': orgs });
       } else if (data.type === 'Item' && doc.type === 'informationCard') {
         const uuids = [...(system.informationCardUuids ?? [])];
-        if (uuids.includes(data.uuid)) return;
-        uuids.push(data.uuid);
+        if (uuids.includes(uuid)) return;
+        uuids.push(uuid);
         await this.document.update({ 'system.informationCardUuids': uuids });
       }
       return;
@@ -1177,8 +1181,8 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       const dropKey = event.target.closest('[data-drop-key]')?.dataset?.dropKey;
       if (data.type === 'Item' && doc.type === 'location' && dropKey === 'foundAt') {
         const uuids = [...(system.foundAtUuids ?? [])];
-        if (uuids.includes(data.uuid)) return;
-        uuids.push(data.uuid);
+        if (uuids.includes(uuid)) return;
+        uuids.push(uuid);
         await this.document.update({ 'system.foundAtUuids': uuids });
         // Bidirectional: add this info card to the location's informationCardUuids
         const locUuids = [...(doc.system.informationCardUuids ?? [])];
@@ -1191,8 +1195,8 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       } else if (data.type === 'Actor' && doc.type === 'npc') {
         if (dropKey === 'knownBy') {
           const uuids = [...(system.knownByUuids ?? [])];
-          if (uuids.includes(data.uuid)) return;
-          uuids.push(data.uuid);
+          if (uuids.includes(uuid)) return;
+          uuids.push(uuid);
           await this.document.update({ 'system.knownByUuids': uuids });
           // Bidirectional: add this info card to the NPC's startingKnowledgeUuids
           const npcUuids = [...(doc.system.startingKnowledgeUuids ?? [])];
@@ -1228,8 +1232,8 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 
     // Add to this document's UUID array
     const uuids = [...(foundry.utils.getProperty(system, uuidField.split('.').slice(1).join('.')) ?? [])];
-    if (!uuids.includes(data.uuid)) {
-      uuids.push(data.uuid);
+    if (!uuids.includes(uuid)) {
+      uuids.push(uuid);
       await this.document.update({ [uuidField]: uuids });
     }
 
@@ -1261,12 +1265,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     const docType = this.document.type;
 
     // Resolve the dropped document for reverse-unlinking
-    let doc = null;
-    try {
-      doc = await fromUuid(uuid);
-    } catch {
-      /* skip */
-    }
+    const doc = await resolveLinkedDoc(uuid);
 
     // Handle foundAtUuids (array) on info cards
     if (system.foundAtUuids?.includes(uuid)) {
@@ -1343,7 +1342,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   static async #onOpenLinkedDoc(_event, target) {
     const uuid = target.dataset.uuid;
     if (!uuid) return;
-    const doc = await fromUuid(uuid);
+    const doc = await resolveLinkedDoc(uuid);
     if (doc) doc.sheet.render(true);
   }
 }
