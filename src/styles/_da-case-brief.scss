@@ -372,8 +372,8 @@
     }
   }
 }
+// Editor sizing (floors, resizing, vertical flow) is owned by the shared
+// ProseMirror theme in _prosemirror-theme.scss.
 .dcb-textarea {
-  resize: vertical;
   width: 100%;
-  min-height: 60px;
 }

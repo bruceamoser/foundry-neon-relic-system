@@ -31,5 +31,53 @@
       color: $nr-ink;
       background: transparent;
     }
+
+    // ── Sizing, resizing & vertical flow ──────────────────────────
+    // Foundry core sets `min-height: var(--min-height)` on the host and
+    // absolutely positions `.editor-content` (`inset: 0`), so the host never
+    // sees its content height: editors stay small with an internal
+    // scrollbar. Un-positioning the content (core's `content-sized` mode)
+    // lets the host grow with its content so sheets flow vertically, and
+    // `resize` (with the overflow core already applies) adds a drag handle
+    // so a field can be clamped manually.
+    //
+    // Rules are scoped to `prose-mirror.editor` (the host always carries the
+    // `editor` class) so this specificity beats the stale textarea-era
+    // min-height floors that previously landed on the host.
+    &.editor {
+      --min-height: 130px; // default floor — roughly 130px of writing space
+      min-height: var(--min-height);
+      resize: vertical;
+      overflow: auto;
+    }
+
+    .editor-content {
+      position: unset;
+    }
+
+    // Per-surface floors; content can always grow taller
+    &.editor.dcb-textarea {
+      --min-height: 180px; // DA case brief sections
+    }
+
+    &.editor.pcb-textarea {
+      --min-height: 180px; // Player case brief sections
+    }
+
+    &.editor.loc-textarea {
+      --min-height: 150px; // Location page sections
+    }
+
+    &.editor.org-textarea {
+      --min-height: 160px; // Organization reference
+    }
+
+    &.editor.anchor-textarea {
+      --min-height: 120px; // Anchor relationship / memory notes
+    }
+
+    &.editor.rs-field {
+      --min-height: 110px; // Relic sheet reading blocks
+    }
   }
 }
