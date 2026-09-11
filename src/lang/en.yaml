@@ -218,6 +218,7 @@ NEONRELIC:
     Stunned: Stunned
     AmmoDie: Ammo Die
     AmmoDepleted: Ammo Depleted
+    RollAmmo: Roll Ammo
     Broken: Broken
 
   # Damage
@@ -268,8 +269,10 @@ NEONRELIC:
     Ammo: Ammo
     Fuel: Fuel
     Battery: Battery
+    Use: Use
     UseOk: '{die} rolled {roll} — no effect.'
-    UseStepped: '{die} rolled {roll} — depleted! Now {newDie}.'
+    UseStepped: '{die} rolled {roll} — stepped down to {newDie}.'
+    UseDepleted: '{die} rolled {roll} — supply depleted.'
     Depleted: This consumable is depleted.
     Replenished: 'Die stepped up: {old} → {new}.'
     ReplenishMax: Already at maximum (d12).

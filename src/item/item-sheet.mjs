@@ -20,6 +20,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     actions: {
       stepDown: NRItemSheet.#onStepDown,
       stepDownAmmo: NRItemSheet.#onStepDownAmmo,
+      rollAmmo: NRItemSheet.#onRollAmmo,
       stepDownArtifact: NRItemSheet.#onStepDownArtifact,
       useTalent: NRItemSheet.#onUseTalent,
       useConsumable: NRItemSheet.#onUseConsumable,
@@ -522,6 +523,30 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   }
 
   /**
+   * Roll the weapon's Ammo Die — on 1–2 the die steps down one size.
+   * @param {PointerEvent} _event
+   * @param {HTMLElement} _target
+   */
+  static async #onRollAmmo(_event, _target) {
+    const result = await this.document.rollAmmoDie();
+    if (result.depleted && result.rolled === 0) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Weapon.AmmoDepleted'));
+      return;
+    }
+    const msg =
+      result.stepped && result.depleted
+        ? game.i18n.format('NEONRELIC.Consumable.UseDepleted', { die: result.die, roll: result.rolled })
+        : result.stepped
+          ? game.i18n.format('NEONRELIC.Consumable.UseStepped', {
+              die: result.die,
+              roll: result.rolled,
+              newDie: result.newDie,
+            })
+          : game.i18n.format('NEONRELIC.Consumable.UseOk', { die: result.die, roll: result.rolled });
+    ChatMessage.create({ content: `<p><strong>${this.document.name}</strong>: ${msg}</p>` });
+  }
+
+  /**
    * Step down an artifact's artifact die.
    * @param {PointerEvent} _event
    * @param {HTMLElement} _target
@@ -548,13 +573,16 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       ui.notifications.warn(game.i18n.localize('NEONRELIC.Consumable.Depleted'));
       return;
     }
-    const msg = result.stepped
-      ? game.i18n.format('NEONRELIC.Consumable.UseStepped', {
-          die: result.die,
-          roll: result.rolled,
-          newDie: result.newDie,
-        })
-      : game.i18n.format('NEONRELIC.Consumable.UseOk', { die: result.die, roll: result.rolled });
+    const msg =
+      result.stepped && result.depleted
+        ? game.i18n.format('NEONRELIC.Consumable.UseDepleted', { die: result.die, roll: result.rolled })
+        : result.stepped
+          ? game.i18n.format('NEONRELIC.Consumable.UseStepped', {
+              die: result.die,
+              roll: result.rolled,
+              newDie: result.newDie,
+            })
+          : game.i18n.format('NEONRELIC.Consumable.UseOk', { die: result.die, roll: result.rolled });
     ChatMessage.create({ content: `<p><strong>${this.document.name}</strong>: ${msg}</p>` });
   }
 

@@ -114,6 +114,16 @@
                 <button
                   type='button'
                   class='remove-btn'
+                  data-action='useConsumable'
+                  data-item-id='{{this.id}}'
+                  title='{{localize "NEONRELIC.Consumable.Use"}}'
+                  {{disabled this.system.isDepleted}}
+                >
+                  <i class='fa-solid fa-dice'></i>
+                </button>
+                <button
+                  type='button'
+                  class='remove-btn'
                   data-action='removeItem'
                   data-item-id='{{this.id}}'
                   title='{{localize "NEONRELIC.Item.Remove"}}'

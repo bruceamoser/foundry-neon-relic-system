@@ -105,7 +105,7 @@ export class NeonRelicItem extends Item {
   }
 
   /**
-   * Use a consumable — rolls the resource die and steps down on a 1.
+   * Use a consumable — rolls the resource die and steps down on 1–2.
    * Returns the roll result for chat display.
    * @returns {Promise<{rolled: number, die: string, stepped: boolean, newDie: string|null, depleted: boolean}>}
    */
@@ -117,7 +117,7 @@ export class NeonRelicItem extends Item {
     const dieSize = parseInt(current.replace('d', ''), 10) || 8;
     const roll = await new Roll(`1d${dieSize}`).evaluate();
     const rollValue = roll.total;
-    const stepped = rollValue === 1;
+    const stepped = rollValue <= 2;
     let newDie = current;
     if (stepped) {
       const result = await this.stepDown();
@@ -166,6 +166,28 @@ export class NeonRelicItem extends Item {
     const newDie = chain[idx + 1] ?? 'depleted';
     await this.update({ 'system.ammoDie.current': newDie });
     return { stepped: true, oldDie: current, newDie };
+  }
+
+  /**
+   * Roll the weapon's Ammo Die — on 1–2 the die steps down one size.
+   * Used when the weapon is fired outside the attack dialog (sheet buttons).
+   * @returns {Promise<{rolled: number, die: string, stepped: boolean, newDie: string, depleted: boolean}>}
+   */
+  async rollAmmoDie() {
+    if (this.type !== 'weapon') return { rolled: 0, die: '', stepped: false, newDie: '', depleted: false };
+    const current = this.system.ammoDie?.current;
+    if (!current || current === 'depleted')
+      return { rolled: 0, die: 'depleted', stepped: false, newDie: 'depleted', depleted: true };
+    const dieSize = parseInt(current.replace('d', ''), 10) || 8;
+    const roll = await new Roll(`1d${dieSize}`).evaluate();
+    const rollValue = roll.total;
+    const stepped = rollValue <= 2;
+    let newDie = current;
+    if (stepped) {
+      const result = await this.stepDownAmmo();
+      newDie = result.newDie;
+    }
+    return { rolled: rollValue, die: current, stepped, newDie, depleted: newDie === 'depleted' };
   }
 
   /**

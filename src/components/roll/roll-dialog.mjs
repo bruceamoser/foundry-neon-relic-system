@@ -253,45 +253,37 @@ export class NRRollDialog extends HandlebarsApplicationMixin(ApplicationV2) {
       if (actor) {
         const selectedItem = actor.items.get(gearItemId);
         if (selectedItem) {
-          // Prefer linked consumable over built-in ammo die
+          // Prefer a healthy linked consumable; otherwise fall back to the
+          // weapon's built-in Ammo Die so ammo is always rolled when used.
           const linkedId = selectedItem.system.linkedConsumableId;
-          if (linkedId) {
-            const consumable = actor.items.get(linkedId);
-            if (consumable && consumable.type === 'consumable' && !consumable.system.isDepleted) {
-              const result = await consumable.useConsumable();
-              ammoDieResult = {
-                weaponName: selectedItem.name,
-                die: result.die,
-                roll: result.rolled,
-                stepped: result.stepped,
-                newDie: result.newDie,
-                depleted: result.depleted,
-              };
-            }
+          const linkedConsumable = linkedId ? actor.items.get(linkedId) : null;
+          const useLinked =
+            linkedConsumable && linkedConsumable.type === 'consumable' && !linkedConsumable.system.isDepleted;
+
+          if (useLinked) {
+            const result = await linkedConsumable.useConsumable();
+            ammoDieResult = {
+              weaponName: selectedItem.name,
+              die: result.die,
+              roll: result.rolled,
+              stepped: result.stepped,
+              newDie: result.newDie,
+              depleted: result.depleted,
+            };
           } else if (
             selectedItem.type === 'weapon' &&
             selectedItem.system.ammoDie?.current &&
             selectedItem.system.ammoDie.current !== 'depleted'
           ) {
-            // Fallback to built-in ammo die on weapons
-            const currentDie = selectedItem.system.ammoDie.current;
-            const dieSize = parseInt(currentDie.replace('d', ''), 10) || 8;
-            const ammoRoll = await new Roll(`1d${dieSize}`).evaluate();
-            const rollValue = ammoRoll.total;
-            let stepped = false;
-            let newDie = currentDie;
-            if (rollValue === 1) {
-              const stepResult = await selectedItem.stepDownAmmo();
-              stepped = stepResult.stepped;
-              newDie = stepResult.newDie;
-            }
+            // Built-in Ammo Die on weapons (rolls on 1–2 to step down)
+            const result = await selectedItem.rollAmmoDie();
             ammoDieResult = {
               weaponName: selectedItem.name,
-              die: currentDie,
-              roll: rollValue,
-              stepped,
-              newDie,
-              depleted: newDie === 'depleted',
+              die: result.die,
+              roll: result.rolled,
+              stepped: result.stepped,
+              newDie: result.newDie,
+              depleted: result.depleted,
             };
           }
         }

@@ -137,6 +137,14 @@
     <span class='die-label'>{{localize 'NEONRELIC.Weapon.AmmoDie'}} (built-in)</span>
     <span class='{{ammoDieClass}}'>{{ammoDieLabel}}</span>
     {{#if isEditable}}
+      <button
+        type='button'
+        data-action='rollAmmo'
+        title='{{localize "NEONRELIC.Weapon.RollAmmo"}}'
+        {{disabled (or (not system.ammoDie.current) (eq system.ammoDie.current 'depleted'))}}
+      >
+        <i class='fa-solid fa-dice'></i>
+      </button>
       <button type='button' data-action='stepDownAmmo' {{disabled (not system.ammoDie.current)}}>
         <i class='fa-solid fa-arrow-down'></i>
       </button>
