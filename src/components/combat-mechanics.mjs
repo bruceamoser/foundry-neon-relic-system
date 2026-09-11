@@ -232,6 +232,49 @@ export async function performDodge(defender, attackSuccesses) {
   return { dodged, dodgeSuccesses, remainingDamage };
 }
 
+// ─── Armor Checks ──────────────────────────────────────────────
+
+/**
+ * Roll an Armor Check for worn armor — Gear Dice equal to the Armor Rating.
+ * Every 6 absorbs 1 point of incoming physical damage. Armor Dice do NOT
+ * degrade on armor checks (only on pushes, targeted stunts, or specific
+ * critical injuries).
+ * @param {Actor} actor - The wearer.
+ * @param {Item} armorItem - The worn armor item.
+ * @param {number} [incomingDamage=0] - Incoming physical damage (0 = report raw absorption).
+ * @returns {Promise<{results: number[], absorbed: number, remaining: number, ar: number}>}
+ */
+export async function rollArmorCheck(actor, armorItem, incomingDamage = 0) {
+  const ar = armorItem?.system?.ar?.value ?? 0;
+  if (ar <= 0) {
+    ui.notifications.warn(game.i18n.localize('NEONRELIC.Combat.ArmorNoProtection'));
+    return { results: [], absorbed: 0, remaining: incomingDamage, ar: 0 };
+  }
+
+  const roll = new Roll(`${ar}d6`);
+  await roll.evaluate();
+  const results = roll.dice[0]?.results?.map(r => r.result) ?? [];
+  const sixes = results.filter(r => r === 6).length;
+  const absorbed = incomingDamage > 0 ? Math.min(sixes, incomingDamage) : sixes;
+  const remaining = incomingDamage > 0 ? Math.max(0, incomingDamage - absorbed) : 0;
+
+  const speaker = ChatMessage.getSpeaker({ actor });
+  const absorbedLine =
+    incomingDamage > 0
+      ? `<br>${game.i18n.format('NEONRELIC.Combat.ArmorAbsorbed', { absorbed, incoming: incomingDamage })}${remaining > 0 ? ` — ${game.i18n.format('NEONRELIC.Combat.DodgeRemaining', { amount: remaining })}` : ''}`
+      : '';
+  await ChatMessage.create({
+    speaker,
+    content: `<div class="armor-check">
+      <strong>${game.i18n.localize('NEONRELIC.Combat.ArmorCheck')}</strong> — ${armorItem.name}:
+      [${results.join(', ')}] = ${sixes} ${game.i18n.localize('NEONRELIC.Roll.Successes')}
+      ${absorbedLine}
+    </div>`,
+  });
+
+  return { results, absorbed, remaining, ar };
+}
+
 // ─── Vehicle Combat (#92) ──────────────────────────────────────
 
 /**

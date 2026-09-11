@@ -690,6 +690,13 @@ NEONRELIC:
     DodgeSuccess: Attack dodged
     DodgeFail: Dodge failed
     DodgeRemaining: '{amount} damage gets through'
+    # Armor
+    ArmorCheck: Armor Check
+    ArmorCheckHint: Roll AR Gear Dice — each 6 absorbs 1 point of physical damage (armor does not degrade on this roll).
+    ArmorCheckPrompt: Incoming physical damage
+    ArmorAbsorbed: '{absorbed} of {incoming} damage absorbed'
+    ArmorNotWorn: Wear the armor before rolling an armor check.
+    ArmorNoProtection: No Armor Rating remaining.
     # Vehicle
     VehicleDamage: takes damage
     BreakdownCheck: Breakdown Check

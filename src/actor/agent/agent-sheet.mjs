@@ -6,7 +6,7 @@
 import { NRRollDialog } from '../../components/roll/roll-dialog.mjs';
 import { CreationWizard } from './creation-wizard.mjs';
 import { applyDebriefXP } from '../../components/game-systems.mjs';
-import { performDodge } from '../../components/combat-mechanics.mjs';
+import { performDodge, rollArmorCheck } from '../../components/combat-mechanics.mjs';
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ActorSheetV2 } = foundry.applications.sheets;
@@ -55,6 +55,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       resetSession: AgentSheet.#onResetSession,
       rollInitiative: AgentSheet.#onRollInitiative,
       dodge: AgentSheet.#onDodge,
+      rollArmor: AgentSheet.#onRollArmor,
     },
     form: {
       submitOnChange: true,
@@ -642,6 +643,39 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       ui.notifications.info(game.i18n.localize('NEONRELIC.Combat.DodgeSuccess'));
     } else {
       ui.notifications.warn(game.i18n.format('NEONRELIC.Combat.DodgeRemaining', { amount: result.remainingDamage }));
+    }
+  }
+
+  /**
+   * Roll an Armor Check for a worn armor item — AR Gear Dice, each 6 absorbs
+   * 1 point of incoming physical damage (armor does not degrade on this roll).
+   */
+  static async #onRollArmor(_event, target) {
+    const itemId = target.closest('[data-item-id]')?.dataset.itemId;
+    const item = this.document.items.get(itemId);
+    if (!item || item.type !== 'armor') return;
+    if (!item.system.worn) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Combat.ArmorNotWorn'));
+      return;
+    }
+
+    const incoming = await foundry.applications.api.DialogV2.prompt({
+      window: { title: game.i18n.localize('NEONRELIC.Combat.ArmorCheck') },
+      content: `<div class="form-group"><label>${game.i18n.localize('NEONRELIC.Combat.ArmorCheckPrompt')}</label><input type="number" name="damage" value="0" min="0" autofocus /></div>`,
+      ok: {
+        callback: (event, button) => Math.max(0, Number(button.form.elements.damage.value) || 0),
+      },
+    });
+    if (incoming === null || incoming === undefined) return;
+
+    const result = await rollArmorCheck(this.document, item, incoming);
+    if (result.absorbed > 0) {
+      ui.notifications.info(
+        game.i18n.format('NEONRELIC.Combat.ArmorAbsorbed', { absorbed: result.absorbed, incoming }),
+      );
+    }
+    if (incoming > 0 && result.remaining > 0) {
+      ui.notifications.warn(game.i18n.format('NEONRELIC.Combat.DodgeRemaining', { amount: result.remaining }));
     }
   }
 
