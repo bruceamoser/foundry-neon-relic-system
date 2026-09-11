@@ -884,6 +884,7 @@ NEONRELIC:
     PersonnelMissing: Missing contact
     MemberMissing: Missing actor
     ArtifactMissing: Missing artifact
+    DropUnsupported: '{name} — only upgrades and artifacts can be dropped on a headquarters.'
     MemberExists: '{name} is already assigned.'
     MemberAdded: '{name} assigned to the headquarters.'
     MembersNoneAvailable: No agents or NPCs available to assign.
