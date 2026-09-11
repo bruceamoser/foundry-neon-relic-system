@@ -14,7 +14,6 @@
     foundAt: L3 (Town Museum)
     knownBy: Herr Lehmann
     hqFallback: 2
-    revealed: false
 
 - _id: case-ic02
   name: 'IC-02: Night Visitors'
@@ -29,7 +28,6 @@
     foundAt: L1 (Town Square)
     knownBy: Gasthaus Owner
     hqFallback: 3
-    revealed: false
 
 - _id: case-ic03
   name: 'IC-03: The Awakening Ritual'
@@ -45,7 +43,6 @@
     foundAt: L2 (Old Church)
     knownBy: ''
     hqFallback: 5
-    revealed: false
 
 - _id: case-ic04
   name: 'IC-04: The Well-Dressed Man'
@@ -61,4 +58,3 @@
     foundAt: L3 (Town Museum)
     knownBy: Security Guard
     hqFallback: 4
-    revealed: false
