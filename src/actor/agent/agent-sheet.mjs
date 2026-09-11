@@ -1684,7 +1684,9 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
   /**
    * Use an anchor — roll 1d4 and heal that much corruption.
-   * Consumes one anchor use. Once per session.
+   * Usage is tracked (session flag + uses counter) but never blocked: the
+   * system cannot detect session boundaries, so the once-per-session rule is
+   * enforced by the table — the tracker is informational only.
    * @param {PointerEvent} _event
    * @param {HTMLElement} target
    */
@@ -1698,23 +1700,13 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       return;
     }
 
-    if (this.document.system.sessionTracking?.anchorUsed) {
-      ui.notifications.warn(game.i18n.localize('NEONRELIC.Anchor.AlreadyUsed'));
-      return;
-    }
-
-    const uses = anchor.system.uses.value;
-    if (uses <= 0) {
-      ui.notifications.warn(game.i18n.localize('NEONRELIC.Anchor.NoUses'));
-      return;
-    }
-
     // Roll 1d4
     const roll = await new Roll('1d4').evaluate();
     const healed = roll.total;
 
-    // Apply healing and consumption
-    await anchor.update({ 'system.uses.value': uses - 1 });
+    // Track usage (never blocks usage)
+    const uses = anchor.system.uses.value;
+    await anchor.update({ 'system.uses.value': Math.max(0, uses - 1) });
     await this.document.update({ 'system.sessionTracking.anchorUsed': true });
 
     if (this.document.healCorruption) {
@@ -1729,7 +1721,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
         name: this.document.name,
         anchorName: anchor.name,
         healed,
-        remaining: anchor.system.uses.value - 1,
+        remaining: Math.max(0, uses - 1),
       }),
     });
 
