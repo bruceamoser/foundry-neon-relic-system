@@ -1,0 +1,50 @@
+<section class='tab log {{tab.cssClass}}' data-group='primary' data-tab='log'>
+  <div class='log-toolbar'>
+    <span class='toolbar-title'>{{localize 'NEONRELIC.HQ.Log.Title'}}</span>
+    {{#if isEditable}}
+      <button type='button' class='inline-btn' data-action='recordCompromise'>
+        <i class='fa-solid fa-plus' inert></i>
+        {{localize 'NEONRELIC.HQ.Log.Record'}}
+      </button>
+    {{/if}}
+  </div>
+
+  <p class='hint'>{{localize 'NEONRELIC.HQ.Log.Hint'}}</p>
+
+  {{#if compromiseLog.length}}
+    <table class='compromise-table'>
+      <thead>
+        <tr>
+          <th class='col-case'>{{localize 'NEONRELIC.HQ.Log.CaseNumber'}}</th>
+          <th>{{localize 'NEONRELIC.HQ.Log.Event'}}</th>
+          <th>{{localize 'NEONRELIC.HQ.Log.Outcome'}}</th>
+          {{#if isEditable}}<th class='col-actions'></th>{{/if}}
+        </tr>
+      </thead>
+      <tbody>
+        {{#each compromiseLog}}
+          <tr>
+            <td class='col-case'>{{this.caseNumber}}</td>
+            <td>{{this.event}}</td>
+            <td>{{this.outcome}}</td>
+            {{#if @root.isEditable}}
+              <td class='col-actions'>
+                <button
+                  type='button'
+                  class='row-btn danger'
+                  data-action='deleteCompromise'
+                  data-index='{{this.index}}'
+                  data-tooltip='{{localize "NEONRELIC.HQ.Log.DeleteHint"}}'
+                >
+                  <i class='fa-solid fa-trash' inert></i>
+                </button>
+              </td>
+            {{/if}}
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <p class='empty-hint'>{{localize 'NEONRELIC.HQ.Log.Empty'}}</p>
+  {{/if}}
+</section>

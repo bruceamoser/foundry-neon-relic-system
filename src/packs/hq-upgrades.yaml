@@ -1,122 +1,169 @@
 # HQ Upgrades Compendium Pack
-# Neon Relic — 10 facilities with 3 tiers each
+# Neon Relic — HQ Upgrade Tree (Ch 12: Headquarters Management)
+# 11 capabilities across 3 tiers. Higher tiers require lower-tier capabilities
+# plus Covenant Standing thresholds. See docs/chapters/12-headquarters.adoc.
 ---
 - _id: hq-fac01
-  name: Armory
+  name: Secure Communications Room
   type: upgrade
+  img: systems/neon-relic/assets/icons/facility-default.svg
   system:
     tier: 1
-    maxTier: 3
-    description: Secure weapon and armor storage.
-    tierEffects:
-      1: Store up to 10 weapons and 5 armor sets. Basic maintenance tools.
-      2: Repair bench (+1 to Tinker for repairs). Store up to 20 weapons.
-      3: Advanced workshop. Auto-repair 1 gear die step per session.
+    dpCost: 2
+    standingRequirement: 0
+    category: facility
+    prerequisites: []
+    isPurchased: false
+    effect: '+1 die on Command (EMP) rolls when coordinating with Covenant contacts between Case Files. One free contact call per downtime (no CL requirement).'
+    description: 'A rented back office with encrypted landline bank, reel-to-reel tape vault, and scrambled HAM radio array. No one outside the Covenant can track calls to or from this location.'
 
 - _id: hq-fac02
-  name: Infirmary
+  name: Basic Medical Bay
   type: upgrade
+  img: systems/neon-relic/assets/icons/facility-default.svg
   system:
     tier: 1
-    maxTier: 3
-    description: Medical treatment facility for injured agents.
-    tierEffects:
-      1: Treat minor injuries. +1 Heal rolls at HQ.
-      2: Surgery suite. Can treat lethal critical injuries.
-      3: ICU. Agents heal +1 attribute point per rest at HQ.
+    dpCost: 2
+    standingRequirement: 0
+    category: facility
+    prerequisites: []
+    isPurchased: false
+    effect: 'During downtime, each character recovers 2 additional Attribute points of their choice (beyond normal rest). One character may also attempt to clear a non-lethal Critical Injury (Heal (EMP) Difficulty 2; success removes the injury without Attribute loss).'
+    description: "A discreet clinic arrangement — a struck-off doctor's back room, a veterinary practice after hours, or a university lab with a sympathetic researcher. Not elegant, but it keeps people alive."
 
 - _id: hq-fac03
-  name: Vault
+  name: Safeguard Protocol
   type: upgrade
+  img: systems/neon-relic/assets/icons/facility-default.svg
   system:
     tier: 1
-    maxTier: 3
-    description: Containment chamber for recovered artifacts.
-    tierEffects:
-      1: Store up to 3 artifacts safely. Basic shielding.
-      2: Reinforced wards. Store up to 6 artifacts. -1 emission damage.
-      3: Deep vault. Store up to 10 artifacts. Emissions neutralized.
+    dpCost: 1
+    standingRequirement: 0
+    category: security
+    prerequisites: []
+    isPurchased: false
+    effect: 'If any cell location is attacked, the team gains +1 die on the initiative roll during the first round of any defense scene. One random NPC contact (if any recruited) survives even if the location falls.'
+    description: 'A tripwire perimeter on the primary safe house, a dead-drop early-warning system, and pre-planned extraction routes from every regular meeting point. Not a fortress — a head start.'
 
 - _id: hq-fac04
-  name: Library
+  name: The Microfiche Archive
   type: upgrade
+  img: systems/neon-relic/assets/icons/facility-default.svg
   system:
-    tier: 1
-    maxTier: 3
-    description: Research archives and occult reference materials.
-    tierEffects:
-      1: +1 Lore rolls when researching at HQ.
-      2: Cross-referenced database. +1 Investigate at HQ.
-      3: Verdant Codex archive. +2 Lore at HQ, access restricted records.
+    tier: 2
+    dpCost: 3
+    standingRequirement: 5
+    category: facility
+    prerequisites:
+      - hq-fac01
+    isPurchased: false
+    effect: 'Permanent +2 Gear bonus to Lore (WIT) rolls when researching prior to departure. Also grants access to one free Historical Contact per Case File (a scholar, librarian, or researcher who owes the Covenant a favor).'
+    description: 'A rented storage unit converted into a wall-to-wall collection of newspaper records, police reports, and occult journals on microfilm. A full-time archivist — never seen without reading glasses and cigarettes — maintains the stacks.'
 
 - _id: hq-fac05
-  name: Motor Pool
+  name: The Occult Laboratory
   type: upgrade
+  img: systems/neon-relic/assets/icons/facility-default.svg
   system:
-    tier: 1
-    maxTier: 3
-    description: Vehicle storage and maintenance garage.
-    tierEffects:
-      1: Park up to 3 vehicles. Basic tools for minor repairs.
-      2: Full garage. +1 Tinker for vehicle repairs. Park up to 5 vehicles.
-      3: Armored bay. Can modify vehicles. +2 Tinker for vehicle work.
+    tier: 2
+    dpCost: 3
+    standingRequirement: 5
+    category: facility
+    prerequisites:
+      - hq-fac02
+    isPurchased: false
+    effect: 'Safely identify unknown artifact triggers without risking accidental activation. Lore (WIT) roll to identify artifact tier is Difficulty 1 here (instead of 2). Failed identification rolls do not trigger the artifact.'
+    description: 'A sterile environment in a university basement or condemned hospital wing — chemical analysis tools, EMF meters, and purpose-built containment vessels. Smells permanently of ozone and burnt copper.'
 
 - _id: hq-fac06
-  name: Communications Room
+  name: The Black-Market Armory
   type: upgrade
+  img: systems/neon-relic/assets/icons/facility-default.svg
   system:
-    tier: 1
-    maxTier: 3
-    description: Radio equipment and secure communication lines.
-    tierEffects:
-      1: HAM radio. Contact field agents within 50 miles.
-      2: Encrypted shortwave. Secure comms, 200-mile range.
-      3: Satellite uplink. Global secure comms. +1 to Investigate (remote intel).
+    tier: 2
+    dpCost: 3
+    standingRequirement: 0
+    category: security
+    prerequisites:
+      - hq-fac03
+    isPurchased: false
+    effect: 'During the Equipping Phase, all agents increase their effective CL Pool by +2 (e.g., a CL 2 agent has a CL Pool of 4 for requisition purposes). This does not change the personal CL for any other purpose. Items up to CL 4 may be requisitioned within this expanded pool. High-capacity weapons no longer require an above-CL roll to requisition.'
+    description: 'A reinforced storage unit or garage bay with analog combination locks, stocked through underground contacts the Covenant officially denies knowing. The manifest is updated by hand.'
 
 - _id: hq-fac07
-  name: Training Room
+  name: The Faraday Cage
   type: upgrade
+  img: systems/neon-relic/assets/icons/facility-default.svg
   system:
-    tier: 1
-    maxTier: 3
-    description: Physical and tactical training facility.
-    tierEffects:
-      1: Basic gym. Agents can train 1 skill during downtime.
-      2: Firing range. +1 to skill training rolls.
-      3: Full tactical simulator. Train 2 skills per downtime.
+    tier: 2
+    dpCost: 4
+    standingRequirement: 5
+    category: vault
+    prerequisites:
+      - hq-fac01
+    isPurchased: false
+    effect: 'One character per downtime can heal up to 4 Corruption. Requires a full day (one Case File downtime period) inside — the character is unavailable for other downtime activities that day.'
+    description: 'A lead-lined room in a rented basement, sealed against electromagnetic and supernatural interference. No phones work inside. No spirits answer. Silence like the inside of a safe.'
 
 - _id: hq-fac08
-  name: Quarters
+  name: Field Intelligence Network
   type: upgrade
+  img: systems/neon-relic/assets/icons/facility-default.svg
   system:
-    tier: 1
-    maxTier: 3
-    description: Living quarters for agents and support staff.
-    tierEffects:
-      1: Bunks for 4 agents. Basic amenities.
-      2: Private rooms for 6. Kitchen and common area.
-      3: Full accommodation for 8. +1 EMP recovery from Full Rest.
+    tier: 3
+    dpCost: 5
+    standingRequirement: 10
+    category: security
+    prerequisites:
+      - hq-fac04
+      - hq-fac01
+    isPurchased: false
+    effect: 'Before the team departs on a Case File, it receives one free additional clue about the central threat. +1 die on Investigation rolls to identify rival faction involvement.'
+    description: 'A distributed network of informants, dead drops, and off-the-books government contacts who feed intelligence to the Covenant. Managed by a rotation of cutout contacts to maintain deniability.'
 
 - _id: hq-fac09
-  name: Interrogation Room
+  name: Covenant Armorer
   type: upgrade
+  img: systems/neon-relic/assets/icons/facility-default.svg
   system:
-    tier: 1
-    maxTier: 3
-    description: Secure room for questioning subjects and analyzing intel.
-    tierEffects:
-      1: Basic room. Soundproofed.
-      2: One-way mirror. Recording equipment. +1 Persuade during interrogation.
-      3: Psychic dampeners. +2 Persuade, reduces entity influence in room.
+    tier: 3
+    dpCost: 5
+    standingRequirement: 10
+    category: facility
+    prerequisites:
+      - hq-fac06
+    isPurchased: false
+    effect: 'Once per Case File, one item in the team loadout can be permanently upgraded: +1 Gear Bonus to the listed value. The item also gains the Reliable trait (ignore the first 1 when pushing).'
+    description: 'A former Special Forces armorer gone ghost — works out of the armory back room, asks no questions, and charges only in favors and whiskey.'
 
 - _id: hq-fac10
-  name: Workshop
+  name: Corruption Dampening Vault
   type: upgrade
+  img: systems/neon-relic/assets/icons/facility-default.svg
   system:
-    tier: 1
-    maxTier: 3
-    description: Fabrication and crafting workspace.
-    tierEffects:
-      1: Basic tools. Can craft common items.
-      2: Power tools and supplies. +1 Tinker for crafting.
-      3: Full fabrication lab. +2 Tinker, can craft rare items.
+    tier: 3
+    dpCost: 6
+    standingRequirement: 10
+    category: vault
+    prerequisites:
+      - hq-fac07
+      - hq-fac05
+    isPurchased: false
+    effect: 'Store up to 3 active artifacts without passive corruption leaking to carriers. Artifacts in the vault do not add Enc. pressure. Vault must be re-consecrated after 3 Case Files (Lore (WIT) Difficulty 2; failure = 1 random artifact "wakes up" — roll d6 to determine which stored artifact).'
+    description: 'A reinforced sub-chamber within the Faraday Cage, retrofitted with seven-layer lead shielding, hand-drawn containment circles, and rotating salt-line maintenance. Costly to maintain and terrifying to enter alone.'
+
+- _id: hq-fac11
+  name: Safe House Network
+  type: upgrade
+  img: systems/neon-relic/assets/icons/facility-default.svg
+  system:
+    tier: 3
+    dpCost: 6
+    standingRequirement: 15
+    category: security
+    prerequisites:
+      - hq-fac01
+      - hq-fac03
+    isPurchased: false
+    effect: 'The team always has a fallback safe house available in any investigation area, no setup required. Removes all "no safe place to rest" environmental penalties while in the field. On failure during a Compromise event, one safe house absorbs the breach instead of the compromised location (one-time use; must rebuild, 3 DP).'
+    description: 'A constellation of bolt-holes, friendly business fronts, and sympathetic contacts spread across the city and its neighboring region — pre-loaded with emergency cash, clean IDs, and a contact pager (each safe house maintains a dedicated pager number registered to a cutout identity).'

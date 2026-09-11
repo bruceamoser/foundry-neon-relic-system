@@ -41,6 +41,14 @@ NEONRELIC:
   Encumbrance: Encumbrance
   CL: Covenant Level
 
+  # Actor types
+  ActorType:
+    agent: Agent
+    npc: NPC
+    mob: Mob
+    vehicle: Vehicle
+    headquarters: HQ
+
   # Compendium
   Compendium:
     NotFound: Compendium not found.
@@ -803,19 +811,142 @@ NEONRELIC:
     DP: Development Points
     Threat: Threat Level
     CellWideCL: Cell-Wide CL
-    Vault: Vault
     CasesSinceConsecration: Cases Since Consecration
     NeedsReconsecration: 'Vault needs re-consecration!'
+    Remove: Remove
+    NotEditable: You do not have permission to edit this headquarters.
     Rank:
-      Unknown: Unknown
-      Acknowledged: Acknowledged
-      Trusted: Trusted
-      Honored: Honored
-      CovenantElite: Covenant Elite
+      unknown: Unknown
+      acknowledged: Acknowledged
+      trusted: Trusted
+      honored: Honored
+      covenantElite: Covenant Elite
     Tier:
       Basic: Basic
       Improved: Improved
       Advanced: Advanced
+    Tab:
+      Overview: Overview
+      Upgrades: Upgrades
+      Personnel: Personnel
+      Members: Cell
+      Vault: Vault
+      Log: Log
+    CitySize:
+      Major: 'Major City (4-6 agents)'
+      Mid: 'Mid-Tier City (3-4 agents)'
+      Remote: 'Remote Outpost (2-3 agents)'
+    Network:
+      Title: The City Network
+      HomeCity: Home City
+      HomeCityHint: e.g., Portland
+      CitySize: City Size
+      SafeHouse: Primary Safe House
+      DeadDrop: Dead Drop
+      CoverIdentities: Cover Identities
+      AddIdentity: Add
+      NoIdentities: No cover identities recorded.
+    Upgrades:
+      SummaryHint: DP are spent during the Aftermath to establish new capabilities.
+      Established: Established
+      InPlace: In place.
+      Establish: Establish
+      Prerequisites: Requires
+      RequiresStanding: Requires Standing
+      DropHint: Drag an upgrade from the HQ Upgrades compendium onto this sheet to establish it.
+    UpgradeTier:
+      1: Tier 1 — Base Infrastructure
+      2: Tier 2 — Operational Support
+      3: Tier 3 — Advanced Operations
+    Lock:
+      needPrereq: Requires prior capabilities
+      needTier: Requires an established capability in the tier below
+      needStanding: Requires more Standing
+      needDP: Not enough DP banked
+    Establish:
+      Title: Establish Capability
+      Confirm: Establish {name} for {cost} DP?
+      Done: Established {name} (-{cost} DP).
+      Cancelled: Establish cancelled.
+    AlreadyEstablished: '{name} is already established.'
+    CannotEstablish: '{name} cannot be established yet — {reasons}.'
+    UpgradeNotFound: Upgrade entry not found.
+    Personnel:
+      Hint: Personnel are recruited with DP and provide passive benefits between Case Files. They are not combatants — if a location is attacked, they flee or hide.
+      Recruited: Recruited
+      RecruitAction: Recruit
+      Used: Used this Case
+      UsedHint: Toggle when this contact's once-per-Case benefit has been used.
+      Compromised: Compromised
+      CompromisedHint: Toggle if this contact has been burned or compromised.
+      RemoveHint: Remove this contact from the roster (no DP refund).
+      DropHint: Drag personnel from the HQ Personnel compendium onto this sheet to recruit them.
+    PersonnelMissing: Missing contact
+    MemberMissing: Missing actor
+    ArtifactMissing: Missing artifact
+    MemberExists: '{name} is already assigned.'
+    MemberAdded: '{name} assigned to the headquarters.'
+    MembersNoneAvailable: No agents or NPCs available to assign.
+    PersonnelNotFound: Personnel entry not found.
+    AlreadyRecruited: '{name} is already recruited.'
+    CannotRecruit: Not enough DP to recruit {name}.
+    PersonnelRemove:
+      Title: Remove Personnel
+      Confirm: Remove {name} from the roster? Spent DP is not refunded.
+    Recruit:
+      Title: Recruit Personnel
+      Confirm: Recruit {name} for {cost} DP?
+      Done: Recruited {name} (-{cost} DP).
+      Cancelled: Recruitment cancelled.
+    Members:
+      Title: Cell Roster
+      Manage: Manage Members
+      Save: Save
+      Updated: 'Cell roster updated ({count} members).'
+      MemberAdded: '{name} assigned to the headquarters.'
+      MemberExists: '{name} is already assigned.'
+      MembersNoneAvailable: No agents or NPCs available to assign.
+      Hint: Assign the agents and NPCs attached to this headquarters. Drag them onto the sheet, or use Manage Members.
+      Empty: No agents assigned to this headquarters yet.
+      OpenHint: Open sheet
+      RemoveHint: Remove from roster
+    CoverIdentity:
+      AddTitle: Add Cover Identity
+      Label: Identity
+    Vault:
+      Stored: Stored Artifacts
+      Rules: Covenant regulation — recovered artifacts are transferred to the vault during the Aftermath. The Corruption Dampening Vault holds up to 3 active artifacts without leaking to carriers.
+      Empty: No artifacts in vault custody.
+      Add: Add Artifact
+      AddTitle: Store Artifact in Vault
+      Artifact: Artifact
+      Full: The vault holds a maximum of 3 active artifacts.
+      NoneAvailable: No artifact items available to store.
+      ArtifactExists: '{name} is already in vault custody.'
+      ArtifactAdded: '{name} placed in vault custody.'
+      RemoveHint: Remove from vault custody
+      DropHint: or drag an artifact item onto this sheet
+      DampeningEstablished: Corruption Dampening Vault established — no passive leakage.
+      DampeningMissing: No Corruption Dampening Vault — stored artifacts leak corruption.
+      Consecration: Re-consecration
+    Consecrate:
+      Action: Re-consecrate
+      Title: Re-consecrate Vault
+      Confirm: Reset the consecration counter? The DA resolves the Lore (WIT) Difficulty 2 roll and applies consequences on failure.
+      Hint: The vault must be re-consecrated after 3 Case Files. Failure wakes one random stored artifact.
+      Done: Vault re-consecrated.
+    Log:
+      Title: Compromise Log
+      Record: Record Event
+      RecordTitle: Record Compromise Event
+      Recorded: Compromise event recorded.
+      CaseNumber: Case #
+      Event: Event
+      Outcome: Outcome
+      ThreatAfter: Threat after event
+      Hint: When the Threat Meter hits 6, trigger a Compromise Event before the next Case File (roll d6 on the Compromise table). Log the result here.
+      Empty: No compromise events recorded.
+      DeleteHint: Delete entry
 
   # Vehicle
   Vehicle:
