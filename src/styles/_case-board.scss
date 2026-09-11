@@ -73,7 +73,7 @@
 
   .cb-table {
     width: 100%;
-    min-width: 1240px;
+    min-width: 1120px;
     border-collapse: collapse;
     table-layout: fixed;
     background: $nr-paper;
@@ -444,5 +444,43 @@
     color: $nr-ink-faded;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+  }
+}
+
+// The board flows and fills the sheet: the body of the sheet becomes a column
+// and the table stretches with the (resizable) window on both axes.
+.neon-relic.item-sheet .item-body:has(.case-board) {
+  display: flex;
+  flex-direction: column;
+}
+
+.neon-relic.item-sheet .case-board {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.neon-relic.item-sheet .cb-table-wrap {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.neon-relic.item-sheet .cb-table {
+  height: 100%;
+}
+
+.neon-relic .cb-milestone-popup {
+  font-family: $nr-font-fill;
+  font-size: 9.5pt;
+  color: $nr-ink;
+
+  .cb-popup-status {
+    font-family: $nr-font-main;
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $nr-red-stamp;
+    margin: 0 0 4px;
   }
 }

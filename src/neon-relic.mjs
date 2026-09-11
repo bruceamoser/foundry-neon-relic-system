@@ -34,6 +34,7 @@ import {
   SubdivisionDataModel,
   OrganizationDataModel,
   CaseBoardDataModel,
+  InformationWebDataModel,
   RelicSheetDataModel,
 } from './data/item-models.mjs';
 import { NRItemSheet } from './item/item-sheet.mjs';
@@ -100,6 +101,7 @@ Hooks.once('init', () => {
   CONFIG.Item.dataModels.subdivision = SubdivisionDataModel;
   CONFIG.Item.dataModels.organization = OrganizationDataModel;
   CONFIG.Item.dataModels.caseBoard = CaseBoardDataModel;
+  CONFIG.Item.dataModels.informationWeb = InformationWebDataModel;
   CONFIG.Item.dataModels.relicSheet = RelicSheetDataModel;
 
   // Register custom Handlebars helpers

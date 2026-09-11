@@ -25,6 +25,82 @@ function showImageToPlayers(item) {
 }
 
 /**
+ * Show a small popup with a milestone's text. Milestones never post to chat.
+ * @param {string} title
+ * @param {string} description
+ * @param {boolean} [triggered]
+ */
+function showMilestonePopup(title, description, triggered = false) {
+  new foundry.applications.api.DialogV2({
+    classes: ['neon-relic'],
+    window: { title },
+    position: { width: 380 },
+    content: `<div class="cb-milestone-popup"><p class="cb-popup-status">${triggered ? 'Triggered' : 'Pending'}</p><p>${description || '<em>No description.</em>'}</p></div>`,
+    buttons: [{ action: 'close', label: 'Close', default: true }],
+  }).render({ force: true });
+}
+
+/**
+ * Build the information web view model: card tiles with their resolved link
+ * labels, plus the derived location/NPC nodes with back-references.
+ * @param {object} system - The information web system data.
+ * @returns {Promise<object>}
+ */
+async function buildWebContext(system) {
+  const cache = new Map();
+  const load = async uuid => {
+    if (!cache.has(uuid)) cache.set(uuid, await fromUuid(uuid).catch(() => null));
+    return cache.get(uuid);
+  };
+
+  const cards = [];
+  const nodes = new Map();
+  for (const uuid of system.informationCardUuids ?? []) {
+    const doc = await load(uuid);
+    if (!doc) continue;
+    const cardId = doc.system?.cardId ?? '';
+    const links = [];
+    for (const [field, kind] of [
+      ['foundAtUuids', 'location'],
+      ['knownByUuids', 'npc'],
+    ]) {
+      for (const targetUuid of doc.system?.[field] ?? []) {
+        const target = await load(targetUuid);
+        if (!target) continue;
+        const label = target.system?.locationId || target.system?.npcId || target.name;
+        links.push(label);
+        const node = nodes.get(targetUuid) ?? {
+          uuid: targetUuid,
+          kind,
+          name: target.name.replace(/^L\d+\s*—\s*/, ''),
+          refs: new Set(),
+        };
+        node.refs.add(cardId || doc.name);
+        nodes.set(targetUuid, node);
+      }
+    }
+    cards.push({
+      uuid,
+      cardId,
+      name: doc.name,
+      displayName: doc.name.replace(/^I\d+\s*—\s*/, ''),
+      links: links.filter(Boolean).join(' · '),
+      revealed: doc.system?.revealed ?? false,
+      tileClass: 'iw-tile iw-card' + (doc.system?.revealed ? ' revealed' : ''),
+    });
+  }
+
+  const nodeTiles = [...nodes.values()].map(node => ({
+    uuid: node.uuid,
+    name: node.name,
+    refs: [...node.refs].join(', '),
+    tileClass: 'iw-tile iw-' + node.kind,
+  }));
+
+  return { cards, nodes: nodeTiles };
+}
+
+/**
  * Build the case board view model: day columns, organization rows, and the
  * resolved list of linked information cards.
  * @param {object} system - The case board system data.
@@ -120,24 +196,23 @@ async function buildBoardContext(system) {
 }
 
 /**
- * Compute the update patch and chat messages for a completed day: fire the
- * relic milestone keyed to that day plus any organization milestones.
+ * Compute the update patch for a completed day: mark the relic milestone and
+ * any organization milestones keyed to that day as triggered (visual only —
+ * milestones never post to chat).
  * @param {object} system
  * @param {object[]} shifts
  * @param {number} day
- * @returns {{patch: object, messages: string[]}}
+ * @returns {object}
  */
 function dayCompletePatch(system, shifts, day) {
   const patch = {};
-  const messages = [];
-  if (shifts.filter(s => s.day === day).length < 4) return { patch, messages };
+  if (shifts.filter(s => s.day === day).length < 4) return patch;
 
   const relic = (system.relicMilestones ?? []).find(m => m.day === day && !m.triggered);
   if (relic) {
     const milestones = foundry.utils.deepClone(system.relicMilestones ?? []);
     milestones.find(m => m.day === day).triggered = true;
     patch['system.relicMilestones'] = milestones;
-    messages.push(`<p><strong>Relic Milestone — Day ${day}.</strong><br>${relic.description}</p>`);
   }
 
   const orgs = foundry.utils.deepClone(system.organizations ?? []);
@@ -147,21 +222,10 @@ function dayCompletePatch(system, shifts, day) {
     if (ms) {
       ms.triggered = true;
       orgFired = true;
-      messages.push(`<p><strong>${org.name || org.id} — ${ms.label}</strong><br>${ms.description}</p>`);
     }
   }
   if (orgFired) patch['system.organizations'] = orgs;
-  return { patch, messages };
-}
-
-/**
- * Post milestone announcements to chat.
- * @param {string[]} messages
- */
-async function announceMilestones(messages) {
-  for (const content of messages) {
-    await ChatMessage.create({ content: `<div class="neon-relic ops-milestone">${content}</div>` });
-  }
+  return patch;
 }
 
 /**
@@ -212,11 +276,12 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       advanceDay: NRItemSheet.#onAdvanceDay,
       toggleShift: NRItemSheet.#onToggleShift,
       orgCell: { handler: NRItemSheet.#onOrgCell, buttons: [0, 2] },
-      editRelicMilestone: NRItemSheet.#onEditRelicMilestone,
+      relicCell: { handler: NRItemSheet.#onRelicCell, buttons: [0, 2] },
       addOrg: NRItemSheet.#onAddOrg,
       removeOrg: NRItemSheet.#onRemoveOrg,
       toggleCardReveal: NRItemSheet.#onToggleCardReveal,
       removeCard: NRItemSheet.#onRemoveCard,
+      removeWebCard: NRItemSheet.#onRemoveWebCard,
     },
     form: {
       submitOnChange: true,
@@ -244,6 +309,11 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     const initialized = super._initializeApplicationOptions(options);
     if (options.document?.type === 'caseBoard') {
       initialized.position = { ...initialized.position, width: 1320, height: 900 };
+      initialized.window = { ...initialized.window, resizable: true };
+    }
+    if (options.document?.type === 'informationWeb') {
+      initialized.position = { ...initialized.position, width: 980, height: 760 };
+      initialized.window = { ...initialized.window, resizable: true };
     }
     return initialized;
   }
@@ -265,6 +335,11 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     // Case Board — pre-compute the 14-day grid view model
     if (item.type === 'caseBoard') {
       context.board = await buildBoardContext(system);
+    }
+
+    // Information Web — pre-compute the card/node tiles
+    if (item.type === 'informationWeb') {
+      context.web = await buildWebContext(system);
     }
 
     // Linked consumable options (only when item is on an actor)
@@ -872,9 +947,8 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     if (idx !== -1) shifts.splice(idx, 1);
     else shifts.push({ day, shift, filled: true });
 
-    const { patch, messages } = dayCompletePatch(system, shifts, day);
+    const patch = dayCompletePatch(system, shifts, day);
     await this.document.update({ 'system.shiftsFilled': shifts, ...patch });
-    await announceMilestones(messages);
   }
 
   /**
@@ -896,9 +970,8 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
         shifts.push({ day: target, shift, filled: true });
       }
     }
-    const { patch, messages } = dayCompletePatch(system, shifts, target);
+    const patch = dayCompletePatch(system, shifts, target);
     await this.document.update({ 'system.shiftsFilled': shifts, ...patch });
-    await announceMilestones(messages);
   }
 
   /**
@@ -927,10 +1000,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
 
     const ms = (org.milestones ?? []).find(m => m.day === day);
     if (ms) {
-      if (ms.triggered) return;
-      ms.triggered = true;
-      await this.document.update({ 'system.organizations': orgs });
-      await announceMilestones([`<p><strong>${org.name || org.id} — ${ms.label}</strong><br>${ms.description}</p>`]);
+      showMilestonePopup(`${org.name || org.id} — ${ms.label}`, ms.description, ms.triggered);
       return;
     }
 
@@ -942,18 +1012,35 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   }
 
   /**
-   * Edit (or clear) the relic milestone keyed to a day.
+   * Relic milestone cell: left-click shows a popup with the text,
+   * right-click opens the milestone editor.
    */
-  static async #onEditRelicMilestone(_event, target) {
+  static async #onRelicCell(event, target) {
     if (!this.isEditable) return;
     const day = Number(target.dataset.day);
     const system = this.document.system;
     const existing = (system.relicMilestones ?? []).find(m => m.day === day);
+
+    if (event.button !== 2) {
+      if (!existing) return;
+      showMilestonePopup(`Relic Milestone — Day ${day}`, existing.description, existing.triggered);
+      return;
+    }
+
     const result = await promptMilestone(`Relic Milestone — Day ${day}`, existing);
     if (!result) return;
     const milestones = (system.relicMilestones ?? []).filter(m => m.day !== day);
     if (result.description) milestones.push({ day, description: result.description, triggered: false });
     await this.document.update({ 'system.relicMilestones': milestones });
+  }
+
+  /**
+   * Unlink an information card from the information web.
+   */
+  static async #onRemoveWebCard(_event, target) {
+    const uuid = target.dataset.uuid;
+    const uuids = [...(this.document.system.informationCardUuids ?? [])].filter(u => u !== uuid);
+    await this.document.update({ 'system.informationCardUuids': uuids });
   }
 
   /**
@@ -1011,7 +1098,8 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       (this.document.type === 'organization' ||
         this.document.type === 'location' ||
         this.document.type === 'informationCard' ||
-        this.document.type === 'caseBoard') &&
+        this.document.type === 'caseBoard' ||
+        this.document.type === 'informationWeb') &&
       this.isEditable
     );
   }
@@ -1023,7 +1111,8 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       docType !== 'organization' &&
       docType !== 'location' &&
       docType !== 'informationCard' &&
-      docType !== 'caseBoard'
+      docType !== 'caseBoard' &&
+      docType !== 'informationWeb'
     )
       return;
 
@@ -1033,6 +1122,17 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     if (!doc) return;
 
     const system = this.document.system;
+
+    // ── Information Web: accept information cards ──
+    if (docType === 'informationWeb') {
+      if (data.type === 'Item' && doc.type === 'informationCard') {
+        const uuids = [...(system.informationCardUuids ?? [])];
+        if (uuids.includes(data.uuid)) return;
+        uuids.push(data.uuid);
+        await this.document.update({ 'system.informationCardUuids': uuids });
+      }
+      return;
+    }
 
     // ── Case Board: accept organizations and information cards ──
     if (docType === 'caseBoard') {
