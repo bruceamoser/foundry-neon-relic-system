@@ -932,3 +932,44 @@
     }
   }
 }
+
+// ── Manage Members Dialog ─────────────────────────────
+// Rendered by DialogV2 outside the sheet, so this is a top-level rule.
+// The roster can be long — cap the height and scroll internally.
+.hq-member-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: min(50vh, 420px);
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+
+  .hq-member-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 6px;
+    border-bottom: 1px dotted $nr-rule-light;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    input[type='checkbox'] {
+      flex: 0 0 auto;
+      margin: 0;
+    }
+
+    .hint {
+      margin-left: auto;
+      color: $nr-ink-faded;
+      font-size: 11px;
+    }
+  }
+}
