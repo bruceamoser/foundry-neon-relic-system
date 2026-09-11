@@ -24,6 +24,7 @@ TYPES:
     subdivision: Subdivision
     organization: Organization Reference
     relicSheet: Relic Sheet
+    caseBoard: Case Board
     Remove: Remove
     DeleteConfirm: Delete Item
     DeleteConfirmText: 'Delete "{name}"? This cannot be undone.'
