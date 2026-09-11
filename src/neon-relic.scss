@@ -40,5 +40,6 @@
 // Print support
 @import 'styles/print';
 
-// ProseMirror editor toolbars are intentionally NOT hidden — the editors need
-// their formatting controls available to be usable (see issue #427).
+// ProseMirror editor theming — dossier chrome for rich-text editors
+// (toolbars are intentionally NOT hidden: they are the editors' edit controls)
+@import 'styles/prosemirror-theme';

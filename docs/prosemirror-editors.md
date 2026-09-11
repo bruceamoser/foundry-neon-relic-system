@@ -24,6 +24,15 @@ Use the `<prose-mirror>` custom element with an `{{#if isEditable}}` guard and a
 | `data-document-uuid` | The document's UUID for collaborative editing |
 | `relative` | Boolean attribute; enables relative UUID generation |
 
+> ⚠️ **Do NOT add the `toggled` attribute.** `toggled` turns the editor into a
+> click-to-edit control: while inactive it renders *only the element's innerHTML*
+> (which we leave empty), so **the field's saved text is invisible** until the
+> user clicks it — and the formatting menu is hidden. Without `toggled`, the
+> editor is "always active": the text loads immediately and the menu bar is
+> always available. Verified against Foundry v14's
+> `client/applications/elements/prosemirror-editor.mjs` (`#toggled`, `open`,
+> `_activateListeners`).
+
 ## Why This Pattern Works
 
 - `<prose-mirror>` is a custom HTML element registered by Foundry.

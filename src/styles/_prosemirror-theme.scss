@@ -1,0 +1,35 @@
+// Neon Relic — ProseMirror Editor Theme
+// Foundry's rich-text editors ship with their own chrome (menu bar, dropdowns,
+// dialogs). Re-skin them to match the dossier aesthetic wherever a .neon-relic
+// application renders one.
+//
+// Note: editor CSS variables below mirror the hooks Foundry's core stylesheet
+// (foundry2.css) uses on `prose-mirror`: --menu-background, --dropdown-*,
+// --dialog-*, --color-control-hover, --button-text-color.
+
+.neon-relic {
+  prose-mirror {
+    --menu-background: rgba(255, 255, 255, 0.45);
+    --dropdown-background: #{$nr-paper};
+    --dropdown-border: #{$nr-rule};
+    --dialog-background: #{$nr-paper};
+    --dialog-border: #{$nr-rule};
+    --color-control-hover: rgba(45, 90, 39, 0.12);
+    --color-form-label-hover: #{$nr-ink};
+    --button-text-color: #{$nr-ink};
+
+    // Squared, ruled menu bar to match the dossier chrome
+    menu {
+      border-bottom: 1px solid $nr-rule;
+      border-radius: 0;
+      color: $nr-ink;
+    }
+
+    // Content area inherits the container's field background
+    .editor-content,
+    .ProseMirror {
+      color: $nr-ink;
+      background: transparent;
+    }
+  }
+}
