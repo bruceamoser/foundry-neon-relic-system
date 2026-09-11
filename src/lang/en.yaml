@@ -142,6 +142,7 @@ NEONRELIC:
   # Item shared
   Item:
     Name: Item Name
+    ImageHint: 'Left-click: edit image • Right-click: show to players'
     Bonus: Bonus
     Enc: Enc
     Worn: Worn
