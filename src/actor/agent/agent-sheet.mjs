@@ -1333,7 +1333,9 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     }
 
     await pack.getIndex();
-    const docs = await pack.getDocuments();
+    // Background Talents are chosen at character creation only — they cannot be
+    // purchased with XP, so they are excluded from the advancement picker.
+    const docs = (await pack.getDocuments()).filter(doc => doc.system?.talentType !== 'background');
     const items = docs.map(doc => {
       const text = doc.system?.description || doc.system?.effect || '';
       const tooltip = text
@@ -1369,6 +1371,7 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const content = `
       <div class="gear-popup">
         <p class="gear-popup-hint">${costNote}</p>
+        <p class="gear-popup-hint">${game.i18n.localize('NEONRELIC.Agent.TalentBackgroundHint')}</p>
         <ul class="gear-popup-list">${rows}</ul>
       </div>`;
 
@@ -1377,6 +1380,12 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     if (uuid) {
       const doc = await fromUuid(uuid);
       if (!doc) return;
+
+      // Background Talents are creation-only — never purchasable with XP
+      if (doc.system?.talentType === 'background') {
+        ui.notifications.warn(game.i18n.localize('NEONRELIC.Agent.TalentBackgroundHint'));
+        return;
+      }
 
       await this.document.createEmbeddedDocuments('Item', [doc.toObject()]);
       const sys = this.document.system;
