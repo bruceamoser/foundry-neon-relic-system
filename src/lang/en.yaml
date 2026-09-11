@@ -575,7 +575,7 @@ NEONRELIC:
     HealButton: Heal Corruption
     HealTitle: Heal Corruption
     HealAmount: Amount to heal
-    HealHint: 'Up to {available} points available this session.'
+    HealHint: 'Session healing tracked: {used} of 5 used (enforced by the table, not the system).'
     SessionCapReached: Session healing cap of 5 already reached.
     NoneToHeal: No corruption to heal.
 

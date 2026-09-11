@@ -772,25 +772,21 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   /**
-   * Prompt to heal corruption, respecting the session cap.
+   * Prompt to heal corruption. Session healing is tracked for the table but
+   * not enforced as a hard gate — the player/DA decide when the rules cap
+   * applies, and healing can always bring corruption down to 0.
    * @param {Actor} actor
    */
   static async #promptHealCorruption(actor) {
     const sys = actor.system.corruption;
-    const maxSession = 5;
-    const available = Math.max(0, maxSession - sys.sessionHealing);
-    if (available <= 0) {
-      ui.notifications.warn(game.i18n.localize('NEONRELIC.Corruption.SessionCapReached'));
-      return;
-    }
-    const maxHealable = Math.min(available, sys.value);
+    const maxHealable = sys.value;
     if (maxHealable <= 0) {
       ui.notifications.info(game.i18n.localize('NEONRELIC.Corruption.NoneToHeal'));
       return;
     }
     const amount = await foundry.applications.api.DialogV2.prompt({
       window: { title: game.i18n.localize('NEONRELIC.Corruption.HealTitle') },
-      content: `<div class="form-group"><label>${game.i18n.localize('NEONRELIC.Corruption.HealAmount')}</label><input type="number" name="amount" value="1" min="1" max="${maxHealable}" autofocus /></div><p class="hint">${game.i18n.format('NEONRELIC.Corruption.HealHint', { available })}</p>`,
+      content: `<div class="form-group"><label>${game.i18n.localize('NEONRELIC.Corruption.HealAmount')}</label><input type="number" name="amount" value="1" min="1" max="${maxHealable}" autofocus /></div><p class="hint">${game.i18n.format('NEONRELIC.Corruption.HealHint', { used: sys.sessionHealing })}</p>`,
       ok: {
         callback: (event, button) => Math.clamp(Number(button.form.elements.amount.value) || 0, 0, maxHealable),
       },
