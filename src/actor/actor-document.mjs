@@ -230,14 +230,17 @@ export class NeonRelicActor extends Actor {
     };
     await this.update(updates);
 
-    // Reset talent per-session uses
-    const talentUpdates = [];
+    // Reset per-session item trackers (talents and anchors)
+    const itemUpdates = [];
     for (const item of this.items) {
       if (item.type === 'talent' && item.system.usesPerSession) {
-        talentUpdates.push({ _id: item.id, 'system.usesPerSession.value': item.system.usesPerSession.max });
+        itemUpdates.push({ _id: item.id, 'system.usesPerSession.value': item.system.usesPerSession.max });
+      }
+      if (item.type === 'anchor' && item.system.uses) {
+        itemUpdates.push({ _id: item.id, 'system.uses.value': item.system.uses.max });
       }
     }
-    if (talentUpdates.length > 0) await this.updateEmbeddedDocuments('Item', talentUpdates);
+    if (itemUpdates.length > 0) await this.updateEmbeddedDocuments('Item', itemUpdates);
 
     return this;
   }

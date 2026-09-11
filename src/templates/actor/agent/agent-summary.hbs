@@ -194,7 +194,7 @@
       {{#if anchor.system.isLost}}
         <span class='lost-badge'>{{localize 'NEONRELIC.Anchor.Lost'}}</span>
       {{/if}}
-      {{#if (and @root.isEditable (not anchor.system.isLost) (gt anchor.system.uses.value 0))}}
+      {{#if (and @root.isEditable (not anchor.system.isLost))}}
         <button
           type='button'
           class='anchor-use-btn'
