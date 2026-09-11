@@ -536,6 +536,7 @@ NEONRELIC:
     AddTalent: Add Talent
     TalentCost: '{cost} XP per talent ({xp} XP available)'
     TalentFree: First 3 talents are free
+    TalentBackgroundHint: Background Talents are chosen at character creation only and cannot be purchased with XP.
     CLTooLow: Requires higher clearance level.
     AddGearHint: 'Showing items at or below CL {cl}.'
     NewItem: 'New {type}'
