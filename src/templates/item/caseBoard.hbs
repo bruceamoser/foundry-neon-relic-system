@@ -84,7 +84,7 @@
                   type='text'
                   name='system.organizations.{{this.idx}}.name'
                   value='{{this.name}}'
-                  placeholder='Organization'
+                  placeholder='{{localize "NEONRELIC.CaseBoard.TrackPlaceholder"}}'
                   {{disabled (not @root.isEditable)}}
                 />
                 {{#if this.orgUuid}}
@@ -143,48 +143,6 @@
             {{/each}}
           </tr>
         {{/each}}
-        {{! Information card links — rendered as a row inside the board }}
-        <tr class='cb-card-row'>
-          <td class='cb-label-col'>{{localize 'NEONRELIC.CaseBoard.InfoCards'}}</td>
-          <td class='cb-card-cell' colspan='14'>
-            <div class='cb-card-links' data-drop-key='caseBoardCards'>
-              {{#each board.cards}}
-                <span class='{{this.chipClass}}'>
-                  <span class='cb-card-body'>
-                    <a
-                      class='cb-card-link'
-                      data-action='openLinkedDoc'
-                      data-uuid='{{this.uuid}}'
-                      title='{{this.name}}'
-                    ><span class='cb-card-id'>[{{this.cardId}}]</span> {{this.displayName}}</a>
-                    {{#if this.links}}
-                      <span class='cb-card-linkline'>Links: {{this.links}}</span>
-                    {{/if}}
-                  </span>
-                  <input
-                    type='checkbox'
-                    class='cb-card-dot'
-                    data-action='toggleCardReveal'
-                    data-uuid='{{this.uuid}}'
-                    title='{{localize "NEONRELIC.CaseBoard.Revealed"}}'
-                    {{checked this.revealed}}
-                    {{disabled (not @root.isEditable)}}
-                  />
-                  {{#if @root.isEditable}}
-                    <button
-                      type='button'
-                      class='cb-card-remove'
-                      data-action='removeCard'
-                      data-uuid='{{this.uuid}}'
-                    >&times;</button>
-                  {{/if}}
-                </span>
-              {{else}}
-                <span class='cb-card-empty'>{{localize 'NEONRELIC.CaseBoard.DropCards'}}</span>
-              {{/each}}
-            </div>
-          </td>
-        </tr>
       </tbody>
     </table>
   </div>

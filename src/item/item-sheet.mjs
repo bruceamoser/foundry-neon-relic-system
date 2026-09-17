@@ -156,45 +156,7 @@ async function buildBoardContext(system) {
     }),
   }));
 
-  const nameCache = new Map();
-  const resolveLinkLabel = async uuid => {
-    if (nameCache.has(uuid)) return nameCache.get(uuid);
-    const doc = await resolveLinkedDoc(uuid);
-    const label = doc?.system?.locationId || doc?.system?.npcId || doc?.name || '';
-    nameCache.set(uuid, label);
-    return label;
-  };
-
-  const cards = [];
-  for (const uuid of system.informationCardUuids ?? []) {
-    const doc = await resolveLinkedDoc(uuid);
-    if (!doc) {
-      cards.push({
-        uuid,
-        name: '(missing card)',
-        displayName: '(missing card)',
-        cardId: '',
-        links: '',
-        revealed: false,
-        chipClass: 'cb-card-chip',
-      });
-      continue;
-    }
-    const links = [];
-    for (const linkUuid of doc.system?.foundAtUuids ?? []) links.push(await resolveLinkLabel(linkUuid));
-    for (const linkUuid of doc.system?.knownByUuids ?? []) links.push(await resolveLinkLabel(linkUuid));
-    cards.push({
-      uuid,
-      name: doc.name,
-      displayName: doc.name.replace(/^I\d+\s*—\s*/, ''),
-      cardId: doc.system?.cardId ?? '',
-      links: links.filter(Boolean).join(' · '),
-      revealed: doc.system?.revealed ?? false,
-      chipClass: 'cb-card-chip' + (doc.system?.revealed ? ' revealed' : ''),
-    });
-  }
-
-  return { days, orgs, cards };
+  return { days, orgs };
 }
 
 /**
@@ -282,7 +244,6 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       addOrg: NRItemSheet.#onAddOrg,
       removeOrg: NRItemSheet.#onRemoveOrg,
       toggleCardReveal: NRItemSheet.#onToggleCardReveal,
-      removeCard: NRItemSheet.#onRemoveCard,
       removeWebCard: NRItemSheet.#onRemoveWebCard,
     },
     form: {
@@ -1083,15 +1044,6 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     await card.update({ 'system.revealed': !card.system.revealed });
   }
 
-  /**
-   * Unlink an information card from the board.
-   */
-  static async #onRemoveCard(_event, target) {
-    const uuid = target.dataset.uuid;
-    const uuids = [...(this.document.system.informationCardUuids ?? [])].filter(u => u !== uuid);
-    await this.document.update({ 'system.informationCardUuids': uuids });
-  }
-
   /* ------------------------------------------ */
 
   /** @override */
@@ -1138,9 +1090,9 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       return;
     }
 
-    // ── Case Board: accept organizations and information cards ──
+    // ── Case Board: accept organization items and NPC actors as tracks ──
     if (docType === 'caseBoard') {
-      if (data.type === 'Item' && doc.type === 'organization') {
+      if ((data.type === 'Item' && doc.type === 'organization') || (data.type === 'Actor' && doc.type === 'npc')) {
         const orgs = [...(system.organizations ?? [])];
         if (orgs.some(o => o.orgUuid === uuid)) return;
         orgs.push({
@@ -1154,11 +1106,6 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
           milestones: [],
         });
         await this.document.update({ 'system.organizations': orgs });
-      } else if (data.type === 'Item' && doc.type === 'informationCard') {
-        const uuids = [...(system.informationCardUuids ?? [])];
-        if (uuids.includes(uuid)) return;
-        uuids.push(uuid);
-        await this.document.update({ 'system.informationCardUuids': uuids });
       }
       return;
     }
