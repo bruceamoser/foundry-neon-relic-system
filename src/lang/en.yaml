@@ -154,12 +154,13 @@ NEONRELIC:
     ShiftHint: N / M / D / E
     RelicMilestones: Relic Milestones
     InfoCards: Information Cards
-    AddOrg: Add Organization
+    AddOrg: Add Track
     AdvanceDay: Fill Next Day
     Active: Active
     Dormant: Dormant
     DropCards: Drop information cards here
-    DropOrg: Drop organization items here
+    DropOrg: Drop an organization, NPC, or person to add a track
+    TrackPlaceholder: Organization / person
     Revealed: Revealed
 
   Item:
