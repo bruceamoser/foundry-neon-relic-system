@@ -707,6 +707,20 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
   /* ------------------------------------------ */
 
   /** @override */
+  _toggleDisabled(disabled) {
+    super._toggleDisabled(disabled);
+    // Foundry core disables every form control on non-editable sheets; the
+    // Examine Photo action is read-only and must stay clickable for players
+    // and in compendium/read-only views.
+    if (disabled) {
+      const button = this.element?.querySelector("[data-action='examinePhoto']");
+      if (button) button.disabled = false;
+    }
+  }
+
+  /* ------------------------------------------ */
+
+  /** @override */
   async _onRender(context, options) {
     await super._onRender(context, options);
 

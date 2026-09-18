@@ -94,6 +94,11 @@ export class PhotoViewer extends ApplicationV2 {
   }
 
   /** @override */
+  _replaceHTML(result, content) {
+    content.replaceChildren(result);
+  }
+
+  /** @override */
   _onRender() {
     const stage = this._stage;
     const img = this._image;
