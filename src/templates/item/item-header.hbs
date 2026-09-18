@@ -7,6 +7,19 @@
     data-tooltip='{{localize "NEONRELIC.Item.ImageHint"}}'
     title='{{item.name}}'
   />
+  {{#if (eq itemType 'informationCard')}}
+    {{#if item.img}}
+      <button
+        type='button'
+        class='examine-photo'
+        data-action='examinePhoto'
+        data-tooltip='{{localize "NEONRELIC.InfoCard.ExaminePhotoHint"}}'
+      >
+        <i class='fa-solid fa-magnifying-glass-plus'></i>
+        {{localize 'NEONRELIC.InfoCard.ExaminePhoto'}}
+      </button>
+    {{/if}}
+  {{/if}}
   <div class='header-fields'>
     <h1>
       <input

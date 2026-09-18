@@ -10,6 +10,32 @@
       .item-type {
         letter-spacing: 3px;
       }
+
+      .examine-photo {
+        flex: 0 0 auto;
+        align-self: center;
+        margin: 0 12px 0 4px;
+        padding: 6px 12px;
+        font-family: $nr-font-main;
+        font-size: 8pt;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: $nr-paper;
+        background: $nr-ink;
+        border: 2px solid $nr-ink;
+        border-radius: 2px;
+        cursor: pointer;
+        white-space: nowrap;
+
+        i {
+          margin-right: 6px;
+        }
+
+        &:hover {
+          background: $nr-green-stamp;
+          border-color: $nr-green-stamp;
+        }
+      }
     }
   }
 

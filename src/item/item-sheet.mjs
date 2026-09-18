@@ -5,6 +5,7 @@
  */
 
 import { resolveLinkedDoc } from '../system/document-links.mjs';
+import { PhotoViewer } from '../components/photo-viewer.mjs';
 
 const { HandlebarsApplicationMixin } = foundry.applications.api;
 const { ItemSheetV2 } = foundry.applications.sheets;
@@ -237,6 +238,7 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
       openNpcSheet: NRItemSheet.#onOpenNpcSheet,
       removeLinkedDoc: NRItemSheet.#onRemoveLinkedDoc,
       openLinkedDoc: NRItemSheet.#onOpenLinkedDoc,
+      examinePhoto: NRItemSheet.#onExaminePhoto,
       advanceDay: NRItemSheet.#onAdvanceDay,
       toggleShift: NRItemSheet.#onToggleShift,
       orgCell: { handler: NRItemSheet.#onOrgCell, buttons: [0, 2] },
@@ -1291,5 +1293,14 @@ export class NRItemSheet extends HandlebarsApplicationMixin(ItemSheetV2) {
     if (!uuid) return;
     const doc = await resolveLinkedDoc(uuid);
     if (doc) doc.sheet.render(true);
+  }
+
+  /**
+   * Open the zoomable photo viewer for an information card's photograph.
+   */
+  static #onExaminePhoto() {
+    const { img, name } = this.document;
+    if (!img) return;
+    new PhotoViewer({ src: img, name }).render({ force: true });
   }
 }

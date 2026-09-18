@@ -1072,6 +1072,16 @@ NEONRELIC:
     Revealed: Revealed
     RevealedHint: Content hidden until revealed
     Footer: Neon Relic • The Verdant Covenant
+    ExaminePhoto: Examine Photo
+    ExaminePhotoHint: Open a large, zoomable view of the photograph to study it for details
+
+  # Photo Viewer
+  PhotoViewer:
+    Title: 'Examine Photo — {name}'
+    FallbackName: Photograph
+    Reset: Reset View
+    Hint: Scroll to zoom · drag to pan · double-click to reset
+    ZoomLabel: 'Zoom: {percent}%'
 
   # Scene Resolution
   Scene:
