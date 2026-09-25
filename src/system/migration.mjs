@@ -6,7 +6,7 @@ import { ITEM_DEFAULT_ICONS, isGenericIcon } from './item-icons.mjs';
  */
 
 /** Current system data version */
-const CURRENT_VERSION = '0.11.1';
+const CURRENT_VERSION = '0.11.2';
 
 /**
  * Migration registry — each entry runs once when upgrading past its version.
