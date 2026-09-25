@@ -1590,6 +1590,14 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     // Enforce min 1, max 5
     if (newVal < 1 || newVal > 5) return;
 
+    // Attributes are a creation-time budget: after creation they do not advance
+    // with XP, so say that rather than complaining about the (already spent)
+    // creation budget.
+    if (delta > 0 && sys.creationComplete) {
+      ui.notifications.warn(game.i18n.localize('NEONRELIC.Budget.AttrFixedAtCreation'));
+      return;
+    }
+
     // Check budget when increasing
     if (delta > 0 && sys.budget.attrRemaining <= 0) {
       ui.notifications.warn(game.i18n.localize('NEONRELIC.Budget.NoneRemaining'));
@@ -1619,8 +1627,17 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
     if (newVal < 0 || newVal > 5) return;
 
-    // Determine max at creation (3 normally, 4 for key skill)
-    const keySkill = doc.items.find(i => i.type === 'subdivision')?.system.keySkill;
+    // Determine max at creation (3 normally, 4 for key skill).
+    // The Sub-Unit item is only embedded when the wizard COMPLETES, so while a
+    // character is still being created the key skill has to come from the
+    // compendium entry for the chosen Sub-Unit — otherwise every skill caps at 3
+    // and the key skill's 4 becomes unreachable (the wizard allows it, the sheet
+    // refuses).
+    let keySkill = doc.items.find(i => i.type === 'subdivision')?.system.keySkill;
+    if (!keySkill && sys.subUnit) {
+      const subs = (await game.packs.get('neon-relic.subdivisions')?.getDocuments()) ?? [];
+      keySkill = subs.find(s => s.name === sys.subUnit)?.system.keySkill ?? '';
+    }
     const creationMax = key === keySkill ? 4 : 3;
 
     // If increasing and no budget remaining, require XP
@@ -1631,8 +1648,9 @@ export class AgentSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       }
     }
 
-    // During creation: enforce max
-    if (delta > 0 && newVal > creationMax) {
+    // The creation cap applies ONLY while creation is incomplete. After that the
+    // limit is the hard maximum (5) and the XP cost checked above.
+    if (delta > 0 && !sys.creationComplete && newVal > creationMax) {
       ui.notifications.warn(game.i18n.localize('NEONRELIC.Budget.SkillMaxReached'));
       return;
     }

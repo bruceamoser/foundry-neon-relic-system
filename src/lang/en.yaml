@@ -527,7 +527,8 @@ NEONRELIC:
     Skills: Skill Points
     NoneRemaining: No budget points remaining.
     InsufficientXP: Not enough XP for this advancement.
-    SkillMaxReached: Skill has reached its creation maximum.
+    SkillMaxReached: Skill has reached its creation maximum — finish character creation to raise it with XP.
+    AttrFixedAtCreation: Attributes are set during character creation and do not increase with XP.
     Over: '+{n} over'
     Under: '{n} unspent'
     XpFunded: via XP
