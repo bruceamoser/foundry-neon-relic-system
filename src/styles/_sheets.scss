@@ -7,6 +7,24 @@
   line-height: $nr-line-height;
   color: $nr-ink;
 
+  // ── Text selection ──
+  // Core v14 applies `body { user-select: none }` globally (foundry2.css) and
+  // only re-enables it for inputs, textareas and code — so the read-only text a
+  // player is meant to act on (information card fronts) and the DA reference
+  // text behind it (DA notes, briefs, location and org pages) could not be
+  // selected or copied. Re-enable selection on the sheet body, then switch it
+  // back off for the interactive chrome, where a stray drag is a mis-click.
+  .window-content {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  .window-content
+    :is(button, .tabs, .item-control, .item-controls, .trait-chip, .drag-handle, .window-resize-handle, [data-action]) {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
   // ── Paper background for all sheets ──
   &.app,
   &.application {
