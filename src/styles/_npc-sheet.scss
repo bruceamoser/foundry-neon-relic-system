@@ -1,649 +1,408 @@
-// Neon Relic — NPC Card Sheet Styles
-// Matches npc-card.html reference layout
-
 .neon-relic.npc-sheet {
-  // ── Card Header ─────────────────────────────────
+  min-width: 540px;
+  min-height: 480px;
+
+  .window-content {
+    overflow: hidden;
+    padding: 16px;
+  }
+  .npc-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    color: $nr-ink;
+    font-size: 14px;
+    line-height: 1.5;
+    container-type: inline-size;
+  }
+  .npc-card-header,
+  .npc-tabs {
+    flex: 0 0 auto;
+  }
   .card-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    border-top: 2.5px solid $nr-ink;
-    border-bottom: 1.5px solid $nr-ink;
-    padding: 4px 0 5px;
-    margin-bottom: 6px;
+    gap: 12px;
+    border-top: 3px solid $nr-ink;
+    padding: 8px 0;
+    font: 12px $nr-font-main;
+    letter-spacing: 1px;
   }
-
-  .card-title {
-    font-family: $nr-font-main;
-    font-size: 7pt;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: $nr-ink-faded;
-  }
-
   .card-stamp {
-    font-family: $nr-font-main;
-    font-size: 6pt;
-    letter-spacing: 3px;
     color: $nr-red-stamp;
   }
-
-  // ── NPC Identity Row ────────────────────────────
   .npc-identity-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 5px;
+    display: grid;
+    grid-template-columns: 80px minmax(0, 1fr);
+    gap: 16px;
+    margin-bottom: 12px;
   }
-
   .npc-portrait {
-    width: 65px;
-    height: 72px;
-    border: 1.5px solid $nr-rule;
-    background: $nr-field-bg;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 80px;
+    height: 100px;
     overflow: hidden;
-    flex-shrink: 0;
-
-    .profile-img {
+    border: 1px solid $nr-ink;
+    img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center 25%;
       cursor: pointer;
     }
   }
-
-  .npc-identity-fields {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .name-row {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    margin-bottom: 3px;
-  }
-
-  .name-col {
-    flex: 1.5;
-  }
-
-  .org-col {
-    flex: 1;
-  }
-
-  .npc-name {
-    display: block;
-    width: 100%;
-    border: none;
-    border-bottom: 2px solid $nr-ink;
-    min-height: 18px;
-    font-family: $nr-font-fill;
-    font-size: 11pt;
-    font-weight: bold;
-    padding: 1px 3px;
-    background: transparent;
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  .npc-org {
-    display: block;
-    width: 100%;
-    border: none;
-    border-bottom: 1.5px solid $nr-rule;
-    min-height: 16px;
-    font-family: $nr-font-fill;
-    font-size: 8pt;
-    padding: 1px 3px;
-    background: $nr-field-bg;
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  // ── Field Components ────────────────────────────
-  .field-label {
-    display: block;
-    font-family: $nr-font-main;
-    font-size: 5pt;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: $nr-ink-faded;
-    margin-bottom: 1px;
-  }
-
-  .field-value {
-    display: block;
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid $nr-rule;
-    min-height: 14px;
-    padding: 1px 3px;
-    background: $nr-field-bg;
-    font-family: $nr-font-fill;
-    font-size: 7.5pt;
-    margin-bottom: 4px;
-
-    &:focus {
-      outline: none;
-    }
-
-    &.med {
-      border: 1px solid $nr-rule;
-      border-bottom: 1.5px solid $nr-rule;
-      min-height: 28px;
-    }
-
-    &.tall {
-      border: 1px solid $nr-rule;
-      border-bottom: 1.5px solid $nr-rule;
-      min-height: 38px;
-    }
-  }
-
-  select.field-value {
-    appearance: auto;
-    border-radius: 0;
-  }
-
-  .field-row {
-    display: flex;
-    gap: 8px;
-  }
-
+  .npc-identity-fields,
+  .name-col,
+  .org-col,
   .field-col {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    min-width: 0;
   }
-
-  // ── Section Dividers ────────────────────────────
-  .section-label {
-    font-family: $nr-font-main;
-    font-size: 5.5pt;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: $nr-green-stamp;
-    border-bottom: 1px solid $nr-green-stamp;
-    padding-bottom: 1px;
-    margin: 4px 0 3px;
-
-    &.red {
-      color: $nr-red-stamp;
-      border-color: $nr-red-stamp;
-    }
+  .name-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    margin-bottom: 8px;
   }
-
-  // ── Badges Row ──────────────────────────────────
-  .npc-badges {
-    display: flex;
-    align-items: center;
-    gap: $nr-spacing-sm;
+  .field-label,
+  .attr-label {
+    display: block;
     margin-bottom: 4px;
-    flex-wrap: wrap;
+    font: 12px $nr-font-main;
+    color: $nr-ink-faded;
+    letter-spacing: 0;
+    text-transform: none;
   }
-
-  .tier-badge {
-    font-family: $nr-font-main;
-    font-size: 7pt;
+  input[type='text'],
+  input[type='number'],
+  select,
+  textarea {
+    height: auto;
+    min-height: 32px;
+    padding: 6px 8px;
+    border: 1px solid $nr-rule;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.45);
+    color: $nr-ink;
+    font: 14px/1.4 $nr-font-fill;
+    width: 100%;
+    margin: 0;
+  }
+  textarea {
+    resize: vertical;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  input.npc-name {
+    font-size: 18px;
     font-weight: bold;
-    letter-spacing: 1px;
-    padding: 2px 6px;
-    border: 1.5px solid $nr-ink;
-    background: $nr-field-bg;
-
-    &.tier-1 {
-      border-color: $nr-rule;
-    }
-
-    &.tier-2 {
-      border-color: $nr-ink;
-    }
-
-    &.tier-3 {
-      border-color: $nr-red-stamp;
-      color: $nr-red-stamp;
-    }
-
-    &.tier-4 {
-      border-color: $nr-red-stamp;
-      color: #fff;
-      background: $nr-red-stamp;
+  }
+  button,
+  a,
+  summary {
+    &:focus-visible {
+      outline: 2px solid $nr-green-stamp;
+      outline-offset: 2px;
     }
   }
-
-  .fear-badge {
-    font-family: $nr-font-main;
-    font-size: 6.5pt;
-    letter-spacing: 1px;
-    color: $nr-red-stamp;
-    padding: 2px 6px;
-    border: 1px solid $nr-red-stamp;
-    background: rgba(139, 26, 26, 0.04);
-  }
-
-  .corruption-stage-badge {
-    font-family: $nr-font-main;
-    font-size: 6pt;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: $nr-ink-faded;
-    padding: 2px 6px;
-    border: 1px solid $nr-rule;
-
-    &.stage-marked,
-    &.stage-consumed {
-      color: $nr-red-stamp;
-      border-color: $nr-red-stamp;
-    }
-  }
-
-  .flip-btn {
-    background: transparent;
-    border: 1px solid $nr-rule;
-    color: $nr-ink-faded;
+  button {
+    color: $nr-ink;
+    font-family: $nr-font-fill;
     cursor: pointer;
-    padding: 2px 6px;
-    font-size: 8pt;
-
-    &:hover {
-      color: $nr-ink;
-      border-color: $nr-ink;
-    }
   }
-
-  // ── Tab Navigation ─────────────────────────────
   .npc-tabs {
     display: flex;
-    gap: 0;
-    margin: 4px 0;
-    border-bottom: 1.5px solid $nr-rule;
-    font-family: $nr-font-main;
-
+    gap: 4px;
+    border-bottom: 2px solid $nr-ink;
+    margin: 0;
     .item {
-      padding: 4px 12px;
-      font-size: 7pt;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
+      flex: 1;
+      padding: 10px 8px;
+      border: 0;
+      border-radius: 4px 4px 0 0;
+      font: 14px $nr-font-main;
       color: $nr-ink-faded;
+      text-align: center;
       cursor: pointer;
-      border: 1px solid transparent;
-      border-bottom: none;
-      border-radius: 2px 2px 0 0;
-      background: rgba(0, 0, 0, 0.03);
-
+      &.active {
+        background: $nr-ink;
+        color: $nr-paper;
+        text-shadow: none;
+      }
+      &:hover:not(.active) {
+        background: rgba(0, 0, 0, 0.06);
+      }
       i {
         margin-right: 4px;
-        font-size: 7pt;
-      }
-
-      &:hover {
-        color: $nr-ink;
-        border-color: $nr-rule;
-        background: $nr-field-bg;
-      }
-
-      &.active {
-        color: $nr-ink;
-        font-weight: bold;
-        border-color: $nr-rule;
-        border-bottom-color: $nr-paper;
-        background: $nr-field-bg;
       }
     }
   }
-
   .npc-tab-content {
-    .tab {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    scrollbar-gutter: stable;
+    padding: 16px 8px 16px 0;
+    > .tab {
       display: none;
-
       &.active {
         display: block;
       }
     }
   }
-
-  // ── NPC Attributes ─────────────────────────────
-  .npc-attributes {
-    display: flex;
-    gap: 6px;
-    margin: 3px 0 5px;
+  .section-label {
+    font: bold 14px $nr-font-main;
+    letter-spacing: 0.5px;
+    color: $nr-green-stamp;
+    text-transform: none;
+    border: 0;
+    border-bottom: 1px solid $nr-rule;
+    padding: 0 0 6px;
+    margin: 22px 0 10px;
   }
-
-  .npc-attr-box {
-    flex: 1;
+  .npc-combat-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+    align-items: end;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .combat-field input {
     text-align: center;
-    border: 1.5px solid $nr-ink;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .broken-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 39px;
+    padding: 6px 8px;
+    border: 1px solid $nr-rule;
+    border-radius: 3px;
+    &.active {
+      color: $nr-red-stamp;
+      border-color: $nr-red-stamp;
+    }
+  }
+  .npc-attributes {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .npc-attr-box {
+    border: 1px solid $nr-rule;
+    border-radius: 4px;
     background: $nr-field-bg;
-    padding: 3px 2px;
-
+    overflow: hidden;
+    text-align: center;
     .attr-roll-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100%;
+      height: auto;
+      padding: 10px;
       background: transparent;
       border: none;
-      cursor: pointer;
-      width: 100%;
-      padding: 0;
-
-      &:hover {
-        .attr-value {
-          color: $nr-red-stamp;
-        }
-      }
     }
-
-    .attr-label {
-      font-family: $nr-font-main;
-      font-size: 5.5pt;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: $nr-ink-faded;
-    }
-
     .attr-value {
-      font-family: $nr-font-fill;
-      font-size: 16pt;
+      font-size: 30px;
       font-weight: bold;
       line-height: 1.1;
     }
-
     .attr-edit {
-      width: 100%;
+      border: 0;
+      border-top: 1px solid $nr-rule-light;
       text-align: center;
-      font-size: 8pt;
-      border: none;
-      border-top: 1px dotted $nr-rule;
-      background: transparent;
-      padding: 1px;
-      margin-top: 2px;
-    }
-  }
-
-  // ── Combat Stats Row ────────────────────────────
-  .npc-combat-row {
-    display: flex;
-    gap: 6px;
-    margin: 3px 0 5px;
-    flex-wrap: wrap;
-  }
-
-  .combat-field {
-    flex: 1;
-    min-width: 60px;
-
-    .combat-input {
-      width: 100%;
-      text-align: center;
-      font-family: $nr-font-fill;
-      font-size: 9pt;
-      font-weight: bold;
-      border: 1px solid $nr-rule;
-      background: $nr-field-bg;
-      padding: 2px;
-    }
-
-    select.combat-input {
-      appearance: auto;
       border-radius: 0;
-      font-weight: normal;
-      font-size: 7pt;
+      font-size: 30px;
+      font-weight: bold;
+      min-height: 46px;
     }
   }
-
-  // ── Disposition ─────────────────────────────────
-  .disposition-row {
+  .npc-skills {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .npc-skill {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: $nr-spacing-sm;
-    margin: 4px 0;
-  }
-
-  .disposition-controls {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-
-    button {
-      width: 20px;
-      height: 20px;
-      border: 1px solid $nr-rule;
-      background: transparent;
-      cursor: pointer;
-      font-size: 10pt;
-      line-height: 1;
-      padding: 0;
-
-      &:hover {
-        border-color: $nr-ink;
-        color: $nr-ink;
-      }
-    }
-  }
-
-  .disposition-pips {
-    display: flex;
-    gap: 3px;
-
-    .pip {
-      width: 18px;
-      height: 18px;
-      border: 1.5px solid $nr-ink;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: $nr-font-fill;
-      font-size: 7pt;
-      color: $nr-ink-light;
-      background: transparent;
-
-      &.filled {
-        background: $nr-ink;
-        color: $nr-paper;
-      }
-    }
-  }
-
-  // ── Broken Badge ────────────────────────────────
-  .broken-row {
-    margin: 3px 0;
-  }
-
-  .broken-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-family: $nr-font-main;
-    font-size: 7pt;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: $nr-ink-faded;
-    cursor: pointer;
-    padding: 2px 8px;
-    border: 1px solid transparent;
-
-    &.active {
-      color: $nr-red-stamp;
-      border-color: $nr-red-stamp;
-      background: rgba(139, 26, 26, 0.05);
-    }
-
-    input[type='checkbox'] {
-      margin: 0;
-    }
-  }
-
-  // ── Abilities ───────────────────────────────────
-  .ability-entry {
-    padding: 2px 4px;
-    border-bottom: 1px dotted $nr-rule-light;
-    cursor: pointer;
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.03);
-    }
-
-    .ability-name {
-      font-family: $nr-font-fill;
-      font-size: 8pt;
-    }
-  }
-
-  // ── Entity Flags ────────────────────────────────
-  .entity-flags {
-    display: flex;
-    gap: $nr-spacing-md;
-    margin: 4px 0;
-  }
-
-  .entity-flag {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-family: $nr-font-main;
-    font-size: 6.5pt;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-
-    input[type='checkbox'] {
-      margin: 0;
-    }
-  }
-
-  // ── NPC Description ─────────────────────────────
-  .npc-description {
-    margin-top: 4px;
-    padding: $nr-spacing-xs;
+    gap: 8px;
+    height: auto;
+    padding: 8px 10px;
+    text-align: left;
     border: 1px solid $nr-rule;
     background: $nr-field-bg;
-    min-height: 60px;
-
-    .editor {
-      font-family: $nr-font-fill;
-      font-size: 8pt;
-      line-height: 1.4;
+    small {
+      color: $nr-ink-faded;
     }
   }
-
-  // ── Empty list state ────────────────────────────
-  .empty-list {
-    font-family: $nr-font-main;
-    font-size: 7pt;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: $nr-ink-light;
-    text-align: center;
-    padding: $nr-spacing-sm;
+  .npc-attack,
+  .npc-ability {
+    border: 1px solid $nr-rule;
+    border-left: 3px solid $nr-green-stamp;
+    border-radius: 4px;
+    background: $nr-field-bg;
+    padding: 12px;
+    margin-bottom: 10px;
+    overflow-wrap: anywhere;
   }
-
-  // ── Tab Content ─────────────────────────────────
-  .npc-card-tab,
-  .npc-stats-tab,
-  .npc-entity-tab {
-    padding: 4px 2px;
+  .npc-attack {
+    border-left-color: $nr-red-stamp;
   }
-
-  // ── Drop Zones ──────────────────────────────────
-  .dropzone {
-    border: 1.5px dashed $nr-rule;
-    border-radius: 2px;
-    padding: 6px;
-    margin: 2px 0;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.015);
-    transition:
-      border-color 0.2s,
-      background 0.2s;
-
-    &:hover {
-      border-color: $nr-green-stamp;
-      background: rgba(45, 90, 39, 0.05);
+  .npc-attack-heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .npc-item-name {
+    flex: 1;
+    display: block;
+    height: auto;
+    padding: 0;
+    border: none;
+    background: transparent;
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+    white-space: normal;
+    line-height: 1.4;
+  }
+  .npc-attack-roll {
+    width: auto;
+    height: auto;
+    padding: 6px 12px;
+    background: $nr-ink;
+    color: $nr-paper;
+    border: 1px solid $nr-ink;
+    font-size: 14px;
+  }
+  .npc-item-description {
+    margin-top: 8px;
+    p {
+      margin: 0 0 8px;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
-
-    &.dropzone-org {
-      min-height: 18px;
-      padding: 2px 4px;
+  }
+  .npc-settings {
+    margin: 14px 0;
+    border: 1px solid $nr-rule-light;
+    border-radius: 4px;
+    padding: 10px;
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+    }
+    &[open] > summary {
+      margin-bottom: 12px;
     }
   }
-
+  .npc-skill-editor,
+  .field-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .npc-skill-editor label {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 60px;
+    gap: 8px;
+    align-items: center;
+  }
+  .npc-description {
+    overflow-wrap: anywhere;
+    table {
+      width: 100%;
+      table-layout: fixed;
+    }
+  }
+  prose-mirror {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+  }
+  .empty-list,
   .dropzone-hint {
-    font-family: $nr-font-main;
-    font-size: 5.5pt;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: $nr-ink-light;
+    font-size: 13px;
+    color: $nr-ink-faded;
+    letter-spacing: 0;
+    text-transform: none;
   }
-
-  // ── Linked Document Rows ────────────────────────
+  .dropzone {
+    padding: 10px;
+    border: 1px dashed $nr-rule;
+    border-radius: 4px;
+    text-align: center;
+  }
   .linked-doc-list {
     list-style: none;
-    margin: 2px 0;
     padding: 0;
   }
-
   .linked-doc-row {
     display: flex;
     align-items: center;
-    gap: 4px;
-    padding: 2px 4px;
+    gap: 8px;
+    padding: 8px;
     border: 1px solid $nr-rule;
-    background: $nr-field-bg;
-    margin: 2px 0;
-    border-radius: 2px;
+    margin-bottom: 6px;
+    min-width: 0;
   }
-
   .linked-doc-img {
-    width: 20px;
-    height: 20px;
+    width: 32px;
+    height: 32px;
     object-fit: cover;
-    border: 1px solid $nr-rule-light;
     flex-shrink: 0;
   }
-
   .linked-doc-name {
     flex: 1;
-    font-family: $nr-font-fill;
-    font-size: 8pt;
-    cursor: pointer;
-    text-decoration: none;
+    overflow-wrap: anywhere;
     color: $nr-ink;
-
-    &:hover {
-      text-decoration: underline;
-      color: $nr-green-stamp;
-    }
   }
-
   .linked-doc-remove {
-    background: transparent;
-    border: none;
+    flex: 0 0 28px;
+    padding: 0;
+    width: 28px;
     color: $nr-red-stamp;
-    cursor: pointer;
-    font-size: 10pt;
-    padding: 0 4px;
-    line-height: 1;
-
-    &:hover {
-      color: darken($nr-red-stamp, 10%);
+  }
+  .entity-flags,
+  .disposition-controls,
+  .disposition-pips {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .disposition-controls button,
+  .disposition-pips .pip {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border: 1px solid $nr-rule;
+  }
+  .disposition-pips .filled {
+    background: $nr-ink;
+    color: $nr-paper;
+  }
+  @container (max-width: 650px) {
+    .name-row {
+      grid-template-columns: 1fr;
     }
-  }
-
-  // ── Knowledge / Locations Sections ──────────────
-  .knowledge-section,
-  .locations-section {
-    margin: 3px 0;
-  }
-
-  .knowledge-block {
-    margin-bottom: 4px;
+    .npc-skills {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .npc-tabs .item {
+      padding: 10px 4px;
+      font-size: 13px;
+    }
+    .npc-tabs i {
+      display: none;
+    }
   }
 }

@@ -1,4 +1,4 @@
-<div class='npc-sheet'>
+<div class='npc-layout'>
   {{! Header }}
   <header class='npc-card-header'>
     <div class='card-header'>
@@ -22,247 +22,324 @@
               placeholder='{{localize "NEONRELIC.NPC.Name"}}'
               {{disabled (not isEditable)}}
             /></div>
-          <div class='org-col'><span class='field-label'>{{localize 'NEONRELIC.NPC.Organization'}} (O#)</span>
-            {{#if linkedOrg}}<div class='linked-doc-row'><img
-                  class='linked-doc-img'
-                  src='{{linkedOrg.img}}'
-                  alt='{{linkedOrg.name}}'
-                /><a
-                  class='linked-doc-name'
-                  data-action='openLinkedDoc'
-                  data-uuid='{{linkedOrg.uuid}}'
-                >{{linkedOrg.name}}</a>{{#if isEditable}}<button
-                    type='button'
-                    class='linked-doc-remove'
-                    data-action='removeLinkedDoc'
-                    data-uuid='{{linkedOrg.uuid}}'
-                    data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
-                  >&times;</button>{{/if}}</div>
-            {{else}}<div class='dropzone dropzone-org'><span class='dropzone-hint'>{{localize
-                    'NEONRELIC.NPC.DropOrgHint'
-                  }}</span></div>{{/if}}</div>
         </div>
-        <div><span class='field-label'>{{localize 'NEONRELIC.NPC.ArtifactConnection'}}</span><input
-            class='field-value'
-            name='system.artifactConnection'
-            type='text'
-            value='{{system.artifactConnection}}'
-            {{disabled (not isEditable)}}
-          /></div>
+
       </div>
     </div>
-    {{#if isEditable}}<div class='npc-badges'><button type='button' class='flip-btn' data-action='toggleSimplified'><i
-            class='fa-solid fa-compress'
-          ></i></button></div>{{/if}}
   </header>
 
   <nav class='npc-tabs tabs' data-group='npc-primary'>
-    <a class='item active' data-tab='details' data-group='npc-primary'><i class='fa-solid fa-file-lines' inert></i><span
-      >{{localize 'NEONRELIC.NPC.TabDetails'}}</span></a>
-    <a class='item' data-tab='stats' data-group='npc-primary'><i class='fa-solid fa-shield-halved' inert></i><span
-      >{{localize 'NEONRELIC.NPC.TabStatBlock'}}</span></a>
-    <a class='item' data-tab='locations' data-group='npc-primary'><i class='fa-solid fa-map-pin' inert></i><span
-      >{{localize 'NEONRELIC.NPC.TabLocations'}}</span></a>
-    <a class='item' data-tab='information' data-group='npc-primary'><i class='fa-solid fa-lightbulb' inert></i><span
-      >{{localize 'NEONRELIC.NPC.TabInformation'}}</span></a>
+    <button type='button' class='item' data-tab='stats' data-group='npc-primary'><i
+        class='fa-solid fa-shield-halved'
+        inert
+      ></i><span>{{localize 'NEONRELIC.NPC.TabCombat'}}</span></button>
+    <button type='button' class='item active' data-tab='details' data-group='npc-primary'><i
+        class='fa-solid fa-file-lines'
+        inert
+      ></i><span>{{localize 'NEONRELIC.NPC.TabDetails'}}</span></button>
+    <button type='button' class='item' data-tab='locations' data-group='npc-primary'><i
+        class='fa-solid fa-map-pin'
+        inert
+      ></i><span>{{localize 'NEONRELIC.NPC.TabLocations'}}</span></button>
+    <button type='button' class='item' data-tab='information' data-group='npc-primary'><i
+        class='fa-solid fa-lightbulb'
+        inert
+      ></i><span>{{localize 'NEONRELIC.NPC.TabInformation'}}</span></button>
   </nav>
 
   <div class='npc-tab-content'>
     {{! Details }}
     <div class='tab active' data-tab='details' data-group='npc-primary'><section class='npc-card-tab'>
+        <div class='field-row'><div class='field-col'>
+            <div class='org-col'><span class='field-label'>{{localize 'NEONRELIC.NPC.Organization'}} (O#)</span>
+              {{#if linkedOrg}}<div class='linked-doc-row'><img
+                    class='linked-doc-img'
+                    src='{{linkedOrg.img}}'
+                    alt='{{linkedOrg.name}}'
+                  /><a
+                    class='linked-doc-name'
+                    data-action='openLinkedDoc'
+                    data-uuid='{{linkedOrg.uuid}}'
+                  >{{linkedOrg.name}}</a>{{#if isEditable}}<button
+                      type='button'
+                      class='linked-doc-remove'
+                      data-action='removeLinkedDoc'
+                      data-uuid='{{linkedOrg.uuid}}'
+                      data-tooltip='{{localize "NEONRELIC.NPC.RemoveLinked"}}'
+                    >&times;</button>{{/if}}</div>
+              {{else}}<div class='dropzone dropzone-org'><span class='dropzone-hint'>{{localize
+                      'NEONRELIC.NPC.DropOrgHint'
+                    }}</span></div>{{/if}}</div>
+          </div><div class='field-col'>
+            <div><span class='field-label'>{{localize 'NEONRELIC.NPC.ArtifactConnection'}}</span><textarea
+                class='field-value'
+                name='system.artifactConnection'
+                rows='2'
+                {{disabled (not isEditable)}}
+              >{{system.artifactConnection}}</textarea></div></div></div>
         <div class='field-row'><div class='field-col'><span class='field-label'>{{localize
                 'NEONRELIC.NPC.Secret'
-              }}</span><input
-              class='field-value med'
+              }}</span><textarea
+              class='field-value'
               name='system.secret'
-              type='text'
-              value='{{system.secret}}'
+              rows='3'
               {{disabled (not isEditable)}}
-            /></div><div class='field-col'><span class='field-label'>{{localize 'NEONRELIC.NPC.Goal'}}</span><input
-              class='field-value med'
+            >{{system.secret}}</textarea></div><div class='field-col'><span class='field-label'>{{localize
+                'NEONRELIC.NPC.Goal'
+              }}</span><textarea
+              class='field-value'
               name='system.goal'
-              type='text'
-              value='{{system.goal}}'
+              rows='3'
               {{disabled (not isEditable)}}
-            /></div></div>
+            >{{system.goal}}</textarea></div></div>
         <div class='section-label red'>{{localize 'NEONRELIC.NPC.EngagementResults'}}</div>
         <div class='field-row'><div class='field-col'><span class='field-label'>{{localize
                 'NEONRELIC.NPC.PositiveResult'
-              }}</span><input
-              class='field-value med'
+              }}</span><textarea
+              class='field-value'
               name='system.positiveResult'
-              type='text'
-              value='{{system.positiveResult}}'
+              rows='3'
               {{disabled (not isEditable)}}
-            /></div><div class='field-col'><span class='field-label'>{{localize
+            >{{system.positiveResult}}</textarea></div><div class='field-col'><span class='field-label'>{{localize
                 'NEONRELIC.NPC.NegativeResult'
-              }}</span><input
-              class='field-value med'
+              }}</span><textarea
+              class='field-value'
               name='system.negativeResult'
-              type='text'
-              value='{{system.negativeResult}}'
+              rows='3'
               {{disabled (not isEditable)}}
-            /></div></div>
+            >{{system.negativeResult}}</textarea></div></div>
+        <div class='disposition-row'>
+          <h2 class='section-label'>{{localize 'NEONRELIC.NPC.Disposition'}}</h2>
+          <div class='disposition-controls'>
+            {{#if isEditable}}<button
+                type='button'
+                data-action='adjustDisposition'
+                data-delta='-1'
+                aria-label='{{localize "NEONRELIC.NPC.DecreaseDisposition"}}'
+              >−</button>{{/if}}
+            <div class='disposition-pips'>{{#each dispositionPips}}<span
+                  class='{{cssClass}}'
+                >{{number}}</span>{{/each}}</div>
+            {{#if isEditable}}<button
+                type='button'
+                data-action='adjustDisposition'
+                data-delta='1'
+                aria-label='{{localize "NEONRELIC.NPC.IncreaseDisposition"}}'
+              >+</button>{{/if}}
+          </div>
+        </div>
+        <h2 class='section-label'>{{localize 'NEONRELIC.NPC.DANotes'}}</h2><div
+          class='npc-description editor-content'
+        >{{{enrichedDescription}}}</div>
+        {{#if isEditable}}<details class='npc-settings' data-section='notes'><summary>{{localize
+                'NEONRELIC.NPC.EditNotes'
+              }}</summary><prose-mirror
+              name='system.description'
+              value='{{system.description}}'
+              data-document-uuid='{{actor.uuid}}'
+              relative
+            ></prose-mirror></details>{{/if}}
+        <details class='npc-settings' data-section='entity'><summary>{{localize 'NEONRELIC.NPC.EntityFields'}}</summary>
+          <div class='section-label red'>{{localize 'NEONRELIC.NPC.EntityFields'}}</div>
+          <div class='field-row'><div class='field-col'><span class='field-label'>{{localize
+                  'NEONRELIC.NPC.EntityAnchor'
+                }}</span><textarea
+                class='field-value'
+                name='system.entityAnchor'
+                rows='3'
+                {{disabled (not isEditable)}}
+              >{{system.entityAnchor}}</textarea></div><div class='field-col'><span class='field-label'>{{localize
+                  'NEONRELIC.NPC.DissolutionMethod'
+                }}</span><textarea
+                class='field-value'
+                name='system.dissolutionMethod'
+                rows='3'
+                {{disabled (not isEditable)}}
+              >{{system.dissolutionMethod}}</textarea></div></div>
+          <div class='field-row'><div class='field-col'><span class='field-label'>{{localize
+                  'NEONRELIC.NPC.ReconstitutionTimer'
+                }}</span><input
+                class='field-value'
+                type='number'
+                name='system.reconstitutionTimer'
+                value='{{system.reconstitutionTimer}}'
+                min='0'
+                {{disabled (not isEditable)}}
+              /></div><div class='field-col'><span class='field-label'>{{localize
+                  'NEONRELIC.NPC.ArtifactTetherRange'
+                }}</span><input
+                class='field-value'
+                type='number'
+                name='system.artifactTetherRange'
+                value='{{system.artifactTetherRange}}'
+                min='0'
+                {{disabled (not isEditable)}}
+              /></div><div class='field-col'><span class='field-label'>{{localize
+                  'NEONRELIC.NPC.CorruptionOnContact'
+                }}</span><input
+                class='field-value'
+                type='number'
+                name='system.corruptionCostOnContact'
+                value='{{system.corruptionCostOnContact}}'
+                min='0'
+                {{disabled (not isEditable)}}
+              /></div></div>
+          <div class='entity-flags'><label class='entity-flag'><input
+                type='checkbox'
+                name='system.incorporeal'
+                {{checked system.incorporeal}}
+                {{disabled (not isEditable)}}
+              />{{localize 'NEONRELIC.NPC.Incorporeal'}}</label><label class='entity-flag'><input
+                type='checkbox'
+                name='system.zoneLocked'
+                {{checked system.zoneLocked}}
+                {{disabled (not isEditable)}}
+              />{{localize 'NEONRELIC.NPC.ZoneLocked'}}</label></div>
+
+          <label class='combat-field'><span class='field-label'>{{localize
+                'NEONRELIC.NPC.CorruptionStage'
+              }}</span><select name='system.corruptionStage' {{disabled (not isEditable)}}><option
+                value='0'
+                {{selected system.corruptionStage 0}}
+              >{{localize 'NEONRELIC.CorruptionStage.Clean'}}</option><option
+                value='1'
+                {{selected system.corruptionStage 1}}
+              >{{localize 'NEONRELIC.CorruptionStage.Touched'}}</option><option
+                value='2'
+                {{selected system.corruptionStage 2}}
+              >{{localize 'NEONRELIC.CorruptionStage.Marked'}}</option><option
+                value='3'
+                {{selected system.corruptionStage 3}}
+              >{{localize 'NEONRELIC.CorruptionStage.Consumed'}}</option></select></label>
+        </details>
       </section></div>
 
-    {{! Stat Block }}
-    <div class='tab' data-tab='stats' data-group='npc-primary'><section class='npc-stats-tab'>
-        <div class='npc-badges'><span class='tier-badge {{tierClass}}'>T{{system.tier}}</span><span
-            class='fear-badge'
-          >{{localize 'NEONRELIC.NPC.FR'}}
-            {{system.fearRating}}{{#if system.escalatedFearRating}}/{{system.escalatedFearRating}}{{/if}}</span><span
-            class='corruption-stage-badge stage-{{corruptionStageLabel}}'
-          >{{localize 'NEONRELIC.NPC.CorruptionStage'}}: {{corruptionStageLabel}}</span></div>
-        <div class='section-label'>{{localize 'NEONRELIC.Tab.Attributes'}}</div>
-        <div class='npc-attributes'>{{#each attrEntries}}<div class='npc-attr-box'><button
-                type='button'
-                class='attr-roll-btn'
-                data-action='rollAttribute'
-                data-attribute='{{this.key}}'
-              ><span class='attr-label'>{{this.label}}</span><span
-                  class='attr-value'
-                >{{this.value}}</span></button>{{#if @root.isEditable}}<input
-                  type='number'
-                  name='system.attributes.{{this.key}}'
-                  value='{{this.value}}'
-                  min='0'
-                  class='attr-edit'
-                />{{/if}}</div>{{/each}}</div>
+    <div class='tab' data-tab='stats' data-group='npc-primary'>
+      <section class='npc-stats-tab'>
         <div class='npc-combat-row'>
-          <div class='combat-field'><span class='field-label'>{{localize 'NEONRELIC.NPC.Tier'}}</span><input
+          <label class='combat-field'><span class='field-label'>{{localize 'NEONRELIC.NPC.AR'}}</span><input
+              type='number'
+              name='system.armorRating'
+              value='{{system.armorRating}}'
+              min='0'
+              {{disabled (not isEditable)}}
+            /></label>
+          <label class='combat-field'><span class='field-label'>{{localize 'NEONRELIC.NPC.FR'}}</span><input
+              type='number'
+              name='system.fearRating'
+              value='{{system.fearRating}}'
+              min='0'
+              {{disabled (not isEditable)}}
+            /></label>
+          <label class='combat-field'><span class='field-label'>{{localize 'NEONRELIC.NPC.EscalatedFR'}}</span><input
+              type='number'
+              name='system.escalatedFearRating'
+              value='{{system.escalatedFearRating}}'
+              min='0'
+              {{disabled (not isEditable)}}
+            /></label>
+          <label class='combat-field'><span class='field-label'>{{localize 'NEONRELIC.NPC.Tier'}}</span><input
               type='number'
               name='system.tier'
               value='{{system.tier}}'
               min='1'
               max='4'
-              class='combat-input'
               {{disabled (not isEditable)}}
-            /></div>
-          <div class='combat-field'><span class='field-label'>{{localize 'NEONRELIC.NPC.AR'}}</span><input
-              type='number'
-              name='system.armorRating'
-              value='{{system.armorRating}}'
-              min='0'
-              class='combat-input'
-              {{disabled (not isEditable)}}
-            /></div>
-          <div class='combat-field'><span class='field-label'>{{localize 'NEONRELIC.NPC.FR'}}</span><input
-              type='number'
-              name='system.fearRating'
-              value='{{system.fearRating}}'
-              min='0'
-              class='combat-input'
-              {{disabled (not isEditable)}}
-            /></div>
-          <div class='combat-field'><span class='field-label'>{{localize 'NEONRELIC.NPC.EscalatedFR'}}</span><input
-              type='number'
-              name='system.escalatedFearRating'
-              value='{{system.escalatedFearRating}}'
-              min='0'
-              class='combat-input'
-              {{disabled (not isEditable)}}
-            /></div>
-          <div class='combat-field'><span class='field-label'>{{localize 'NEONRELIC.NPC.CorruptionStage'}}</span><select
-              name='system.corruptionStage'
-              class='combat-input'
-              {{disabled (not isEditable)}}
-            ><option value='0' {{selected system.corruptionStage 0}}>{{localize
-                  'NEONRELIC.CorruptionStage.Clean'
-                }}</option><option value='1' {{selected system.corruptionStage 1}}>{{localize
-                  'NEONRELIC.CorruptionStage.Touched'
-                }}</option><option value='2' {{selected system.corruptionStage 2}}>{{localize
-                  'NEONRELIC.CorruptionStage.Marked'
-                }}</option><option value='3' {{selected system.corruptionStage 3}}>{{localize
-                  'NEONRELIC.CorruptionStage.Consumed'
-                }}</option></select></div>
-        </div>
-        {{#unless isSimplified}}<div class='disposition-row'><span class='field-label'>{{localize
-                'NEONRELIC.NPC.Disposition'
-              }}</span><div class='disposition-controls'><button
-                type='button'
-                data-action='adjustDisposition'
-                data-delta='-1'
-              >−</button><div class='disposition-pips'>{{#each dispositionPips}}<span
-                    class='{{this.cssClass}}'
-                  >{{this.number}}</span>{{/each}}</div><button
-                type='button'
-                data-action='adjustDisposition'
-                data-delta='1'
-              >+</button></div></div>{{/unless}}
-        <div class='broken-row'><label class='{{brokenClass}}'><input
+            /></label>
+          <label class='{{brokenClass}}'><input
               type='checkbox'
               name='system.isBroken'
               {{checked system.isBroken}}
               {{disabled (not isEditable)}}
-            />{{localize 'NEONRELIC.NPC.Broken'}}</label></div>
-        {{#unless isSimplified}}<div class='section-label'>{{localize 'NEONRELIC.NPC.Abilities'}}</div>{{#each
-            abilities
-          }}<div class='ability-entry' data-item-id='{{this.id}}'><span
-                class='ability-name'
-              >{{this.name}}</span></div>{{else}}<div class='empty-list'>{{localize
-                'NEONRELIC.NoItems'
-              }}</div>{{/each}}{{/unless}}
-        <div class='section-label red'>{{localize 'NEONRELIC.NPC.EntityFields'}}</div>
-        <div class='field-row'><div class='field-col'><span class='field-label'>{{localize
-                'NEONRELIC.NPC.EntityAnchor'
-              }}</span><input
-              class='field-value'
-              type='text'
-              name='system.entityAnchor'
-              value='{{system.entityAnchor}}'
-              {{disabled (not isEditable)}}
-            /></div><div class='field-col'><span class='field-label'>{{localize
-                'NEONRELIC.NPC.DissolutionMethod'
-              }}</span><input
-              class='field-value'
-              type='text'
-              name='system.dissolutionMethod'
-              value='{{system.dissolutionMethod}}'
-              {{disabled (not isEditable)}}
-            /></div></div>
-        <div class='field-row'><div class='field-col'><span class='field-label'>{{localize
-                'NEONRELIC.NPC.ReconstitutionTimer'
-              }}</span><input
-              class='field-value'
-              type='number'
-              name='system.reconstitutionTimer'
-              value='{{system.reconstitutionTimer}}'
-              min='0'
-              {{disabled (not isEditable)}}
-            /></div><div class='field-col'><span class='field-label'>{{localize
-                'NEONRELIC.NPC.ArtifactTetherRange'
-              }}</span><input
-              class='field-value'
-              type='number'
-              name='system.artifactTetherRange'
-              value='{{system.artifactTetherRange}}'
-              min='0'
-              {{disabled (not isEditable)}}
-            /></div><div class='field-col'><span class='field-label'>{{localize
-                'NEONRELIC.NPC.CorruptionOnContact'
-              }}</span><input
-              class='field-value'
-              type='number'
-              name='system.corruptionCostOnContact'
-              value='{{system.corruptionCostOnContact}}'
-              min='0'
-              {{disabled (not isEditable)}}
-            /></div></div>
-        <div class='entity-flags'><label class='entity-flag'><input
-              type='checkbox'
-              name='system.incorporeal'
-              {{checked system.incorporeal}}
-              {{disabled (not isEditable)}}
-            />{{localize 'NEONRELIC.NPC.Incorporeal'}}</label><label class='entity-flag'><input
-              type='checkbox'
-              name='system.zoneLocked'
-              {{checked system.zoneLocked}}
-              {{disabled (not isEditable)}}
-            />{{localize 'NEONRELIC.NPC.ZoneLocked'}}</label></div>
-        <div class='section-label'>{{localize 'NEONRELIC.NPC.DANotes'}}</div><div class='npc-description'><div
-            class='editor'
-          >{{{enrichedDescription}}}</div></div>
-      </section></div>
+            />{{localize 'NEONRELIC.NPC.Broken'}}</label>
+        </div>
+        <div class='npc-attributes'>
+          {{#each attrEntries}}
+            <div class='npc-attr-box'>
+              <button type='button' class='attr-roll-btn' data-action='rollAttribute' data-attribute='{{key}}'><span
+                  class='attr-label'
+                >{{localize label}}</span>{{#unless @root.isEditable}}<span
+                    class='attr-value'
+                  >{{value}}</span>{{/unless}}</button>
+              {{#if @root.isEditable}}<input
+                  type='number'
+                  class='attr-edit'
+                  name='system.attributes.{{key}}'
+                  value='{{value}}'
+                  min='0'
+                  aria-label='{{localize label}}'
+                />{{/if}}
+            </div>
+          {{/each}}
+        </div>
+        <h2 class='section-label'>{{localize 'NEONRELIC.NPC.Attacks'}}</h2>
+        <div class='npc-attack-list'>
+          {{#each attacks}}
+            <article class='npc-attack'>
+              <div class='npc-attack-heading'>
+                <button
+                  type='button'
+                  class='npc-item-name'
+                  data-action='openItem'
+                  data-item-id='{{id}}'
+                  title='{{localize "NEONRELIC.NPC.OpenItem"}}'
+                >{{name}}</button>
+                <span class='npc-damage'>{{localize 'NEONRELIC.NPC.Damage'}} <strong>{{damage}}</strong></span>
+                <button
+                  type='button'
+                  class='npc-attack-roll'
+                  data-action='rollAttack'
+                  data-item-id='{{id}}'
+                  {{disabled (not canRoll)}}
+                ><i class='fa-solid fa-dice' inert></i>
+                  {{localize 'NEONRELIC.Roll.Roll'}}
+                  <strong>{{pool}}</strong></button>
+              </div>
+              {{#if content}}<div class='npc-item-description'>{{{content}}}</div>{{/if}}
+            </article>
+          {{else}}<p class='empty-list'>{{localize 'NEONRELIC.NPC.NoAttacks'}}</p>{{/each}}
+        </div>
+        <h2 class='section-label'>{{localize 'NEONRELIC.NPC.Skills'}}</h2>
+        <div class='npc-skills'>
+          {{#each activeSkills}}
+            <button
+              type='button'
+              class='npc-skill'
+              data-action='rollSkill'
+              data-skill='{{key}}'
+              {{disabled (not canRoll)}}
+            ><span>{{localize label}} <small>{{value}}</small></span><strong
+                title='{{localize "NEONRELIC.NPC.Pool"}}'
+              >{{pool}}</strong></button>
+          {{else}}<p class='empty-list'>{{localize 'NEONRELIC.NPC.NoSkills'}}</p>{{/each}}
+        </div>
+        {{#if isEditable}}<details class='npc-settings' data-section='skills'><summary>{{localize
+                'NEONRELIC.NPC.EditSkills'
+              }}</summary><div class='npc-skill-editor'>{{#each skillEntries}}<label><span>{{localize
+                      label
+                    }}</span><input
+                    type='number'
+                    name='system.skills.{{key}}'
+                    value='{{value}}'
+                    min='0'
+                    max='5'
+                  /></label>{{/each}}</div></details>{{/if}}
+        <h2 class='section-label'>{{localize 'NEONRELIC.NPC.Abilities'}}</h2>
+        <div class='npc-ability-list'>
+          {{#each abilities}}
+            <article class='npc-ability'><button
+                type='button'
+                class='npc-item-name'
+                data-action='openItem'
+                data-item-id='{{id}}'
+              >{{name}}</button><div class='npc-item-description'>{{{content}}}</div></article>
+          {{else}}<p class='empty-list'>{{localize 'NEONRELIC.NPC.NoAbilities'}}</p>{{/each}}
+        </div>
+        {{#if isEditable}}<div class='dropzone npc-combat-drop'><span class='dropzone-hint'>{{localize
+                'NEONRELIC.NPC.DropCombatHint'
+              }}</span></div>{{/if}}
+      </section>
+    </div>
 
     {{! Locations }}
     <div class='tab' data-tab='locations' data-group='npc-primary'><section class='npc-card-tab'>

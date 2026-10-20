@@ -30,11 +30,13 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   /** @override */
   static DEFAULT_OPTIONS = {
     classes: [SYSTEM_ID, 'npc-sheet'],
-    position: { width: 720, height: 'auto' },
+    position: { width: 840, height: 800 },
     actions: {
       rollAttribute: NPCSheet.#onRollAttribute,
+      rollSkill: NPCSheet.#onRollSkill,
+      rollAttack: NPCSheet.#onRollAttack,
+      openItem: NPCSheet.#onOpenItem,
       adjustDisposition: NPCSheet.#onAdjustDisposition,
-      toggleSimplified: NPCSheet.#onToggleSimplified,
       removeLinkedDoc: NPCSheet.#onRemoveLinkedDoc,
       openLinkedDoc: NPCSheet.#onOpenLinkedDoc,
     },
@@ -45,7 +47,7 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   static PARTS = {
     content: {
       template: 'systems/neon-relic/templates/actor/npc/npc-sheet.hbs',
-      scrollable: [''],
+      scrollable: ['.npc-tab-content'],
     },
   };
 
@@ -59,11 +61,6 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     context.config = CONFIG.NEON_RELIC;
     context.isEditable = this.isEditable;
     context.actor = actor;
-    context.isSimplified = system.useSimplifiedView;
-
-    const stages = ['clean', 'touched', 'marked', 'consumed'];
-    context.corruptionStageLabel = stages[system.corruptionStage] ?? 'clean';
-    context.tierClass = 'tier-' + system.tier;
 
     context.dispositionPips = [];
     for (let i = 1; i <= 5; i++) {
@@ -86,7 +83,50 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       { async: true, relativeTo: actor },
     );
 
-    context.abilities = actor.items.filter(i => i.type === 'talent');
+    const skillKeys = new Set([...Object.keys(CONFIG.NEON_RELIC.skills), ...Object.keys(system.skills ?? {})]);
+    context.skillEntries = [...skillKeys].map(key => {
+      const config = CONFIG.NEON_RELIC.skills[key];
+      const value = Number(system.skills?.[key] ?? 0);
+      return {
+        key,
+        label: config?.label ?? key,
+        value,
+        pool: value + (system.attributes[config?.attribute] ?? 0),
+        canRoll: !!config,
+      };
+    });
+    context.activeSkills = context.skillEntries.filter(skill => skill.value > 0);
+
+    const enrich = html =>
+      foundry.applications.ux.TextEditor.implementation.enrichHTML(html ?? '', { async: true, relativeTo: actor });
+    context.abilities = await Promise.all(
+      actor.items
+        .filter(item => item.type === 'talent')
+        .map(async item => ({
+          id: item.id,
+          name: item.name,
+          content: await enrich(item.system.effect || item.system.description),
+        })),
+    );
+    context.attacks = await Promise.all(
+      actor.items
+        .filter(item => item.type === 'weapon')
+        .map(async item => {
+          const skill = CONFIG.NEON_RELIC.skills[item.system.skill];
+          return {
+            id: item.id,
+            name: item.name,
+            damage: item.system.damage,
+            range: item.system.range,
+            canRoll: !!skill && !item.system.isBroken,
+            pool:
+              (system.attributes[skill?.attribute] ?? 0) +
+              (system.skills?.[item.system.skill] ?? 0) +
+              (item.system.gearBonus?.value ?? 0),
+            content: await enrich(item.system.description),
+          };
+        }),
+    );
 
     // Resolve linked documents
     context.linkedOrg = null;
@@ -114,15 +154,24 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     new foundry.applications.ux.Tabs({
       navSelector: '.npc-tabs',
       contentSelector: '.npc-tab-content',
-      initial: this._npcActiveTab || 'details',
+      initial: this._npcActiveTab || 'stats',
       group: 'npc-primary',
       callback: (_event, _tabs, tab) => {
-        if (tab?.dataset?.tab) this._npcActiveTab = tab.dataset.tab;
+        this._npcActiveTab = typeof tab === 'string' ? tab : tab?.dataset?.tab || this._npcActiveTab;
       },
     }).bind(this.element);
+    for (const section of this.element.querySelectorAll('details[data-section]')) {
+      const key = section.dataset.section;
+      section.open = this._npcOpenSections.has(key);
+      section.addEventListener('toggle', () => {
+        if (section.open) this._npcOpenSections.add(key);
+        else this._npcOpenSections.delete(key);
+      });
+    }
   }
 
   _npcActiveTab = null;
+  _npcOpenSections = new Set();
 
   /* ------------------------------------------ */
   /*  Drag-and-Drop                              */
@@ -133,6 +182,7 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   async _onDrop(event) {
+    if (!this.isEditable) return;
     const data = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
     if (!data?.uuid) return;
     const doc = await fromUuid(data.uuid);
@@ -142,7 +192,12 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const updateData = {};
     let linkBack = null;
 
-    if (data.type === 'Item' && doc.type === 'organization') {
+    if (data.type === 'Item' && ['weapon', 'talent'].includes(doc.type)) {
+      const source = doc.toObject();
+      delete source._id;
+      await this.document.createEmbeddedDocuments('Item', [source]);
+      return;
+    } else if (data.type === 'Item' && doc.type === 'organization') {
       if (system.organizationUuid === data.uuid) return;
       updateData['system.organizationUuid'] = data.uuid;
       linkBack = { doc, field: 'system.npcUuids' };
@@ -184,17 +239,48 @@ export class NPCSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   static async #onAdjustDisposition(_event, target) {
+    if (!this.isEditable) return;
     const delta = Number(target.dataset.delta) || 0;
     const current = this.document.system.disposition;
     const newVal = Math.clamp(current + delta, 1, 5);
     await this.document.update({ 'system.disposition': newVal });
   }
 
-  static async #onToggleSimplified(_event, _target) {
-    await this.document.update({ 'system.useSimplifiedView': !this.document.system.useSimplifiedView });
+  static async #onRollSkill(_event, target) {
+    const skillKey = target.dataset.skill;
+    const config = CONFIG.NEON_RELIC.skills[skillKey];
+    if (!config) return;
+    await NRRollDialog.prompt({
+      attribute: config.attribute,
+      attributeValue: this.document.system.attributes[config.attribute] ?? 0,
+      skill: skillKey,
+      skillValue: this.document.system.skills?.[skillKey] ?? 0,
+      actorId: this.document.id,
+    });
+  }
+
+  static async #onRollAttack(_event, target) {
+    const item = this.document.items.get(target.dataset.itemId);
+    const config = CONFIG.NEON_RELIC.skills[item?.system.skill];
+    if (item?.type !== 'weapon' || !config || item.system.isBroken) return;
+    await NRRollDialog.prompt({
+      attribute: config.attribute,
+      attributeValue: this.document.system.attributes[config.attribute] ?? 0,
+      skill: item.system.skill,
+      skillValue: this.document.system.skills?.[item.system.skill] ?? 0,
+      gearBonus: item.system.gearBonus?.value ?? 0,
+      actorId: this.document.id,
+      notes: item.name,
+    });
+  }
+
+  static async #onOpenItem(_event, target) {
+    const item = this.document.items.get(target.dataset.itemId);
+    if (item) item.sheet.render(true);
   }
 
   static async #onRemoveLinkedDoc(_event, target) {
+    if (!this.isEditable) return;
     const uuid = target.dataset.uuid;
     if (!uuid) return;
     const system = this.document.system;

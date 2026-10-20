@@ -772,6 +772,20 @@ NEONRELIC:
 
   # NPC
   NPC:
+    TabCombat: Combat
+    Attacks: Attacks
+    Damage: Damage
+    Pool: Dice pool
+    Skills: Skills
+    EditSkills: Edit skill ratings
+    EditNotes: Edit DA notes
+    OpenItem: Open item
+    DropCombatHint: Drop weapons or talents here to add attacks and abilities.
+    NoAttacks: No weapons or natural attacks added.
+    NoAbilities: No special abilities added.
+    NoSkills: No trained skills recorded.
+    DecreaseDisposition: Decrease disposition
+    IncreaseDisposition: Increase disposition
     Name: NPC Name
     Tier: Tier
     AR: Armor Rating
