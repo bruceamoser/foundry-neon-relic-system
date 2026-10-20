@@ -3,6 +3,8 @@
  * @module data/actor-models
  */
 
+import { NEON_RELIC } from '../system/config.mjs';
+
 const { SchemaField, NumberField, StringField, BooleanField, HTMLField, ArrayField, SetField } = foundry.data.fields;
 
 /* ------------------------------------------ */
@@ -233,8 +235,15 @@ export class NPCDataModel extends foundry.abstract.TypeDataModel {
         emp: new NumberField({ required: true, integer: true, min: 0, initial: 3 }),
       }),
 
-      // Skills (sparse — only skills the NPC has)
-      skills: new SchemaField({}),
+      // Skills
+      skills: new SchemaField(
+        Object.fromEntries(
+          Object.keys(NEON_RELIC.skills).map(key => [
+            key,
+            new NumberField({ required: true, integer: true, min: 0, max: 5, initial: 0 }),
+          ]),
+        ),
+      ),
 
       // Combat
       armorRating: new NumberField({ required: true, integer: true, min: 0, initial: 0 }),
